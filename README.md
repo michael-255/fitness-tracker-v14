@@ -40,13 +40,13 @@ The 14th iteration of my fitness tracker web app.
 
 ## Milestones
 
-1) Create a basic Vue3 project and deploy it to GitHub Pages
-  - Don't include additional packages yet
-  - Just trying to determine the deployment process
-2) Complete VSCode and project linter setup
-  - Setup `.vscode` files
-  - Setup ESLint and Prettier for Vue projects
-  - Setup Vue3 specific DX packages
-  - Cleanup your VSCode settings
-3) wip
+[ ] Create a basic Vue3 project and deploy it to GitHub Pages
+  [ ] Don't include additional packages yet
+  [ ] Just trying to determine the deployment process
+[ ] Complete VSCode and project linter setup
+  [ ] Setup `.vscode` files
+  [ ] Setup ESLint and Prettier for Vue projects
+  [ ] Setup Vue3 specific DX packages
+  [ ] Cleanup your VSCode settings
+[ ] wip
 
