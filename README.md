@@ -35,7 +35,7 @@ The 14th iteration of my fitness tracker web app.
 3) Organize this `README` with a ToC and basic setup help
 4) Keep milestones in the readme, but strikethrough or checkbox them
   - ~~strike~~
-  - [] checkbox off
+  - [ ] checkbox off
   - [X] checkbox on
 
 ## Milestones
