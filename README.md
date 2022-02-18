@@ -30,4 +30,9 @@ The 14th iteration of my fitness tracker web app.
 
 ## Todo
 
-- Update VSCode setup and recommended extensions
+1) Consolidate and organize app design ideas from previous versions here
+2) Research packages you will need for this project
+3) Setup project linter settings
+4) Organize this `README` with a ToC and basic setup help
+5) Update VSCode setup and recommended extensions
+
