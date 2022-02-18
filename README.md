@@ -32,7 +32,21 @@ The 14th iteration of my fitness tracker web app.
 
 1) Consolidate and organize app design ideas from previous versions here
 2) Research packages you will need for this project
-3) Setup project linter settings
-4) Organize this `README` with a ToC and basic setup help
-5) Update VSCode setup and recommended extensions
+3) Organize this `README` with a ToC and basic setup help
+4) Keep milestones in the readme, but strikethrough or checkbox them
+  - ~~strike~~
+  - [] checkbox off
+  - [X] checkbox on
+
+## Milestones
+
+1) Create a basic Vue3 project and deploy it to GitHub Pages
+  - Don't include additional packages yet
+  - Just trying to determine the deployment process
+2) Complete VSCode and project linter setup
+  - Setup `.vscode` files
+  - Setup ESLint and Prettier for Vue projects
+  - Setup Vue3 specific DX packages
+  - Cleanup your VSCode settings
+3) wip
 
