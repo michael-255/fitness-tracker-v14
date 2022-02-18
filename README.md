@@ -6,6 +6,7 @@ The 14th iteration of my fitness tracker web app.
 
 **Framework**
 - Vue 3 (https://v3.vuejs.org/)
+- TypeScript (https://www.typescriptlang.org/)
 
 **State**
 - Pinia (https://pinia.vuejs.org/)
@@ -22,10 +23,15 @@ The 14th iteration of my fitness tracker web app.
 - Jest (https://jestjs.io/)
 
 **Deployment (GitHub Pages)**
+- Vite (https://vitejs.dev/)
 - Research...
 
+**Utilities**
+- VueUse (https://vueuse.org/)
+
 **DX**
-- ESLint
+- ESLint (https://eslint.org/)
+- Prettier (https://prettier.io/)
 - Research...
 
 ## Todo
@@ -33,20 +39,37 @@ The 14th iteration of my fitness tracker web app.
 1) Consolidate and organize app design ideas from previous versions here
 2) Research packages you will need for this project
 3) Organize this `README` with a ToC and basic setup help
-4) Keep milestones in the readme, but strikethrough or checkbox them
-  - ~~strike~~
-  - [ ] checkbox off
-  - [X] checkbox on
 
 ## Milestones
 
-- [ ] Create a basic Vue3 project and deploy it to GitHub Pages
-  - [ ] Don't include additional packages yet
-  - [ ] Just trying to determine the deployment process
-- [ ] Complete VSCode and project linter setup
-  - [ ] Setup `.vscode` files
-  - [ ] Setup ESLint and Prettier for Vue projects
-  - [ ] Setup Vue3 specific DX packages
-  - [ ] Cleanup your VSCode settings
-- [ ] wip
+Please leave your Milestones list intact! Check the box as you complete them. Add Milestones as you think of them. Put removed Milestones in the `Removed Milestones` section.
 
+- [ ] Create a basic Vue3 project and deploy it to GitHub Pages 
+  - [ ] Package for deploying to GitHub Pages (Vite?)
+- [ ] Complete VSCode, linter, and other DX setup
+  - [ ] Setup .vscode files
+  - [ ] Setup ESLint
+  - [ ] Setup Prettier
+  - [ ] Setup Vue3 specific DX packages
+  - [ ] Setup Jest (unit tests only)
+  - [ ] Setup TypeScript
+  - [ ] Setup Vite (deployment?)
+  - [ ] Cleanup your VSCode app settings
+- [ ] Get familiar with packages you haven't worked with much
+  - [ ] Vue3 Composition API (setup function)
+  - [ ] Element Plus (app landing page)
+  - [ ] Pinia (see how it compares to Vuex)
+  - [ ] Vue3 Charts (some test charts)
+  - [ ] Jest (basic tests for some utils)
+  - [ ] TypeScript (crash course)
+- [ ] Build out app data structures
+  - [ ] Interfaces
+  - [ ] Enums
+  - [ ] Classes
+  - [ ] Data Sources for Dexie and Pinia
+- [ ] App Design
+  - [ ] Reference other versions of the app for ideas
+
+### Removed Milestones
+
+Move Milestones you don't intend to complete to this section so they are documented.
