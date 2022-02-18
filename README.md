@@ -6,7 +6,6 @@ The 14th iteration of my fitness tracker web app.
 
 **Framework**
 - Vue 3 (https://v3.vuejs.org/)
-- TypeScript (https://www.typescriptlang.org/)
 
 **State**
 - Pinia (https://pinia.vuejs.org/)
@@ -30,14 +29,15 @@ The 14th iteration of my fitness tracker web app.
 - VueUse (https://vueuse.org/)
 
 **DX**
+- TypeScript (https://www.typescriptlang.org/)
 - ESLint (https://eslint.org/)
 - Prettier (https://prettier.io/)
-- Research...
+- Research... (package for Vue3 intelisense)
 
 ## Todo
 
-1) Consolidate and organize app design ideas from previous versions here
-2) Research packages you will need for this project
+1) Consolidate and organize app design ideas from previous versions into Milestones
+2) Research packages you will need for this project (in progress)
 3) Organize this `README` with a ToC and basic setup help
 
 ## Milestones
