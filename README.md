@@ -1,16 +1,32 @@
-# fitness-tracker-v14
+# Fitness Tracker v14
 
-Fitness Tracker v14
+The 14th iteration of my fitness tracker web app.
 
-## Ideas
+## Packages
 
-Packages:
-- Vue 3 (https://v3.vuejs.org/guide/installation.html#release-notes)
-- Pinia (https://pinia.vuejs.org/getting-started.html)
-- Vuetify (https://next.vuetifyjs.com/en/getting-started/installation)
-- Jest
-- ESLint setup (test first)
-- Site deployment setup (test first)
+**Framework**
+- Vue 3 (https://v3.vuejs.org/)
+
+**State**
+- Pinia (https://pinia.vuejs.org/)
+
+**Storage**
+- Dexie (https://dexie.org/)
+
+**Design**
+- Element Plus (https://element-plus.org/en-US/)
+- Vue3 Charts (https://vue3charts.org/)
+- Material Icons (https://fonts.google.com/icons?selected=Material+Icons)
+
+**Testing**
+- Jest (https://jestjs.io/)
+
+**Deployment (GitHub Pages)**
+- Research...
+
+**DX**
+- ESLint
+- Research...
 
 ## Todo
 
