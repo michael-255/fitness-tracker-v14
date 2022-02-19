@@ -10,14 +10,14 @@ The 14th iteration of my fitness tracker web app.
 
 Build Demonstration Projects
 
+- Add `README` info for demo projects
 - Logger (needs unit tests)
 - Build ID (needs unit tests)
 - EJS Generators
 - Dexie
-- Utils
+- Simple JS Date utils
+- Other Utils?
 - Other demo apps...
-
----
 
 ## I. Packages
 
@@ -61,8 +61,6 @@ Summary of packages used in this project with links.
 - ESLint - <https://eslint.org/>
 - Prettier - <https://prettier.io/>
 - Research... (package for Vue3 intelisense)
-
----
 
 ## II. Milestones
 
@@ -112,8 +110,6 @@ Please leave your Milestones list intact! Check the box as you complete them. Ad
 ### Cancelled Milestones
 
 Move Milestones you don't intend to complete to this section so they are documented.
-
----
 
 ## III. Design
 
