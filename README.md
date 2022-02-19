@@ -8,7 +8,7 @@ The 14th iteration of my fitness tracker web app.
 
 ## Quick Reference Todos
 
-Build Demonstration Projects
+Build demonstration projects to learn and reference.
 
 - [ ] Logger
   - [ ] Add Jest unit tests
@@ -25,7 +25,7 @@ Build Demonstration Projects
   - [ ] Add Jest unit tests
 
 - [ ] Simple JS Date utils
-  - [ ] WIP...
+  - [ ] WIP... (find examples in other projects?)
   - [ ] Add Jest unit tests
 
 - [ ] Vue3 Demo App for package experimentation
@@ -41,6 +41,9 @@ Build Demonstration Projects
   - [ ] Setup Vue3 specific DX packages
   - [ ] Setup Jest (unit tests only)
   - [ ] Setup TypeScript
+  - [ ] Setup Babel
+  - [ ] Getting Jest to work with Typescript
+  - [ ] Getting other packages to work with TypeScript
   - [ ] Setup Vite (GitHub Pages deployment?)
   - [ ] Cleanup your VSCode app settings
   - [ ] Vue3 Composition API examples (setup function)
@@ -82,6 +85,7 @@ Summary of packages used in this project with links.
 
 - VueUse - <https://vueuse.org/>
 - Hygen - <http://www.hygen.io/>
+- Cross-env - <https://www.npmjs.com/package/cross-env>
 
 ### DX
 
