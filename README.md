@@ -10,14 +10,42 @@ The 14th iteration of my fitness tracker web app.
 
 Build Demonstration Projects
 
-- Add `README` info for demo projects
-- Logger (needs unit tests)
-- Build ID (needs unit tests)
-- EJS Generators
-- Dexie
-- Simple JS Date utils
-- Other Utils?
-- Other demo apps...
+- [ ] Logger
+  - [ ] Add Jest unit tests
+
+- [ ] Build ID
+  - [ ] Add Jest unit tests
+
+- [ ] EJS Generators
+  - [ ] Add examples
+  - [ ] Add README instructions
+
+- [ ] Dexie
+  - [ ] Finish example
+  - [ ] Add Jest unit tests
+
+- [ ] Simple JS Date utils
+  - [ ] WIP...
+  - [ ] Add Jest unit tests
+
+- [ ] Vue3 Demo App for package experimentation
+  - [ ] Elements Plus UI components
+  - [ ] Pinia (see how it compares to Vuex)
+  - [ ] Vue3 Charts (some test charts)
+  - [ ] TypeScript (crash course)
+
+- [ ] Vue3 Demo App for DX (true boilerplate app)
+  - [ ] Setup .vscode files
+  - [ ] Setup ESLint
+  - [ ] Setup Prettier
+  - [ ] Setup Vue3 specific DX packages
+  - [ ] Setup Jest (unit tests only)
+  - [ ] Setup TypeScript
+  - [ ] Setup Vite (GitHub Pages deployment?)
+  - [ ] Cleanup your VSCode app settings
+  - [ ] Vue3 Composition API examples (setup function)
+
+- [ ] Other Utilies and demo apps...
 
 ## I. Packages
 
@@ -29,7 +57,7 @@ Summary of packages used in this project with links.
 
 ### State
 
-- Pinia - <https://pinia.vuejs.org/>
+- Pinia - <https://pinia.vuejs.org/> (may not need)
 
 ### Storage
 
@@ -65,27 +93,6 @@ Summary of packages used in this project with links.
 ## II. Milestones
 
 Please leave your Milestones list intact! Check the box as you complete them. Add Milestones as you think of them. Put removed Milestones in the `Cancelled Milestones` section.
-
-- [ ] Create a basic Vue3 project and deploy it to GitHub Pages
-  - [ ] Package for deploying to GitHub Pages (Vite?)
-
-- [ ] Complete VSCode, linter, and other DX setup
-  - [ ] Setup .vscode files
-  - [ ] Setup ESLint
-  - [ ] Setup Prettier
-  - [ ] Setup Vue3 specific DX packages
-  - [ ] Setup Jest (unit tests only)
-  - [ ] Setup TypeScript
-  - [ ] Setup Vite (deployment?)
-  - [ ] Cleanup your VSCode app settings
-
-- [ ] Get familiar with packages you haven't worked with much
-  - [ ] Vue3 Composition API (setup function)
-  - [ ] Element Plus (app landing page)
-  - [ ] Pinia (see how it compares to Vuex)
-  - [ ] Vue3 Charts (some test charts)
-  - [ ] Jest (basic tests for some utils)
-  - [ ] TypeScript (crash course)
 
 - [ ] Build out app data structures
   - [ ] Interfaces
