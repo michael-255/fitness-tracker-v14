@@ -10,13 +10,9 @@ The 14th iteration of my fitness tracker web app.
 
 Build demonstration projects to learn and reference.
 
-- [ ] Logger
+- [x] Logger
 
-  - [ ] Add Jest unit tests
-
-- [ ] Build ID
-
-  - [ ] Add Jest unit tests
+- [x] Build ID
 
 - [ ] EJS Generators
 
