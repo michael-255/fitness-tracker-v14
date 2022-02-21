@@ -18,11 +18,7 @@ Build demonstration projects to learn and reference.
 
 - [ ] Dexie
 
-- [ ] Simple JS Date utils
-
-  - [ ] WIP... (find examples in other projects?)
-  - [ ] Date Util constants
-  - [ ] Add Jest unit tests
+- [ ] JS Date Utilities (and constants)
 
 - [ ] Vue3 Demo App for package experimentation
 
