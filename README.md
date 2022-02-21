@@ -14,7 +14,9 @@ Build demonstration projects to learn and reference.
 
 - [x] Build ID
 
-- [ ] EJS Generators
+- [x] EJS Generators
+
+- [ ] Plop
 
 - [ ] Dexie
 
@@ -40,6 +42,7 @@ Build demonstration projects to learn and reference.
   - [ ] Getting other packages to work with TypeScript
   - [ ] Setup Vite (GitHub Pages deployment?)
   - [ ] Cleanup your VSCode app settings
+  - [ ] Cleanup GitHub Gists
   - [ ] Vue3 Composition API examples (setup function)
 
 - [ ] Other Utilies and demo apps...
@@ -78,6 +81,7 @@ Summary of packages used in this project with links.
 ### Utilities
 
 - VueUse - <https://vueuse.org/>
+- Plop - <https://plopjs.com/>
 - Hygen - <http://www.hygen.io/>
 - Cross-env - <https://www.npmjs.com/package/cross-env>
 
