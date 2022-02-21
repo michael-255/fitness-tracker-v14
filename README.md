@@ -16,13 +16,7 @@ Build demonstration projects to learn and reference.
 
 - [ ] EJS Generators
 
-  - [ ] Add examples (look at nuxt-boilerplate-project examples)
-  - [ ] Add README instructions
-
 - [ ] Dexie
-
-  - [ ] Finish example
-  - [ ] Add Jest unit tests
 
 - [ ] Simple JS Date utils
 
@@ -148,6 +142,8 @@ WIP
 WIP
 
 ## Content from old fitness app repos --------------------
+
+Reference your `fitness-trackers-archive` repo for more old code.
 
 ```typescript
 // Enums
