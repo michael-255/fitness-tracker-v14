@@ -16,7 +16,7 @@ Build demonstration projects to learn and reference.
 
 - [x] Hygen
 
-- [ ] JS Date Utilities
+- [x] JS Date Utilities
 
 - [ ] Dexie
 
