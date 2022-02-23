@@ -14,13 +14,11 @@ Build demonstration projects to learn and reference.
 
 - [x] Build ID
 
-- [x] EJS Generators
+- [x] Hygen
 
-- [ ] Plop
+- [ ] JS Date Utilities
 
 - [ ] Dexie
-
-- [ ] JS Date Utilities (and constants)
 
 - [ ] Vue3 Demo App for package experimentation
 
@@ -81,7 +79,6 @@ Summary of packages used in this project with links.
 ### Utilities
 
 - VueUse - <https://vueuse.org/>
-- Plop - <https://plopjs.com/>
 - Hygen - <http://www.hygen.io/>
 - Cross-env - <https://www.npmjs.com/package/cross-env>
 
