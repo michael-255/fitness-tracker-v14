@@ -20,6 +20,8 @@ Build demonstration projects to learn and reference.
 
 - [ ] Dexie
 
+- [ ] Improve Hygen demo project?
+
 - [ ] Vue3 Demo App for package experimentation
 
   - [ ] Elements Plus UI components
