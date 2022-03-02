@@ -18,27 +18,21 @@ Build demonstration projects to learn and reference.
 
 - [x] JS Date Utilities
 
-- [ ] Dexie
-
-- [ ] Improve Hygen demo project?
+- [x] Dexie
 
 - [ ] Vue3 Demo App for package experimentation
 
+  - [ ] Re-organize software dev bookmarks (Vue/web dev section?)
   - [ ] Elements Plus UI components
   - [ ] Pinia (see how it compares to Vuex)
   - [ ] Vue3 Charts (some test charts)
   - [ ] TypeScript (crash course)
-
-- [ ] Vue3 Demo App for DX (true boilerplate app)
-
   - [ ] Setup .vscode files
   - [ ] Setup ESLint
   - [ ] Setup Prettier
-  - [ ] Setup Vue3 specific DX packages
-  - [ ] Setup Jest (unit tests only)
+  - [ ] Setup Vue3 specific DX packages (Volar)
+  - [ ] Setup Vitest
   - [ ] Setup TypeScript
-  - [ ] Setup Babel
-  - [ ] Getting Jest to work with Typescript
   - [ ] Getting other packages to work with TypeScript
   - [ ] Setup Vite (GitHub Pages deployment?)
   - [ ] Cleanup your VSCode app settings
