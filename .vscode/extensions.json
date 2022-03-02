@@ -2,36 +2,22 @@
   // See http://go.microsoft.com/fwlink/?LinkId=827846
   // for the documentation about the extensions.json format
   "recommendations": [
-    // Syntax highlighting and more for .vue files
-    // https://github.com/vuejs/vetur
-    "octref.vetur",
-
-    // Peek and go-to-definition for .vue files
-    // https://github.com/fuzinato/vscode-vue-peek
-    "dariofuzinato.vue-peek",
-
-    // Lint-on-save with ESLint
-    // https://github.com/microsoft/vscode-eslint
+    // Syntax highlighting for Vue/TypeScript
+    "johnsoncodehk.volar",
+    "johnsoncodehk.vscode-typescript-vue-plugin",
+    // JavaScript linting
     "dbaeumer.vscode-eslint",
-
-    // Lint-on-save with Stylelint
-    // https://github.com/stylelint/vscode-stylelint
+    // CSS, LESS, SCSS linting
     "stylelint.vscode-stylelint",
-
-    // Lint-on-save markdown in README files
-    // https://github.com/DavidAnson/vscode-markdownlint
+    // MarkDown linting
     "DavidAnson.vscode-markdownlint",
-
-    // Format-on-save with Prettier
-    // https://github.com/prettier/prettier-vscode
+    // Code formatting
     "esbenp.prettier-vscode",
-
-    // SCSS intellisense
-    // https://github.com/mrmlnc/vscode-scss
-    "mrmlnc.vscode-scss",
-
-    // GitLens
-    // https://github.com/eamodio/vscode-gitlens
-    "eamodio.gitlens"
+    // Git information in editor
+    "eamodio.gitlens",
+    // Open server in browser
+    "ritwickdey.liveserver",
+    // Better VSCode icons
+    "pkief.material-icon-theme"
   ]
 }
