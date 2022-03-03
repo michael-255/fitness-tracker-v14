@@ -22,21 +22,16 @@ Build demonstration projects to learn and reference.
 
 - [ ] Vue3 Demo App for package experimentation
 
-  - [x] Re-organize software dev bookmarks (Vue/web dev section?)
+  - [x] Re-organize software dev bookmarks
   - [x] Cleanup your VSCode app settings
-  - [ ] Setup .vscode files
+  - [x] Setup .vscode files
   - [x] Cleanup GitHub Gists
+  - [x] Setup Prettier
+  - [x] Setup ESLint
+  - [x] Pinia
+  - [ ] Setup GitHub Pages deployment
   - [ ] Elements Plus UI components
-  - [ ] Pinia (see how it compares to Vuex)
   - [ ] Vue3 Charts (some test charts)
-  - [ ] TypeScript (crash course)
-  - [ ] Setup ESLint
-  - [ ] Setup Prettier
-  - [ ] Setup Vue3 specific DX packages (Volar)
-  - [ ] Setup Vitest
-  - [ ] Setup TypeScript
-  - [ ] Getting other packages to work with TypeScript
-  - [ ] Setup Vite (GitHub Pages deployment?)
   - [ ] Vue3 Composition API examples (setup function)
 
 - [ ] Other Utilies and demo apps...
