@@ -37,8 +37,9 @@ Build demonstration projects to learn and reference.
   - [x] Fix CR line ending issue
   - [x] Markdownlint??? - <https://github.com/DavidAnson/markdownlint>
   - [x] Stylelint??? - <https://stylelint.io/>
-  - [ ] vue-chart-3
-  - [ ] Vue3 Composition API practice
+  - [x] vue-chart-3
+  - [x] Instructions for vue-chart-3 setup
+  - [x] Vue3 Composition API practice
   - [ ] Elements Plus UI components
 
 - [ ] Update project package list below (remove it?)
@@ -54,15 +55,18 @@ Build demonstration projects to learn and reference.
   - [ ] Add date utils as TS file with tests
   - [ ] Add any other common utils (build-id function) as TS files with tests
   - [ ] Add Elements Plus and make basic landing page with drawer
+  - [ ] Instructions for adding Chart.js + vue-chart-3 to the project
   - [ ] Update package.json with new info
   - [ ] Update Readme with edit instructions
 
     - [ ] Reminder to change project name (package.json)
     - [ ] Reminder to change project repo (package.json)
 
+- [ ] Delete demo-project-vue3 when you complete the vue3-boilerplate project
+
 ## I. Packages
 
-Summary of packages used in this project with links.
+Summary of packages used in this project with links (may remove once boilerplate project is done).
 
 ### Framework
 
