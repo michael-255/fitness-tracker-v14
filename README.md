@@ -36,11 +36,13 @@ Build demonstration projects to learn and reference.
   - [x] Combine .gitignore files (ref in readme)
   - [x] Fix CR line ending issue
   - [ ] Setup override rules for ESLint
+  - [ ] Markdownlint??? - <https://github.com/DavidAnson/markdownlint>
+  - [ ] Stylelint??? - <https://stylelint.io/>
   - [ ] vue-chart-3
   - [ ] Vue3 Composition API practice
   - [ ] Elements Plus UI components
 
-- [ ] Other Utilies and demo apps...
+- [ ] Update project package list below (remove it?)
 
 ## I. Packages
 
@@ -68,10 +70,9 @@ Summary of packages used in this project with links.
 
 - Jest - <https://jestjs.io/>
 
-### Deployment (GitHub Pages)
+### Deployment
 
 - Vite - <https://vitejs.dev/>
-- Research...
 
 ### Utilities
 
@@ -86,8 +87,6 @@ Summary of packages used in this project with links.
 - Prettier - <https://prettier.io/>
 - Stylelint - <https://stylelint.io/>
 - Markdownlint - <https://github.com/DavidAnson/markdownlint>
-- EditorConfig - <https://editorconfig.org/>
-- Research... (package for Vue3 intelisense)
 
 ## II. Milestones
 
@@ -95,10 +94,11 @@ Please leave your Milestones list intact! Check the box as you complete them. Ad
 
 - [ ] Build out app data structures
 
-  - [ ] Interfaces
+  - [ ] Interfaces (extended)
   - [ ] Enums
-  - [ ] Classes
+  - [ ] Classes (using interfaces)
   - [ ] Data Sources for Dexie and Pinia
+  - [ ] Consolidate ideas that you pasted below
 
 - [ ] App Design
 
