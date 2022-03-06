@@ -22,8 +22,6 @@ Build demonstration projects to learn and reference.
 
 - [x] TypeScript
 
-- [ ] Update project package list below (remove it?)
-
 - [ ] Combine Utils (demo-project-utils) into a single project
 
   - [ ] Setup TypeScript
@@ -75,6 +73,7 @@ Build demonstration projects to learn and reference.
     - [ ] Reminder to change project name (package.json)
     - [ ] Reminder to change project repo (package.json)
 
+- [ ] Update project package list below (remove it?)
 - [ ] Delete demo-project-vue3 when you complete the vue3-boilerplate project
 
 ## I. Packages
