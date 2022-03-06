@@ -29,10 +29,14 @@ Build demonstration projects to learn and reference.
   - [x] Setup Prettier
   - [x] Setup ESLint
   - [x] Pinia
-  - [ ] Setup GitHub Pages deployment
+  - [x] Setup GitHub Pages deployment
+  - [x] Setup override rules for Prettier
+  - [x] Combine .gitignore files (ref in readme)
+  - [x] Fix CR line ending issue
+  - [ ] Setup override rules for ESLint
+  - [ ] vue-chart-3
+  - [ ] Vue3 Composition API practice
   - [ ] Elements Plus UI components
-  - [ ] Vue3 Charts (some test charts)
-  - [ ] Vue3 Composition API examples (setup function)
 
 - [ ] Other Utilies and demo apps...
 
