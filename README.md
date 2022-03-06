@@ -20,6 +20,8 @@ Build demonstration projects to learn and reference.
 
 - [x] Dexie
 
+- [x] TypeScript
+
 - [ ] Vue3 Demo App for package experimentation
 
   - [x] Re-organize software dev bookmarks
