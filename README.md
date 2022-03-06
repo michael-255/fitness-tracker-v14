@@ -56,6 +56,7 @@ Build demonstration projects to learn and reference.
   - [ ] Add any other common utils (build-id function) as TS files with tests
   - [ ] Add Elements Plus and make basic landing page with drawer
   - [ ] Instructions for adding Chart.js + vue-chart-3 to the project
+  - [ ] Should I include Hygen or hold off on code generators (could add later)?
   - [ ] Update package.json with new info
   - [ ] Update Readme with edit instructions
 
