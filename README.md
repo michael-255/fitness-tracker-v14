@@ -22,6 +22,21 @@ Build demonstration projects to learn and reference.
 
 - [x] TypeScript
 
+- [ ] Update project package list below (remove it?)
+
+- [ ] Combine Utils (demo-project-utils) into a single project
+
+  - [ ] Setup TypeScript
+  - [ ] Setup Vite
+  - [ ] Setup Vitest (where do tests go?)
+  - [ ] Setup Prettier config files
+  - [ ] Have a test page that loads with the logs in the console
+  - [ ] Logger
+  - [ ] LocalStorage (new one with key prefix transform)
+  - [ ] Build-ID
+  - [ ] Date Utils
+  - [ ] Common Utils
+
 - [ ] Vue3 Demo App for package experimentation
 
   - [x] Re-organize software dev bookmarks
@@ -42,10 +57,6 @@ Build demonstration projects to learn and reference.
   - [x] Vue3 Composition API practice
   - [ ] Elements Plus UI components
 
-- [ ] Update project package list below (remove it?)
-
-- [ ] See if there are any useful utils from older projects (create demo-project-common-utils?)
-
 - [ ] Create Vue3 boilerplate project with detailed readme of setup and how to edit it
 
   - [ ] Create a standard Vue3 app
@@ -60,6 +71,7 @@ Build demonstration projects to learn and reference.
   - [ ] Update package.json with new info
   - [ ] Update Readme with edit instructions
 
+    - [ ] Notes on checking outdated and updating packages (ref notes below)
     - [ ] Reminder to change project name (package.json)
     - [ ] Reminder to change project repo (package.json)
 
@@ -407,11 +419,51 @@ export const isFalse = (value) => {
 }
 
 export const isObject = (obj) => {
-  return obj !== null && typeof obj === 'object'
+  return obj !== null && typeof obj === 'object' && !Array.isArray(obj)
 }
 
 export const isExerciseContainer(container) {
   return container instanceof ExerciseContainer
+}
+
+export function downloadFile(filename, textInput) {
+  let tempElement = document.createElement('a')
+  tempElement.setAttribute(
+    'href',
+    'data:text/plain;charset=utf-8,' + encodeURIComponent(textInput)
+  )
+  tempElement.setAttribute('download', filename)
+  document.body.appendChild(tempElement)
+  tempElement.click()
+  document.body.removeChild(tempElement)
+}
+
+/**
+ * Forces any non-array value into an array.
+ */
+export function arrayWrap(value) {
+  if (!Array.isArray(value)) {
+    value = [value]
+  }
+  return value
+}
+
+export function isArrayReady(value) {
+  return (
+    value !== null &&
+    value !== undefined &&
+    Array.isArray(value) &&
+    value.length !== 0
+  )
+}
+
+export function isObjectReady(value) {
+  return (
+    typeof value === 'object' &&
+    !Array.isArray(value) &&
+    value !== null &&
+    Object.keys(value).length !== 0
+  )
 }
 
 export const INPUT_TYPE = Object.freeze({
@@ -421,7 +473,57 @@ export const INPUT_TYPE = Object.freeze({
   reps: 'Reps',
   duration: 'Duration',
   distance: 'Distance',
+})
+
+// LocalStorage
+
+import { arrayWrap } from './common.js'
+import { DATA_VERSION } from '../constants/globals.js'
+
+const LocalStorage = {
+  /**
+   * Initialize local storage key(s) with default value.
+   */
+  initByKeys(keys, initValue = []) {
+    arrayWrap(keys).forEach((key) => {
+      const existingData = getLocalStorage(key)
+
+      if (!existingData) {
+        setLocalStorage(key, initValue)
+      }
+    })
+  },
+
+  /**
+   * Clear local storage key(s) with default value.
+   */
+  clearByKeys(keys, clearValue = []) {
+    arrayWrap(keys).forEach((key) => setLocalStorage(key, clearValue))
+  },
+
+  set(key, value) {
+    setLocalStorage(key, value)
+  },
+
+  get(key) {
+    return getLocalStorage(key)
+  },
 }
+
+function setLocalStorage(key, value) {
+  const json = JSON.stringify(value)
+  localStorage.setItem(transformItem(key), json)
+}
+
+function getLocalStorage(key) {
+  return JSON.parse(localStorage.getItem(transformItem(key)))
+}
+
+function transformItem(key) {
+  return `${DATA_VERSION}-${key}`
+}
+
+export default LocalStorage
 
 // Other Ideas
 
