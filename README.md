@@ -35,14 +35,30 @@ Build demonstration projects to learn and reference.
   - [x] Setup override rules for Prettier
   - [x] Combine .gitignore files (ref in readme)
   - [x] Fix CR line ending issue
-  - [ ] Setup override rules for ESLint
-  - [ ] Markdownlint??? - <https://github.com/DavidAnson/markdownlint>
-  - [ ] Stylelint??? - <https://stylelint.io/>
+  - [x] Markdownlint??? - <https://github.com/DavidAnson/markdownlint>
+  - [x] Stylelint??? - <https://stylelint.io/>
   - [ ] vue-chart-3
   - [ ] Vue3 Composition API practice
   - [ ] Elements Plus UI components
 
 - [ ] Update project package list below (remove it?)
+
+- [ ] See if there are any useful utils from older projects (create demo-project-common-utils?)
+
+- [ ] Create Vue3 boilerplate project with detailed readme of setup and how to edit it
+
+  - [ ] Create a standard Vue3 app
+  - [ ] Setup Prettier (+ ignore file)
+  - [ ] Setup GitHub Pages deployment script
+  - [ ] Add simple logger as TS file with tests
+  - [ ] Add date utils as TS file with tests
+  - [ ] Add any other common utils (build-id function) as TS files with tests
+  - [ ] Add Elements Plus and make basic landing page with drawer
+  - [ ] Update package.json with new info
+  - [ ] Update Readme with edit instructions
+
+    - [ ] Reminder to change project name (package.json)
+    - [ ] Reminder to change project repo (package.json)
 
 ## I. Packages
 
@@ -90,7 +106,8 @@ Summary of packages used in this project with links.
 
 ## II. Milestones
 
-Please leave your Milestones list intact! Check the box as you complete them. Add Milestones as you think of them. Put removed Milestones in the `Cancelled Milestones` section.
+Please leave your Milestones list intact! Check the box as you complete them. Add Milestones as you
+think of them. Put removed Milestones in the `Cancelled Milestones` section.
 
 - [ ] Build out app data structures
 
