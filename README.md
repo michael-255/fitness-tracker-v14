@@ -30,29 +30,10 @@ Build demonstration projects to learn and reference.
 
 - [ ] Create Vue3 boilerplate project with detailed readme of setup and how to edit it
 
-  - [ ] Create Vue3 Vite app with CLI
-  - [ ] Install packages (some installed by default???)
-
-    - [ ] Pinia
-    - [ ] Prettier
-    - [ ] Quasar (+extras)
-    - [ ] Chart.js
-    - [ ] Vue-chart-3 (chart.js wrapper)
-    - [ ] Gh-pages (for deployment)
-
-  - [ ] Setup installed packages
-
-    - [ ] Prettier (+ ignore file)
-    - [ ] GitHub Pages deployment
-    - [ ] Quasar files + extras
-
-  - [ ] Write package setup instructions in the README
-
-    - [ ] Prettier
-    - [ ] Quasar
-    - [ ] Chart.js and Vue-chart-3
-    - [ ] Gh-pages
-
+  - [x] Create Vue3 Vite app with CLI
+  - [x] Install packages (some installed by default???)
+  - [x] Setup installed packages
+  - [x] Write package setup instructions in the README
   - [ ] Add your TypeScript utils
   - [ ] Build basic frontend
 
