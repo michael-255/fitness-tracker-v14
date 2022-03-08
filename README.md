@@ -22,51 +22,46 @@ Build demonstration projects to learn and reference.
 
 - [x] TypeScript
 
-- [ ] Combine Utils (demo-project-utils) into a single project
+- [x] Combine Utils into a single project
 
-  - [ ] Setup TypeScript
-  - [ ] Setup Vite
-  - [ ] Setup Vitest (where do tests go?)
-  - [ ] Setup Prettier config files
-  - [ ] Have a test page that loads with the logs in the console
-  - [ ] Logger
-  - [ ] LocalStorage (new one with key prefix transform)
-  - [ ] Build-ID
-  - [ ] Date Utils
-  - [ ] Common Utils
+- [x] Update your Win10 NODE and NPM versions
 
-- [ ] Vue3 Demo App for package experimentation
-
-  - [x] Re-organize software dev bookmarks
-  - [x] Cleanup your VSCode app settings
-  - [x] Setup .vscode files
-  - [x] Cleanup GitHub Gists
-  - [x] Setup Prettier
-  - [x] Setup ESLint
-  - [x] Pinia
-  - [x] Setup GitHub Pages deployment
-  - [x] Setup override rules for Prettier
-  - [x] Combine .gitignore files (ref in readme)
-  - [x] Fix CR line ending issue
-  - [x] Markdownlint??? - <https://github.com/DavidAnson/markdownlint>
-  - [x] Stylelint??? - <https://stylelint.io/>
-  - [x] vue-chart-3
-  - [x] Instructions for vue-chart-3 setup
-  - [x] Vue3 Composition API practice
-  - [ ] Elements Plus UI components
+- [x] Vue3 Demo App for package experimentation
 
 - [ ] Create Vue3 boilerplate project with detailed readme of setup and how to edit it
 
-  - [ ] Create a standard Vue3 app
-  - [ ] Setup Prettier (+ ignore file)
-  - [ ] Setup GitHub Pages deployment script
-  - [ ] Add simple logger as TS file with tests
-  - [ ] Add date utils as TS file with tests
-  - [ ] Add any other common utils (build-id function) as TS files with tests
-  - [ ] Add Elements Plus and make basic landing page with drawer
-  - [ ] Instructions for adding Chart.js + vue-chart-3 to the project
+  - [ ] Create Vue3 Vite app with CLI
+  - [ ] Install packages (some installed by default???)
+
+    - [ ] Pinia
+    - [ ] Prettier
+    - [ ] Quasar (+extras)
+    - [ ] Chart.js
+    - [ ] Vue-chart-3 (chart.js wrapper)
+    - [ ] Gh-pages (for deployment)
+
+  - [ ] Setup installed packages
+
+    - [ ] Prettier (+ ignore file)
+    - [ ] GitHub Pages deployment
+    - [ ] Quasar files + extras
+
+  - [ ] Write package setup instructions in the README
+
+    - [ ] Prettier
+    - [ ] Quasar
+    - [ ] Chart.js and Vue-chart-3
+    - [ ] Gh-pages
+
+  - [ ] Add your TypeScript utils
+  - [ ] Build basic frontend
+
+    - [ ] Tool Bar
+    - [ ] Nav Drawer
+    - [ ] Landing/Test Page
+
   - [ ] Should I include Hygen or hold off on code generators (could add later)?
-  - [ ] Update package.json with new info
+  - [ ] Update package.json with new info (name, desc, repo, etc.)
   - [ ] Update Readme with edit instructions
 
     - [ ] Notes on checking outdated and updating packages (ref notes below)
@@ -94,7 +89,7 @@ Summary of packages used in this project with links (may remove once boilerplate
 
 ### Design
 
-- Element Plus - <https://element-plus.org/en-US/>
+- Quasar
 - Vue3 Charts - <https://vue3charts.org/>
 - Material Icons - <https://fonts.google.com/icons?selected=Material+Icons>
 
@@ -390,81 +385,6 @@ interface ExportSummary {
   measurementRecords: [],
 }
 
-// Functions
-
-export const isDef = (value) => {
-  return value === undefined || value === null
-}
-
-export const isUndef = (value) => {
-  return value !== undefined && value !== null
-}
-
-export const isPrimitive = (value) => {
-  return (
-    typeof value === 'string' ||
-    typeof value === 'number' ||
-    typeof value === 'symbol' ||
-    typeof value === 'boolean'
-  )
-}
-
-export const isTrue = (value) => {
-  return value === true
-}
-
-export const isFalse = (value) => {
-  return value === false
-}
-
-export const isObject = (obj) => {
-  return obj !== null && typeof obj === 'object' && !Array.isArray(obj)
-}
-
-export const isExerciseContainer(container) {
-  return container instanceof ExerciseContainer
-}
-
-export function downloadFile(filename, textInput) {
-  let tempElement = document.createElement('a')
-  tempElement.setAttribute(
-    'href',
-    'data:text/plain;charset=utf-8,' + encodeURIComponent(textInput)
-  )
-  tempElement.setAttribute('download', filename)
-  document.body.appendChild(tempElement)
-  tempElement.click()
-  document.body.removeChild(tempElement)
-}
-
-/**
- * Forces any non-array value into an array.
- */
-export function arrayWrap(value) {
-  if (!Array.isArray(value)) {
-    value = [value]
-  }
-  return value
-}
-
-export function isArrayReady(value) {
-  return (
-    value !== null &&
-    value !== undefined &&
-    Array.isArray(value) &&
-    value.length !== 0
-  )
-}
-
-export function isObjectReady(value) {
-  return (
-    typeof value === 'object' &&
-    !Array.isArray(value) &&
-    value !== null &&
-    Object.keys(value).length !== 0
-  )
-}
-
 export const INPUT_TYPE = Object.freeze({
   confirmation: 'Confirmation',
   sets: 'Sets',
@@ -473,56 +393,6 @@ export const INPUT_TYPE = Object.freeze({
   duration: 'Duration',
   distance: 'Distance',
 })
-
-// LocalStorage
-
-import { arrayWrap } from './common.js'
-import { DATA_VERSION } from '../constants/globals.js'
-
-const LocalStorage = {
-  /**
-   * Initialize local storage key(s) with default value.
-   */
-  initByKeys(keys, initValue = []) {
-    arrayWrap(keys).forEach((key) => {
-      const existingData = getLocalStorage(key)
-
-      if (!existingData) {
-        setLocalStorage(key, initValue)
-      }
-    })
-  },
-
-  /**
-   * Clear local storage key(s) with default value.
-   */
-  clearByKeys(keys, clearValue = []) {
-    arrayWrap(keys).forEach((key) => setLocalStorage(key, clearValue))
-  },
-
-  set(key, value) {
-    setLocalStorage(key, value)
-  },
-
-  get(key) {
-    return getLocalStorage(key)
-  },
-}
-
-function setLocalStorage(key, value) {
-  const json = JSON.stringify(value)
-  localStorage.setItem(transformItem(key), json)
-}
-
-function getLocalStorage(key) {
-  return JSON.parse(localStorage.getItem(transformItem(key)))
-}
-
-function transformItem(key) {
-  return `${DATA_VERSION}-${key}`
-}
-
-export default LocalStorage
 
 // Other Ideas
 
@@ -556,54 +426,4 @@ const TempoType = {
   NORMAL: "Normal",
   SLOW: "Slow"
 }
-
-// nuxt-boilerplate-project (testing Vue components)
-
-import { mount, createLocalVue } from '@vue/test-utils'
-import Vuetify from 'vuetify'
-import VueMeta from 'vue-meta'
-import ErrorPage from './error'
-
-// Error Page is stored in layouts by Nuxt convention
-const localVue = createLocalVue()
-localVue.use(VueMeta, { keyName: 'head' })
-
-let wrapper
-
-beforeEach(() => {
-  const vuetify = new Vuetify()
-  wrapper = mount(ErrorPage, {
-    propsData: {
-      error: null,
-    },
-    localVue,
-    vuetify,
-  })
-})
-
-afterEach(() => {
-  wrapper.destroy()
-})
-
-describe('Page > error', () => {
-  test('matches the snapshot', () => {
-    expect(wrapper.html()).toMatchSnapshot()
-  })
-
-  describe('PROPS', () => {
-    test('error prop is object that defaults to null', () => {
-      expect(ErrorPage.props.error).toMatchObject({
-        type: Object,
-        default: null,
-      })
-    })
-
-    test('error prop can recieve a value', () => {
-      const object = { statusCode: 500 }
-      wrapper.setProps({ error: object })
-      expect(wrapper.props().error).toMatchObject(object)
-    })
-  })
-})
-
 ```
