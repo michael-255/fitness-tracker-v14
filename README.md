@@ -34,20 +34,19 @@ Build demonstration projects to learn and reference.
   - [x] Install packages (some installed by default???)
   - [x] Setup installed packages
   - [x] Write package setup instructions in the README
-  - [ ] Add your TypeScript utils
-  - [ ] Build basic frontend
+  - [x] Add your TypeScript utils
+  - [x] Update Readme with edit instructions
+  - [ ] Basic setups for more complex packages?
+
+    - [ ] Dexie
+    - [ ] Hygen
+
+  - [ ] Build basic frontend with Quasar and Hygen
 
     - [ ] Tool Bar
     - [ ] Nav Drawer
     - [ ] Landing/Test Page
-
-  - [ ] Should I include Hygen or hold off on code generators (could add later)?
-  - [ ] Update package.json with new info (name, desc, repo, etc.)
-  - [ ] Update Readme with edit instructions
-
-    - [ ] Notes on checking outdated and updating packages (ref notes below)
-    - [ ] Reminder to change project name (package.json)
-    - [ ] Reminder to change project repo (package.json)
+    - [ ] Include tests
 
 - [ ] Update project package list below (remove it?)
 - [ ] Delete demo-project-vue3 when you complete the vue3-boilerplate project
