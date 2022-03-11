@@ -36,9 +36,17 @@ Build demonstration projects to learn and reference.
   - [x] Write package setup instructions in the README
   - [x] Add your TypeScript utils
   - [x] Update Readme with edit instructions
+  - [x] Using 'rest operator' to avoid needing an 'arrayWrap' method for LocalStorage
+  - [ ] Update README since you move some utils into services with LocalDatabase
   - [ ] Basic setups for more complex packages?
 
     - [ ] Dexie
+
+      - [ ] Need a better understanding of TypeScript (types and interfaces)
+      - [ ] Light refactoring of existing code for better TypeScript usage (+dependencies)
+      - [ ] Fix tests to reflect changes if needed
+      - [ ] Finish example Dexie wrapper for project
+
     - [ ] Hygen
 
   - [ ] Build basic frontend with Quasar and Hygen
@@ -47,6 +55,9 @@ Build demonstration projects to learn and reference.
     - [ ] Nav Drawer
     - [ ] Landing/Test Page
     - [ ] Include tests
+
+  - [ ] Validators for content?
+  - [ ] Constants?
 
 - [ ] Update project package list below (remove it?)
 - [ ] Delete demo-project-vue3 when you complete the vue3-boilerplate project
