@@ -47,8 +47,14 @@ Build demonstration projects to learn and reference.
     - [ ] Finish example Dexie wrapper for project
     - [ ] Add tests for `Example` and `User` classes
     - [ ] Add tests for `LocalDatabase`
-    - [ ] Hygen: Learn how to use `inquirer` better
-    - [ ] Hygen: Create templates for use cases related to `LocalDatabase`
+    - [ ] Hygen - Part 1
+
+      - [ ] Refresher on `inquirer`
+      - [ ] Remember to have Hygen generate the `*.test.ts` files
+      - [ ] Templates: Standalone Classes
+      - [ ] Templates: Classes used by `LocalDatabase`
+      - [ ] Templates: New `Utils`
+      - [ ] Templates: Appended `Utils` to `common.ts`
 
   - [ ] Build frontend with Quasar
 
@@ -56,9 +62,13 @@ Build demonstration projects to learn and reference.
     - [ ] Nav Drawer
     - [ ] Landing/Test Page
     - [ ] Include tests
-    - [ ] Hygen: Create templates for use cases related to Quasar and Vue components
+    - [ ] Hygen - Part 2
 
-  - [ ] Validators for content?
+      - [ ] Refresher on `inquirer`
+      - [ ] Remember to have Hygen generate the `*.test.ts` files
+      - [ ] Templates: Files related to Quasar and Vue components
+
+  - [ ] Common Validators - `~/src/utils/validators.ts`
 
 - [ ] Update project package list below (remove it?)
 - [x] Delete demo-project-vue3
