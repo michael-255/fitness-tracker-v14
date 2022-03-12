@@ -37,30 +37,31 @@ Build demonstration projects to learn and reference.
   - [x] Add your TypeScript utils
   - [x] Update Readme with edit instructions
   - [x] Using 'rest operator' to avoid needing an 'arrayWrap' method for LocalStorage
-  - [ ] Update README since you move some utils into services with LocalDatabase
-  - [ ] Basic setups for more complex packages?
+  - [x] Update README since you move some utils into services with LocalDatabase
+  - [x] Constants
+  - [ ] Dexie Setup (LocalDatabase)
 
-    - [ ] Dexie
+    - [x] Need a better understanding of TypeScript (types and interfaces)
+    - [x] Light refactoring of existing code for better TypeScript usage (+dependencies)
+    - [x] Fix tests to reflect changes if needed
+    - [ ] Finish example Dexie wrapper for project
+    - [ ] Add tests for `Example` and `User` classes
+    - [ ] Add tests for `LocalDatabase`
+    - [ ] Hygen: Learn how to use `inquirer` better
+    - [ ] Hygen: Create templates for use cases related to `LocalDatabase`
 
-      - [ ] Need a better understanding of TypeScript (types and interfaces)
-      - [ ] Light refactoring of existing code for better TypeScript usage (+dependencies)
-      - [ ] Fix tests to reflect changes if needed
-      - [ ] Finish example Dexie wrapper for project
-
-    - [ ] Hygen
-
-  - [ ] Build basic frontend with Quasar and Hygen
+  - [ ] Build frontend with Quasar
 
     - [ ] Tool Bar
     - [ ] Nav Drawer
     - [ ] Landing/Test Page
     - [ ] Include tests
+    - [ ] Hygen: Create templates for use cases related to Quasar and Vue components
 
   - [ ] Validators for content?
-  - [ ] Constants?
 
 - [ ] Update project package list below (remove it?)
-- [ ] Delete demo-project-vue3 when you complete the vue3-boilerplate project
+- [x] Delete demo-project-vue3
 
 ## I. Packages
 
