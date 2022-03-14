@@ -44,8 +44,8 @@ Build demonstration projects to learn and reference.
     - [x] Need a better understanding of TypeScript (types and interfaces)
     - [x] Light refactoring of existing code for better TypeScript usage (+dependencies)
     - [x] Fix tests to reflect changes if needed
-    - [ ] Finish example Dexie wrapper for project
-    - [ ] Add tests for `Example` and `User` classes
+    - [x] Finish example Dexie wrapper for project
+    - [x] Add tests for `Example` and `User` classes
     - [ ] Add tests for `LocalDatabase`
     - [ ] Hygen - Part 1
 
@@ -68,7 +68,7 @@ Build demonstration projects to learn and reference.
       - [ ] Remember to have Hygen generate the `*.test.ts` files
       - [ ] Templates: Files related to Quasar and Vue components
 
-  - [ ] Common Validators - `~/src/utils/validators.ts`
+  - [ ] Common Validators (+Regexes) - `~/src/utils/validators.ts`
 
 - [ ] Update project package list below (remove it?)
 - [x] Delete demo-project-vue3
