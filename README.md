@@ -39,22 +39,15 @@ Build demonstration projects to learn and reference.
   - [x] Using 'rest operator' to avoid needing an 'arrayWrap' method for LocalStorage
   - [x] Update README since you move some utils into services with LocalDatabase
   - [x] Constants
-  - [ ] Dexie Setup (LocalDatabase)
+  - [x] Dexie Setup (LocalDatabase)
+  - [ ] Hygen - Part 1
 
-    - [x] Need a better understanding of TypeScript (types and interfaces)
-    - [x] Light refactoring of existing code for better TypeScript usage (+dependencies)
-    - [x] Fix tests to reflect changes if needed
-    - [x] Finish example Dexie wrapper for project
-    - [x] Add tests for `Example` and `User` classes
-    - [ ] Add tests for `LocalDatabase`
-    - [ ] Hygen - Part 1
-
-      - [ ] Refresher on `inquirer`
-      - [ ] Remember to have Hygen generate the `*.test.ts` files
-      - [ ] Templates: Standalone Classes
-      - [ ] Templates: Classes used by `LocalDatabase`
-      - [ ] Templates: New `Utils`
-      - [ ] Templates: Appended `Utils` to `common.ts`
+    - [ ] Refresher on `inquirer`
+    - [ ] Remember to have Hygen generate the `*.test.ts` files
+    - [ ] Templates: Standalone Classes
+    - [ ] Templates: Classes used by `LocalDatabase`
+    - [ ] Templates: New `Utils`
+    - [ ] Templates: Appended `Utils` to `common.ts`
 
   - [ ] Build frontend with Quasar
 
@@ -62,11 +55,12 @@ Build demonstration projects to learn and reference.
     - [ ] Nav Drawer
     - [ ] Landing/Test Page
     - [ ] Include tests
-    - [ ] Hygen - Part 2
 
-      - [ ] Refresher on `inquirer`
-      - [ ] Remember to have Hygen generate the `*.test.ts` files
-      - [ ] Templates: Files related to Quasar and Vue components
+  - [ ] Hygen - Part 2
+
+    - [ ] Refresher on `inquirer`
+    - [ ] Remember to have Hygen generate the `*.test.ts` files
+    - [ ] Templates: Files related to Quasar and Vue components
 
   - [ ] Common Validators (+Regexes) - `~/src/utils/validators.ts`
 
