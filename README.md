@@ -42,12 +42,26 @@ Build demonstration projects to learn and reference.
   - [x] Dexie Setup (LocalDatabase)
   - [ ] Hygen - Part 1
 
-    - [ ] Refresher on `inquirer`
+    - [x] Basic Hygen setup working
+    - [ ] Refresher on `inquirer` or `enquirer`
     - [ ] Remember to have Hygen generate the `*.test.ts` files
     - [ ] Templates: Standalone Classes
+
+      - [ ] Main class file
+      - [ ] Class test file
+      - [ ] Prompt for class
+
+        - [ ] What should I prompt for?
+        - [ ] Class name?
+        - [ ] Constructor properties?
+        - [ ] Class methods?
+        - [ ] Class Type Params?
+        - [ ] Class imports?
+
     - [ ] Templates: Classes used by `LocalDatabase`
     - [ ] Templates: New `Utils`
     - [ ] Templates: Appended `Utils` to `common.ts`
+    - [ ] Remove built in `generator` directory if yours are good enough as examples
 
   - [ ] Build frontend with Quasar
 
