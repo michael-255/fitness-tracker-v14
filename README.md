@@ -39,10 +39,7 @@ Build demonstration projects to learn and reference.
   - [x] Using 'rest operator' to avoid needing an 'arrayWrap' method for LocalStorage
   - [x] Update README since you move some utils into services with LocalDatabase
   - [x] Constants
-  - [ ] Dexie Setup (LocalDatabase)
-
-    - [ ] Mocks for LocalDatabase (keep trying ideas)
-
+  - [x] Dexie Setup (LocalDatabase)
   - [ ] Hygen - Part 1
 
     - [x] Basic Hygen setup working
