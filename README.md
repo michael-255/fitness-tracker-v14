@@ -43,7 +43,7 @@ Build demonstration projects to learn and reference.
   - [ ] Hygen - Part 1
 
     - [x] Basic Hygen setup working
-    - [ ] Refresher on `inquirer` or `enquirer`
+    - [x] Refresher on `inquirer` or `enquirer`
     - [ ] Remember to have Hygen generate the `*.test.ts` files
     - [ ] Templates: Standalone Classes
 
