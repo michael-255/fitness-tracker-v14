@@ -47,10 +47,12 @@ Build demonstration projects to learn and reference.
     - [x] Remember to have Hygen generate the `*.test.ts` files
     - [x] Classes generator
     - [ ] Basic validation for `class` generator questions?
-    - [ ] Remove many defaults for `class` generator questions?
-    - [ ] Better documentation for `class` generator
+    - [ ] Remove many defaults for `class` generator questions???
+    - [ ] Have defaults for `class` be in the question message???
+    - [x] Better documentation for `class` generator
     - [ ] Create `util` generator (`_util.ejs.t` and `_util.test.ejs.t`)
 
+      - [ ] file imports?
       - [ ] export function?
       - [ ] async function?
       - [ ] function parameters?
