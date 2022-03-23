@@ -44,24 +44,19 @@ Build demonstration projects to learn and reference.
 
     - [x] Basic Hygen setup working
     - [x] Refresher on `inquirer` or `enquirer`
-    - [ ] Remember to have Hygen generate the `*.test.ts` files
-    - [ ] Templates: Standalone Classes
+    - [x] Remember to have Hygen generate the `*.test.ts` files
+    - [x] Classes generator
+    - [ ] Basic validation for `class` generator questions?
+    - [ ] Remove many defaults for `class` generator questions?
+    - [ ] Better documentation for `class` generator
+    - [ ] Create `util` generator (`_util.ejs.t` and `_util.test.ejs.t`)
 
-      - [ ] Main class file
-      - [ ] Class test file
-      - [ ] Prompt for class
+      - [ ] export function?
+      - [ ] async function?
+      - [ ] function parameters?
+      - [ ] function test stubs?
 
-        - [ ] What should I prompt for?
-        - [ ] Class name?
-        - [ ] Constructor properties?
-        - [ ] Class methods?
-        - [ ] Class Type Params?
-        - [ ] Class imports?
-
-    - [ ] Templates: Classes used by `LocalDatabase`
-    - [ ] Templates: New `Utils`
-    - [ ] Templates: Appended `Utils` to `common.ts`
-    - [ ] Remove built in `generator` directory if yours are good enough as examples
+    - [ ] Append code generator for `common.ts` utility file (research?)
 
   - [ ] Build frontend with Quasar
 
