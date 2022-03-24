@@ -40,18 +40,7 @@ Build demonstration projects to learn and reference.
   - [x] Update README since you move some utils into services with LocalDatabase
   - [x] Constants
   - [x] Dexie Setup (LocalDatabase)
-  - [ ] Hygen - Part 1
-
-    - [x] Basic Hygen setup working
-    - [x] Refresher on `inquirer` or `enquirer`
-    - [x] Remember to have Hygen generate the `*.test.ts` files
-    - [x] Classes generator
-    - [x] Basic validation for `class` generator questions?
-    - [x] Remove many defaults for `class` generator questions
-    - [x] Better documentation for `class` generator
-    - [x] Create `util` generator (`_util.ejs.t` and `_util.test.ejs.t`)
-    - [ ] Append code generator for `common.ts` utility file (research?)
-
+  - [x] Hygen - Part 1
   - [ ] Build frontend with Quasar
 
     - [ ] Tool Bar
@@ -61,9 +50,7 @@ Build demonstration projects to learn and reference.
 
   - [ ] Hygen - Part 2
 
-    - [ ] Refresher on `inquirer`
-    - [ ] Remember to have Hygen generate the `*.test.ts` files
-    - [ ] Templates: Files related to Quasar and Vue components
+    - [ ] Create new Vue Quasar component with test file
 
   - [ ] Common Validators (+Regexes) - `~/src/utils/validators.ts`
 
