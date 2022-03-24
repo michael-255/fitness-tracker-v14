@@ -46,18 +46,10 @@ Build demonstration projects to learn and reference.
     - [x] Refresher on `inquirer` or `enquirer`
     - [x] Remember to have Hygen generate the `*.test.ts` files
     - [x] Classes generator
-    - [ ] Basic validation for `class` generator questions?
-    - [ ] Remove many defaults for `class` generator questions???
-    - [ ] Have defaults for `class` be in the question message???
+    - [x] Basic validation for `class` generator questions?
+    - [x] Remove many defaults for `class` generator questions
     - [x] Better documentation for `class` generator
-    - [ ] Create `util` generator (`_util.ejs.t` and `_util.test.ejs.t`)
-
-      - [ ] file imports?
-      - [ ] export function?
-      - [ ] async function?
-      - [ ] function parameters?
-      - [ ] function test stubs?
-
+    - [x] Create `util` generator (`_util.ejs.t` and `_util.test.ejs.t`)
     - [ ] Append code generator for `common.ts` utility file (research?)
 
   - [ ] Build frontend with Quasar
