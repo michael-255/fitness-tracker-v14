@@ -43,27 +43,25 @@ Build demonstration projects to learn and reference.
   - [x] Hygen - Part 1
   - [ ] Build frontend with Quasar
 
-    - [ ] General app structure
+    - [ ] Build router layouts (Quasar)
 
-      - [x] Router setup
-      - [x] Constants for view and layout names?
-      - [ ] Setup router layouts in `App.vue`
-      - [ ] Build router layouts (Quasar)
+      - [ ] `DefaultLayout` (none)
+      - [ ] `SimpleLayout` (header)
+      - [ ] `MenuLayout` (header, drawer)
 
-        - [ ] `HeaderOnlyLayout` (header)
-        - [ ] `FullMenuLayout` (header, drawer)
+        - [ ] Store for Drwaer controls
 
-      - [ ] Build view components (Quasar)
+    - [ ] Build view components (Quasar)
 
-        - [ ] `DashboardView`
-        - [ ] `AboutView`
-        - [ ] `NotFoundView`
+      - [ ] `DashboardView`
+      - [ ] `AboutView`
+      - [ ] `NotFoundView`
 
-      - [ ] Notes
+    - [ ] Notes
 
-        - [ ] Header
-        - [ ] Drawer
-        - [ ] Include tests
+      - [ ] Header
+      - [ ] Drawer
+      - [ ] Include tests
 
   - [ ] Hygen - Part 2
 
