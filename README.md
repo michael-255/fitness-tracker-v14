@@ -49,13 +49,18 @@ Build demonstration projects to learn and reference.
       - [ ] `SimpleLayout` (header)
       - [ ] `MenuLayout` (header, drawer)
 
-        - [ ] Store for Drwaer controls
+        - [x] Build store for Drawer controls (+ other UI)
+        - [ ] Build test file for UI store
 
     - [ ] Build view components (Quasar)
 
       - [ ] `DashboardView`
       - [ ] `AboutView`
       - [ ] `NotFoundView`
+      - [ ] Include one Chart/Graph as an example
+      - [ ] Include one SVG as an example
+      - [ ] Include one MD Icon as an example
+      - [ ] Include one Image as an example
 
     - [ ] Notes
 
