@@ -49,9 +49,6 @@ Build demonstration projects to learn and reference.
       - [ ] `SimpleLayout` (header)
       - [ ] `MenuLayout` (header, drawer)
 
-        - [x] Build store for Drawer controls (+ other UI)
-        - [ ] Build test file for UI store
-
     - [ ] Build view components (Quasar)
 
       - [ ] `DashboardView`
