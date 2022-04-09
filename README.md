@@ -58,267 +58,341 @@ WIP
 
 WIP
 
+## Database
+
+`measurements`
+
+- &id
+- name
+
+`exercises`
+
+- &id
+- name
+
+`workouts`
+
+- &id
+- name
+
+`measurementRecords`
+
+- &id
+- measurementId
+- createdAt
+
+`exerciseRecords`
+
+- &id
+- exerciseId
+- createdAt
+
+`workoutRecords`
+
+- &id
+- workoutId
+- createdAt
+
+`activeExercises`
+
+- &id
+- "
+- "
+
+`activeWorkout`
+
+- &id
+- "
+- "
+
+```typescript
+class Measurement {
+  // Indices: &id, name
+  constructor({
+    id = createId(),
+    createdAt = new Date().toISOString(),
+    updatedAt = new Date().toISOString(),
+    name = 'My Measurement',
+    description = null,
+  } = {}) {...}
+}
+
+class Exercise {
+  // Indices: &id, name
+  constructor({
+    id = createId(),
+    createdAt = new Date().toISOString(),
+    updatedAt = new Date().toISOString(),
+    name = 'My Exercise'
+    description = null,
+    uiConfig = {}, // UIConfig type?
+  } = {}) {...}
+}
+
+class Workout {
+  // Indices: &id, name
+  constructor({
+    id = createId(),
+    createdAt = new Date().toISOString(),
+    updatedAt = new Date().toISOString(),
+    name = 'My Workout'
+    description = null,
+    exerciseIds = [],
+  } = {}) {...}
+}
+
+class MeasurementRecord {
+  // Indices: &id, createdAt, measurementId
+  constructor({
+    id = createId(),
+    createdAt = new Date().toISOString(),
+    updatedAt = new Date().toISOString(),
+    note = null,
+    measurementId = null,
+    value = null, // in, cm... Unit type?
+  } = {}) {...}
+}
+
+class ExerciseRecord {
+  // Indices: &id, createdAt, exerciseId
+  constructor({
+    id = createId(),
+    createdAt = new Date().toISOString(),
+    updatedAt = new Date().toISOString(),
+    note = null,
+    exerciseId = null,
+    data = {}, // @todo - consider how you want to store exercise data
+  } = {}) {...}
+}
+
+class WorkoutRecord {
+  // Indices: &id, createdAt, workoutId
+  constructor({
+    id = createId(),
+    createdAt = new Date().toISOString(),
+    updatedAt = new Date().toISOString(),
+    note = null,
+    workoutId = null,
+    finishedAt = null,
+  } = {}) {...}
+  // duration method
+}
+
+class ExerciseUIConfig {
+  constructor({
+    hasConfirm = false,
+    hasSets = false,
+    hasDuration = false,
+    hasDistance = false,
+    hasWeight = false,
+    hasReps = false,
+  } = {}) {...}
+}
+
+class Weight {
+  constructor({
+    weight = 0,
+    unitPref = null,
+  } = {}) {
+    this._kg = weight
+    this._lbs = weight
+  }
+}
+
+class Distance {
+  constructor({
+    distance = 0,
+    unitPref = null,
+  } = {}) {
+    this._km = distance
+    this._mi = distance
+  }
+}
+
+class MeasureSize {
+  constructor({
+    size = 0,
+    unitPref = null,
+  } = {}) {
+    this._in = height // display as feet for some measurements
+    this._cm = height
+  }
+}
+
+enum UnitPreference {
+  IMPERIAL = 'Imperial',
+  METRIC = 'Metric',
+}
+
+enum DistanceConversion {
+  KM_TO_MI = 0.621371,
+  MI_TO_KM = 1.609344,
+}
+
+enum WeightConversion {
+  KG_TO_LBS = 2.204623,
+  LBS_TO_KG = 0.453592,
+}
+
+enum MeasureSizeConversion {
+  CM_TO_IN = 0.393701,
+  IN_TO_CM = 2.54,
+}
+
+enum Limits {
+  maxWorkoutExercises = 40,
+  maxSets = 100,
+  maxNameLength = 50,
+  maxDescriptionLength = 500,
+  maxNoteLength = 1000,
+}
+
+enum Icons {
+  NOTES = 'assignment',
+  REST = 'hourglass_empty',
+  TEMPO = 'speed',
+  INTENSITY = 'whatshot',
+  RESISTENCE = 'fitness_center',
+  INCLINE = 'signal_cellular_null',
+  MAXIMUM = 'priority_high'
+}
+
+```
+
 ## Content from old fitness app repos --------------------
 
 Reference your `fitness-trackers-archive` repo for more old code.
 
 ```typescript
-// Enums
-
-enum Category {
-  arms = 'Arms',
-  back = 'Back',
-  cardio = 'Cardio',
-  chest = 'Chest',
-  compound = 'Compound',
-  core = 'Core',
-  legs = 'Legs',
-  shoulders = 'Shoulders',
-  misc = 'Miscellaneous',
-  event = 'Event',
-  upperBody = 'Upper Body',
-  lowerBody = 'Lower Body',
-  fullBody = 'Full Body',
-}
-
-enum Equipment {
-  barbell = 'Barbell',
-  dumbbell = 'Dumbbell',
-  kettlebell = 'Kettlebell',
-  plate = 'Plate',
-  pullupBar = 'Pull-up Bar',
-  cardioMachine = 'Cardio Machine',
-  cableMachine = 'Cable Machine',
-  weightMachine = 'Weight Machine',
-  weightVest = 'Weight Vest',
-  bands = 'Resistance Bands',
-  chains = 'Chains',
-}
-
-enum UnitPreference {
-  imperial = 'Imperial',
-  metric = 'Metric',
-}
-
-enum DistanceConversion {
-  kilometersToMiles = 0.621371,
-  MilesToKilometers = 1.609344,
-}
-
-enum WeightConversion {
-  kilogramsToPounds = 2.204623,
-  poundsToKilograms = 0.453592,
-}
-
-enum HeightConversion {
-  centimetersToInches = 0.393701,
-  inchesToCentimeters = 2.54,
-}
-
-enum Limit {
-  maxWorkoutExercises = 100,
-  maxSets = 100,
-  maxRounds = 100,
-  maxNameLength = 50,
-  maxDescriptionLength = 300,
-  maxNoteLength = 300,
-}
-
-enum DataStore {
-  exercises = 'exercises',
-  workouts = 'workouts',
-  measurements = 'measurements',
-  exerciseRecords = 'exerciseRecords',
-  workoutRecords = 'workoutRecords',
-  measurementRecords = 'measurementRecords',
-  inProgressExercises = 'inProgressExercises',
-  inProgressWorkout = 'inProgressWorkout',
-}
-
 // Interfaces
 
 interface IEntity {
-  id: string,
-  createdAt: string,
-  updatedAt: string,
-  deletedAt: string,
-  isDeleted: boolean,
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
+  isDeleted: boolean;
 }
 
 interface INote {
-  note: string,
+  note: string;
 }
 
 interface IUser extends IEntity {
-  email: string,
-  birthMonth: number,
-  birthYear: number,
-  height: IHeight,
+  email: string;
+  birthMonth: number;
+  birthYear: number;
+  height: IHeight;
 }
 
 interface IDescriptors {
-  name: string,
-  description: string,
-  previousRecord: string,
+  name: string;
+  description: string;
+  previousRecord: string;
 }
 
 interface IExercise extends IEntity, IDescriptors {
-  category: Category,
-  equipment: Equipment[],
-  hasSets: boolean,
-  hasWeight: boolean,
-  hasReps: boolean,
-  hasDuration: boolean,
-  hasDistance: boolean,
+  category: Category;
+  equipment: Equipment[];
+  hasSets: boolean;
+  hasWeight: boolean;
+  hasReps: boolean;
+  hasDuration: boolean;
+  hasDistance: boolean;
 }
 
 interface IWorkout extends IEntity, IDescriptors {
-  exerciseIds: string[],
+  exerciseIds: string[];
 }
 
 interface IExerciseRecord extends IEntity, INote {
-  exerciseId: string,
-  sets: IExerciseSet[],
+  exerciseId: string;
+  sets: IExerciseSet[];
 }
 
 interface IExerciseSet {
-  weight: IWeight,
-  reps: number,
-  duration: number,
-  distance: IDistance,
+  weight: IWeight;
+  reps: number;
+  duration: number;
+  distance: IDistance;
 }
 
 interface IWorkoutRecord extends IEntity, INote {
-  duration: number,
-  workoutId: string,
+  duration: number;
+  workoutId: string;
 }
 
 interface IMeasurementRecord extends IEntity, INote {
-  bodyWeight: number,
-  bodyFat: number,
-  neck: number,
-  shoulders: number,
-  chest: number,
-  biceps: number,
-  forearms: number,
-  waist: number,
-  thighs: number,
-  calves: number,
+  bodyWeight: number;
+  bodyFat: number;
+  neck: number;
+  shoulders: number;
+  chest: number;
+  biceps: number;
+  forearms: number;
+  waist: number;
+  thighs: number;
+  calves: number;
 }
 
 interface IWeight {
-  kilograms: number,
-  pounds: number,
+  kilograms: number;
+  pounds: number;
 }
 
 interface IDistance {
-  kilometers: number,
-  miles: number,
+  kilometers: number;
+  miles: number;
 }
 
 interface IHeight {
-  centimeters: number,
-  inches: number,
-}
-
-// Dependency Injection
-
-interface IMyComponentDependencies {
-  databaseService: IDatabaseService
-  storeService: IStoreService
-}
-
-const dependencies = {
-  databaseService: databaseThing(),
-  storeService: storeThing(),
-}
-
-const myComponent({ dependencies: IMyComponentDependencies }) {
-  dependencies.databaseService.doSomething()
-  dependencies.storeService.doSomething()
+  centimeters: number;
+  inches: number;
 }
 
 // Interfaces using functions?
 
 interface IDatabase {
-  getExercises(): Exercise[],
-  getWorkouts(): Workout[],
-  getActiveExercises(): ExerciseRecord[],
-  getActiveWorkouts(): WorkoutRecord[],
-  getMeasurementRecords(): MeasurementRecord[],
-  updateExercises(): null,
-  updateWorkouts(): null,
-  updateActiveExercises(): null,
-  updateActiveWorkouts(): null,
-  updateMeasurementRecords(): null,
-  deleteExercises(): null,
-  deleteWorkouts(): null,
-  deleteActiveExercises(): null,
-  deleteActiveWorkouts(): null,
-  deleteMeasurementRecords(): null,
+  getExercises(): Exercise[];
+  getWorkouts(): Workout[];
+  getActiveExercises(): ExerciseRecord[];
+  getActiveWorkouts(): WorkoutRecord[];
+  getMeasurementRecords(): MeasurementRecord[];
+  updateExercises(): null;
+  updateWorkouts(): null;
+  updateActiveExercises(): null;
+  updateActiveWorkouts(): null;
+  updateMeasurementRecords(): null;
+  deleteExercises(): null;
+  deleteWorkouts(): null;
+  deleteActiveExercises(): null;
+  deleteActiveWorkouts(): null;
+  deleteMeasurementRecords(): null;
 }
 
 // Exporter Idea
 
+/**
+ * @todo Something to collect record meta data?
+ **/
+
 interface ExportSummary {
-  appVersion: number,
-  exporterVersion: number,
-  createdAt: date,
-  totalCategories: number,
-  totalEquipment: number,
-  totalWorkouts: number,
-  totalWorkoutRecords: number,
-  totalExercises: number,
-  totalExerciseRecords: number,
-  totalMeasurementRecords: number,
-  categories: [],
-  equipment: [],
-  workouts: [],
-  workoutRecords: [],
-  exercises: [],
-  exerciseRecords: [],
-  measurementRecords: [],
-}
-
-export const INPUT_TYPE = Object.freeze({
-  confirmation: 'Confirmation',
-  sets: 'Sets',
-  weight: 'Weight',
-  reps: 'Reps',
-  duration: 'Duration',
-  distance: 'Distance',
-})
-
-// Other Ideas
-
-const ObjectiveType = {
-  REST: "Rest",
-  TEMPO: "Tempo",
-  INTENSITY: "Intensity",
-  RESISTENCE: "Resistence",
-  INCLINE: "Incline",
-  MAXIMUM: "Maximum"
-}
-
-const Icon = {
-  NOTES: "assignment",
-  REST: "hourglass_empty",
-  TEMPO: "speed",
-  INTENSITY: "whatshot",
-  RESISTENCE: "fitness_center",
-  INCLINE: "signal_cellular_null",
-  MAXIMUM: "priority_high"
-}
-
-const IntensityType = {
-  HIGH: "High",
-  MEDIUM: "Medium",
-  LOW: "Low"
-}
-
-const TempoType = {
-  FAST: "Fast",
-  NORMAL: "Normal",
-  SLOW: "Slow"
+  appVersion: number;
+  exporterVersion: number;
+  createdAt: date;
+  totalCategories: number;
+  totalEquipment: number;
+  totalWorkouts: number;
+  totalWorkoutRecords: number;
+  totalExercises: number;
+  totalExerciseRecords: number;
+  totalMeasurementRecords: number;
+  categories: [];
+  equipment: [];
+  workouts: [];
+  workoutRecords: [];
+  exercises: [];
+  exerciseRecords: [];
+  measurementRecords: [];
 }
 ```
