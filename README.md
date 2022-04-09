@@ -44,70 +44,9 @@ Move Milestones you don't intend to complete to this section so they are documen
 
 ## III. Design
 
-WIP
-
-### Pages
-
-WIP
-
-### Layouts
-
-WIP
-
-### Components
-
-WIP
-
-## Database
-
-`measurements`
-
-- &id
-- name
-
-`exercises`
-
-- &id
-- name
-
-`workouts`
-
-- &id
-- name
-
-`measurementRecords`
-
-- &id
-- measurementId
-- createdAt
-
-`exerciseRecords`
-
-- &id
-- exerciseId
-- createdAt
-
-`workoutRecords`
-
-- &id
-- workoutId
-- createdAt
-
-`activeExercises`
-
-- &id
-- "
-- "
-
-`activeWorkout`
-
-- &id
-- "
-- "
-
 ```typescript
 class Measurement {
-  // Indices: &id, name
+  // measurements: &id, name
   constructor({
     id = createId(),
     createdAt = new Date().toISOString(),
@@ -118,7 +57,7 @@ class Measurement {
 }
 
 class Exercise {
-  // Indices: &id, name
+  // exercises: &id, name
   constructor({
     id = createId(),
     createdAt = new Date().toISOString(),
@@ -130,7 +69,7 @@ class Exercise {
 }
 
 class Workout {
-  // Indices: &id, name
+  // workouts: &id, name
   constructor({
     id = createId(),
     createdAt = new Date().toISOString(),
@@ -142,7 +81,7 @@ class Workout {
 }
 
 class MeasurementRecord {
-  // Indices: &id, createdAt, measurementId
+  // measurementRecords: &id, createdAt, measurementId
   constructor({
     id = createId(),
     createdAt = new Date().toISOString(),
@@ -154,7 +93,8 @@ class MeasurementRecord {
 }
 
 class ExerciseRecord {
-  // Indices: &id, createdAt, exerciseId
+  // exerciseRecords: &id, createdAt, exerciseId
+  // activeExercises: &id
   constructor({
     id = createId(),
     createdAt = new Date().toISOString(),
@@ -166,7 +106,8 @@ class ExerciseRecord {
 }
 
 class WorkoutRecord {
-  // Indices: &id, createdAt, workoutId
+  // workoutRecords: &id, createdAt, workoutId
+  // activeWorkout: &id
   constructor({
     id = createId(),
     createdAt = new Date().toISOString(),
