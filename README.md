@@ -45,12 +45,16 @@ Build demonstration projects to learn and reference.
 
     - [ ] Build router layouts (Quasar)
 
-      - [ ] `DefaultLayout` (none)
-      - [ ] `SimpleLayout` (header)
+      - [x] `DefaultLayout` (header)
       - [ ] `MenuLayout` (header, drawer)
+
+        - [x] Clean list items for the menu
+        - [x] Create reusable drawer item component (with props)
+        - [ ] Try connecting drawer to `ui` store
 
     - [ ] Build view components (Quasar)
 
+      - [ ] Clean up view margins
       - [ ] `DashboardView`
       - [ ] `AboutView`
       - [ ] `NotFoundView`
@@ -63,7 +67,7 @@ Build demonstration projects to learn and reference.
 
       - [ ] Header
       - [ ] Drawer
-      - [ ] Include tests
+      - [ ] Include tests (can't do component tests with Quasar ATM)
 
   - [ ] Hygen - Part 2
 
