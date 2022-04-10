@@ -25,8 +25,12 @@ Implement the following:
   - [ ] Add LocalDatabase methods
   - [ ] Add LocalDatabase tests
 - [ ] Constants and enums
+  - [ ] How much should remain in the `constants.ts` file?
 - [ ] Routes and Layouts
+  - [ ] How to overwrite route history
+  - [ ] Test page for experiments
 - [ ] App Functionality
+  - [ ] Default entities with constant ids
   - [ ] Workouts and exercises (with varying fields)
   - [ ] Record history and charts
   - [ ] Enitity editing (CRUD)
