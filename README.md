@@ -9,27 +9,29 @@ The 14th iteration of my fitness tracker web app.
 
 Implement the following:
 
-- [ ] Core App
-  - [ ] Data Types + LocalDatabase
-    - [ ] `_Entity`
-    - [ ] `_Action`
-    - [ ] `_Record`
-    - [ ] `Measurement` (LocalDatabase)
-    - [ ] `Exercise` (LocalDatabase)
-    - [ ] `Workout` (LocalDatabase)
-    - [ ] `MeasurementRecord` (LocalDatabase)
-    - [ ] `ExerciseRecord` (LocalDatabase)
-    - [ ] `WorkoutRecord` (LocalDatabase)
-    - [ ] Add class methods
-    - [ ] Add class tests
-    - [ ] Add LocalDatabase methods
-    - [ ] Add LocalDatabase tests
-  - [ ] Constants and enums
-  - [ ] App Functionality
-    - [ ] Record history and charts
-    - [ ] Enitity editing (CRUD)
-    - [ ] Field validation
-    - [ ] Fitness data importer/exporter
+- [ ] Clone boilerplate app over to this project somehow (must keep notes!)
+- [ ] Data Types + LocalDatabase
+  - [ ] `_Entity`
+  - [ ] `_Action`
+  - [ ] `_Record`
+  - [ ] `Measurement` (LocalDatabase)
+  - [ ] `Exercise` (LocalDatabase)
+  - [ ] `Workout` (LocalDatabase)
+  - [ ] `MeasurementRecord` (LocalDatabase)
+  - [ ] `ExerciseRecord` (LocalDatabase)
+  - [ ] `WorkoutRecord` (LocalDatabase)
+  - [ ] Add class methods
+  - [ ] Add class tests
+  - [ ] Add LocalDatabase methods
+  - [ ] Add LocalDatabase tests
+- [ ] Constants and enums
+- [ ] Routes and Layouts
+- [ ] App Functionality
+  - [ ] Workouts and exercises (with varying fields)
+  - [ ] Record history and charts
+  - [ ] Enitity editing (CRUD)
+  - [ ] Field validation
+  - [ ] Fitness data importer/exporter
 
 ## II. Drafting
 
