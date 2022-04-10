@@ -2,55 +2,57 @@
 
 The 14th iteration of my fitness tracker web app.
 
-- [I. Packages](#i-packages)
-- [II. Milestones](#ii-milestones)
-- [III. Design](#iii-design)
+- [I. Milestones](#i-milestones)
+- [II. Drafting](#ii-drafting)
 
-## I. Packages
+## I. Milestones
 
-Don't need the package list anymore.
+Implement the following:
 
-## II. Milestones
+- [ ] Core App
+  - [ ] Data Types + LocalDatabase
+    - [ ] `_Entity`
+    - [ ] `_Action`
+    - [ ] `_Record`
+    - [ ] `Measurement` (LocalDatabase)
+    - [ ] `Exercise` (LocalDatabase)
+    - [ ] `Workout` (LocalDatabase)
+    - [ ] `MeasurementRecord` (LocalDatabase)
+    - [ ] `ExerciseRecord` (LocalDatabase)
+    - [ ] `WorkoutRecord` (LocalDatabase)
+    - [ ] Add class methods
+    - [ ] Add class tests
+    - [ ] Add LocalDatabase methods
+    - [ ] Add LocalDatabase tests
+  - [ ] Constants and enums
+  - [ ] App Functionality
+    - [ ] Record history and charts
+    - [ ] Enitity editing (CRUD)
+    - [ ] Field validation
+    - [ ] Fitness data importer/exporter
 
-Please leave your Milestones list intact! Check the box as you complete them. Add Milestones as you
-think of them. Put removed Milestones in the `Cancelled Milestones` section.
-
-- [ ] Build out app data structures
-
-  - [ ] Interfaces (extended)
-  - [ ] Enums
-  - [ ] Classes (using interfaces)
-  - [ ] Data Sources for Dexie and Pinia
-  - [ ] Consolidate ideas that you pasted below
-
-- [ ] App Design
-
-  - [ ] Reference other versions of the app for ideas (ongoing...)
-
-- [ ] Misc Ideas
-  - [ ] Ability to manaully create, update, or delete actions and records
-  - [ ] Base components: BaseEmpty, BaseSuccess, BaseError, BaseLoading
-  - [ ] Progress or skeleton loaders
-  - [ ] Validators for data field limits
-  - [ ] SummaryCard for completed workout
-  - [ ] JSON importer/exporter
-  - [ ] Make use of generators?
-  - [ ] Look through utils in previous apps
-  - [ ] Make use of charts
-
-### Cancelled Milestones
-
-Move Milestones you don't intend to complete to this section so they are documented.
-
-## III. Design
+## II. Drafting
 
 ```typescript
+class _Entity {
+  constructor({
+    id = createId(),
+    createdAt = new Date().toISOString(),
+  } = {}) {...}
+}
+
+class _Action {
+  constructor({
+    name = null,
+    description = null,
+  } = {}) {...}
+}
+
 class Measurement {
   // measurements: &id, name
   constructor({
     id = createId(),
     createdAt = new Date().toISOString(),
-    updatedAt = new Date().toISOString(),
     name = 'My Measurement',
     description = null,
   } = {}) {...}
@@ -61,10 +63,9 @@ class Exercise {
   constructor({
     id = createId(),
     createdAt = new Date().toISOString(),
-    updatedAt = new Date().toISOString(),
     name = 'My Exercise'
     description = null,
-    uiConfig = {}, // UIConfig type?
+    elements = {},
   } = {}) {...}
 }
 
@@ -73,11 +74,20 @@ class Workout {
   constructor({
     id = createId(),
     createdAt = new Date().toISOString(),
-    updatedAt = new Date().toISOString(),
     name = 'My Workout'
     description = null,
     exerciseIds = [],
   } = {}) {...}
+  getWorkoutExercises() {...}
+}
+
+class _Record {
+  constructor({
+    parentId = null,
+    note = null,
+    data = {},
+  } = {}) {...}
+  getParentEntity() {...}
 }
 
 class MeasurementRecord {
@@ -85,10 +95,8 @@ class MeasurementRecord {
   constructor({
     id = createId(),
     createdAt = new Date().toISOString(),
-    updatedAt = new Date().toISOString(),
     note = null,
-    measurementId = null,
-    value = null, // in, cm... Unit type?
+    data = {}, // lbs and inches
   } = {}) {...}
 }
 
@@ -98,10 +106,8 @@ class ExerciseRecord {
   constructor({
     id = createId(),
     createdAt = new Date().toISOString(),
-    updatedAt = new Date().toISOString(),
     note = null,
-    exerciseId = null,
-    data = {}, // @todo - consider how you want to store exercise data
+    data = {},
   } = {}) {...}
 }
 
@@ -111,15 +117,13 @@ class WorkoutRecord {
   constructor({
     id = createId(),
     createdAt = new Date().toISOString(),
-    updatedAt = new Date().toISOString(),
     note = null,
-    workoutId = null,
-    finishedAt = null,
+    data = {}, // finishedAt
   } = {}) {...}
-  // duration method
+  getDuration() {...}
 }
 
-class ExerciseUIConfig {
+class ExerciseElements {
   constructor({
     hasConfirm = false,
     hasSets = false,
@@ -128,56 +132,6 @@ class ExerciseUIConfig {
     hasWeight = false,
     hasReps = false,
   } = {}) {...}
-}
-
-class Weight {
-  constructor({
-    weight = 0,
-    unitPref = null,
-  } = {}) {
-    this._kg = weight
-    this._lbs = weight
-  }
-}
-
-class Distance {
-  constructor({
-    distance = 0,
-    unitPref = null,
-  } = {}) {
-    this._km = distance
-    this._mi = distance
-  }
-}
-
-class MeasureSize {
-  constructor({
-    size = 0,
-    unitPref = null,
-  } = {}) {
-    this._in = height // display as feet for some measurements
-    this._cm = height
-  }
-}
-
-enum UnitPreference {
-  IMPERIAL = 'Imperial',
-  METRIC = 'Metric',
-}
-
-enum DistanceConversion {
-  KM_TO_MI = 0.621371,
-  MI_TO_KM = 1.609344,
-}
-
-enum WeightConversion {
-  KG_TO_LBS = 2.204623,
-  LBS_TO_KG = 0.453592,
-}
-
-enum MeasureSizeConversion {
-  CM_TO_IN = 0.393701,
-  IN_TO_CM = 2.54,
 }
 
 enum Limits {
@@ -198,101 +152,7 @@ enum Icons {
   MAXIMUM = 'priority_high'
 }
 
-```
-
-## Content from old fitness app repos --------------------
-
-Reference your `fitness-trackers-archive` repo for more old code.
-
-```typescript
-// Interfaces
-
-interface IEntity {
-  id: string;
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string;
-  isDeleted: boolean;
-}
-
-interface INote {
-  note: string;
-}
-
-interface IUser extends IEntity {
-  email: string;
-  birthMonth: number;
-  birthYear: number;
-  height: IHeight;
-}
-
-interface IDescriptors {
-  name: string;
-  description: string;
-  previousRecord: string;
-}
-
-interface IExercise extends IEntity, IDescriptors {
-  category: Category;
-  equipment: Equipment[];
-  hasSets: boolean;
-  hasWeight: boolean;
-  hasReps: boolean;
-  hasDuration: boolean;
-  hasDistance: boolean;
-}
-
-interface IWorkout extends IEntity, IDescriptors {
-  exerciseIds: string[];
-}
-
-interface IExerciseRecord extends IEntity, INote {
-  exerciseId: string;
-  sets: IExerciseSet[];
-}
-
-interface IExerciseSet {
-  weight: IWeight;
-  reps: number;
-  duration: number;
-  distance: IDistance;
-}
-
-interface IWorkoutRecord extends IEntity, INote {
-  duration: number;
-  workoutId: string;
-}
-
-interface IMeasurementRecord extends IEntity, INote {
-  bodyWeight: number;
-  bodyFat: number;
-  neck: number;
-  shoulders: number;
-  chest: number;
-  biceps: number;
-  forearms: number;
-  waist: number;
-  thighs: number;
-  calves: number;
-}
-
-interface IWeight {
-  kilograms: number;
-  pounds: number;
-}
-
-interface IDistance {
-  kilometers: number;
-  miles: number;
-}
-
-interface IHeight {
-  centimeters: number;
-  inches: number;
-}
-
-// Interfaces using functions?
-
+// Interface methods?
 interface IDatabase {
   getExercises(): Exercise[];
   getWorkouts(): Workout[];
@@ -311,12 +171,7 @@ interface IDatabase {
   deleteMeasurementRecords(): null;
 }
 
-// Exporter Idea
-
-/**
- * @todo Something to collect record meta data?
- **/
-
+// Importer & Exporter
 interface ExportSummary {
   appVersion: number;
   exporterVersion: number;
