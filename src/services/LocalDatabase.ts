@@ -1,59 +1,60 @@
 import Dexie from 'dexie'
 import type { Table } from 'dexie'
 // Database Stores
-import { User, UserStore } from '../models/User'
-import type { IUser } from '../models/User'
-import { Example, ExampleStore } from '../models/Example'
-import type { IExample } from '../models/Example'
+import { Measurement, MeasurementStore } from '@/models/Measurement'
+import type { IMeasurement } from '@/models/Measurement'
+import { Exercise, ExerciseStore } from '@/models/Exercise'
+import type { IExercise } from '@/models/Exercise'
+import { Workout, WorkoutStore } from '@/models/Workout'
+import type { IWorkout } from '@/models/Workout'
+import { MeasurementRecord, MeasurementRecordStore } from '@/models/MeasurementRecord'
+import type { IMeasurementRecord } from '@/models/MeasurementRecord'
+import { ExerciseRecord, ExerciseRecordStore, ActiveExerciseStore } from '@/models/ExerciseRecord'
+import type { IExerciseRecord } from '@/models/ExerciseRecord'
+import { WorkoutRecord, WorkoutRecordStore, ActiveWorkoutStore } from '@/models/WorkoutRecord'
+import type { IWorkoutRecord } from '@/models/WorkoutRecord'
 
 /**
  * Wrapper for Dexie IndexedDB.
  * @param name Database name in the browser dev tools
  */
 export class LocalDatabase extends Dexie {
-  logger: any
   // Information for the typing system to help Dexie out
-  users!: Table<IUser>
-  examples!: Table<IExample>
+  measurements!: Table<IMeasurement>
+  exercises!: Table<IExercise>
+  workouts!: Table<IWorkout>
+  measurementRecords!: Table<IMeasurementRecord>
+  exericseRecords!: Table<IExerciseRecord>
+  workoutRecords!: Table<IWorkoutRecord>
+  activeExercises!: Table<IExerciseRecord>
+  activeWorkouts!: Table<IWorkoutRecord>
 
   constructor(name = 'LocalDatabase') {
     super(name)
 
     this.version(1).stores({
-      ...UserStore,
-      ...ExampleStore,
+      ...MeasurementStore,
+      ...ExerciseStore,
+      ...WorkoutStore,
+      ...MeasurementRecordStore,
+      ...ExerciseRecordStore,
+      ...WorkoutRecordStore,
+      ...ActiveExerciseStore,
+      ...ActiveWorkoutStore,
     })
 
-    this.users.mapToClass(User)
-    this.examples.mapToClass(Example)
-  }
-
-  async addUser(user: IUser): Promise<void> {
-    await this.users.add(user)
-  }
-
-  async addExample(example: IExample): Promise<void> {
-    await this.examples.add(example)
-  }
-
-  async getAllFromStore(store: string): Promise<any[]> {
-    return await this.table(store).toArray()
-  }
-
-  async getUserByName(name: string): Promise<IUser | undefined> {
-    return await this.users.where('name').equalsIgnoreCase(name).first()
-  }
-
-  async getNewestExample(): Promise<IExample | undefined> {
-    return await this.examples.orderBy('createdDate').last()
-  }
-
-  async getOldestExample(): Promise<IExample | undefined> {
-    return await this.examples.orderBy('createdDate').first()
+    this.measurements.mapToClass(Measurement)
+    this.exercises.mapToClass(Exercise)
+    this.workouts.mapToClass(Workout)
+    this.measurementRecords.mapToClass(MeasurementRecord)
+    this.exericseRecords.mapToClass(ExerciseRecord)
+    this.workoutRecords.mapToClass(WorkoutRecord)
+    this.activeExercises.mapToClass(ExerciseRecord)
+    this.activeWorkouts.mapToClass(WorkoutRecord)
   }
 }
 
 /**
  * Preconfigured LocalDatabase
  */
-export const database = new LocalDatabase('ExampleDatabase')
+export const database = new LocalDatabase('FitnessTracker')
