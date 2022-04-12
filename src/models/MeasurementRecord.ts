@@ -10,7 +10,6 @@ export interface IMeasurementRecord {
   parentId: string
   note: string
   data: object
-  getParentEntity(): object
 }
 
 type MeasurementRecordParams = {

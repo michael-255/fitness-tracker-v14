@@ -9,8 +9,6 @@ export interface IWorkoutRecord {
   parentId: string
   note: string
   data: object
-  getParentEntity(): object
-  getDuration(): string
 }
 
 type WorkoutRecordParams = {

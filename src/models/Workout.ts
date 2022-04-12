@@ -8,7 +8,6 @@ export interface IWorkout {
   name: string
   description: string
   exerciseIds: string[]
-  getWorkoutExercises(): any[]
 }
 
 type WorkoutParams = {

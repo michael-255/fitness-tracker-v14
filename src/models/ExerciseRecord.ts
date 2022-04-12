@@ -9,7 +9,6 @@ export interface IExerciseRecord {
   parentId: string
   note: string
   data: object
-  getParentEntity(): object
 }
 
 type ExerciseRecordParams = {
