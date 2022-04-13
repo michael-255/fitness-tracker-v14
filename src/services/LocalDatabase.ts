@@ -89,11 +89,11 @@ export class LocalDatabase extends Dexie {
   //   return await this.measurements.toArray()
   // }
 
-  // async getExercisesById(id: string): Promise<IMeasurement[]> {
+  // async getExerciseById(id: string): Promise<IMeasurement[]> {
   //   return await this.exercises.toArray()
   // }
 
-  // async getWorkoutsById(id: string): Promise<IMeasurement[]> {
+  // async getWorkoutById(id: string): Promise<IMeasurement[]> {
   //   return await this.workouts.toArray()
   // }
 

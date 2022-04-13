@@ -20,6 +20,12 @@ Implement the following:
   - [x] Add class methods
   - [x] Add class tests
   - [ ] Add LocalDatabase methods
+    - [ ] getWorkoutExercises()
+    - [ ] getNewestMeasurementRecordByParentId(parentId: string)
+    - [ ] getNewestExerciseRecordByParentId(parentId: string)
+    - [ ] getNewestWorkoutRecordByParentId(parentId: string)
+    - [ ] getExercisesByName(name: string)
+    - [ ] creating records and actions?
   - [ ] Add LocalDatabase tests
 - [ ] Constants and enums
   - [ ] How much should remain in the `constants.ts` file?
@@ -33,6 +39,10 @@ Implement the following:
   - [ ] Enitity editing (CRUD)
   - [ ] Field validation
   - [ ] Fitness data importer/exporter
+
+## Ideas
+
+- Store active records with other records, but have the ids stored in LocalStorage?
 
 ## Design Drafts
 
