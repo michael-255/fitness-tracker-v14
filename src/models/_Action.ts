@@ -3,7 +3,7 @@ import { _Entity } from './_Entity'
 type _ActionParams = {
   id?: string
   createdAt?: string
-  name?: string
+  name: string
   description?: string
 }
 
@@ -16,9 +16,9 @@ type _ActionParams = {
  */
 export class _Action extends _Entity {
   name: string
-  description: string
+  description?: string
 
-  constructor({ id, createdAt, name = '', description = '' }: _ActionParams = {}) {
+  constructor({ id, createdAt, name, description }: _ActionParams) {
     super({ id, createdAt })
     this.name = name
     this.description = description

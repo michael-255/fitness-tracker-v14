@@ -1,30 +1,19 @@
 import { _Action } from './_Action'
 
-export interface ExerciseElements {
-  hasConfirm?: boolean
-  hasSets?: boolean
-  hasDuration?: boolean
-  hasDistance?: boolean
-  hasWeight?: boolean
-  hasReps?: boolean
-}
-
 // Exports for LocalDatabase
 export const ExerciseStore = Object.freeze({ exercises: '&id, name' })
-export interface IExercise {
-  id: string
-  createdAt: string
-  name: string
-  description: string
-  elements: object
-}
 
-type ExerciseParams = {
+export interface IExercise {
   id?: string
   createdAt?: string
-  name?: string
+  name: string
   description?: string
-  elements?: ExerciseElements
+  trackConfirm?: boolean
+  trackMultipleSets?: boolean
+  trackDuration?: boolean
+  trackDistance?: boolean
+  trackWeight?: boolean
+  trackReps?: boolean
 }
 
 /**
@@ -33,26 +22,39 @@ type ExerciseParams = {
  * @param createdAt
  * @param name
  * @param description
- * @param elements
+ * @param trackConfirm
+ * @param trackMultipleSets
+ * @param trackDuration
+ * @param trackDistance
+ * @param trackWeight
+ * @param trackReps
  */
 export class Exercise extends _Action {
-  elements: ExerciseElements
+  trackConfirm?: boolean
+  trackMultipleSets?: boolean
+  trackDuration?: boolean
+  trackDistance?: boolean
+  trackWeight?: boolean
+  trackReps?: boolean
 
   constructor({
     id,
     createdAt,
     name,
     description,
-    elements = {
-      hasConfirm: false,
-      hasSets: false,
-      hasDuration: false,
-      hasDistance: false,
-      hasWeight: false,
-      hasReps: false,
-    },
-  }: ExerciseParams = {}) {
+    trackConfirm = false,
+    trackMultipleSets = false,
+    trackDuration = false,
+    trackDistance = false,
+    trackWeight = false,
+    trackReps = false,
+  }: IExercise) {
     super({ id, createdAt, name, description })
-    this.elements = elements
+    this.trackConfirm = trackConfirm
+    this.trackMultipleSets = trackMultipleSets
+    this.trackDuration = trackDuration
+    this.trackDistance = trackDistance
+    this.trackWeight = trackWeight
+    this.trackReps = trackReps
   }
 }

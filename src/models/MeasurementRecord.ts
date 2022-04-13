@@ -4,20 +4,14 @@ import { _Record } from './_Record'
 export const MeasurementRecordStore = Object.freeze({
   measurementRecords: '&id, createdAt, parentId',
 })
-export interface IMeasurementRecord {
-  id: string
-  createdAt: string
-  parentId: string
-  note: string
-  data: object
-}
 
-type MeasurementRecordParams = {
+export interface IMeasurementRecord {
   id?: string
   createdAt?: string
-  parentId?: string
+  parentId: string
   note?: string
-  data?: object
+  lbs?: number
+  inches?: number
 }
 
 /**
@@ -25,10 +19,16 @@ type MeasurementRecordParams = {
  * @param id
  * @param createdAt
  * @param note
- * @param data lbs and inches
+ * @param lbs
+ * @param inches
  */
 export class MeasurementRecord extends _Record {
-  constructor({ id, createdAt, parentId, note, data }: MeasurementRecordParams = {}) {
-    super({ id, createdAt, parentId, note, data })
+  lbs?: number
+  inches?: number
+
+  constructor({ id, createdAt, parentId, note, lbs, inches }: IMeasurementRecord) {
+    super({ id, createdAt, parentId, note })
+    this.lbs = lbs
+    this.inches = inches
   }
 }

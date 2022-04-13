@@ -2,11 +2,9 @@ import { describe, test, expect } from 'vitest'
 import { Workout } from '../Workout'
 
 describe('Workout', () => {
-  test('should test Workout', () => {
-    expect(new Workout()).toBe(false)
-  })
-
-  test('should test getWorkoutExercises method', () => {
-    expect(true).toBe(false)
+  test('requires name parameter for constructor', () => {
+    const name = 'Test Workout Name'
+    const result = new Workout({ name })
+    expect(result.name).toBeDefined()
   })
 })

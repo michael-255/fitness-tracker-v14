@@ -1,22 +1,16 @@
 import { _Record } from './_Record'
+import { getDurationString } from '@/utils/date-time'
 
 // Exports for LocalDatabase
 export const WorkoutRecordStore = Object.freeze({ workoutRecords: '&id, createdAt, parentId' })
-export const ActiveWorkoutStore = Object.freeze({ activeWorkouts: '&id' })
-export interface IWorkoutRecord {
-  id: string
-  createdAt: string
-  parentId: string
-  note: string
-  data: object
-}
+export const ActiveWorkoutStore = Object.freeze({ activeWorkouts: '&id, createdAt, parentId' })
 
-type WorkoutRecordParams = {
+export interface IWorkoutRecord {
   id?: string
   createdAt?: string
-  parentId?: string
+  parentId: string
   note?: string
-  data?: object
+  finishedAt?: string
 }
 
 /**
@@ -25,14 +19,24 @@ type WorkoutRecordParams = {
  * @param createdAt
  * @param parentId
  * @param note
- * @param data
+ * @param finishedAt
  */
 export class WorkoutRecord extends _Record {
-  constructor({ id, createdAt, parentId, note, data }: WorkoutRecordParams = {}) {
-    super({ id, createdAt, parentId, note, data })
+  finishedAt?: string
+
+  constructor({ id, createdAt, parentId, note, finishedAt }: IWorkoutRecord) {
+    super({ id, createdAt, parentId, note })
+    this.finishedAt = finishedAt
   }
 
-  getDuration(): Error {
-    return new Error('Not Implemented')
+  getDuration(): string {
+    if (this.finishedAt && this.createdAt) {
+      const finishedAtMS = new Date(this.finishedAt).getTime()
+      const createdAtMS = new Date(this.createdAt).getTime()
+      const durationMS = finishedAtMS - createdAtMS
+      return getDurationString(durationMS)
+    } else {
+      return '-'
+    }
   }
 }

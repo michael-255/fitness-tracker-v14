@@ -17,8 +17,8 @@ Implement the following:
   - [x] `MeasurementRecord` (LocalDatabase)
   - [x] `ExerciseRecord` (LocalDatabase)
   - [x] `WorkoutRecord` (LocalDatabase)
-  - [ ] Add class methods
-  - [ ] Add class tests
+  - [x] Add class methods
+  - [x] Add class tests
   - [ ] Add LocalDatabase methods
   - [ ] Add LocalDatabase tests
 - [ ] Constants and enums

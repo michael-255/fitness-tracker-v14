@@ -24,12 +24,12 @@ export class LocalDatabase extends Dexie {
   exercises!: Table<IExercise>
   workouts!: Table<IWorkout>
   measurementRecords!: Table<IMeasurementRecord>
-  exericseRecords!: Table<IExerciseRecord>
+  exerciseRecords!: Table<IExerciseRecord>
   workoutRecords!: Table<IWorkoutRecord>
   activeExercises!: Table<IExerciseRecord>
   activeWorkouts!: Table<IWorkoutRecord>
 
-  constructor(name = 'LocalDatabase') {
+  constructor(name: string) {
     super(name)
 
     this.version(1).stores({
@@ -47,10 +47,58 @@ export class LocalDatabase extends Dexie {
     this.exercises.mapToClass(Exercise)
     this.workouts.mapToClass(Workout)
     this.measurementRecords.mapToClass(MeasurementRecord)
-    this.exericseRecords.mapToClass(ExerciseRecord)
+    this.exerciseRecords.mapToClass(ExerciseRecord)
     this.workoutRecords.mapToClass(WorkoutRecord)
     this.activeExercises.mapToClass(ExerciseRecord)
     this.activeWorkouts.mapToClass(WorkoutRecord)
+  }
+
+  async getMeasurements(): Promise<IMeasurement[]> {
+    return await this.measurements.toArray()
+  }
+
+  async getExercises(): Promise<IExercise[]> {
+    return await this.exercises.toArray()
+  }
+
+  async getWorkouts(): Promise<IWorkout[]> {
+    return await this.workouts.toArray()
+  }
+
+  async getMeasurementRecords(): Promise<IMeasurementRecord[]> {
+    return await this.measurementRecords.toArray()
+  }
+
+  async getExerciseRecords(): Promise<IExerciseRecord[]> {
+    return await this.exerciseRecords.toArray()
+  }
+
+  async getWorkoutRecords(): Promise<IWorkoutRecord[]> {
+    return await this.workoutRecords.toArray()
+  }
+
+  async getActiveExercises(): Promise<IExerciseRecord[]> {
+    return await this.activeExercises.toArray()
+  }
+
+  async getActiveWorkouts(): Promise<IWorkoutRecord[]> {
+    return await this.activeWorkouts.toArray()
+  }
+
+  // async getMeasurementById(id: string): Promise<IMeasurement[]> {
+  //   return await this.measurements.toArray()
+  // }
+
+  // async getExercisesById(id: string): Promise<IMeasurement[]> {
+  //   return await this.exercises.toArray()
+  // }
+
+  // async getWorkoutsById(id: string): Promise<IMeasurement[]> {
+  //   return await this.workouts.toArray()
+  // }
+
+  getWorkoutExercises(): Error {
+    return new Error('Not Implemented')
   }
 }
 

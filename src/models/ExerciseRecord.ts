@@ -2,21 +2,21 @@ import { _Record } from './_Record'
 
 // Exports for LocalDatabase
 export const ExerciseRecordStore = Object.freeze({ exerciseRecords: '&id, createdAt, parentId' })
-export const ActiveExerciseStore = Object.freeze({ activeExercises: '&id' })
-export interface IExerciseRecord {
-  id: string
-  createdAt: string
-  parentId: string
-  note: string
-  data: object
-}
+export const ActiveExerciseStore = Object.freeze({ activeExercises: '&id, createdAt, parentId' })
 
-type ExerciseRecordParams = {
+export interface IExerciseRecord {
   id?: string
   createdAt?: string
-  parentId?: string
+  parentId: string
   note?: string
-  data?: object
+  sets?: ExerciseSet[]
+}
+
+export type ExerciseSet = {
+  weight?: number
+  reps?: number
+  distance?: number
+  duration?: number
 }
 
 /**
@@ -25,10 +25,13 @@ type ExerciseRecordParams = {
  * @param createdAt
  * @param parentId
  * @param note
- * @param data
+ * @param sets
  */
 export class ExerciseRecord extends _Record {
-  constructor({ id, createdAt, parentId, note, data }: ExerciseRecordParams = {}) {
-    super({ id, createdAt, parentId, note, data })
+  sets?: ExerciseSet[]
+
+  constructor({ id, createdAt, parentId, note, sets = [] }: IExerciseRecord) {
+    super({ id, createdAt, parentId, note })
+    this.sets = sets
   }
 }

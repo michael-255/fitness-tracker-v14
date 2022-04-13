@@ -11,8 +11,8 @@ type _EntityParams = {
  * @param createdAt
  */
 export class _Entity {
-  id: string
-  createdAt: string
+  id?: string
+  createdAt?: string
 
   constructor({ id = createId(), createdAt = new Date().toISOString() }: _EntityParams = {}) {
     this.id = id
