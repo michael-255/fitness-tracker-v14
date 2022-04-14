@@ -1,6 +1,6 @@
 import { _Entity } from './_Entity'
 
-type _ActionParams = {
+interface IActionParams {
   id?: string
   createdAt?: string
   name: string
@@ -9,16 +9,16 @@ type _ActionParams = {
 
 /**
  * _Action Class
- * @param id
- * @param createdAt
- * @param name
- * @param description
+ * @param id (Inherited, Optional)
+ * @param createdAt (Inherited, Optional)
+ * @param name (Required)
+ * @param description (Optional)
  */
 export class _Action extends _Entity {
   name: string
   description?: string
 
-  constructor({ id, createdAt, name, description }: _ActionParams) {
+  constructor({ id, createdAt, name, description }: IActionParams) {
     super({ id, createdAt })
     this.name = name
     this.description = description

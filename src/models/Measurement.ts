@@ -12,14 +12,21 @@ export interface IMeasurement {
   trackInches?: boolean
 }
 
+export interface IUpdateMeasurement {
+  name?: string
+  description?: string
+  trackLbs?: boolean
+  trackInches?: boolean
+}
+
 /**
  * Measurement Class
- * @param id
- * @param createdAt
- * @param name
- * @param description
- * @param trackLbs
- * @param trackInches
+ * @param id (Inherited, Optional)
+ * @param createdAt (Inherited, Optional)
+ * @param name (Inherited, Required)
+ * @param description (Inherited, Optional)
+ * @param trackLbs (Optional)
+ * @param trackInches (Optional)
  */
 export class Measurement extends _Action {
   trackLbs?: boolean

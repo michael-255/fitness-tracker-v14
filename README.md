@@ -19,26 +19,21 @@ Implement the following:
   - [x] `WorkoutRecord` (LocalDatabase)
   - [x] Add class methods
   - [x] Add class tests
-  - [ ] Add LocalDatabase methods
-    - [ ] getWorkoutExercises()
-    - [ ] getNewestMeasurementRecordByParentId(parentId: string)
-    - [ ] getNewestExerciseRecordByParentId(parentId: string)
-    - [ ] getNewestWorkoutRecordByParentId(parentId: string)
-    - [ ] getExercisesByName(name: string)
-    - [ ] creating records and actions?
-  - [ ] Add LocalDatabase tests
-- [ ] Constants and enums
-  - [ ] How much should remain in the `constants.ts` file?
+  - [x] Add LocalDatabase methods
+  - [ ] Add LocalDatabase tests (54 methods...this will take awhile)
+- [x] Constants and enums
 - [ ] Routes and Layouts
   - [ ] How to overwrite route history
   - [ ] Test page for experiments
 - [ ] App Functionality
-  - [ ] Default entities with constant ids
+  - [ ] Default measurements, workouts, exercises with constant ids
   - [ ] Workouts and exercises (with varying fields)
   - [ ] Record history and charts
   - [ ] Enitity editing (CRUD)
   - [ ] Field validation
   - [ ] Fitness data importer/exporter
+  - [ ] Validators for LocalDatabase creates and edits
+- [ ] `LAST!!!` Flesh out app theme/design elements
 
 ## Ideas
 

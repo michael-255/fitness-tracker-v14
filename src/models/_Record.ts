@@ -1,6 +1,6 @@
 import { _Entity } from './_Entity'
 
-type _RecordParams = {
+interface IRecordParams {
   id?: string
   createdAt?: string
   parentId: string
@@ -9,16 +9,16 @@ type _RecordParams = {
 
 /**
  * _Record Class
- * @param id
- * @param createdAt
- * @param parentId
- * @param note
+ * @param id (Inherited, Optional)
+ * @param createdAt (Inherited, Optional)
+ * @param parentId (Required)
+ * @param note (Optional)
  */
 export class _Record extends _Entity {
   parentId: string
   note?: string
 
-  constructor({ id, createdAt, parentId, note }: _RecordParams) {
+  constructor({ id, createdAt, parentId, note }: IRecordParams) {
     super({ id, createdAt })
     this.parentId = parentId
     this.note = note

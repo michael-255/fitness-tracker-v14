@@ -14,13 +14,20 @@ export interface IMeasurementRecord {
   inches?: number
 }
 
+export interface IUpdateMeasurementRecord {
+  note?: string
+  lbs?: number
+  inches?: number
+}
+
 /**
  * MeasurementRecord Class
- * @param id
- * @param createdAt
- * @param note
- * @param lbs
- * @param inches
+ * @param id (Inherited, Optional)
+ * @param createdAt (Inherited, Optional)
+ * @param parentId (Inherited, Required)
+ * @param note (Inherited, Optional)
+ * @param lbs (Optional)
+ * @param inches (Optional)
  */
 export class MeasurementRecord extends _Record {
   lbs?: number

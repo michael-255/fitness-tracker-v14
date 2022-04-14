@@ -1,20 +1,20 @@
 import { createId } from '@/utils/build-id'
 
-type _EntityParams = {
+interface IEntityParams {
   id?: string
   createdAt?: string
 }
 
 /**
  * _Entity Class
- * @param id
- * @param createdAt
+ * @param id (Defaulted)
+ * @param createdAt (Defaulted)
  */
 export class _Entity {
   id?: string
   createdAt?: string
 
-  constructor({ id = createId(), createdAt = new Date().toISOString() }: _EntityParams = {}) {
+  constructor({ id = createId(), createdAt = new Date().toISOString() }: IEntityParams = {}) {
     this.id = id
     this.createdAt = createdAt
   }

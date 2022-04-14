@@ -1,18 +1,18 @@
-import Dexie from 'dexie'
+import Dexie, { type IndexableType } from 'dexie'
 import type { Table } from 'dexie'
 // Database Stores
 import { Measurement, MeasurementStore } from '@/models/Measurement'
-import type { IMeasurement } from '@/models/Measurement'
+import type { IMeasurement, IUpdateMeasurement } from '@/models/Measurement'
 import { Exercise, ExerciseStore } from '@/models/Exercise'
-import type { IExercise } from '@/models/Exercise'
+import type { IExercise, IUpdateExercise } from '@/models/Exercise'
 import { Workout, WorkoutStore } from '@/models/Workout'
-import type { IWorkout } from '@/models/Workout'
+import type { IWorkout, IUpdateWorkout } from '@/models/Workout'
 import { MeasurementRecord, MeasurementRecordStore } from '@/models/MeasurementRecord'
-import type { IMeasurementRecord } from '@/models/MeasurementRecord'
+import type { IMeasurementRecord, IUpdateMeasurementRecord } from '@/models/MeasurementRecord'
 import { ExerciseRecord, ExerciseRecordStore, ActiveExerciseStore } from '@/models/ExerciseRecord'
-import type { IExerciseRecord } from '@/models/ExerciseRecord'
+import type { IExerciseRecord, IUpdateExerciseRecord } from '@/models/ExerciseRecord'
 import { WorkoutRecord, WorkoutRecordStore, ActiveWorkoutStore } from '@/models/WorkoutRecord'
-import type { IWorkoutRecord } from '@/models/WorkoutRecord'
+import type { IWorkoutRecord, IUpdateWorkoutRecord } from '@/models/WorkoutRecord'
 
 /**
  * Wrapper for Dexie IndexedDB.
@@ -53,52 +53,295 @@ export class LocalDatabase extends Dexie {
     this.activeWorkouts.mapToClass(WorkoutRecord)
   }
 
-  async getMeasurements(): Promise<IMeasurement[]> {
+  //
+  // Get All
+  //
+
+  async getAllMeasurements(): Promise<IMeasurement[]> {
     return await this.measurements.toArray()
   }
 
-  async getExercises(): Promise<IExercise[]> {
+  async getAllExercises(): Promise<IExercise[]> {
     return await this.exercises.toArray()
   }
 
-  async getWorkouts(): Promise<IWorkout[]> {
+  async getAllWorkouts(): Promise<IWorkout[]> {
     return await this.workouts.toArray()
   }
 
-  async getMeasurementRecords(): Promise<IMeasurementRecord[]> {
+  async getAllMeasurementRecords(): Promise<IMeasurementRecord[]> {
     return await this.measurementRecords.toArray()
   }
 
-  async getExerciseRecords(): Promise<IExerciseRecord[]> {
+  async getAllExerciseRecords(): Promise<IExerciseRecord[]> {
     return await this.exerciseRecords.toArray()
   }
 
-  async getWorkoutRecords(): Promise<IWorkoutRecord[]> {
+  async getAllWorkoutRecords(): Promise<IWorkoutRecord[]> {
     return await this.workoutRecords.toArray()
   }
 
-  async getActiveExercises(): Promise<IExerciseRecord[]> {
+  async getAllActiveExercises(): Promise<IExerciseRecord[]> {
     return await this.activeExercises.toArray()
   }
 
-  async getActiveWorkouts(): Promise<IWorkoutRecord[]> {
+  async getAllActiveWorkouts(): Promise<IWorkoutRecord[]> {
     return await this.activeWorkouts.toArray()
   }
 
-  // async getMeasurementById(id: string): Promise<IMeasurement[]> {
-  //   return await this.measurements.toArray()
-  // }
+  //
+  // Get
+  //
 
-  // async getExerciseById(id: string): Promise<IMeasurement[]> {
-  //   return await this.exercises.toArray()
-  // }
+  async getMeasurement(id: string): Promise<IMeasurement | undefined> {
+    return await this.measurements.where('id').equalsIgnoreCase(id).first()
+  }
 
-  // async getWorkoutById(id: string): Promise<IMeasurement[]> {
-  //   return await this.workouts.toArray()
-  // }
+  async getExercise(id: string): Promise<IExercise | undefined> {
+    return await this.exercises.where('id').equalsIgnoreCase(id).first()
+  }
 
-  getWorkoutExercises(): Error {
-    return new Error('Not Implemented')
+  async getWorkout(id: string): Promise<IWorkout | undefined> {
+    return await this.workouts.where('id').equalsIgnoreCase(id).first()
+  }
+
+  async getActiveExercise(id: string): Promise<IExerciseRecord | undefined> {
+    return await this.activeExercises.where('id').equalsIgnoreCase(id).first()
+  }
+
+  async getActiveWorkout(id: string): Promise<IWorkoutRecord | undefined> {
+    return await this.activeWorkouts.where('id').equalsIgnoreCase(id).first()
+  }
+
+  async getExercisesByName(name: string): Promise<IExercise[]> {
+    return await this.exercises.where('name').equalsIgnoreCase(name).toArray()
+  }
+
+  async getWorkoutExercises(exerciseIds: string[]): Promise<IExercise[]> {
+    // Filters out falsy values and casts the result type
+    return (await this.exercises.bulkGet(exerciseIds)).filter(Boolean) as IExercise[]
+  }
+
+  async getWorkoutActiveExercises(activeExerciseIds: string[]): Promise<IExerciseRecord[]> {
+    // Filters out falsy values and casts the result type
+    return (await this.activeExercises.bulkGet(activeExerciseIds)).filter(
+      Boolean
+    ) as IExerciseRecord[]
+  }
+
+  async getMeasurementRecordsByParentId(parentId: string): Promise<IMeasurementRecord[]> {
+    return await this.measurementRecords
+      .where('parentId')
+      .equalsIgnoreCase(parentId)
+      .sortBy('createdAt')
+  }
+
+  async getExerciseRecordsByParentId(parentId: string): Promise<IExerciseRecord[]> {
+    return await this.exerciseRecords
+      .where('parentId')
+      .equalsIgnoreCase(parentId)
+      .sortBy('createdAt')
+  }
+
+  async getWorkoutRecordsByParentId(parentId: string): Promise<IWorkoutRecord[]> {
+    return await this.workoutRecords
+      .where('parentId')
+      .equalsIgnoreCase(parentId)
+      .sortBy('createdAt')
+  }
+
+  async getNewestMeasurementRecordByParentId(
+    parentId: string
+  ): Promise<IMeasurementRecord | undefined> {
+    const parentRecords = await this.measurementRecords
+      .where('parentId')
+      .equalsIgnoreCase(parentId)
+      .sortBy('createdAt')
+
+    if (parentRecords.length) {
+      return parentRecords[parentRecords.length - 1]
+    } else {
+      return undefined
+    }
+  }
+
+  async getNewestExerciseRecordByParentId(parentId: string): Promise<IExerciseRecord | undefined> {
+    const parentRecords = await this.exerciseRecords
+      .where('parentId')
+      .equalsIgnoreCase(parentId)
+      .sortBy('createdAt')
+
+    if (parentRecords.length) {
+      return parentRecords[parentRecords.length - 1]
+    } else {
+      return undefined
+    }
+  }
+
+  async getNewestWorkoutRecordByParentId(parentId: string): Promise<IWorkoutRecord | undefined> {
+    const parentRecords = await this.workoutRecords
+      .where('parentId')
+      .equalsIgnoreCase(parentId)
+      .sortBy('createdAt')
+
+    if (parentRecords.length) {
+      return parentRecords[parentRecords.length - 1]
+    } else {
+      return undefined
+    }
+  }
+
+  //
+  // Add
+  //
+
+  async addMeasurement(measurement: Measurement): Promise<IndexableType> {
+    return await this.measurements.add(measurement)
+  }
+
+  async addExercise(exercise: Exercise): Promise<IndexableType> {
+    return await this.exercises.add(exercise)
+  }
+
+  async addWorkout(workout: Workout): Promise<IndexableType> {
+    return await this.workouts.add(workout)
+  }
+
+  async addMeasurementRecord(measurementRecord: MeasurementRecord): Promise<IndexableType> {
+    return await this.measurementRecords.add(measurementRecord)
+  }
+
+  async addExerciseRecord(exerciseRecord: ExerciseRecord): Promise<IndexableType> {
+    return await this.exerciseRecords.add(exerciseRecord)
+  }
+
+  async addWorkoutRecord(workoutRecord: WorkoutRecord): Promise<IndexableType> {
+    return await this.workoutRecords.add(workoutRecord)
+  }
+
+  async addActiveExercise(activeExercise: ExerciseRecord): Promise<IndexableType> {
+    return await this.activeExercises.add(activeExercise)
+  }
+
+  async addActiveWorkout(activeWorkout: WorkoutRecord): Promise<IndexableType> {
+    return await this.activeWorkouts.add(activeWorkout)
+  }
+
+  //
+  // Update
+  //
+
+  async updateMeasurement(id: string, properties: IUpdateMeasurement): Promise<IndexableType> {
+    return await this.measurements.update(id, properties)
+  }
+
+  async updateExercise(id: string, properties: IUpdateExercise): Promise<IndexableType> {
+    return await this.exercises.update(id, properties)
+  }
+
+  async updateWorkout(id: string, properties: IUpdateWorkout): Promise<IndexableType> {
+    return await this.workouts.update(id, properties)
+  }
+
+  async updateMeasurementRecord(
+    id: string,
+    properties: IUpdateMeasurementRecord
+  ): Promise<IndexableType> {
+    return await this.measurementRecords.update(id, properties)
+  }
+
+  async updateExerciseRecord(
+    id: string,
+    properties: IUpdateExerciseRecord
+  ): Promise<IndexableType> {
+    return await this.exerciseRecords.update(id, properties)
+  }
+
+  async updateWorkoutRecord(id: string, properties: IUpdateWorkoutRecord): Promise<IndexableType> {
+    return await this.workoutRecords.update(id, properties)
+  }
+
+  async updateActiveExercise(
+    id: string,
+    properties: IUpdateExerciseRecord
+  ): Promise<IndexableType> {
+    return await this.activeExercises.update(id, properties)
+  }
+
+  async updateActiveWorkout(id: string, properties: IUpdateWorkoutRecord): Promise<IndexableType> {
+    return await this.activeWorkouts.update(id, properties)
+  }
+
+  //
+  // Delete
+  //
+
+  async deleteMeasurement(id: string): Promise<void> {
+    return await this.measurements.delete(id)
+  }
+
+  async deleteExercise(id: string): Promise<void> {
+    return await this.exercises.delete(id)
+  }
+
+  async deleteWorkout(id: string): Promise<void> {
+    return await this.workouts.delete(id)
+  }
+
+  async deleteMeasurementRecord(id: string): Promise<void> {
+    return await this.measurementRecords.delete(id)
+  }
+
+  async deleteExerciseRecord(id: string): Promise<void> {
+    return await this.exerciseRecords.delete(id)
+  }
+
+  async deleteWorkoutRecord(id: string): Promise<void> {
+    return await this.workoutRecords.delete(id)
+  }
+
+  async deleteActiveExercise(id: string): Promise<void> {
+    return await this.activeExercises.delete(id)
+  }
+
+  async deleteActiveWorkout(id: string): Promise<void> {
+    return await this.activeWorkouts.delete(id)
+  }
+
+  //
+  // Clear (Delete All)
+  //
+
+  async clearMeasurements(): Promise<void> {
+    return await this.measurements.clear()
+  }
+
+  async clearExercises(): Promise<void> {
+    return await this.exercises.clear()
+  }
+
+  async clearWorkouts(): Promise<void> {
+    return await this.workouts.clear()
+  }
+
+  async clearMeasurementRecords(): Promise<void> {
+    return await this.measurementRecords.clear()
+  }
+
+  async clearExerciseRecords(): Promise<void> {
+    return await this.exerciseRecords.clear()
+  }
+
+  async clearWorkoutRecords(): Promise<void> {
+    return await this.workoutRecords.clear()
+  }
+
+  async clearActiveExercises(): Promise<void> {
+    return await this.activeExercises.clear()
+  }
+
+  async clearActiveWorkouts(): Promise<void> {
+    return await this.activeWorkouts.clear()
   }
 }
 

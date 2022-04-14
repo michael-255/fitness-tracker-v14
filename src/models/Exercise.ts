@@ -16,18 +16,29 @@ export interface IExercise {
   trackReps?: boolean
 }
 
+export interface IUpdateExercise {
+  name?: string
+  description?: string
+  trackConfirm?: boolean
+  trackMultipleSets?: boolean
+  trackDuration?: boolean
+  trackDistance?: boolean
+  trackWeight?: boolean
+  trackReps?: boolean
+}
+
 /**
  * Exercise Class
- * @param id
- * @param createdAt
- * @param name
- * @param description
- * @param trackConfirm
- * @param trackMultipleSets
- * @param trackDuration
- * @param trackDistance
- * @param trackWeight
- * @param trackReps
+ * @param id (Inherited, Optional)
+ * @param createdAt (Inherited, Optional)
+ * @param name (Inherited, Required)
+ * @param description (Inherited, Optional)
+ * @param trackConfirm (Defaulted)
+ * @param trackMultipleSets (Defaulted)
+ * @param trackDuration (Defaulted)
+ * @param trackDistance (Defaulted)
+ * @param trackWeight (Defaulted)
+ * @param trackReps (Defaulted)
  */
 export class Exercise extends _Action {
   trackConfirm?: boolean

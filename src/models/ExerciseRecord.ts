@@ -12,6 +12,11 @@ export interface IExerciseRecord {
   sets?: ExerciseSet[]
 }
 
+export interface IUpdateExerciseRecord {
+  note?: string
+  sets?: ExerciseSet[]
+}
+
 export type ExerciseSet = {
   weight?: number
   reps?: number
@@ -21,11 +26,11 @@ export type ExerciseSet = {
 
 /**
  * ExerciseRecord Class
- * @param id
- * @param createdAt
- * @param parentId
- * @param note
- * @param sets
+ * @param id (Inherited, Optional)
+ * @param createdAt (Inherited, Optional)
+ * @param parentId (Inherited, Required)
+ * @param note (Inherited, Optional)
+ * @param sets (Defaulted)
  */
 export class ExerciseRecord extends _Record {
   sets?: ExerciseSet[]

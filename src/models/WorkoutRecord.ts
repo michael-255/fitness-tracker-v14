@@ -13,13 +13,18 @@ export interface IWorkoutRecord {
   finishedAt?: string
 }
 
+export interface IUpdateWorkoutRecord {
+  note?: string
+  finishedAt?: string
+}
+
 /**
  * WorkoutRecord Class
- * @param id
- * @param createdAt
- * @param parentId
- * @param note
- * @param finishedAt
+ * @param id (Inherited, Optional)
+ * @param createdAt (Inherited, Optional)
+ * @param parentId (Inherited, Required)
+ * @param note (Inherited, Optional)
+ * @param finishedAt (Optional)
  */
 export class WorkoutRecord extends _Record {
   finishedAt?: string
