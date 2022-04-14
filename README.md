@@ -37,7 +37,38 @@ Implement the following:
 
 ## Ideas
 
-- Store active records with other records, but have the ids stored in LocalStorage?
+Hygen Updates (`hygen class new`)
+
+- Parameters
+  - Parameter name:
+  - Parameter type:
+    - Simple types...
+    - Custom type
+  - Parameter usage:
+    - Required
+    - Optional
+    - Defaulted
+  - Parameter default value:
+  - Parameter updatable? (LocalDatabase classes only)
+    - boolean
+  - Parameter inherited?
+    - boolean
+
+```javascript
+{
+  parameters: [
+    {
+      paramName: 'sets',
+      paramType: 'ExerciseSet[]',
+      paramUsage: 'Defaulted',
+      paramDefault: [],
+      paramUpdatable: true,
+      paramInherited: true,
+    },
+    // more parameters...
+  ]
+}
+```
 
 ## Design Drafts
 
