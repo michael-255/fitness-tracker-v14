@@ -5,6 +5,7 @@ interface IActionParams {
   createdAt?: string
   name: string
   description?: string
+  disabled?: boolean
 }
 
 /**
@@ -13,14 +14,17 @@ interface IActionParams {
  * @param createdAt (Inherited, Optional)
  * @param name (Required)
  * @param description (Optional)
+ * @param disabled (Optional)
  */
 export class _Action extends _Entity {
   name: string
   description?: string
+  disabled?: boolean
 
-  constructor({ id, createdAt, name, description }: IActionParams) {
+  constructor({ id, createdAt, name, description, disabled }: IActionParams) {
     super({ id, createdAt })
     this.name = name
     this.description = description
+    this.disabled = disabled
   }
 }

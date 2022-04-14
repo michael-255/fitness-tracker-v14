@@ -8,6 +8,7 @@ export interface IMeasurement {
   createdAt?: string
   name: string
   description?: string
+  disabled?: boolean
   trackLbs?: boolean
   trackInches?: boolean
 }
@@ -15,6 +16,7 @@ export interface IMeasurement {
 export interface IUpdateMeasurement {
   name?: string
   description?: string
+  disabled?: boolean
   trackLbs?: boolean
   trackInches?: boolean
 }
@@ -25,6 +27,7 @@ export interface IUpdateMeasurement {
  * @param createdAt (Inherited, Optional)
  * @param name (Inherited, Required)
  * @param description (Inherited, Optional)
+ * @param disabled (Inherited, Optional)
  * @param trackLbs (Optional)
  * @param trackInches (Optional)
  */
@@ -37,10 +40,11 @@ export class Measurement extends _Action {
     createdAt,
     name,
     description,
+    disabled,
     trackLbs = false,
     trackInches = false,
   }: IMeasurement) {
-    super({ id, createdAt, name, description })
+    super({ id, createdAt, name, description, disabled })
     this.trackLbs = trackLbs
     this.trackInches = trackInches
   }

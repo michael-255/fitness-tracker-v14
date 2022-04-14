@@ -8,12 +8,14 @@ export interface IWorkout {
   createdAt?: string
   name: string
   description?: string
+  disabled?: boolean
   exerciseIds?: string[]
 }
 
 export interface IUpdateWorkout {
   name?: string
   description?: string
+  disabled?: boolean
   exerciseIds?: string[]
 }
 
@@ -23,13 +25,14 @@ export interface IUpdateWorkout {
  * @param createdAt (Inherited, Optional)
  * @param name (Inherited, Required)
  * @param description (Inherited, Optional)
+ * @param disabled (Inherited, Optional)
  * @param exerciseIds (Defaulted)
  */
 export class Workout extends _Action {
   exerciseIds?: string[]
 
-  constructor({ id, createdAt, name, description, exerciseIds = [] }: IWorkout) {
-    super({ id, createdAt, name, description })
+  constructor({ id, createdAt, name, description, disabled, exerciseIds = [] }: IWorkout) {
+    super({ id, createdAt, name, description, disabled })
     this.exerciseIds = exerciseIds
   }
 }

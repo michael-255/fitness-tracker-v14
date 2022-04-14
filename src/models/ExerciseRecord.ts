@@ -9,11 +9,13 @@ export interface IExerciseRecord {
   createdAt?: string
   parentId: string
   note?: string
+  skipped?: boolean
   sets?: ExerciseSet[]
 }
 
 export interface IUpdateExerciseRecord {
   note?: string
+  skipped?: boolean
   sets?: ExerciseSet[]
 }
 
@@ -30,13 +32,16 @@ export type ExerciseSet = {
  * @param createdAt (Inherited, Optional)
  * @param parentId (Inherited, Required)
  * @param note (Inherited, Optional)
+ * @param skipped (Optional)
  * @param sets (Defaulted)
  */
 export class ExerciseRecord extends _Record {
+  skipped?: boolean
   sets?: ExerciseSet[]
 
-  constructor({ id, createdAt, parentId, note, sets = [] }: IExerciseRecord) {
+  constructor({ id, createdAt, parentId, note, skipped, sets = [] }: IExerciseRecord) {
     super({ id, createdAt, parentId, note })
+    this.skipped = skipped
     this.sets = sets
   }
 }

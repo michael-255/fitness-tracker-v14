@@ -8,6 +8,7 @@ export interface IExercise {
   createdAt?: string
   name: string
   description?: string
+  disabled?: boolean
   trackConfirm?: boolean
   trackMultipleSets?: boolean
   trackDuration?: boolean
@@ -19,6 +20,7 @@ export interface IExercise {
 export interface IUpdateExercise {
   name?: string
   description?: string
+  disabled?: boolean
   trackConfirm?: boolean
   trackMultipleSets?: boolean
   trackDuration?: boolean
@@ -33,6 +35,7 @@ export interface IUpdateExercise {
  * @param createdAt (Inherited, Optional)
  * @param name (Inherited, Required)
  * @param description (Inherited, Optional)
+ * @param disabled (Inherited, Optional)
  * @param trackConfirm (Defaulted)
  * @param trackMultipleSets (Defaulted)
  * @param trackDuration (Defaulted)
@@ -53,6 +56,7 @@ export class Exercise extends _Action {
     createdAt,
     name,
     description,
+    disabled,
     trackConfirm = false,
     trackMultipleSets = false,
     trackDuration = false,
@@ -60,7 +64,7 @@ export class Exercise extends _Action {
     trackWeight = false,
     trackReps = false,
   }: IExercise) {
-    super({ id, createdAt, name, description })
+    super({ id, createdAt, name, description, disabled })
     this.trackConfirm = trackConfirm
     this.trackMultipleSets = trackMultipleSets
     this.trackDuration = trackDuration
