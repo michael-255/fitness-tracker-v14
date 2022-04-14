@@ -11,11 +11,13 @@ export interface IWorkoutRecord {
   parentId: string
   note?: string
   finishedAt?: string
+  exerciseRecordIds?: string[]
 }
 
 export interface IUpdateWorkoutRecord {
   note?: string
   finishedAt?: string
+  exerciseRecordIds?: string[]
 }
 
 /**
@@ -25,13 +27,23 @@ export interface IUpdateWorkoutRecord {
  * @param parentId (Inherited, Required)
  * @param note (Inherited, Optional)
  * @param finishedAt (Optional)
+ * @param exerciseRecordIds (Defaulted)
  */
 export class WorkoutRecord extends _Record {
   finishedAt?: string
+  exerciseRecordIds?: string[]
 
-  constructor({ id, createdAt, parentId, note, finishedAt }: IWorkoutRecord) {
+  constructor({
+    id,
+    createdAt,
+    parentId,
+    note,
+    finishedAt,
+    exerciseRecordIds = [],
+  }: IWorkoutRecord) {
     super({ id, createdAt, parentId, note })
     this.finishedAt = finishedAt
+    this.exerciseRecordIds = exerciseRecordIds
   }
 
   getDuration(): string {

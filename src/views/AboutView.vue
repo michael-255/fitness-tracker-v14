@@ -35,7 +35,7 @@ async function printExerciseRecordsByParentId() {
 }
 
 async function printGetExerciseRecords() {
-  console.log(await database.getExerciseRecords())
+  console.log(await database.getAllExerciseRecords())
 }
 
 async function getWorkoutExercises() {

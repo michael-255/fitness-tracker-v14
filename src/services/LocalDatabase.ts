@@ -15,8 +15,8 @@ import { WorkoutRecord, WorkoutRecordStore, ActiveWorkoutStore } from '@/models/
 import type { IWorkoutRecord, IUpdateWorkoutRecord } from '@/models/WorkoutRecord'
 
 /**
- * Wrapper for Dexie IndexedDB.
- * @param name Database name in the browser dev tools
+ * Wrapper for Dexie IndexedDB
+ * @param name Database name
  */
 export class LocalDatabase extends Dexie {
   // Information for the typing system to help Dexie out
