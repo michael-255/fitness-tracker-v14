@@ -2,8 +2,8 @@ import { _Record } from './_Record'
 import { getDurationString } from '@/utils/date-time'
 
 // Exports for LocalDatabase
-export const WorkoutRecordStore = Object.freeze({ workoutRecords: '&id, createdAt, parentId' })
-export const ActiveWorkoutStore = Object.freeze({ activeWorkouts: '&id, createdAt, parentId' })
+export const WorkoutRecordStore = Object.freeze({ workoutRecords: '&id, parentId' })
+export const ActiveWorkoutStore = Object.freeze({ activeWorkouts: '&id, parentId' })
 
 export interface IWorkoutRecord {
   id?: string
@@ -22,12 +22,12 @@ export interface IUpdateWorkoutRecord {
 
 /**
  * WorkoutRecord Class
- * @param id (Inherited, Optional)
- * @param createdAt (Inherited, Optional)
- * @param parentId (Inherited, Required)
- * @param note (Inherited, Optional)
- * @param finishedAt (Optional)
- * @param exerciseRecordIds (Defaulted)
+ * @param {string} obj.id (Inherited, Optional)
+ * @param {string} obj.createdAt (Inherited, Optional)
+ * @param {string} obj.parentId (Inherited, Required)
+ * @param {string} obj.note (Inherited, Optional)
+ * @param {string} obj.finishedAt (Optional)
+ * @param {string[]} obj.exerciseRecordIds (Defaulted)
  */
 export class WorkoutRecord extends _Record {
   finishedAt?: string

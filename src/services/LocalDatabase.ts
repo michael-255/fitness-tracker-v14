@@ -1,6 +1,7 @@
 import Dexie, { type IndexableType } from 'dexie'
 import type { Table } from 'dexie'
 // Database Stores
+import { ActionStatus } from '@/models/_Action'
 import { Measurement, MeasurementStore } from '@/models/Measurement'
 import type { IMeasurement, IUpdateMeasurement } from '@/models/Measurement'
 import { Exercise, ExerciseStore } from '@/models/Exercise'
@@ -189,6 +190,18 @@ export class LocalDatabase extends Dexie {
     } else {
       return undefined
     }
+  }
+
+  async getMeasurementsByStatus(status: ActionStatus): Promise<IMeasurement[]> {
+    return await this.measurements.where('status').equalsIgnoreCase(status).toArray()
+  }
+
+  async getExercisesByStatus(status: ActionStatus): Promise<IExercise[]> {
+    return await this.exercises.where('status').equalsIgnoreCase(status).toArray()
+  }
+
+  async getWorkoutsByStatus(status: ActionStatus): Promise<IWorkout[]> {
+    return await this.workouts.where('status').equalsIgnoreCase(status).toArray()
   }
 
   //

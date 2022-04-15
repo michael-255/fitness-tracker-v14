@@ -2,7 +2,7 @@ import { _Record } from './_Record'
 
 // Exports for LocalDatabase
 export const MeasurementRecordStore = Object.freeze({
-  measurementRecords: '&id, createdAt, parentId',
+  measurementRecords: '&id, parentId',
 })
 
 export interface IMeasurementRecord {
@@ -22,12 +22,12 @@ export interface IUpdateMeasurementRecord {
 
 /**
  * MeasurementRecord Class
- * @param id (Inherited, Optional)
- * @param createdAt (Inherited, Optional)
- * @param parentId (Inherited, Required)
- * @param note (Inherited, Optional)
- * @param lbs (Optional)
- * @param inches (Optional)
+ * @param {string} obj.id (Inherited, Optional)
+ * @param {string} obj.createdAt (Inherited, Optional)
+ * @param {string} obj.parentId (Inherited, Required)
+ * @param {string} obj.note (Inherited, Optional)
+ * @param {number} obj.lbs (Optional)
+ * @param {number} obj.inches (Optional)
  */
 export class MeasurementRecord extends _Record {
   lbs?: number

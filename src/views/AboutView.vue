@@ -31,7 +31,7 @@ async function printNewestExerciseRecord() {
 }
 
 async function printExerciseRecordsByParentId() {
-  console.log(await database.getExerciseRecordsByParentId('K4X9-FK36-TMAW'))
+  console.log(await database.getExerciseRecordsByParentId('1RN4-R3FN-4DJ5'))
 }
 
 async function printGetExerciseRecords() {

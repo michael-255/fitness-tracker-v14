@@ -1,8 +1,8 @@
 import { _Record } from './_Record'
 
 // Exports for LocalDatabase
-export const ExerciseRecordStore = Object.freeze({ exerciseRecords: '&id, createdAt, parentId' })
-export const ActiveExerciseStore = Object.freeze({ activeExercises: '&id, createdAt, parentId' })
+export const ExerciseRecordStore = Object.freeze({ exerciseRecords: '&id, parentId' })
+export const ActiveExerciseStore = Object.freeze({ activeExercises: '&id, parentId' })
 
 export interface IExerciseRecord {
   id?: string
@@ -28,12 +28,12 @@ export type ExerciseSet = {
 
 /**
  * ExerciseRecord Class
- * @param id (Inherited, Optional)
- * @param createdAt (Inherited, Optional)
- * @param parentId (Inherited, Required)
- * @param note (Inherited, Optional)
- * @param skipped (Optional)
- * @param sets (Defaulted)
+ * @param {string} obj.id (Inherited, Optional)
+ * @param {string} obj.createdAt (Inherited, Optional)
+ * @param {string} obj.parentId (Inherited, Required)
+ * @param {string} obj.note (Inherited, Optional)
+ * @param {boolean} obj.skipped (Optional)
+ * @param {ExerciseSet[]} obj.sets (Defaulted)
  */
 export class ExerciseRecord extends _Record {
   skipped?: boolean

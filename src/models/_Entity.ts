@@ -7,8 +7,8 @@ interface IEntityParams {
 
 /**
  * _Entity Class
- * @param id (Defaulted)
- * @param createdAt (Defaulted)
+ * @param {string} obj.id (Defaulted)
+ * @param {string} obj.createdAt (Defaulted)
  */
 export class _Entity {
   id?: string

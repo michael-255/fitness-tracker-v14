@@ -9,10 +9,10 @@ interface IRecordParams {
 
 /**
  * _Record Class
- * @param id (Inherited, Optional)
- * @param createdAt (Inherited, Optional)
- * @param parentId (Required)
- * @param note (Optional)
+ * @param {string} obj.id (Inherited, Optional)
+ * @param {string} obj.createdAt (Inherited, Optional)
+ * @param {string} obj.parentId (Required)
+ * @param {string} obj.note (Optional)
  */
 export class _Record extends _Entity {
   parentId: string

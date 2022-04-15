@@ -1,14 +1,14 @@
-import { _Action } from './_Action'
+import { _Action, ActionStatus } from './_Action'
 
 // Exports for LocalDatabase
-export const MeasurementStore = Object.freeze({ measurements: '&id, name' })
+export const MeasurementStore = Object.freeze({ measurements: '&id, name, status' })
 
 export interface IMeasurement {
   id?: string
   createdAt?: string
   name: string
   description?: string
-  disabled?: boolean
+  status?: ActionStatus
   trackLbs?: boolean
   trackInches?: boolean
 }
@@ -16,20 +16,20 @@ export interface IMeasurement {
 export interface IUpdateMeasurement {
   name?: string
   description?: string
-  disabled?: boolean
+  status?: ActionStatus
   trackLbs?: boolean
   trackInches?: boolean
 }
 
 /**
  * Measurement Class
- * @param id (Inherited, Optional)
- * @param createdAt (Inherited, Optional)
- * @param name (Inherited, Required)
- * @param description (Inherited, Optional)
- * @param disabled (Inherited, Optional)
- * @param trackLbs (Optional)
- * @param trackInches (Optional)
+ * @param {string} obj.id (Inherited, Optional)
+ * @param {string} obj.createdAt (Inherited, Optional)
+ * @param {string} obj.name (Inherited, Required)
+ * @param {string} obj.description (Inherited, Optional)
+ * @param {ActionStatus} obj.status (Inherited, Optional)
+ * @param {boolean} obj.trackLbs (Optional)
+ * @param {boolean} obj.trackInches (Optional)
  */
 export class Measurement extends _Action {
   trackLbs?: boolean
@@ -40,12 +40,16 @@ export class Measurement extends _Action {
     createdAt,
     name,
     description,
-    disabled,
+    status,
     trackLbs = false,
     trackInches = false,
   }: IMeasurement) {
-    super({ id, createdAt, name, description, disabled })
+    super({ id, createdAt, name, description, status })
     this.trackLbs = trackLbs
     this.trackInches = trackInches
+  }
+
+  getFeetAndInches(): Error {
+    return new Error('Not Implemented')
   }
 }
