@@ -1,7 +1,7 @@
 import Dexie, { type IndexableType } from 'dexie'
 import type { Table } from 'dexie'
 // Database Stores
-import { ActionStatus } from '@/models/_Action'
+import type { ActionStatus } from '@/models/_Action'
 import { Measurement, MeasurementStore } from '@/models/Measurement'
 import type { IMeasurement, IUpdateMeasurement } from '@/models/Measurement'
 import { Exercise, ExerciseStore } from '@/models/Exercise'
