@@ -94,23 +94,35 @@ export class LocalDatabase extends Dexie {
   // Get
   //
 
-  async getMeasurement(id: string): Promise<IMeasurement | undefined> {
+  async getMeasurementById(id: string): Promise<IMeasurement | undefined> {
     return await this.measurements.where('id').equalsIgnoreCase(id).first()
   }
 
-  async getExercise(id: string): Promise<IExercise | undefined> {
+  async getExerciseById(id: string): Promise<IExercise | undefined> {
     return await this.exercises.where('id').equalsIgnoreCase(id).first()
   }
 
-  async getWorkout(id: string): Promise<IWorkout | undefined> {
+  async getWorkoutById(id: string): Promise<IWorkout | undefined> {
     return await this.workouts.where('id').equalsIgnoreCase(id).first()
   }
 
-  async getActiveExercise(id: string): Promise<IExerciseRecord | undefined> {
+  async getMeasurementRecordById(id: string): Promise<IMeasurementRecord | undefined> {
+    return await this.measurementRecords.where('id').equalsIgnoreCase(id).first()
+  }
+
+  async getExerciseRecordById(id: string): Promise<IExerciseRecord | undefined> {
+    return await this.exerciseRecords.where('id').equalsIgnoreCase(id).first()
+  }
+
+  async getWorkoutRecordById(id: string): Promise<IWorkoutRecord | undefined> {
+    return await this.workoutRecords.where('id').equalsIgnoreCase(id).first()
+  }
+
+  async getActiveExerciseById(id: string): Promise<IExerciseRecord | undefined> {
     return await this.activeExercises.where('id').equalsIgnoreCase(id).first()
   }
 
-  async getActiveWorkout(id: string): Promise<IWorkoutRecord | undefined> {
+  async getActiveWorkoutById(id: string): Promise<IWorkoutRecord | undefined> {
     return await this.activeWorkouts.where('id').equalsIgnoreCase(id).first()
   }
 
