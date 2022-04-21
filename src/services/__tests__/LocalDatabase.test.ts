@@ -10,8 +10,13 @@ describe('LocalDatabase', () => {
   const firstMock = vi.fn()
   const lastMock = vi.fn()
   const filterMock = vi.fn()
+  const sortByMock = vi.fn()
   const bulkGetMock = vi.fn(() => ({ filter: filterMock }))
-  const equalsIgnoreCaseMock = vi.fn(() => ({ toArray: toArrayMock, first: firstMock }))
+  const equalsIgnoreCaseMock = vi.fn(() => ({
+    toArray: toArrayMock,
+    first: firstMock,
+    sortBy: sortByMock,
+  }))
   const whereMock = vi.fn(() => ({ equalsIgnoreCase: equalsIgnoreCaseMock }))
   const orderByMock = vi.fn(() => ({ first: firstMock, last: lastMock }))
 
@@ -147,5 +152,26 @@ describe('LocalDatabase', () => {
   test('getWorkoutActiveExercises calls correct Dexie methods with parameter', () => {
     db.getWorkoutActiveExercises(testIds)
     expect(bulkGetMock).toHaveBeenCalledWith(testIds)
+  })
+
+  test('getMeasurementRecordsByParentId calls correct Dexie methods with parameter', () => {
+    db.getMeasurementRecordsByParentId(testId)
+    expect(whereMock).toHaveBeenCalledWith('parentId')
+    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
+    expect(sortByMock).toHaveBeenCalledWith('createdAt')
+  })
+
+  test('getExerciseRecordsByParentId calls correct Dexie methods with parameter', () => {
+    db.getExerciseRecordsByParentId(testId)
+    expect(whereMock).toHaveBeenCalledWith('parentId')
+    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
+    expect(sortByMock).toHaveBeenCalledWith('createdAt')
+  })
+
+  test('getWorkoutRecordsByParentId calls correct Dexie methods with parameter', () => {
+    db.getWorkoutRecordsByParentId(testId)
+    expect(whereMock).toHaveBeenCalledWith('parentId')
+    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
+    expect(sortByMock).toHaveBeenCalledWith('createdAt')
   })
 })
