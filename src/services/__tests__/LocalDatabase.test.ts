@@ -4,10 +4,13 @@ import { LocalDatabase } from '../LocalDatabase'
 describe('LocalDatabase', () => {
   let db: any
   const testId = 'test-id-123'
+  const testIds = [testId, testId, testId]
   const testName = 'Test Name'
   const toArrayMock = vi.fn()
   const firstMock = vi.fn()
   const lastMock = vi.fn()
+  const filterMock = vi.fn()
+  const bulkGetMock = vi.fn(() => ({ filter: filterMock }))
   const equalsIgnoreCaseMock = vi.fn(() => ({ toArray: toArrayMock, first: firstMock }))
   const whereMock = vi.fn(() => ({ equalsIgnoreCase: equalsIgnoreCaseMock }))
   const orderByMock = vi.fn(() => ({ first: firstMock, last: lastMock }))
@@ -15,6 +18,7 @@ describe('LocalDatabase', () => {
   const tableMockSetup = () => ({
     toArray: toArrayMock,
     where: whereMock,
+    bulkGet: bulkGetMock,
   })
 
   beforeEach(() => {
@@ -122,7 +126,7 @@ describe('LocalDatabase', () => {
   })
 
   test('getActiveWorkoutById calls correct Dexie methods with parameter', () => {
-    db.getWorkoutRecordById(testId)
+    db.getActiveWorkoutById(testId)
     expect(whereMock).toHaveBeenCalledWith('id')
     expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
     expect(firstMock).toHaveBeenCalled()
@@ -133,5 +137,15 @@ describe('LocalDatabase', () => {
     expect(whereMock).toHaveBeenCalledWith('name')
     expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testName)
     expect(toArrayMock).toHaveBeenCalled()
+  })
+
+  test('getWorkoutExercises calls correct Dexie methods with parameter', () => {
+    db.getWorkoutExercises(testIds)
+    expect(bulkGetMock).toHaveBeenCalledWith(testIds)
+  })
+
+  test('getWorkoutActiveExercises calls correct Dexie methods with parameter', () => {
+    db.getWorkoutActiveExercises(testIds)
+    expect(bulkGetMock).toHaveBeenCalledWith(testIds)
   })
 })
