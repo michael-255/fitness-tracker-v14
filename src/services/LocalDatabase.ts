@@ -172,7 +172,7 @@ export class LocalDatabase extends Dexie {
       .sortBy('createdAt')
 
     if (parentRecords.length) {
-      return parentRecords[parentRecords.length - 1]
+      return parentRecords[parentRecords.length - 1] // Last record (newest)
     } else {
       return undefined
     }
@@ -185,7 +185,7 @@ export class LocalDatabase extends Dexie {
       .sortBy('createdAt')
 
     if (parentRecords.length) {
-      return parentRecords[parentRecords.length - 1]
+      return parentRecords[parentRecords.length - 1] // Last record (newest)
     } else {
       return undefined
     }
@@ -198,7 +198,7 @@ export class LocalDatabase extends Dexie {
       .sortBy('createdAt')
 
     if (parentRecords.length) {
-      return parentRecords[parentRecords.length - 1]
+      return parentRecords[parentRecords.length - 1] // Last record (newest)
     } else {
       return undefined
     }

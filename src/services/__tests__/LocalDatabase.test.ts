@@ -1,16 +1,18 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { LocalDatabase } from '../LocalDatabase'
+import { ActionStatus } from '../../models/_Action'
 
 describe('LocalDatabase', () => {
   let db: any
   const testId = 'test-id-123'
   const testIds = [testId, testId, testId]
   const testName = 'Test Name'
+  const testStatus = ActionStatus.ARCHIVED
   const toArrayMock = vi.fn()
   const firstMock = vi.fn()
   const lastMock = vi.fn()
   const filterMock = vi.fn()
-  const sortByMock = vi.fn()
+  const sortByMock = vi.fn().mockResolvedValue([])
   const bulkGetMock = vi.fn(() => ({ filter: filterMock }))
   const equalsIgnoreCaseMock = vi.fn(() => ({
     toArray: toArrayMock,
@@ -173,5 +175,47 @@ describe('LocalDatabase', () => {
     expect(whereMock).toHaveBeenCalledWith('parentId')
     expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
     expect(sortByMock).toHaveBeenCalledWith('createdAt')
+  })
+
+  test('getNewestMeasurementRecordByParentId calls correct Dexie methods with parameter', () => {
+    db.getNewestMeasurementRecordByParentId(testId)
+    expect(whereMock).toHaveBeenCalledWith('parentId')
+    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
+    expect(sortByMock).toHaveBeenCalledWith('createdAt')
+  })
+
+  test('getNewestExerciseRecordByParentId calls correct Dexie methods with parameter', () => {
+    db.getNewestExerciseRecordByParentId(testId)
+    expect(whereMock).toHaveBeenCalledWith('parentId')
+    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
+    expect(sortByMock).toHaveBeenCalledWith('createdAt')
+  })
+
+  test('getNewestWorkoutRecordByParentId calls correct Dexie methods with parameter', () => {
+    db.getNewestWorkoutRecordByParentId(testId)
+    expect(whereMock).toHaveBeenCalledWith('parentId')
+    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
+    expect(sortByMock).toHaveBeenCalledWith('createdAt')
+  })
+
+  test('getMeasurementsByStatus calls correct Dexie methods with parameter', () => {
+    db.getMeasurementsByStatus(testStatus)
+    expect(whereMock).toHaveBeenCalledWith('status')
+    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testStatus)
+    expect(toArrayMock).toHaveBeenCalled()
+  })
+
+  test('getExercisesByStatus calls correct Dexie methods with parameter', () => {
+    db.getExercisesByStatus(testStatus)
+    expect(whereMock).toHaveBeenCalledWith('status')
+    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testStatus)
+    expect(toArrayMock).toHaveBeenCalled()
+  })
+
+  test('getWorkoutsByStatus calls correct Dexie methods with parameter', () => {
+    db.getWorkoutsByStatus(testStatus)
+    expect(whereMock).toHaveBeenCalledWith('status')
+    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testStatus)
+    expect(toArrayMock).toHaveBeenCalled()
   })
 })
