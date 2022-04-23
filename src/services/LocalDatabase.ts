@@ -220,35 +220,35 @@ export class LocalDatabase extends Dexie {
   // Add
   //
 
-  async addMeasurement(measurement: Measurement): Promise<IndexableType> {
+  async addMeasurement(measurement: IMeasurement): Promise<IndexableType> {
     return await this.measurements.add(measurement)
   }
 
-  async addExercise(exercise: Exercise): Promise<IndexableType> {
+  async addExercise(exercise: IExercise): Promise<IndexableType> {
     return await this.exercises.add(exercise)
   }
 
-  async addWorkout(workout: Workout): Promise<IndexableType> {
+  async addWorkout(workout: IWorkout): Promise<IndexableType> {
     return await this.workouts.add(workout)
   }
 
-  async addMeasurementRecord(measurementRecord: MeasurementRecord): Promise<IndexableType> {
+  async addMeasurementRecord(measurementRecord: IMeasurementRecord): Promise<IndexableType> {
     return await this.measurementRecords.add(measurementRecord)
   }
 
-  async addExerciseRecord(exerciseRecord: ExerciseRecord): Promise<IndexableType> {
+  async addExerciseRecord(exerciseRecord: IExerciseRecord): Promise<IndexableType> {
     return await this.exerciseRecords.add(exerciseRecord)
   }
 
-  async addWorkoutRecord(workoutRecord: WorkoutRecord): Promise<IndexableType> {
+  async addWorkoutRecord(workoutRecord: IWorkoutRecord): Promise<IndexableType> {
     return await this.workoutRecords.add(workoutRecord)
   }
 
-  async addActiveExercise(activeExercise: ExerciseRecord): Promise<IndexableType> {
+  async addActiveExercise(activeExercise: IExerciseRecord): Promise<IndexableType> {
     return await this.activeExercises.add(activeExercise)
   }
 
-  async addActiveWorkout(activeWorkout: WorkoutRecord): Promise<IndexableType> {
+  async addActiveWorkout(activeWorkout: IWorkoutRecord): Promise<IndexableType> {
     return await this.activeWorkouts.add(activeWorkout)
   }
 

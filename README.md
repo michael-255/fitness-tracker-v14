@@ -7,7 +7,7 @@ Description TBA.
 Implement the following:
 
 - [x] Clone boilerplate app over to this project somehow (must keep notes!)
-- [ ] Data Types + LocalDatabase
+- [x] Data Types + LocalDatabase
   - [x] `_Entity`
   - [x] `_Action`
   - [x] `_Record`
@@ -20,7 +20,7 @@ Implement the following:
   - [x] Add class methods
   - [x] Add class tests
   - [x] Add LocalDatabase methods
-  - [ ] Add LocalDatabase tests (54 methods...this will take awhile)
+  - [x] Add LocalDatabase tests
 - [x] Constants and enums
 - [ ] Routes and Layouts
   - [ ] How to overwrite route history

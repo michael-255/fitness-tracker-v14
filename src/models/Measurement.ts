@@ -48,8 +48,4 @@ export class Measurement extends _Action {
     this.trackLbs = trackLbs
     this.trackInches = trackInches
   }
-
-  getFeetAndInches(): Error {
-    return new Error('Not Implemented')
-  }
 }

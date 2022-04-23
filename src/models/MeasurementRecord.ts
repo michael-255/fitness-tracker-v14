@@ -38,4 +38,14 @@ export class MeasurementRecord extends _Record {
     this.lbs = lbs
     this.inches = inches
   }
+
+  getFeetAndInches(): string {
+    if (this.inches) {
+      const feet = Math.floor(this.inches / 12)
+      const inches = this.inches - feet * 12
+      return `${feet}'${inches}"`
+    } else {
+      return '-'
+    }
+  }
 }
