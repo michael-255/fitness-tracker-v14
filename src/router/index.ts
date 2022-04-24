@@ -1,5 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { Paths, Views, Layouts } from '@/constants'
+import { Views, Layouts } from '@/constants'
+
+enum Paths {
+  DASHBOARD = '/dashboard',
+  ACTIVEWORKOUT = '/active-workout',
+  CHARTS = '/charts',
+  MANAGEMENT = '/management',
+  SETTINGS = '/settings',
+  ABOUT = '/about',
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,6 +22,31 @@ const router = createRouter({
       name: Views.DASHBOARD,
       meta: { layout: Layouts.MENU },
       component: () => import(`../views/${Views.DASHBOARD}.vue`),
+    },
+    {
+      path: Paths.ACTIVEWORKOUT + '/:id',
+      name: Views.ACTIVEWORKOUT,
+      meta: { layout: Layouts.MENU }, // @todo - active workout header/footer
+      component: () => import(`../views/${Views.ACTIVEWORKOUT}.vue`),
+      props: true,
+    },
+    {
+      path: Paths.CHARTS,
+      name: Views.CHARTS,
+      meta: { layout: Layouts.MENU },
+      component: () => import(`../views/${Views.CHARTS}.vue`),
+    },
+    {
+      path: Paths.MANAGEMENT,
+      name: Views.MANAGEMENT,
+      meta: { layout: Layouts.MENU },
+      component: () => import(`../views/${Views.MANAGEMENT}.vue`),
+    },
+    {
+      path: Paths.SETTINGS,
+      name: Views.SETTINGS,
+      meta: { layout: Layouts.MENU },
+      component: () => import(`../views/${Views.SETTINGS}.vue`),
     },
     {
       path: Paths.ABOUT,

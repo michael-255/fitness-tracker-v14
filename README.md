@@ -23,8 +23,13 @@ Implement the following:
   - [x] Add LocalDatabase tests
 - [x] Constants and enums
 - [ ] Routes and Layouts
+  - [x] Example Pages
+  - [x] Test page for experiments
+  - [x] Route slugs/props?
   - [ ] How to overwrite route history
-  - [ ] Test page for experiments
+  - [ ] Working Routes
+  - [ ] Active Workout Layout (header/footer)
+  - [ ] UseVue for days before/since
 - [ ] App Functionality
   - [ ] Default measurements, workouts, exercises with constant ids
   - [ ] Workouts and exercises (with varying fields)

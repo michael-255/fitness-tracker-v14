@@ -11,7 +11,7 @@ import {
 } from 'quasar'
 import DrawerItem from '@/components/shared/DrawerItem.vue'
 import { useUIStore } from '@/stores/ui'
-import { Paths } from '@/constants'
+import { Views, Icons } from '@/constants'
 
 const ui = useUIStore()
 </script>
@@ -28,9 +28,12 @@ const ui = useUIStore()
 
     <QDrawer v-model="ui.drawer" :width="200" show-if-above side="left" bordered>
       <QList>
-        <DrawerItem :to="Paths.DASHBOARD" icon="dashboard" label="Dashboard" />
-        <DrawerItem :to="Paths.ABOUT" icon="info" label="About" />
-        <DrawerItem to="/example404" icon="warning" label="Not Found" />
+        <DrawerItem :to="{ name: Views.DASHBOARD }" :icon="Icons.DASHBOARD" label="Dashboard" />
+        <DrawerItem :to="{ name: Views.CHARTS }" :icon="Icons.CHART" label="Charts" />
+        <DrawerItem :to="{ name: Views.MANAGEMENT }" :icon="Icons.MANAGEMENT" label="Management" />
+        <DrawerItem :to="{ name: Views.SETTINGS }" :icon="Icons.SETTINGS" label="Settings" />
+        <DrawerItem :to="{ name: Views.ABOUT }" :icon="Icons.INFO" label="About" />
+        <DrawerItem to="/example404" :icon="Icons.WARN" label="Not Found" />
       </QList>
     </QDrawer>
 

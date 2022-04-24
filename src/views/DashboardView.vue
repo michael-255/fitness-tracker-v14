@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { QBtn } from 'quasar'
 import { DoughnutChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
+import { Views } from '@/constants'
 
 Chart.register(...registerables)
 
@@ -17,5 +19,10 @@ const testData = {
 
 <template>
   <h3>Dashboard View</h3>
+  <QBtn
+    color="primary"
+    label="Active Workout"
+    :to="{ name: Views.ACTIVEWORKOUT, params: { id: 'TEST-1234-IDXX' } }"
+  />
   <DoughnutChart :chartData="testData" />
 </template>

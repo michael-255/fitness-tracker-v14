@@ -1,6 +1,12 @@
 export const DEBUG = Object.freeze(true)
 
 export enum Icons {
+  DASHBOARD = 'dashboard',
+  CHART = 'timeline',
+  MANAGEMENT = 'tune',
+  SETTINGS = 'settings',
+  WARN = 'warning',
+  INFO = 'info',
   NOTES = 'assignment',
   REST = 'hourglass_empty',
   TEMPO = 'speed',
@@ -18,18 +24,17 @@ export enum Limits {
   maxNoteLength = 1000,
 }
 
-export enum Paths {
-  DASHBOARD = '/dashboard',
-  ABOUT = '/about',
+export enum Views {
+  DASHBOARD = 'DashboardView',
+  ACTIVEWORKOUT = 'ActiveWorkoutView',
+  CHARTS = 'ChartsView',
+  MANAGEMENT = 'ManagementView',
+  SETTINGS = 'SettingsView',
+  ABOUT = 'AboutView',
+  NOTFOUND = 'NotFoundView',
 }
 
 export enum Layouts {
   DEFAULT = 'DefaultLayout',
   MENU = 'MenuLayout',
-}
-
-export enum Views {
-  DASHBOARD = 'DashboardView',
-  ABOUT = 'AboutView',
-  NOTFOUND = 'NotFoundView',
 }

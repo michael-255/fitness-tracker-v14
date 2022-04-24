@@ -2,7 +2,7 @@
 import { QItem, QItemSection, QIcon } from 'quasar'
 
 defineProps<{
-  to: string
+  to: string | object
   icon: string
   label: string
 }>()
