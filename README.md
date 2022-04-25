@@ -26,12 +26,28 @@ Implement the following:
   - [x] Example Pages
   - [x] Test page for experiments
   - [x] Route slugs/props?
+  - [x] Working Routes
   - [ ] How to overwrite route history
-  - [ ] Working Routes
-  - [ ] Active Workout Layout (header/footer)
-  - [ ] UseVue for days before/since
+  - [ ] Increase ESLint line limit rule to 120
+- [ ] Complete About view (reference old fitness app version)
+  - [ ] Short message
+  - [ ] Link to GitHub repo
+  - [ ] Link to "My Apps" site (disabled)
+- [ ] Complete Options view
+  - [ ] Load Defaults (constant ids)
+  - [ ] Import Data
+  - [ ] Export Data
+  - [ ] Clear App Data
+- [ ] Complete Action views (reusable components)
+  - [ ] Search actions and records data table
+  - [ ] Create Action/Record
+  - [ ] Edit Action/Record
+- [ ] Complete Active Workout view
+  - [ ] Layout (header/footer)
+  - [ ] Input fields for exercises
+  - [ ] Placeholder page if workout id is gone (search if its done?)
 - [ ] App Functionality
-  - [ ] Default measurements, workouts, exercises with constant ids
+  - [ ] UseVue for days before/since
   - [ ] Workouts and exercises (with varying fields)
   - [ ] Record history and charts
   - [ ] Enitity editing (CRUD)

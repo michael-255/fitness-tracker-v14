@@ -8,6 +8,7 @@ import {
   QDrawer,
   QPageContainer,
   QList,
+  QSeparator,
 } from 'quasar'
 import DrawerItem from '@/components/shared/DrawerItem.vue'
 import { useUIStore } from '@/stores/ui'
@@ -30,8 +31,16 @@ const ui = useUIStore()
       <QList>
         <DrawerItem :to="{ name: Views.DASHBOARD }" :icon="Icons.DASHBOARD" label="Dashboard" />
         <DrawerItem :to="{ name: Views.CHARTS }" :icon="Icons.CHART" label="Charts" />
-        <DrawerItem :to="{ name: Views.MANAGEMENT }" :icon="Icons.MANAGEMENT" label="Management" />
-        <DrawerItem :to="{ name: Views.SETTINGS }" :icon="Icons.SETTINGS" label="Settings" />
+        <QSeparator />
+        <DrawerItem
+          :to="{ name: Views.MEASUREMENTS }"
+          :icon="Icons.MEASUREMENT"
+          label="Measurements"
+        />
+        <DrawerItem :to="{ name: Views.EXERCISES }" :icon="Icons.EXERCISE" label="Exercises" />
+        <DrawerItem :to="{ name: Views.WORKOUTS }" :icon="Icons.WORKOUT" label="Workouts" />
+        <QSeparator />
+        <DrawerItem :to="{ name: Views.OPTIONS }" :icon="Icons.SETTINGS" label="Options" />
         <DrawerItem :to="{ name: Views.ABOUT }" :icon="Icons.INFO" label="About" />
         <DrawerItem to="/example404" :icon="Icons.WARN" label="Not Found" />
       </QList>

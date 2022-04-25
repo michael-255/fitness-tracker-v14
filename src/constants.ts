@@ -1,10 +1,20 @@
 export const DEBUG = Object.freeze(true)
 
+export enum Links {
+  GITHUB = 'https://github.com/michael-255/fitness-tracker-v14',
+  MYAPPS = 'https://www.example.com', // @todo - Make 'My Apps' site
+}
+
 export enum Icons {
   DASHBOARD = 'dashboard',
   CHART = 'timeline',
   MANAGEMENT = 'tune',
+  MEASUREMENT = 'straighten',
+  EXERCISE = 'directions_run',
+  WORKOUT = 'fitness_center',
   SETTINGS = 'settings',
+  CODE = 'code',
+  WEB = 'language',
   WARN = 'warning',
   INFO = 'info',
   NOTES = 'assignment',
@@ -28,8 +38,10 @@ export enum Views {
   DASHBOARD = 'DashboardView',
   ACTIVEWORKOUT = 'ActiveWorkoutView',
   CHARTS = 'ChartsView',
-  MANAGEMENT = 'ManagementView',
-  SETTINGS = 'SettingsView',
+  MEASUREMENTS = 'MeasurementsView',
+  EXERCISES = 'ExercisesView',
+  WORKOUTS = 'WorkoutsView',
+  OPTIONS = 'OptionsView',
   ABOUT = 'AboutView',
   NOTFOUND = 'NotFoundView',
 }

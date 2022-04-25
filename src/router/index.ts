@@ -1,55 +1,71 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { Views, Layouts } from '@/constants'
 
-enum Paths {
-  DASHBOARD = '/dashboard',
-  ACTIVEWORKOUT = '/active-workout',
-  CHARTS = '/charts',
-  MANAGEMENT = '/management',
-  SETTINGS = '/settings',
-  ABOUT = '/about',
-}
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      redirect: Paths.DASHBOARD,
+      redirect: '/dashboard',
     },
     {
-      path: Paths.DASHBOARD,
+      path: '/dashboard',
       name: Views.DASHBOARD,
       meta: { layout: Layouts.MENU },
       component: () => import(`../views/${Views.DASHBOARD}.vue`),
     },
     {
-      path: Paths.ACTIVEWORKOUT + '/:id',
+      path: '/active-workout/:id',
+      props: true,
       name: Views.ACTIVEWORKOUT,
       meta: { layout: Layouts.MENU }, // @todo - active workout header/footer
       component: () => import(`../views/${Views.ACTIVEWORKOUT}.vue`),
-      props: true,
     },
     {
-      path: Paths.CHARTS,
+      path: '/charts',
       name: Views.CHARTS,
       meta: { layout: Layouts.MENU },
       component: () => import(`../views/${Views.CHARTS}.vue`),
     },
+    // {
+    //   path: '/measurements/edit/:id',
+    //   props: true,
+    //   name: Views.MEASUREMENTS,
+    //   meta: { layout: Layouts.MENU },
+    //   component: () => import(`../views/${Views.MEASUREMENTS}.vue`),
+    // },
+    // {
+    //   path: '/measurements/create',
+    //   name: Views.MEASUREMENTS,
+    //   meta: { layout: Layouts.MENU },
+    //   component: () => import(`../views/${Views.MEASUREMENTS}.vue`),
+    // },
     {
-      path: Paths.MANAGEMENT,
-      name: Views.MANAGEMENT,
+      path: '/measurements',
+      name: Views.MEASUREMENTS,
       meta: { layout: Layouts.MENU },
-      component: () => import(`../views/${Views.MANAGEMENT}.vue`),
+      component: () => import(`../views/${Views.MEASUREMENTS}.vue`),
     },
     {
-      path: Paths.SETTINGS,
-      name: Views.SETTINGS,
+      path: '/exercises',
+      name: Views.EXERCISES,
       meta: { layout: Layouts.MENU },
-      component: () => import(`../views/${Views.SETTINGS}.vue`),
+      component: () => import(`../views/${Views.EXERCISES}.vue`),
     },
     {
-      path: Paths.ABOUT,
+      path: '/workouts',
+      name: Views.WORKOUTS,
+      meta: { layout: Layouts.MENU },
+      component: () => import(`../views/${Views.WORKOUTS}.vue`),
+    },
+    {
+      path: '/options',
+      name: Views.OPTIONS,
+      meta: { layout: Layouts.MENU },
+      component: () => import(`../views/${Views.OPTIONS}.vue`),
+    },
+    {
+      path: '/about',
       name: Views.ABOUT,
       meta: { layout: Layouts.MENU },
       component: () => import(`../views/${Views.ABOUT}.vue`),
