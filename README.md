@@ -27,12 +27,12 @@ Implement the following:
   - [x] Test page for experiments
   - [x] Route slugs/props?
   - [x] Working Routes
+  - [x] Increase ESLint line limit rule to 120
   - [ ] How to overwrite route history
-  - [ ] Increase ESLint line limit rule to 120
-- [ ] Complete About view (reference old fitness app version)
-  - [ ] Short message
-  - [ ] Link to GitHub repo
-  - [ ] Link to "My Apps" site (disabled)
+- [x] Complete About view (reference old fitness app version)
+  - [x] Short message
+  - [x] Link to GitHub repo
+  - [x] Link to "My Apps" site (disabled)
 - [ ] Complete Options view
   - [ ] Load Defaults (constant ids)
   - [ ] Import Data
@@ -202,8 +202,8 @@ npm init vue@latest
 
 ### Vitest
 
-Add the coverage flag to the test script to generate code coverage reports. You may be required to
-install the `c8` package when you first run `vitest`.
+Add the coverage flag to the test script to generate code coverage reports. You may be required to install the `c8`
+package when you first run `vitest`.
 
 ```jsonc
 // FILE: ~/package.json
@@ -436,15 +436,15 @@ Install the Quasar Vite plugin and SASS.
 npm i -D @quasar/vite-plugin sass@1.32.0
 ```
 
-Use the configurator tool to help setup Quasar for your specific project. It generates the files
-you'll need to copy over based on your selection.
+Use the configurator tool to help setup Quasar for your specific project. It generates the files you'll need to copy
+over based on your selection.
 
 <https://quasar.dev/start/vite-plugin>
 
 ### Dexie (IndexedDB)
 
-Using this package to store the apps data in an easy to use local database. I've wrapped `Dexie`
-with a class called `LocalDatabase` in this project.
+Using this package to store the apps data in an easy to use local database. I've wrapped `Dexie` with a class called
+`LocalDatabase` in this project.
 
 Installing the package.
 
@@ -522,25 +522,23 @@ Utilities you can reuse in other projects located at `~/src/utils/*`
 ### Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) +
-[Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable
-Vetur) +
+[Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) +
 [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
 
 ### Type Support for `.vue` Imports in TS
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI
-with `vue-tsc` for type checking. In editors, we need
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for
+type checking. In editors, we need
 [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin)
 to make the TypeScript language service aware of `.vue` types.
 
 If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a
-[Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669)
-that is more performant. You can enable it by the following steps:
+[Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more
+performant. You can enable it by the following steps:
 
 1. Disable the built-in TypeScript Extension
    1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select
-      `Disable (Workspace)`
+   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
 ### Customize configuration

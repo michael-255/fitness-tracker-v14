@@ -1,5 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { QBtn } from 'quasar'
+import { Views, Icons } from '@/constants'
+</script>
 
 <template>
-  <h3>404 Not Found</h3>
+  <h4>404 Not Found</h4>
+  The page you are looking for no longer exists.
+  <br />
+  <QBtn
+    class="q-my-sm"
+    color="primary"
+    label="Return to Dashboard"
+    :icon="Icons.DASHBOARD"
+    :to="{ name: Views.DASHBOARD }"
+  />
 </template>
