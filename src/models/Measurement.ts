@@ -11,6 +11,8 @@ export interface IMeasurement {
   status?: ActionStatus
   trackLbs?: boolean
   trackInches?: boolean
+  trackFeet?: boolean
+  trackPercent?: boolean
 }
 
 export interface IUpdateMeasurement {
@@ -19,6 +21,8 @@ export interface IUpdateMeasurement {
   status?: ActionStatus
   trackLbs?: boolean
   trackInches?: boolean
+  trackFeet?: boolean
+  trackPercent?: boolean
 }
 
 /**
@@ -30,10 +34,14 @@ export interface IUpdateMeasurement {
  * @param {ActionStatus} obj.status (Inherited, Optional)
  * @param {boolean} obj.trackLbs (Optional)
  * @param {boolean} obj.trackInches (Optional)
+ * @param {boolean} obj.trackFeet (Optional)
+ * @param {boolean} obj.trackPercent (Optional)
  */
 export class Measurement extends _Action {
   trackLbs?: boolean
   trackInches?: boolean
+  trackFeet?: boolean
+  trackPercent?: boolean
 
   constructor({
     id,
@@ -41,11 +49,15 @@ export class Measurement extends _Action {
     name,
     description,
     status,
-    trackLbs = false,
-    trackInches = false,
+    trackLbs,
+    trackInches,
+    trackFeet,
+    trackPercent,
   }: IMeasurement) {
     super({ id, createdAt, name, description, status })
     this.trackLbs = trackLbs
     this.trackInches = trackInches
+    this.trackFeet = trackFeet
+    this.trackPercent = trackPercent
   }
 }

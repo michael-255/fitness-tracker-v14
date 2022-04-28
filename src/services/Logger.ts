@@ -68,6 +68,6 @@ export class Logger {
  * Preconfigured Logger
  */
 export const logger = new Logger({
-  name: 'ExampleLogger',
+  name: 'FitnessTracker',
   debug: DEBUG,
 })

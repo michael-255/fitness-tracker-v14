@@ -137,39 +137,23 @@ export class LocalDatabase extends Dexie {
 
   async getWorkoutActiveExercises(activeExerciseIds: string[]): Promise<IExerciseRecord[]> {
     // Filters out falsy values and casts the result type
-    return (await this.activeExercises.bulkGet(activeExerciseIds)).filter(
-      Boolean
-    ) as IExerciseRecord[]
+    return (await this.activeExercises.bulkGet(activeExerciseIds)).filter(Boolean) as IExerciseRecord[]
   }
 
   async getMeasurementRecordsByParentId(parentId: string): Promise<IMeasurementRecord[]> {
-    return await this.measurementRecords
-      .where('parentId')
-      .equalsIgnoreCase(parentId)
-      .sortBy('createdAt')
+    return await this.measurementRecords.where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
   }
 
   async getExerciseRecordsByParentId(parentId: string): Promise<IExerciseRecord[]> {
-    return await this.exerciseRecords
-      .where('parentId')
-      .equalsIgnoreCase(parentId)
-      .sortBy('createdAt')
+    return await this.exerciseRecords.where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
   }
 
   async getWorkoutRecordsByParentId(parentId: string): Promise<IWorkoutRecord[]> {
-    return await this.workoutRecords
-      .where('parentId')
-      .equalsIgnoreCase(parentId)
-      .sortBy('createdAt')
+    return await this.workoutRecords.where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
   }
 
-  async getNewestMeasurementRecordByParentId(
-    parentId: string
-  ): Promise<IMeasurementRecord | undefined> {
-    const parentRecords = await this.measurementRecords
-      .where('parentId')
-      .equalsIgnoreCase(parentId)
-      .sortBy('createdAt')
+  async getNewestMeasurementRecordByParentId(parentId: string): Promise<IMeasurementRecord | undefined> {
+    const parentRecords = await this.measurementRecords.where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
 
     if (parentRecords.length) {
       return parentRecords[parentRecords.length - 1] // Last record (newest)
@@ -179,10 +163,7 @@ export class LocalDatabase extends Dexie {
   }
 
   async getNewestExerciseRecordByParentId(parentId: string): Promise<IExerciseRecord | undefined> {
-    const parentRecords = await this.exerciseRecords
-      .where('parentId')
-      .equalsIgnoreCase(parentId)
-      .sortBy('createdAt')
+    const parentRecords = await this.exerciseRecords.where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
 
     if (parentRecords.length) {
       return parentRecords[parentRecords.length - 1] // Last record (newest)
@@ -192,10 +173,7 @@ export class LocalDatabase extends Dexie {
   }
 
   async getNewestWorkoutRecordByParentId(parentId: string): Promise<IWorkoutRecord | undefined> {
-    const parentRecords = await this.workoutRecords
-      .where('parentId')
-      .equalsIgnoreCase(parentId)
-      .sortBy('createdAt')
+    const parentRecords = await this.workoutRecords.where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
 
     if (parentRecords.length) {
       return parentRecords[parentRecords.length - 1] // Last record (newest)
@@ -268,17 +246,11 @@ export class LocalDatabase extends Dexie {
     return await this.workouts.update(id, properties)
   }
 
-  async updateMeasurementRecord(
-    id: string,
-    properties: IUpdateMeasurementRecord
-  ): Promise<IndexableType> {
+  async updateMeasurementRecord(id: string, properties: IUpdateMeasurementRecord): Promise<IndexableType> {
     return await this.measurementRecords.update(id, properties)
   }
 
-  async updateExerciseRecord(
-    id: string,
-    properties: IUpdateExerciseRecord
-  ): Promise<IndexableType> {
+  async updateExerciseRecord(id: string, properties: IUpdateExerciseRecord): Promise<IndexableType> {
     return await this.exerciseRecords.update(id, properties)
   }
 
@@ -286,10 +258,7 @@ export class LocalDatabase extends Dexie {
     return await this.workoutRecords.update(id, properties)
   }
 
-  async updateActiveExercise(
-    id: string,
-    properties: IUpdateExerciseRecord
-  ): Promise<IndexableType> {
+  async updateActiveExercise(id: string, properties: IUpdateExerciseRecord): Promise<IndexableType> {
     return await this.activeExercises.update(id, properties)
   }
 

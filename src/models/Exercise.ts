@@ -36,12 +36,12 @@ export interface IUpdateExercise {
  * @param {string} obj.name (Inherited, Required)
  * @param {string} obj.description (Inherited, Optional)
  * @param {ActionStatus} obj.status (Inherited, Optional)
- * @param {boolean} obj.trackConfirm (Defaulted)
- * @param {boolean} obj.trackMultipleSets (Defaulted)
- * @param {boolean} obj.trackDuration (Defaulted)
- * @param {boolean} obj.trackDistance (Defaulted)
- * @param {boolean} obj.trackWeight (Defaulted)
- * @param {boolean} obj.trackReps (Defaulted)
+ * @param {boolean} obj.trackConfirm (Optional)
+ * @param {boolean} obj.trackMultipleSets (Optional)
+ * @param {boolean} obj.trackDuration (Optional)
+ * @param {boolean} obj.trackDistance (Optional)
+ * @param {boolean} obj.trackWeight (Optional)
+ * @param {boolean} obj.trackReps (Optional)
  */
 export class Exercise extends _Action {
   trackConfirm?: boolean
@@ -57,12 +57,12 @@ export class Exercise extends _Action {
     name,
     description,
     status,
-    trackConfirm = false,
-    trackMultipleSets = false,
-    trackDuration = false,
-    trackDistance = false,
-    trackWeight = false,
-    trackReps = false,
+    trackConfirm,
+    trackMultipleSets,
+    trackDuration,
+    trackDistance,
+    trackWeight,
+    trackReps,
   }: IExercise) {
     super({ id, createdAt, name, description, status })
     this.trackConfirm = trackConfirm

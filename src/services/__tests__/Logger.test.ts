@@ -1,5 +1,5 @@
 import { describe, test, expect, spyOn, beforeEach, vi } from 'vitest'
-import { Logger } from '../Logger'
+import { Logger } from '@/services/Logger'
 
 describe('Logger', () => {
   const loggerName = 'TestLogger'

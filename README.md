@@ -34,9 +34,10 @@ Implement the following:
   - [x] Link to GitHub repo
   - [x] Link to "My Apps" site (disabled)
 - [ ] Complete Options view
-  - [ ] Load Defaults (constant ids)
+  - [x] Load Defaults (constant ids)
   - [ ] Import Data
   - [ ] Export Data
+  - [ ] Convert Data
   - [ ] Clear App Data
 - [ ] Complete Action views (reusable components)
   - [ ] Search actions and records data table

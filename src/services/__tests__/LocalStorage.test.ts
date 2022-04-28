@@ -1,5 +1,5 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest'
-import { LocalStorage } from '../LocalStorage'
+import { LocalStorage } from '@/services/LocalStorage'
 
 describe('LocalStorage', () => {
   let webStorage: LocalStorage
