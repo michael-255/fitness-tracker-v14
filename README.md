@@ -34,8 +34,18 @@ Implement the following:
   - [x] Link to GitHub repo
   - [x] Link to "My Apps" site (disabled)
 - [ ] Complete Options view
-  - [x] Load Defaults (constant ids)
+  - [ ] Load Defaults (constant ids)
+    - [ ] Create defaults service
+    - [ ] Create option to load defaults into the database
   - [ ] Import Data
+    - [ ] Create `Fitness Tracker v14 Export` menu option in v13 app
+    - [ ] Map `MeasurementRecords` from old data to new class interface (convert ids)
+    - [ ] Map `ExerciseRecords` from old data to new class interface (convert ids)
+    - [ ] Map `WorkoutRecords` from old data to new class interface (convert ids)
+    - [ ] Export your old fitness data
+    - [ ] Create v14 import function to import the data (file input?)
+      - [ ] Convert uploaded file to in app JS objects
+      - [ ] Load imported data into database
   - [ ] Export Data
   - [ ] Convert Data
   - [ ] Clear App Data

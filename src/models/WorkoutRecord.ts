@@ -1,5 +1,5 @@
 import { _Record } from './_Record'
-import { getDurationString } from '@/utils/date-time'
+import { getDurationString, getMediumDateString } from '@/utils/date-time'
 
 // Exports for LocalDatabase
 export const WorkoutRecordStore = Object.freeze({ workoutRecords: '&id, parentId' })
@@ -33,14 +33,7 @@ export class WorkoutRecord extends _Record {
   finishedAt?: string
   exerciseRecordIds?: string[]
 
-  constructor({
-    id,
-    createdAt,
-    parentId,
-    note,
-    finishedAt,
-    exerciseRecordIds = [],
-  }: IWorkoutRecord) {
+  constructor({ id, createdAt, parentId, note, finishedAt, exerciseRecordIds = [] }: IWorkoutRecord) {
     super({ id, createdAt, parentId, note })
     this.finishedAt = finishedAt
     this.exerciseRecordIds = exerciseRecordIds
@@ -52,6 +45,15 @@ export class WorkoutRecord extends _Record {
       const createdAtMS = new Date(this.createdAt).getTime()
       const durationMS = finishedAtMS - createdAtMS
       return getDurationString(durationMS)
+    } else {
+      return '-'
+    }
+  }
+
+  getWorkoutDate(): string | undefined {
+    if (this.createdAt) {
+      const date = new Date(this.createdAt)
+      return getMediumDateString(date)
     } else {
       return '-'
     }

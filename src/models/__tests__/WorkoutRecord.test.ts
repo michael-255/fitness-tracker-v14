@@ -26,4 +26,18 @@ describe('WorkoutRecord', () => {
     expect(record2.getDuration()).toBe('31d')
     expect(record3.getDuration()).toBe('-')
   })
+
+  test('getWorkoutDate should return a formatted date string or a dash', () => {
+    const record1 = new WorkoutRecord({
+      parentId,
+      createdAt: new Date('01/01/2022').toISOString(),
+    })
+    const record2 = new WorkoutRecord({
+      parentId,
+      createdAt: '',
+    })
+
+    expect(record1.getWorkoutDate()).toBe('Sat, Jan 1, 2022')
+    expect(record2.getWorkoutDate()).toBe('-')
+  })
 })
