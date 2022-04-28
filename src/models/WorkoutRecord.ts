@@ -50,7 +50,7 @@ export class WorkoutRecord extends _Record {
     }
   }
 
-  getWorkoutDate(): string | undefined {
+  getStartDate(): string | undefined {
     if (this.createdAt) {
       const date = new Date(this.createdAt)
       return getMediumDateString(date)
