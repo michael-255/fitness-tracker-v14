@@ -45,6 +45,7 @@ export class DefaultsLoader {
         2: 'HBPR-WGQ0-NEHJ',
         3: 'VXZU-4CAZ-FB9U',
         4: 'KEM9-NNUN-L3UH',
+        5: 'BD56-KU8Y-EQGA',
         // Add new exercise ids here...
       },
       workouts: {
@@ -170,6 +171,13 @@ export class DefaultsLoader {
       new Exercise({
         id: this.defaultIds.exercises[4],
         name: 'Deadlift',
+        trackMultipleSets: true,
+        trackWeight: true,
+        trackReps: true,
+      }),
+      new Exercise({
+        id: this.defaultIds.exercises[5],
+        name: 'Pull-Ups',
         trackMultipleSets: true,
         trackWeight: true,
         trackReps: true,
