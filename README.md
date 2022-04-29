@@ -28,7 +28,7 @@ Implement the following:
   - [x] Route slugs/props?
   - [x] Working Routes
   - [x] Increase ESLint line limit rule to 120
-  - [ ] How to overwrite route history
+  - [ ] How to overwrite route history `WIP`
 - [x] Complete About view (reference old fitness app version)
   - [x] Short message
   - [x] Link to GitHub repo
@@ -36,7 +36,7 @@ Implement the following:
 - [ ] Complete Options view
   - [ ] Load Defaults (constant ids)
     - [x] Create defaults service
-    - [ ] Create option to load defaults into the database `DO THIS`
+    - [ ] Create option to load defaults into the database `WIP`
   - [ ] Import Data
     - [x] Create `Fitness Tracker v14 Export` menu option in v13 app
     - [x] Export your old fitness data
