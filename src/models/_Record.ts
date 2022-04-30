@@ -1,9 +1,12 @@
-import { _Entity } from './_Entity'
+import { _Entity } from '@/models/_Entity'
+import type { IEntity } from '@/models/_Entity'
 
-interface IRecordParams {
-  id?: string
-  createdAt?: string
-  parentId: string
+export interface IRecord extends IEntity {
+  parentId: string // Required
+  note?: string
+}
+
+export interface IUpdateRecord {
   note?: string
 }
 
@@ -15,10 +18,10 @@ interface IRecordParams {
  * @param {string} obj.note (Optional)
  */
 export class _Record extends _Entity {
-  parentId: string
+  parentId: string // Required
   note?: string
 
-  constructor({ id, createdAt, parentId, note }: IRecordParams) {
+  constructor({ id, createdAt, parentId, note }: IRecord) {
     super({ id, createdAt })
     this.parentId = parentId
     this.note = note

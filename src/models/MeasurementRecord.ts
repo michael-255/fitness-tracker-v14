@@ -1,21 +1,15 @@
-import { _Record } from './_Record'
+import { _Record } from '@/models/_Record'
+import type { IRecord, IUpdateRecord } from '@/models/_Record'
+import { Store } from '@/constants'
 
 // Exports for LocalDatabase
-export const MeasurementRecordStore = Object.freeze({
-  measurementRecords: '&id, parentId',
-})
+export const measurementRecordStoreIndices = Object.freeze({ [Store.MEASUREMENT_RECORDS]: '&id, parentId' })
 
-export interface IMeasurementRecord {
-  id?: string
-  createdAt?: string
-  parentId: string
-  note?: string
-  lbs?: number
-  inches?: number
-}
+export interface IMeasurementRecord extends IRecord, IMeasurementRecordFields {}
 
-export interface IUpdateMeasurementRecord {
-  note?: string
+export interface IUpdateMeasurementRecord extends IUpdateRecord, IMeasurementRecordFields {}
+
+interface IMeasurementRecordFields {
   lbs?: number
   inches?: number
 }

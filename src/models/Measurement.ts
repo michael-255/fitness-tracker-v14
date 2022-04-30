@@ -1,24 +1,15 @@
-import { _Action, ActionStatus } from './_Action'
+import { _Action } from './_Action'
+import type { IAction, IUpdateAction } from '@/models/_Action'
+import { Store } from '@/constants'
 
 // Exports for LocalDatabase
-export const MeasurementStore = Object.freeze({ measurements: '&id, name, status' })
+export const measurementStoreIndices = Object.freeze({ [Store.MEASUREMENTS]: '&id, name, status' })
 
-export interface IMeasurement {
-  id?: string
-  createdAt?: string
-  name: string
-  description?: string
-  status?: ActionStatus
-  trackLbs?: boolean
-  trackInches?: boolean
-  trackFeet?: boolean
-  trackPercent?: boolean
-}
+export interface IMeasurement extends IAction, IMeasurementFields {}
 
-export interface IUpdateMeasurement {
-  name?: string
-  description?: string
-  status?: ActionStatus
+export interface IUpdateMeasurement extends IUpdateAction, IMeasurementFields {}
+
+interface IMeasurementFields {
   trackLbs?: boolean
   trackInches?: boolean
   trackFeet?: boolean

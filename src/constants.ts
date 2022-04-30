@@ -1,5 +1,17 @@
 export const DEBUG = Object.freeze(true)
 
+export enum Store {
+  MEASUREMENTS = 'measurements',
+  EXERCISES = 'exercises',
+  WORKOUTS = 'workouts',
+  MEASUREMENT_RECORDS = 'measurementRecords',
+  EXERCISE_RECORDS = 'exerciseRecords',
+  WORKOUT_RECORDS = 'workoutRecords',
+  ACTIVE_EXERCISES = 'activeExercises',
+  ACTIVE_WORKOUTS = 'activeWorkouts',
+  ERROR_LOGS = 'errorLogs',
+}
+
 export enum Links {
   GITHUB = 'https://github.com/michael-255/fitness-tracker-v14',
   MYAPPS = 'https://www.example.com', // @todo - Make 'My Apps' site

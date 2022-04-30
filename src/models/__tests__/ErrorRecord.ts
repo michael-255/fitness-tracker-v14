@@ -1,8 +1,8 @@
 import { describe, test, expect } from 'vitest'
-import { ErrorRecord } from '@/models/ErrorRecord'
+import { ErrorLog } from '@/models/ErrorLog'
 
-describe('ErrorRecord', () => {
-  test('should test ErrorRecord', () => {
-    expect(new ErrorRecord('Test')).toBe(false)
+describe('ErrorLog', () => {
+  test('should test ErrorLog', () => {
+    expect(new ErrorLog('Test')).toBe(false)
   })
 })

@@ -1,21 +1,19 @@
-import { _Record } from './_Record'
+import { _Record } from '@/models/_Record'
+import type { IRecord, IUpdateRecord } from '@/models/_Record'
 import { getDurationString, getMediumDateString } from '@/utils/date-time'
+import { Store } from '@/constants'
 
 // Exports for LocalDatabase
-export const WorkoutRecordStore = Object.freeze({ workoutRecords: '&id, parentId' })
-export const ActiveWorkoutStore = Object.freeze({ activeWorkouts: '&id, parentId' })
+export const workoutRecordStoreIndices = Object.freeze({
+  [Store.WORKOUT_RECORDS]: '&id, parentId',
+  [Store.ACTIVE_WORKOUTS]: '&id, parentId',
+})
 
-export interface IWorkoutRecord {
-  id?: string
-  createdAt?: string
-  parentId: string
-  note?: string
-  finishedAt?: string
-  exerciseRecordIds?: string[]
-}
+export interface IWorkoutRecord extends IRecord, IWorkoutRecordFields {}
 
-export interface IUpdateWorkoutRecord {
-  note?: string
+export interface IUpdateWorkoutRecord extends IUpdateRecord, IWorkoutRecordFields {}
+
+interface IWorkoutRecordFields {
   finishedAt?: string
   exerciseRecordIds?: string[]
 }

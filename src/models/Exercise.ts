@@ -1,26 +1,15 @@
-import { _Action, ActionStatus } from './_Action'
+import { _Action } from '@/models/_Action'
+import type { IAction, IUpdateAction } from '@/models/_Action'
+import { Store } from '@/constants'
 
 // Exports for LocalDatabase
-export const ExerciseStore = Object.freeze({ exercises: '&id, name, status' })
+export const exerciseStoreIndices = Object.freeze({ [Store.EXERCISES]: '&id, name, status' })
 
-export interface IExercise {
-  id?: string
-  createdAt?: string
-  name: string
-  description?: string
-  status?: ActionStatus
-  trackConfirm?: boolean
-  trackMultipleSets?: boolean
-  trackDuration?: boolean
-  trackDistance?: boolean
-  trackWeight?: boolean
-  trackReps?: boolean
-}
+export interface IExercise extends IAction, IExerciseFields {}
 
-export interface IUpdateExercise {
-  name?: string
-  description?: string
-  status?: ActionStatus
+export interface IUpdateExercise extends IUpdateAction, IExerciseFields {}
+
+interface IExerciseFields {
   trackConfirm?: boolean
   trackMultipleSets?: boolean
   trackDuration?: boolean

@@ -1,29 +1,27 @@
-import { _Record } from './_Record'
-
-// Exports for LocalDatabase
-export const ExerciseRecordStore = Object.freeze({ exerciseRecords: '&id, parentId' })
-export const ActiveExerciseStore = Object.freeze({ activeExercises: '&id, parentId' })
-
-export interface IExerciseRecord {
-  id?: string
-  createdAt?: string
-  parentId: string
-  note?: string
-  skipped?: boolean
-  sets?: ExerciseSet[]
-}
-
-export interface IUpdateExerciseRecord {
-  note?: string
-  skipped?: boolean
-  sets?: ExerciseSet[]
-}
+import { _Record } from '@/models/_Record'
+import type { IRecord, IUpdateRecord } from '@/models/_Record'
+import { Store } from '@/constants'
 
 export type ExerciseSet = {
   weight?: number
   reps?: number
   distance?: number
   duration?: number
+}
+
+// Exports for LocalDatabase
+export const exerciseRecordStoreIndices = Object.freeze({
+  [Store.EXERCISE_RECORDS]: '&id, parentId',
+  [Store.ACTIVE_EXERCISES]: '&id, parentId',
+})
+
+export interface IExerciseRecord extends IRecord, IExerciseRecordFields {}
+
+export interface IUpdateExerciseRecord extends IUpdateRecord, IExerciseRecordFields {}
+
+interface IExerciseRecordFields {
+  skipped?: boolean
+  sets?: ExerciseSet[]
 }
 
 /**
