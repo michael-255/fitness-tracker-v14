@@ -1,5 +1,6 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { LocalDatabase } from '@/services/LocalDatabase'
+import { Store } from '@/constants'
 
 const mockTableBuilder = ({
   toArrayMockFunc = vi.fn(),
@@ -10,7 +11,7 @@ const mockTableBuilder = ({
   deleteMockFunc = vi.fn(),
   clearMockFunc = vi.fn(),
 }) => {
-  return {
+  return vi.fn(() => ({
     toArray: toArrayMockFunc,
     where: whereMockFunc,
     bulkGet: bulkGetMockFunc,
@@ -18,7 +19,7 @@ const mockTableBuilder = ({
     update: updateMockFunc,
     delete: deleteMockFunc,
     clear: clearMockFunc,
-  }
+  }))
 }
 
 const mockBulkGetBuilder = (filterMockFunc = vi.fn()) => {
@@ -47,6 +48,7 @@ const mockEqualsIgnoreCaseBuilder = ({
 
 describe('LocalDatabase', () => {
   let db: any
+  const testStore = 'testing'
   const testId = 'test-id-123'
   const testIds = [testId, testId, testId]
   const testName = 'Test Name'
@@ -59,8 +61,6 @@ describe('LocalDatabase', () => {
   const deleteMock = vi.fn()
   const clearMock = vi.fn()
   const sortByMock = vi.fn().mockResolvedValue([])
-  const sortByMockReturnEmpty = vi.fn().mockResolvedValue([])
-  const sortByMockReturnFull = vi.fn().mockResolvedValue(testIds)
 
   const equalsIgnoreCaseMock = mockEqualsIgnoreCaseBuilder({
     toArrayMockFunc: toArrayMock,
@@ -82,470 +82,229 @@ describe('LocalDatabase', () => {
 
   beforeEach(() => {
     db = new LocalDatabase('TestDatabase')
-
-    db.measurements = tableMock
-    db.exercises = tableMock
-    db.workouts = tableMock
-    db.measurementRecords = tableMock
-    db.exerciseRecords = tableMock
-    db.workoutRecords = tableMock
-    db.activeExercises = tableMock
-    db.activeWorkouts = tableMock
-
+    db.table = tableMock
     vi.clearAllMocks()
   })
 
   //
-  // Get All
+  // Shared Methods
   //
 
-  test('getAllMeasurements calls correct Dexie methods', () => {
-    db.getAllMeasurements()
+  test('getAll calls correct Dexie methods', () => {
+    db.getAll(testStore)
+    expect(tableMock).toHaveBeenCalledWith(testStore)
     expect(toArrayMock).toHaveBeenCalled()
   })
 
-  test('getAllExercises calls correct Dexie methods', () => {
-    db.getAllExercises()
-    expect(toArrayMock).toHaveBeenCalled()
-  })
-
-  test('getAllWorkouts calls correct Dexie methods', () => {
-    db.getAllWorkouts()
-    expect(toArrayMock).toHaveBeenCalled()
-  })
-
-  test('getAllMeasurementRecords calls correct Dexie methods', () => {
-    db.getAllMeasurementRecords()
-    expect(toArrayMock).toHaveBeenCalled()
-  })
-
-  test('getAllExerciseRecords calls correct Dexie methods', () => {
-    db.getAllExerciseRecords()
-    expect(toArrayMock).toHaveBeenCalled()
-  })
-
-  test('getAllWorkoutRecords calls correct Dexie methods', () => {
-    db.getAllWorkoutRecords()
-    expect(toArrayMock).toHaveBeenCalled()
-  })
-
-  test('getAllActiveExercises calls correct Dexie methods', () => {
-    db.getAllActiveExercises()
-    expect(toArrayMock).toHaveBeenCalled()
-  })
-
-  test('getAllActiveWorkouts calls correct Dexie methods', () => {
-    db.getAllActiveWorkouts()
-    expect(toArrayMock).toHaveBeenCalled()
-  })
-
-  //
-  // Get
-  //
-
-  test('getMeasurementById calls correct Dexie methods with parameter', () => {
-    db.getMeasurementById(testId)
+  test('getById calls correct Dexie methods', () => {
+    db.getById(testStore, testId)
+    expect(tableMock).toHaveBeenCalledWith(testStore)
     expect(whereMock).toHaveBeenCalledWith('id')
     expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
     expect(firstMock).toHaveBeenCalled()
   })
 
-  test('getExerciseById calls correct Dexie methods with parameter', () => {
-    db.getExerciseById(testId)
-    expect(whereMock).toHaveBeenCalledWith('id')
-    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(firstMock).toHaveBeenCalled()
+  test('getByStatus calls correct Dexie methods', () => {
+    db.getByStatus(testStore, 'ARCHIVED')
+    expect(tableMock).toHaveBeenCalledWith(testStore)
+    expect(whereMock).toHaveBeenCalledWith('status')
+    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith('ARCHIVED')
+    expect(toArrayMock).toHaveBeenCalled()
   })
 
-  test('getWorkoutById calls correct Dexie methods with parameter', () => {
-    db.getWorkoutById(testId)
-    expect(whereMock).toHaveBeenCalledWith('id')
-    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(firstMock).toHaveBeenCalled()
-  })
-
-  test('getMeasurementRecordById calls correct Dexie methods with parameter', () => {
-    db.getMeasurementRecordById(testId)
-    expect(whereMock).toHaveBeenCalledWith('id')
-    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(firstMock).toHaveBeenCalled()
-  })
-
-  test('getExerciseRecordById calls correct Dexie methods with parameter', () => {
-    db.getExerciseRecordById(testId)
-    expect(whereMock).toHaveBeenCalledWith('id')
-    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(firstMock).toHaveBeenCalled()
-  })
-
-  test('getWorkoutRecordById calls correct Dexie methods with parameter', () => {
-    db.getWorkoutRecordById(testId)
-    expect(whereMock).toHaveBeenCalledWith('id')
-    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(firstMock).toHaveBeenCalled()
-  })
-
-  test('getActiveExercise calls correct Dexie methods with parameter', () => {
-    db.getActiveExerciseById(testId)
-    expect(whereMock).toHaveBeenCalledWith('id')
-    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(firstMock).toHaveBeenCalled()
-  })
-
-  test('getActiveWorkoutById calls correct Dexie methods with parameter', () => {
-    db.getActiveWorkoutById(testId)
-    expect(whereMock).toHaveBeenCalledWith('id')
-    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(firstMock).toHaveBeenCalled()
-  })
-
-  test('getExercisesByName calls correct Dexie methods with parameter', () => {
-    db.getExercisesByName(testName)
+  test('getByName calls correct Dexie methods', () => {
+    db.getByName(testStore, testName)
+    expect(tableMock).toHaveBeenCalledWith(testStore)
     expect(whereMock).toHaveBeenCalledWith('name')
     expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testName)
     expect(toArrayMock).toHaveBeenCalled()
   })
 
-  test('getWorkoutExercises calls correct Dexie methods with parameter', () => {
-    db.getWorkoutExercises(testIds)
+  test('getByParentId calls correct Dexie methods', () => {
+    db.getByParentId(testStore, testId)
+    expect(tableMock).toHaveBeenCalledWith(testStore)
+    expect(whereMock).toHaveBeenCalledWith('parentId')
+    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
+    expect(sortByMock).toHaveBeenCalledWith('createdAt')
+  })
+
+  test('getNewestByParentId calls correct Dexie methods', () => {
+    db.getNewestByParentId(testStore, testId)
+    expect(tableMock).toHaveBeenCalledWith(testStore)
+    expect(whereMock).toHaveBeenCalledWith('parentId')
+    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
+    expect(sortByMock).toHaveBeenCalledWith('createdAt')
+  })
+
+  test('bulkGetByIds calls correct Dexie methods', () => {
+    db.bulkGetByIds(testStore, testIds)
+    expect(tableMock).toHaveBeenCalledWith(testStore)
     expect(bulkGetMock).toHaveBeenCalledWith(testIds)
   })
 
-  test('getWorkoutActiveExercises calls correct Dexie methods with parameter', () => {
-    db.getWorkoutActiveExercises(testIds)
-    expect(bulkGetMock).toHaveBeenCalledWith(testIds)
+  test('deleteById calls correct Dexie methods', () => {
+    db.deleteById(testStore, testId)
+    expect(tableMock).toHaveBeenCalledWith(testStore)
+    expect(deleteMock).toHaveBeenCalledWith(testId)
   })
 
-  test('getMeasurementRecordsByParentId calls correct Dexie methods with parameter', () => {
-    db.getMeasurementRecordsByParentId(testId)
-    expect(whereMock).toHaveBeenCalledWith('parentId')
-    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(sortByMock).toHaveBeenCalledWith('createdAt')
-  })
-
-  test('getExerciseRecordsByParentId calls correct Dexie methods with parameter', () => {
-    db.getExerciseRecordsByParentId(testId)
-    expect(whereMock).toHaveBeenCalledWith('parentId')
-    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(sortByMock).toHaveBeenCalledWith('createdAt')
-  })
-
-  test('getWorkoutRecordsByParentId calls correct Dexie methods with parameter', () => {
-    db.getWorkoutRecordsByParentId(testId)
-    expect(whereMock).toHaveBeenCalledWith('parentId')
-    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(sortByMock).toHaveBeenCalledWith('createdAt')
-  })
-
-  test('getNewestMeasurementRecordByParentId calls correct Dexie methods with parameter', () => {
-    // Empty return
-    let tempEqualsIgnoreCaseMock = mockEqualsIgnoreCaseBuilder({
-      toArrayMockFunc: toArrayMock,
-      firstMockFunc: firstMock,
-      sortByMockFunc: sortByMockReturnEmpty,
-    })
-    let tempWhereMock = mockWhereBuilder(tempEqualsIgnoreCaseMock)
-    let tempTableMock = mockTableBuilder({
-      whereMockFunc: tempWhereMock,
-    })
-    db.measurementRecords = tempTableMock
-    db.getNewestMeasurementRecordByParentId(testId)
-    expect(tempWhereMock).toHaveBeenCalledWith('parentId')
-    expect(tempEqualsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(sortByMockReturnEmpty).toHaveBeenCalledWith('createdAt')
-    // Full return
-    tempEqualsIgnoreCaseMock = mockEqualsIgnoreCaseBuilder({
-      toArrayMockFunc: toArrayMock,
-      firstMockFunc: firstMock,
-      sortByMockFunc: sortByMockReturnFull,
-    })
-    tempWhereMock = mockWhereBuilder(tempEqualsIgnoreCaseMock)
-    tempTableMock = mockTableBuilder({
-      whereMockFunc: tempWhereMock,
-    })
-    db.measurementRecords = tempTableMock
-    db.getNewestMeasurementRecordByParentId(testId)
-    expect(tempWhereMock).toHaveBeenCalledWith('parentId')
-    expect(tempEqualsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(sortByMockReturnFull).toHaveBeenCalledWith('createdAt')
-  })
-
-  test('getNewestExerciseRecordByParentId calls correct Dexie methods with parameter', () => {
-    // Empty return
-    let tempEqualsIgnoreCaseMock = mockEqualsIgnoreCaseBuilder({
-      toArrayMockFunc: toArrayMock,
-      firstMockFunc: firstMock,
-      sortByMockFunc: sortByMockReturnEmpty,
-    })
-    let tempWhereMock = mockWhereBuilder(tempEqualsIgnoreCaseMock)
-    let tempTableMock = mockTableBuilder({
-      whereMockFunc: tempWhereMock,
-    })
-    db.exerciseRecords = tempTableMock
-    db.getNewestExerciseRecordByParentId(testId)
-    expect(tempWhereMock).toHaveBeenCalledWith('parentId')
-    expect(tempEqualsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(sortByMockReturnEmpty).toHaveBeenCalledWith('createdAt')
-    // Full return
-    tempEqualsIgnoreCaseMock = mockEqualsIgnoreCaseBuilder({
-      toArrayMockFunc: toArrayMock,
-      firstMockFunc: firstMock,
-      sortByMockFunc: sortByMockReturnFull,
-    })
-    tempWhereMock = mockWhereBuilder(tempEqualsIgnoreCaseMock)
-    tempTableMock = mockTableBuilder({
-      whereMockFunc: tempWhereMock,
-    })
-    db.exerciseRecords = tempTableMock
-    db.getNewestExerciseRecordByParentId(testId)
-    expect(tempWhereMock).toHaveBeenCalledWith('parentId')
-    expect(tempEqualsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(sortByMockReturnFull).toHaveBeenCalledWith('createdAt')
-  })
-
-  test('getNewestWorkoutRecordByParentId calls correct Dexie methods with parameter', () => {
-    // Empty return
-    let tempEqualsIgnoreCaseMock = mockEqualsIgnoreCaseBuilder({
-      toArrayMockFunc: toArrayMock,
-      firstMockFunc: firstMock,
-      sortByMockFunc: sortByMockReturnEmpty,
-    })
-    let tempWhereMock = mockWhereBuilder(tempEqualsIgnoreCaseMock)
-    let tempTableMock = mockTableBuilder({
-      whereMockFunc: tempWhereMock,
-    })
-    db.workoutRecords = tempTableMock
-    db.getNewestWorkoutRecordByParentId(testId)
-    expect(tempWhereMock).toHaveBeenCalledWith('parentId')
-    expect(tempEqualsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(sortByMockReturnEmpty).toHaveBeenCalledWith('createdAt')
-    // Full return
-    tempEqualsIgnoreCaseMock = mockEqualsIgnoreCaseBuilder({
-      toArrayMockFunc: toArrayMock,
-      firstMockFunc: firstMock,
-      sortByMockFunc: sortByMockReturnFull,
-    })
-    tempWhereMock = mockWhereBuilder(tempEqualsIgnoreCaseMock)
-    tempTableMock = mockTableBuilder({
-      whereMockFunc: tempWhereMock,
-    })
-    db.workoutRecords = tempTableMock
-    db.getNewestWorkoutRecordByParentId(testId)
-    expect(tempWhereMock).toHaveBeenCalledWith('parentId')
-    expect(tempEqualsIgnoreCaseMock).toHaveBeenCalledWith(testId)
-    expect(sortByMockReturnFull).toHaveBeenCalledWith('createdAt')
-  })
-
-  test('getMeasurementsByStatus calls correct Dexie methods with parameter', () => {
-    db.getMeasurementsByStatus('ARCHIVED')
-    expect(whereMock).toHaveBeenCalledWith('status')
-    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith('ARCHIVED')
-    expect(toArrayMock).toHaveBeenCalled()
-  })
-
-  test('getExercisesByStatus calls correct Dexie methods with parameter', () => {
-    db.getExercisesByStatus('ARCHIVED')
-    expect(whereMock).toHaveBeenCalledWith('status')
-    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith('ARCHIVED')
-    expect(toArrayMock).toHaveBeenCalled()
-  })
-
-  test('getWorkoutsByStatus calls correct Dexie methods with parameter', () => {
-    db.getWorkoutsByStatus('ARCHIVED')
-    expect(whereMock).toHaveBeenCalledWith('status')
-    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith('ARCHIVED')
-    expect(toArrayMock).toHaveBeenCalled()
+  test('clear calls correct Dexie methods', () => {
+    db.clear(testStore)
+    expect(tableMock).toHaveBeenCalledWith(testStore)
+    expect(clearMock).toHaveBeenCalled()
   })
 
   //
-  // Add
+  // Measurement
   //
 
-  test('addMeasurement calls correct Dexie methods with parameter', () => {
+  test('addMeasurement calls correct Dexie methods', () => {
     db.addMeasurement({})
+    expect(tableMock).toHaveBeenCalledWith(Store.MEASUREMENTS)
     expect(addMock).toHaveBeenCalledWith({})
   })
 
-  test('addExercise calls correct Dexie methods with parameter', () => {
-    db.addExercise({})
-    expect(addMock).toHaveBeenCalledWith({})
+  test('updateMeasurementById calls correct Dexie methods', () => {
+    const id = testId
+    const properties = { name: testName }
+    db.updateMeasurementById(id, properties)
+    expect(tableMock).toHaveBeenCalledWith(Store.MEASUREMENTS)
+    expect(updateMock).toHaveBeenCalledWith(id, properties)
   })
 
-  test('addWorkout calls correct Dexie methods with parameter', () => {
-    db.addWorkout({})
-    expect(addMock).toHaveBeenCalledWith({})
-  })
+  //
+  // MeasurementRecord
+  //
 
-  test('addMeasurementRecord calls correct Dexie methods with parameter', () => {
+  test('addMeasurementRecord calls correct Dexie methods', () => {
     db.addMeasurementRecord({})
+    expect(tableMock).toHaveBeenCalledWith(Store.MEASUREMENT_RECORDS)
     expect(addMock).toHaveBeenCalledWith({})
   })
 
-  test('addExerciseRecord calls correct Dexie methods with parameter', () => {
+  test('updateMeasurementRecordById calls correct Dexie methods', () => {
+    const id = testId
+    const properties = { name: testName }
+    db.updateMeasurementRecordById(id, properties)
+    expect(tableMock).toHaveBeenCalledWith(Store.MEASUREMENT_RECORDS)
+    expect(updateMock).toHaveBeenCalledWith(id, properties)
+  })
+
+  //
+  // Exercise
+  //
+
+  test('addExercise calls correct Dexie methods', () => {
+    db.addExercise({})
+    expect(tableMock).toHaveBeenCalledWith(Store.EXERCISES)
+    expect(addMock).toHaveBeenCalledWith({})
+  })
+
+  test('updateExerciseById calls correct Dexie methods', () => {
+    const id = testId
+    const properties = { name: testName }
+    db.updateExerciseById(id, properties)
+    expect(tableMock).toHaveBeenCalledWith(Store.EXERCISES)
+    expect(updateMock).toHaveBeenCalledWith(id, properties)
+  })
+
+  //
+  // ExerciseRecord
+  //
+
+  test('addExerciseRecord calls correct Dexie methods', () => {
     db.addExerciseRecord({})
+    expect(tableMock).toHaveBeenCalledWith(Store.EXERCISE_RECORDS)
     expect(addMock).toHaveBeenCalledWith({})
   })
 
-  test('addWorkoutRecord calls correct Dexie methods with parameter', () => {
+  test('updateExerciseRecordById calls correct Dexie methods', () => {
+    const id = testId
+    const properties = { name: testName }
+    db.updateExerciseRecordById(id, properties)
+    expect(tableMock).toHaveBeenCalledWith(Store.EXERCISE_RECORDS)
+    expect(updateMock).toHaveBeenCalledWith(id, properties)
+  })
+
+  //
+  // Workouts
+  //
+
+  test('addWorkout calls correct Dexie methods', () => {
+    db.addWorkout({})
+    expect(tableMock).toHaveBeenCalledWith(Store.WORKOUTS)
+    expect(addMock).toHaveBeenCalledWith({})
+  })
+
+  test('updateWorkoutById calls correct Dexie methods', () => {
+    const id = testId
+    const properties = { name: testName }
+    db.updateWorkoutById(id, properties)
+    expect(tableMock).toHaveBeenCalledWith(Store.WORKOUTS)
+    expect(updateMock).toHaveBeenCalledWith(id, properties)
+  })
+
+  //
+  // WorkoutRecord
+  //
+
+  test('addWorkoutRecord calls correct Dexie methods', () => {
     db.addWorkoutRecord({})
+    expect(tableMock).toHaveBeenCalledWith(Store.WORKOUT_RECORDS)
     expect(addMock).toHaveBeenCalledWith({})
   })
 
-  test('addActiveExercise calls correct Dexie methods with parameter', () => {
+  test('updateWorkoutRecordById calls correct Dexie methods', () => {
+    const id = testId
+    const properties = { name: testName }
+    db.updateWorkoutRecordById(id, properties)
+    expect(tableMock).toHaveBeenCalledWith(Store.WORKOUT_RECORDS)
+    expect(updateMock).toHaveBeenCalledWith(id, properties)
+  })
+
+  //
+  // ActiveExercises (ExerciseRecord)
+  //
+
+  test('addActiveExercise calls correct Dexie methods', () => {
     db.addActiveExercise({})
+    expect(tableMock).toHaveBeenCalledWith(Store.ACTIVE_EXERCISES)
     expect(addMock).toHaveBeenCalledWith({})
   })
 
-  test('addActiveWorkout calls correct Dexie methods with parameter', () => {
+  test('updateActiveExerciseById calls correct Dexie methods', () => {
+    const id = testId
+    const properties = { name: testName }
+    db.updateActiveExerciseById(id, properties)
+    expect(tableMock).toHaveBeenCalledWith(Store.ACTIVE_EXERCISES)
+    expect(updateMock).toHaveBeenCalledWith(id, properties)
+  })
+
+  //
+  // ActiveWorkouts (WorkoutRecord)
+  //
+
+  test('addActiveWorkout calls correct Dexie methods', () => {
     db.addActiveWorkout({})
+    expect(tableMock).toHaveBeenCalledWith(Store.ACTIVE_WORKOUTS)
     expect(addMock).toHaveBeenCalledWith({})
   })
 
-  //
-  // Update
-  //
-
-  test('updateMeasurement calls correct Dexie methods with parameter', () => {
+  test('updateActiveWorkoutById calls correct Dexie methods', () => {
     const id = testId
     const properties = { name: testName }
-    db.updateMeasurement(id, properties)
-    expect(updateMock).toHaveBeenCalledWith(id, properties)
-  })
-
-  test('updateExercise calls correct Dexie methods with parameter', () => {
-    const id = testId
-    const properties = { name: testName }
-    db.updateExercise(id, properties)
-    expect(updateMock).toHaveBeenCalledWith(id, properties)
-  })
-
-  test('updateWorkout calls correct Dexie methods with parameter', () => {
-    const id = testId
-    const properties = { name: testName }
-    db.updateWorkout(id, properties)
-    expect(updateMock).toHaveBeenCalledWith(id, properties)
-  })
-
-  test('updateMeasurementRecord calls correct Dexie methods with parameter', () => {
-    const id = testId
-    const properties = { name: testName }
-    db.updateMeasurementRecord(id, properties)
-    expect(updateMock).toHaveBeenCalledWith(id, properties)
-  })
-
-  test('updateExerciseRecord calls correct Dexie methods with parameter', () => {
-    const id = testId
-    const properties = { name: testName }
-    db.updateExerciseRecord(id, properties)
-    expect(updateMock).toHaveBeenCalledWith(id, properties)
-  })
-
-  test('updateWorkoutRecord calls correct Dexie methods with parameter', () => {
-    const id = testId
-    const properties = { name: testName }
-    db.updateWorkoutRecord(id, properties)
-    expect(updateMock).toHaveBeenCalledWith(id, properties)
-  })
-
-  test('updateActiveExercise calls correct Dexie methods with parameter', () => {
-    const id = testId
-    const properties = { name: testName }
-    db.updateActiveExercise(id, properties)
-    expect(updateMock).toHaveBeenCalledWith(id, properties)
-  })
-
-  test('updateActiveWorkout calls correct Dexie methods with parameter', () => {
-    const id = testId
-    const properties = { name: testName }
-    db.updateActiveWorkout(id, properties)
+    db.updateActiveWorkoutById(id, properties)
+    expect(tableMock).toHaveBeenCalledWith(Store.ACTIVE_WORKOUTS)
     expect(updateMock).toHaveBeenCalledWith(id, properties)
   })
 
   //
-  // Delete
+  // ErrorLog
   //
 
-  test('deleteMeasurement calls correct Dexie methods with parameter', () => {
-    db.deleteMeasurement(testId)
-    expect(deleteMock).toHaveBeenCalledWith(testId)
-  })
-
-  test('deleteExercise calls correct Dexie methods with parameter', () => {
-    db.deleteExercise(testId)
-    expect(deleteMock).toHaveBeenCalledWith(testId)
-  })
-
-  test('deleteWorkout calls correct Dexie methods with parameter', () => {
-    db.deleteWorkout(testId)
-    expect(deleteMock).toHaveBeenCalledWith(testId)
-  })
-
-  test('deleteMeasurementRecord calls correct Dexie methods with parameter', () => {
-    db.deleteMeasurementRecord(testId)
-    expect(deleteMock).toHaveBeenCalledWith(testId)
-  })
-
-  test('deleteExerciseRecord calls correct Dexie methods with parameter', () => {
-    db.deleteExerciseRecord(testId)
-    expect(deleteMock).toHaveBeenCalledWith(testId)
-  })
-
-  test('deleteWorkoutRecord calls correct Dexie methods with parameter', () => {
-    db.deleteWorkoutRecord(testId)
-    expect(deleteMock).toHaveBeenCalledWith(testId)
-  })
-
-  test('deleteActiveExercise calls correct Dexie methods with parameter', () => {
-    db.deleteActiveExercise(testId)
-    expect(deleteMock).toHaveBeenCalledWith(testId)
-  })
-
-  test('deleteActiveWorkout calls correct Dexie methods with parameter', () => {
-    db.deleteActiveWorkout(testId)
-    expect(deleteMock).toHaveBeenCalledWith(testId)
-  })
-
-  //
-  // Clear (Delete All)
-  //
-
-  test('clearMeasurements calls correct Dexie methods', () => {
-    db.clearMeasurements()
-    expect(clearMock).toHaveBeenCalled()
-  })
-
-  test('clearExercises calls correct Dexie methods', () => {
-    db.clearExercises()
-    expect(clearMock).toHaveBeenCalled()
-  })
-
-  test('clearWorkouts calls correct Dexie methods', () => {
-    db.clearWorkouts()
-    expect(clearMock).toHaveBeenCalled()
-  })
-
-  test('clearMeasurementRecords calls correct Dexie methods', () => {
-    db.clearMeasurementRecords()
-    expect(clearMock).toHaveBeenCalled()
-  })
-
-  test('clearExerciseRecords calls correct Dexie methods', () => {
-    db.clearExerciseRecords()
-    expect(clearMock).toHaveBeenCalled()
-  })
-
-  test('clearWorkoutRecords calls correct Dexie methods', () => {
-    db.clearWorkoutRecords()
-    expect(clearMock).toHaveBeenCalled()
-  })
-
-  test('clearActiveExercises calls correct Dexie methods', () => {
-    db.clearActiveExercises()
-    expect(clearMock).toHaveBeenCalled()
-  })
-
-  test('clearActiveWorkouts calls correct Dexie methods', () => {
-    db.clearActiveWorkouts()
-    expect(clearMock).toHaveBeenCalled()
+  test('addErrorLog calls correct Dexie methods', () => {
+    db.addErrorLog({})
+    expect(tableMock).toHaveBeenCalledWith(Store.ERROR_LOGS)
+    expect(addMock).toHaveBeenCalledWith({})
   })
 })

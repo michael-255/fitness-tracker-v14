@@ -21,8 +21,8 @@ Implement the following:
   - [x] Add class tests
   - [x] Add LocalDatabase methods
   - [x] Add LocalDatabase tests
-  - [ ] Add LocalDatabase methods for `ErrorLog` -> `WIP`
-  - [ ] Add tests for `ErrorLog` -> `WIP`
+  - [x] Add LocalDatabase methods for `ErrorLog` -> `WIP`
+  - [x] Add tests for `ErrorLog` -> `WIP`
 - [x] Constants and enums
 - [ ] Routes and Layouts
   - [x] Example Pages

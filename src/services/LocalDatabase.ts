@@ -59,7 +59,7 @@ export class LocalDatabase extends Dexie {
   }
 
   //
-  // Shared Functions
+  // Shared Methods
   //
 
   async getAll<T>(store: Store): Promise<T[]> {
@@ -104,11 +104,11 @@ export class LocalDatabase extends Dexie {
   //
 
   async addMeasurement(measurement: IMeasurement): Promise<IndexableType> {
-    return await this.measurements.add(measurement)
+    return await this.table(Store.MEASUREMENTS).add(measurement)
   }
 
   async updateMeasurementById(id: string, properties: IUpdateMeasurement): Promise<IndexableType> {
-    return await this.measurements.update(id, properties)
+    return await this.table(Store.MEASUREMENTS).update(id, properties)
   }
 
   //
@@ -116,11 +116,11 @@ export class LocalDatabase extends Dexie {
   //
 
   async addMeasurementRecord(measurementRecord: IMeasurementRecord): Promise<IndexableType> {
-    return await this.measurementRecords.add(measurementRecord)
+    return await this.table(Store.MEASUREMENT_RECORDS).add(measurementRecord)
   }
 
   async updateMeasurementRecordById(id: string, properties: IUpdateMeasurementRecord): Promise<IndexableType> {
-    return await this.measurementRecords.update(id, properties)
+    return await this.table(Store.MEASUREMENT_RECORDS).update(id, properties)
   }
 
   //
@@ -128,11 +128,11 @@ export class LocalDatabase extends Dexie {
   //
 
   async addExercise(exercise: IExercise): Promise<IndexableType> {
-    return await this.exercises.add(exercise)
+    return await this.table(Store.EXERCISES).add(exercise)
   }
 
   async updateExerciseById(id: string, properties: IUpdateExercise): Promise<IndexableType> {
-    return await this.exercises.update(id, properties)
+    return await this.table(Store.EXERCISES).update(id, properties)
   }
 
   //
@@ -140,11 +140,11 @@ export class LocalDatabase extends Dexie {
   //
 
   async addExerciseRecord(exerciseRecord: IExerciseRecord): Promise<IndexableType> {
-    return await this.exerciseRecords.add(exerciseRecord)
+    return await this.table(Store.EXERCISE_RECORDS).add(exerciseRecord)
   }
 
   async updateExerciseRecordById(id: string, properties: IUpdateExerciseRecord): Promise<IndexableType> {
-    return await this.exerciseRecords.update(id, properties)
+    return await this.table(Store.EXERCISE_RECORDS).update(id, properties)
   }
 
   //
@@ -152,11 +152,11 @@ export class LocalDatabase extends Dexie {
   //
 
   async addWorkout(workout: IWorkout): Promise<IndexableType> {
-    return await this.workouts.add(workout)
+    return await this.table(Store.WORKOUTS).add(workout)
   }
 
   async updateWorkoutById(id: string, properties: IUpdateWorkout): Promise<IndexableType> {
-    return await this.workouts.update(id, properties)
+    return await this.table(Store.WORKOUTS).update(id, properties)
   }
 
   //
@@ -164,35 +164,35 @@ export class LocalDatabase extends Dexie {
   //
 
   async addWorkoutRecord(workoutRecord: IWorkoutRecord): Promise<IndexableType> {
-    return await this.workoutRecords.add(workoutRecord)
+    return await this.table(Store.WORKOUT_RECORDS).add(workoutRecord)
   }
 
   async updateWorkoutRecordById(id: string, properties: IUpdateWorkoutRecord): Promise<IndexableType> {
-    return await this.workoutRecords.update(id, properties)
+    return await this.table(Store.WORKOUT_RECORDS).update(id, properties)
   }
 
   //
-  // ActiveExercises (Records)
+  // ActiveExercises (ExerciseRecord)
   //
 
   async addActiveExercise(activeExercise: IExerciseRecord): Promise<IndexableType> {
-    return await this.activeExercises.add(activeExercise)
+    return await this.table(Store.ACTIVE_EXERCISES).add(activeExercise)
   }
 
   async updateActiveExerciseById(id: string, properties: IUpdateExerciseRecord): Promise<IndexableType> {
-    return await this.activeExercises.update(id, properties)
+    return await this.table(Store.ACTIVE_EXERCISES).update(id, properties)
   }
 
   //
-  // ActiveWorkouts (Records)
+  // ActiveWorkouts (WorkoutRecord)
   //
 
   async addActiveWorkout(activeWorkout: IWorkoutRecord): Promise<IndexableType> {
-    return await this.activeWorkouts.add(activeWorkout)
+    return await this.table(Store.ACTIVE_WORKOUTS).add(activeWorkout)
   }
 
   async updateActiveWorkoutById(id: string, properties: IUpdateWorkoutRecord): Promise<IndexableType> {
-    return await this.activeWorkouts.update(id, properties)
+    return await this.table(Store.ACTIVE_WORKOUTS).update(id, properties)
   }
 
   //
@@ -200,7 +200,7 @@ export class LocalDatabase extends Dexie {
   //
 
   async addErrorLog(errorLog: IErrorLog): Promise<IndexableType> {
-    return await this.errorLogs.add(errorLog)
+    return await this.table(Store.ERROR_LOGS).add(errorLog)
   }
 }
 

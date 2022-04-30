@@ -9,7 +9,8 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview --port 5050",
-    "test": "vitest --environment jsdom --coverage",
+    "test": "vitest --environment jsdom",
+    "test:full": "vitest --environment jsdom --coverage",
     "typecheck": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "deploy": "npm run build && gh-pages -d dist -m Deployment"
