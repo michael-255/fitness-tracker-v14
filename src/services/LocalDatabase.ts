@@ -14,6 +14,8 @@ import { ExerciseRecord, ExerciseRecordStore, ActiveExerciseStore } from '@/mode
 import type { IExerciseRecord, IUpdateExerciseRecord } from '@/models/ExerciseRecord'
 import { WorkoutRecord, WorkoutRecordStore, ActiveWorkoutStore } from '@/models/WorkoutRecord'
 import type { IWorkoutRecord, IUpdateWorkoutRecord } from '@/models/WorkoutRecord'
+import { ErrorRecord, ErrorRecordStore } from '@/models/ErrorRecord'
+import type { IErrorRecord } from '@/models/ErrorRecord'
 
 /**
  * Wrapper for Dexie IndexedDB
@@ -29,6 +31,7 @@ export class LocalDatabase extends Dexie {
   workoutRecords!: Table<IWorkoutRecord>
   activeExercises!: Table<IExerciseRecord>
   activeWorkouts!: Table<IWorkoutRecord>
+  errorRecords!: Table<IErrorRecord>
 
   constructor(name: string) {
     super(name)
@@ -42,6 +45,7 @@ export class LocalDatabase extends Dexie {
       ...WorkoutRecordStore,
       ...ActiveExerciseStore,
       ...ActiveWorkoutStore,
+      ...ErrorRecordStore,
     })
 
     this.measurements.mapToClass(Measurement)
@@ -52,6 +56,7 @@ export class LocalDatabase extends Dexie {
     this.workoutRecords.mapToClass(WorkoutRecord)
     this.activeExercises.mapToClass(ExerciseRecord)
     this.activeWorkouts.mapToClass(WorkoutRecord)
+    this.errorRecords.mapToClass(ErrorRecord)
   }
 
   //
@@ -88,6 +93,10 @@ export class LocalDatabase extends Dexie {
 
   async getAllActiveWorkouts(): Promise<IWorkoutRecord[]> {
     return await this.activeWorkouts.toArray()
+  }
+
+  async getAllErrorRecords(): Promise<IErrorRecord[]> {
+    return await this.errorRecords.toArray()
   }
 
   //
@@ -228,6 +237,10 @@ export class LocalDatabase extends Dexie {
 
   async addActiveWorkout(activeWorkout: IWorkoutRecord): Promise<IndexableType> {
     return await this.activeWorkouts.add(activeWorkout)
+  }
+
+  async addErrorRecord(ErrorRecord: IErrorRecord): Promise<IndexableType> {
+    return await this.errorRecords.add(ErrorRecord)
   }
 
   //

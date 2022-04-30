@@ -9,9 +9,9 @@ type DefaultIds = {
 }
 
 /**
- * DefaultsLoader Class
+ * DefaultsGenerator Class
  */
-export class DefaultsLoader {
+export class DefaultsGenerator {
   defaultIds: DefaultIds
 
   constructor() {
@@ -218,6 +218,6 @@ export class DefaultsLoader {
 }
 
 /**
- * Preconfigured DefaultsLoader
+ * Preconfigured DefaultsGenerator
  */
-export const defaults = new DefaultsLoader()
+export const defaults = new DefaultsGenerator()
