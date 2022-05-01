@@ -2,8 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { Views, Layouts } from '@/constants'
 
 const router = createRouter({
-  history: createWebHistory('/fitness-tracker-v14/'),
-  // history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
