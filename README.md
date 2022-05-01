@@ -45,6 +45,7 @@ Implement the following:
     - [ ] Create import function to import data (v14 compatible data only)
       - [x] Use a file selection input
       - [ ] Validate data is `application/json`
+      - [ ] Validate size `<= 20mb`
       - [ ] Convert uploaded file to in app JS objects
       - [ ] Load imported data into database
   - [ ] Export Data

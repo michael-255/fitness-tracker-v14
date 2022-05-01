@@ -2,12 +2,15 @@ import { createId } from '@/utils/build-id'
 import { Store } from '@/constants'
 
 // Exports for LocalDatabase
-export const errorLogStoreIndices = Object.freeze({ [Store.ERROR_LOGS]: '&id, createdAt, message' })
+export const errorLogStoreIndices = Object.freeze({ [Store.ERROR_LOGS]: '&id, createdAt, name' })
 
 export interface IErrorLog {
   id: string
   createdAt: string
-  details: any
+  name?: string
+  inner?: any
+  failures?: string[]
+  failuresByPos?: string[]
   message?: string[]
   stack?: string[]
 }
@@ -15,42 +18,38 @@ export interface IErrorLog {
 /**
  * ErrorLog Class
  * @param {Error|any} error (Required)
+ * @param {Error|any} cause (Optional)
  */
 export class ErrorLog {
   id: string
   createdAt: string
-  details: any
+  name?: string
+  inner?: any
+  failures?: string[]
+  failuresByPos?: string[]
   message?: string[]
   stack?: string[]
 
-  constructor(error: Error | any) {
-    let newError = null
-
-    if (error instanceof Error) {
-      this.details = null
-      newError = error
-    } else if (typeof error === 'string') {
-      this.details = null
-      newError = new Error(error)
-    } else if (!error) {
-      this.details = null
-      newError = new Error('Undefined App Error.')
-    } else {
-      this.details = error
-      newError = new Error('Unexpected data passed into App Error.')
-    }
-
+  constructor(error: Error | any, cause?: Error | any) {
     this.id = createId()
     this.createdAt = new Date().toISOString()
-    this.message = newError?.message
-      ?.trim() // remove excess whitespace
-      ?.split('\n') // seperate on the newline character
-      ?.map((s: string) => s?.trim()) // trim whitespace on each new string element
-      ?.filter(Boolean) // remove falsy elements
-    this.stack = newError?.stack
-      ?.trim() // remove excess whitespace
-      ?.split('\n') // seperate on the newline character
-      ?.map((s: string) => s?.trim()) // trim whitespace on each new string element
-      ?.filter(Boolean) // remove falsy elements
+    this.name = `${error?.name}:${cause?.name}`
+    this.inner = cause?.inner
+    this.failures = cause?.failures
+    this.failuresByPos = cause?.failuresByPos
+    this.message = [...this.stringToArray(error?.message), ...this.stringToArray(cause?.message)]
+    this.stack = [...this.stringToArray(error?.stack), ...this.stringToArray(cause?.stack)]
+  }
+
+  stringToArray(str: string): string[] {
+    if (str) {
+      return str
+        ?.trim() // remove excess whitespace
+        ?.split('\n') // seperate on the newline character
+        ?.map((s: string) => s?.trim()) // trim whitespace on each new string element
+        ?.filter(Boolean) // remove falsy elements
+    } else {
+      return []
+    }
   }
 }

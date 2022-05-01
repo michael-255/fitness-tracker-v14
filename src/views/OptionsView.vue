@@ -3,7 +3,6 @@ import { QBtn, QFile } from 'quasar'
 import { defaults } from '@/services/DefaultsGenerator'
 import { database } from '@/services/LocalDatabase'
 import { logger } from '@/services/Logger'
-import { ErrorLog } from '@/models/ErrorLog'
 import { Store } from '@/constants'
 import { ref } from 'vue'
 
@@ -17,9 +16,9 @@ async function loadAllDefaults() {
     await database.bulkAddMeasurements(measurements)
     await database.bulkAddExercises(exercises)
     await database.bulkAddWorkouts(workouts)
-  } catch (error) {
-    logger.error(error)
-    database.addErrorLog(new ErrorLog(error))
+  } catch (err) {
+    logger.error(err)
+    database.addErrorLog(new Error('loadAllDefaults'), err)
   }
 }
 
@@ -27,9 +26,9 @@ async function loadMeasurements() {
   try {
     const measurements = await defaults.generateMeasurements()
     await database.bulkAddMeasurements(measurements)
-  } catch (error) {
-    logger.error(error)
-    database.addErrorLog(new ErrorLog(error))
+  } catch (err) {
+    logger.error(err)
+    database.addErrorLog(new Error('loadMeasurements'), err)
   }
 }
 
@@ -37,9 +36,9 @@ async function loadExercises() {
   try {
     const exercises = await defaults.generateExercises()
     await database.bulkAddExercises(exercises)
-  } catch (error) {
-    logger.error(error)
-    database.addErrorLog(new ErrorLog(error))
+  } catch (err) {
+    logger.error(err)
+    database.addErrorLog(new Error('loadExercises'), err)
   }
 }
 
@@ -47,9 +46,9 @@ async function loadWorkouts() {
   try {
     const workouts = await defaults.generateWorkouts()
     await database.bulkAddWorkouts(workouts)
-  } catch (error) {
-    logger.error(error)
-    database.addErrorLog(new ErrorLog(error))
+  } catch (err) {
+    logger.error(err)
+    database.addErrorLog(new Error('loadWorkouts'), err)
   }
 }
 
@@ -65,9 +64,9 @@ async function clearAllAppData() {
 
       await Promise.all(stores.map((store) => database.clear(store as Store)))
     }
-  } catch (error) {
-    logger.error(error)
-    database.addErrorLog(new ErrorLog(error))
+  } catch (err) {
+    logger.error(err)
+    database.addErrorLog(new Error('clearAllAppData'), err)
   }
 }
 
@@ -76,9 +75,9 @@ async function clearStoreData(store: Store) {
     if (confirm(`Clear "${store}" data?`)) {
       database.clear(store)
     }
-  } catch (error) {
-    logger.error(error)
-    database.addErrorLog(new ErrorLog(error))
+  } catch (err) {
+    logger.error(err)
+    database.addErrorLog(new Error('clearStoreData'), err)
   }
 }
 

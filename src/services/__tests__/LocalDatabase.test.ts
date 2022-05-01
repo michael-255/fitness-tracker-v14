@@ -355,8 +355,17 @@ describe('LocalDatabase', () => {
   //
 
   test('addErrorLog calls correct Dexie methods', () => {
-    db.addErrorLog({})
+    db.addErrorLog({}, {})
     expect(tableMock).toHaveBeenCalledWith(Store.ERROR_LOGS)
-    expect(addMock).toHaveBeenCalledWith({})
+    expect(addMock).toHaveBeenCalledWith({
+      id: expect.any(String),
+      createdAt: expect.any(String),
+      name: 'undefined:undefined',
+      failures: undefined,
+      failuresByPos: undefined,
+      inner: undefined,
+      message: expect.any(Array),
+      stack: expect.any(Array),
+    })
   })
 })
