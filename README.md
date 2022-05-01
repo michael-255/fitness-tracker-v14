@@ -40,7 +40,7 @@ Implement the following:
   - [x] Import Data
   - [x] Export Data
   - [x] Clear App Data
-- [ ] Debug deployment issues `---WIP---`
+- [x] Debug deployment issues
 - [ ] Complete Action views (reusable components)
   - [ ] Search actions and records data table
   - [ ] Create Action/Record

@@ -19,5 +19,5 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  base: '/fitness-tracker-v14/',
+  base: '/fitness-tracker-v14/', // Your GitHub repo name
 })

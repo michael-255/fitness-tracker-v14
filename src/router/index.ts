@@ -3,7 +3,6 @@ import { Views, Layouts } from '@/constants'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  // history: createWebHistory('/fitness-tracker-v14/'),
   routes: [
     {
       path: '/',
