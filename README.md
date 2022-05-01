@@ -21,8 +21,8 @@ Implement the following:
   - [x] Add class tests
   - [x] Add LocalDatabase methods
   - [x] Add LocalDatabase tests
-  - [x] Add LocalDatabase methods for `ErrorLog` -> `WIP`
-  - [x] Add tests for `ErrorLog` -> `WIP`
+  - [x] Add LocalDatabase methods for `ErrorLog`
+  - [x] Add tests for `ErrorLog`
 - [x] Constants and enums
 - [ ] Routes and Layouts
   - [x] Example Pages
@@ -38,16 +38,13 @@ Implement the following:
 - [ ] Complete Options view
   - [ ] Load Defaults (constant ids)
     - [x] Create defaults service
-    - [ ] Create option to load defaults into the database `WIP`
+    - [x] Create option to load defaults into the database
   - [ ] Import Data
     - [x] Create `Fitness Tracker v14 Export` menu option in v13 app
     - [x] Export your old fitness data
-    - [ ] Map `MeasurementRecords` from old data to new class (convert ids)
-    - [ ] Map `ExerciseRecords` from old data to new class (convert ids)
-    - [ ] Map `WorkoutRecords` from old data to new class (convert ids)
     - [ ] Create import function to import data (v14 compatible data only)
-      - [ ] Import should support all action and record types
-      - [ ] Use a file selection input
+      - [x] Use a file selection input
+      - [ ] Validate data is `application/json`
       - [ ] Convert uploaded file to in app JS objects
       - [ ] Load imported data into database
   - [ ] Export Data

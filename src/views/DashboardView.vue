@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { QBtn } from 'quasar'
-import { Views } from '@/constants'
 import { createId } from '@/utils/build-id'
 import { database } from '@/services/LocalDatabase'
 import { Store } from '@/constants'
@@ -9,28 +8,6 @@ import { Exercise } from '@/models/Exercise'
 import { Workout } from '@/models/Workout'
 import { ErrorLog } from '@/models/ErrorLog'
 import { ActionStatus } from '@/models/_Action'
-
-/*
-  async getAll<T>(store: Store): Promise<T[]> {
-    return await this.table(store).toArray()
-  }
-
-  async getById<T>(store: Store, id: string): Promise<T | undefined> {
-    return await this.table(store).where('id').equalsIgnoreCase(id).first()
-  }
-
-  async add<T>(store: Store, object: T): Promise<IndexableType> {
-    return await this.table(store).add(object)
-  }
-
-  async deleteById(store: Store, id: string): Promise<void> {
-    return await this.table(store).delete(id)
-  }
-
-  async clear(store: Store): Promise<void> {
-    return await this.table(store).clear()
-  }
-*/
 
 async function addThing() {
   try {

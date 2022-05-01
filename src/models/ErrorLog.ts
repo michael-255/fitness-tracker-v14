@@ -7,7 +7,7 @@ export const errorLogStoreIndices = Object.freeze({ [Store.ERROR_LOGS]: '&id, cr
 export interface IErrorLog {
   id: string
   createdAt: string
-  unexpected: any
+  details: any
   message?: string[]
   stack?: string[]
 }
@@ -19,32 +19,35 @@ export interface IErrorLog {
 export class ErrorLog {
   id: string
   createdAt: string
-  unexpected: any
+  details: any
   message?: string[]
   stack?: string[]
 
   constructor(error: Error | any) {
+    let newError = null
+
     if (error instanceof Error) {
-      this.unexpected = null
+      this.details = null
+      newError = error
     } else if (typeof error === 'string') {
-      this.unexpected = null
-      error = new Error(error)
+      this.details = null
+      newError = new Error(error)
     } else if (!error) {
-      this.unexpected = null
-      error = new Error('Undefined App Error.')
+      this.details = null
+      newError = new Error('Undefined App Error.')
     } else {
-      this.unexpected = error // pass unkown value into unexpected
-      error = new Error('Unexpected data passed into App Error.')
+      this.details = error
+      newError = new Error('Unexpected data passed into App Error.')
     }
 
     this.id = createId()
     this.createdAt = new Date().toISOString()
-    this.message = error?.message
+    this.message = newError?.message
       ?.trim() // remove excess whitespace
       ?.split('\n') // seperate on the newline character
       ?.map((s: string) => s?.trim()) // trim whitespace on each new string element
       ?.filter(Boolean) // remove falsy elements
-    this.stack = error?.stack
+    this.stack = newError?.stack
       ?.trim() // remove excess whitespace
       ?.split('\n') // seperate on the newline character
       ?.map((s: string) => s?.trim()) // trim whitespace on each new string element
