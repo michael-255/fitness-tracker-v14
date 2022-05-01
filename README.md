@@ -41,6 +41,7 @@ Implement the following:
   - [x] Export Data
   - [x] Clear App Data
 - [x] Debug deployment issues
+- [ ] Reloading pages caused the site to break `---WIP---`
 - [ ] Complete Action views (reusable components)
   - [ ] Search actions and records data table
   - [ ] Create Action/Record
