@@ -30,7 +30,7 @@ Implement the following:
   - [x] Route slugs/props?
   - [x] Working Routes
   - [x] Increase ESLint line limit rule to 120
-  - [ ] How to overwrite route history `WIP`
+  - [ ] How to overwrite route history `---WIP---`
 - [x] Complete About view (reference old fitness app version)
   - [x] Short message
   - [x] Link to GitHub repo
@@ -40,6 +40,7 @@ Implement the following:
   - [x] Import Data
   - [x] Export Data
   - [x] Clear App Data
+- [ ] Debug deployment issues `---WIP---`
 - [ ] Complete Action views (reusable components)
   - [ ] Search actions and records data table
   - [ ] Create Action/Record
