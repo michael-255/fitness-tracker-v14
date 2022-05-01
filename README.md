@@ -42,11 +42,14 @@ Implement the following:
   - [x] Clear App Data
 - [x] Debug deployment issues
 - [x] Reloading pages caused the site to break
-- [ ] Complete Action views (reusable components)
+- [ ] `Action` views (reusable components)
   - [ ] Search actions and records data table
-  - [ ] Create Action/Record
-  - [ ] Edit Action/Record
-- [ ] Complete Active Workout view
+  - [ ] Create `Action` & `Record`
+  - [ ] Edit `Action` & `Record`
+  - [ ] Move database clears here?
+- [ ] `AppLogs` view
+  - [ ] Option to clear logs
+- [ ] Complete `ActiveWorkout` view
   - [ ] Layout (header/footer)
   - [ ] Input fields for exercises
   - [ ] Placeholder page if workout id is gone (search if its done?)
