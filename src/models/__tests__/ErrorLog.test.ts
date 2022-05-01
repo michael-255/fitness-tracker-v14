@@ -2,33 +2,56 @@ import { describe, test, expect } from 'vitest'
 import { ErrorLog } from '@/models/ErrorLog'
 
 describe('ErrorLog', () => {
-  test('handles a single Error as a parameter for the constructor', () => {
-    const msg = 'test-error-1'
-    const newError = new Error(msg)
-    const errorLog = new ErrorLog(newError)
+  const caughtMsg = 'caught-error-test'
+  const localMsg = 'local-error-test'
+  const caughtError = new Error(caughtMsg)
+  const localError = new Error(localMsg)
+
+  test('creates log with invalid caughtError parameter', () => {
+    const errorLog = new ErrorLog(null)
     expect(errorLog.id).toEqual(expect.any(String))
     expect(errorLog.createdAt).toEqual(expect.any(String))
-    expect(errorLog.name).toEqual('Error:undefined')
+    expect(errorLog.name).toEqual('undefined:undefined')
     expect(errorLog.failures).toBeUndefined()
     expect(errorLog.failuresByPos).toBeUndefined()
     expect(errorLog.inner).toBeUndefined()
-    expect(errorLog.message).toEqual([msg])
+    expect(errorLog.message).toEqual([])
+    expect(errorLog.stack).toEqual([])
+  })
+
+  test('creates log with valid caughtError parameter', () => {
+    const errorLog = new ErrorLog(caughtError)
+    expect(errorLog.id).toEqual(expect.any(String))
+    expect(errorLog.createdAt).toEqual(expect.any(String))
+    expect(errorLog.name).toEqual('undefined:Error')
+    expect(errorLog.failures).toBeUndefined()
+    expect(errorLog.failuresByPos).toBeUndefined()
+    expect(errorLog.inner).toBeUndefined()
+    expect(errorLog.message).toEqual([caughtMsg])
     expect(errorLog.stack).toEqual(expect.any(Array))
   })
 
-  test('handles two Errors as parameters for the constructor', () => {
-    const msg = 'test-error-1'
-    const newError = new Error(msg)
-    const msg2 = 'test-error-2'
-    const newError2 = new Error(msg2)
-    const errorLog = new ErrorLog(newError, newError2)
+  test('creates log with two valid error parameters', () => {
+    const errorLog = new ErrorLog(caughtError, localError)
     expect(errorLog.id).toEqual(expect.any(String))
     expect(errorLog.createdAt).toEqual(expect.any(String))
-    expect(errorLog.name).toEqual('Error:Error')
+    expect(errorLog.name).toEqual(`${localMsg}:Error`)
     expect(errorLog.failures).toBeUndefined()
     expect(errorLog.failuresByPos).toBeUndefined()
     expect(errorLog.inner).toBeUndefined()
-    expect(errorLog.message).toEqual([msg, msg2])
+    expect(errorLog.message).toEqual([localMsg, caughtMsg])
+    expect(errorLog.stack).toEqual(expect.any(Array))
+  })
+
+  test('creates log with invalid caughtError and valid localError parameters', () => {
+    const errorLog = new ErrorLog(null, localError)
+    expect(errorLog.id).toEqual(expect.any(String))
+    expect(errorLog.createdAt).toEqual(expect.any(String))
+    expect(errorLog.name).toEqual(`${localMsg}:undefined`)
+    expect(errorLog.failures).toBeUndefined()
+    expect(errorLog.failuresByPos).toBeUndefined()
+    expect(errorLog.inner).toBeUndefined()
+    expect(errorLog.message).toEqual([localMsg])
     expect(errorLog.stack).toEqual(expect.any(Array))
   })
 })

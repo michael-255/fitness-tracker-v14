@@ -7,7 +7,7 @@ export const errorLogStoreIndices = Object.freeze({ [Store.ERROR_LOGS]: '&id, cr
 export interface IErrorLog {
   id: string
   createdAt: string
-  name?: string
+  name: string
   inner?: any
   failures?: string[]
   failuresByPos?: string[]
@@ -17,31 +17,31 @@ export interface IErrorLog {
 
 /**
  * ErrorLog Class
- * @param {Error|any} error (Required)
- * @param {Error|any} cause (Optional)
+ * @param {Error|any} caughtError (Required) - Error provided in the catch block
+ * @param {Error} localError (Optional) - Additional error for name and trace information
  */
 export class ErrorLog {
   id: string
   createdAt: string
-  name?: string
+  name: string
   inner?: any
   failures?: string[]
   failuresByPos?: string[]
   message?: string[]
   stack?: string[]
 
-  constructor(error: Error | any, cause?: Error | any) {
+  constructor(caughtError: Error | any, localError?: Error) {
     this.id = createId()
     this.createdAt = new Date().toISOString()
-    this.name = `${error?.name}:${cause?.name}`
-    this.inner = cause?.inner
-    this.failures = cause?.failures
-    this.failuresByPos = cause?.failuresByPos
-    this.message = [...this.stringToArray(error?.message), ...this.stringToArray(cause?.message)]
-    this.stack = [...this.stringToArray(error?.stack), ...this.stringToArray(cause?.stack)]
+    this.name = `${localError?.message}:${caughtError?.name}` // first message is undefined if no localError provided
+    this.inner = caughtError?.inner
+    this.failures = caughtError?.failures
+    this.failuresByPos = caughtError?.failuresByPos
+    this.message = [...this.stringToArray(localError?.message), ...this.stringToArray(caughtError?.message)]
+    this.stack = [...this.stringToArray(localError?.stack), ...this.stringToArray(caughtError?.stack)]
   }
 
-  stringToArray(str: string): string[] {
+  stringToArray(str: string | undefined): string[] {
     if (str) {
       return str
         ?.trim() // remove excess whitespace

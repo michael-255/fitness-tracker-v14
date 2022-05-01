@@ -8,6 +8,14 @@ import { ref } from 'vue'
 
 let file: any = ref(null)
 
+function onRejectedFile(entries: any) {
+  logger.warn('The file upload was rejected.', entries)
+  database.addErrorLog(
+    { name: entries[0]?.file?.name, message: `failedPropValidation:${entries[0]?.failedPropValidation}` },
+    new Error('onRejectedFile')
+  )
+}
+
 async function loadAllDefaults() {
   try {
     const measurements = await defaults.generateMeasurements()
@@ -18,7 +26,7 @@ async function loadAllDefaults() {
     await database.bulkAddWorkouts(workouts)
   } catch (err) {
     logger.error(err)
-    database.addErrorLog(new Error('loadAllDefaults'), err)
+    database.addErrorLog(err, new Error('loadAllDefaults'))
   }
 }
 
@@ -28,7 +36,7 @@ async function loadMeasurements() {
     await database.bulkAddMeasurements(measurements)
   } catch (err) {
     logger.error(err)
-    database.addErrorLog(new Error('loadMeasurements'), err)
+    database.addErrorLog(err, new Error('loadMeasurements'))
   }
 }
 
@@ -38,7 +46,7 @@ async function loadExercises() {
     await database.bulkAddExercises(exercises)
   } catch (err) {
     logger.error(err)
-    database.addErrorLog(new Error('loadExercises'), err)
+    database.addErrorLog(err, new Error('loadExercises'))
   }
 }
 
@@ -48,7 +56,7 @@ async function loadWorkouts() {
     await database.bulkAddWorkouts(workouts)
   } catch (err) {
     logger.error(err)
-    database.addErrorLog(new Error('loadWorkouts'), err)
+    database.addErrorLog(err, new Error('loadWorkouts'))
   }
 }
 
@@ -66,18 +74,18 @@ async function clearAllAppData() {
     }
   } catch (err) {
     logger.error(err)
-    database.addErrorLog(new Error('clearAllAppData'), err)
+    database.addErrorLog(err, new Error('clearAllAppData'))
   }
 }
 
 async function clearStoreData(store: Store) {
   try {
-    if (confirm(`Clear "${store}" data?`)) {
+    if (confirm(`Clear "${store}" table data?`)) {
       database.clear(store)
     }
   } catch (err) {
     logger.error(err)
-    database.addErrorLog(new Error('clearStoreData'), err)
+    database.addErrorLog(err, new Error('clearStoreData'))
   }
 }
 
@@ -101,7 +109,14 @@ async function printFile() {
   <br />
 
   <div class="q-mb-sm text-weight-bolder">Import Data</div>
-  <QFile class="q-mb-sm" v-model="file" label="Upload Fitness Data JSON" />
+  <QFile
+    class="q-mb-sm"
+    v-model="file"
+    accept="application/json"
+    max-file-size="10485760"
+    label="Upload Fitness Data JSON"
+    @rejected="onRejectedFile"
+  />
   <br />
   <QBtn class="q-mb-sm" color="primary" label="Print File" @click="printFile()" />
   <br />

@@ -232,8 +232,8 @@ export class LocalDatabase extends Dexie {
   // ErrorLogs
   //
 
-  async addErrorLog(error: Error | any, cause?: Error | any): Promise<IndexableType> {
-    return await this.table(Store.ERROR_LOGS).add(new ErrorLog(error, cause))
+  async addErrorLog(caughtError: Error | any, localError?: Error): Promise<IndexableType> {
+    return await this.table(Store.ERROR_LOGS).add(new ErrorLog(caughtError, localError))
   }
 }
 
