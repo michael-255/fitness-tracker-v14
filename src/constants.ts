@@ -9,7 +9,7 @@ export enum Store {
   WORKOUT_RECORDS = 'workoutRecords',
   ACTIVE_EXERCISES = 'activeExercises',
   ACTIVE_WORKOUTS = 'activeWorkouts',
-  ERROR_LOGS = 'errorLogs',
+  APP_LOGS = 'appLogs',
 }
 
 export enum Links {

@@ -18,15 +18,15 @@ interface IMeasurementFields {
 
 /**
  * Measurement Class
- * @param {string} obj.id (Inherited, Optional)
- * @param {string} obj.createdAt (Inherited, Optional)
- * @param {string} obj.name (Inherited, Required)
- * @param {string} obj.description (Inherited, Optional)
- * @param {ActionStatus} obj.status (Inherited, Optional)
- * @param {boolean} obj.trackLbs (Optional)
- * @param {boolean} obj.trackInches (Optional)
- * @param {boolean} obj.trackFeet (Optional)
- * @param {boolean} obj.trackPercent (Optional)
+ * @arg obj.id (Inherited, Optional)
+ * @arg obj.createdAt (Inherited, Optional)
+ * @arg obj.name (Inherited, Required)
+ * @arg obj.description (Inherited, Optional)
+ * @arg obj.status (Inherited, Optional)
+ * @arg obj.trackLbs (Optional)
+ * @arg obj.trackInches (Optional)
+ * @arg obj.trackFeet (Optional)
+ * @arg obj.trackPercent (Optional)
  */
 export class Measurement extends _Action {
   trackLbs?: boolean

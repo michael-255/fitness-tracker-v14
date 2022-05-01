@@ -6,7 +6,7 @@ import { Store } from '@/constants'
 import { ExerciseRecord } from '@/models/ExerciseRecord'
 import { Exercise } from '@/models/Exercise'
 import { Workout } from '@/models/Workout'
-import { ErrorLog } from '@/models/ErrorLog'
+import { AppLog } from '@/models/AppLog'
 import { ActionStatus } from '@/models/_Action'
 
 async function addThing() {
@@ -25,40 +25,40 @@ async function addThing() {
     console.log(await database.addExercise(new Exercise({ id: 'UI04-JXKJ-VD5N', name: 'Duplicate Id!' })))
   } catch (err) {
     console.error(err)
-    database.addErrorLog(new ErrorLog(err as Error))
+    database.addAppLog(new AppLog(err as Error))
   }
 }
 
 async function getThings() {
   try {
     console.log(await database.getAll(Store.EXERCISES))
-    console.log(await database.getById(Store.ERROR_LOGS, 'W3CE-1UH8-KSUW'))
+    console.log(await database.getById(Store.APP_LOGS, 'W3CE-1UH8-KSUW'))
     console.log(await database.deleteById(Store.EXERCISES, 'UI04-JXKJ-VD5N'))
     console.log(await database.clear(Store.WORKOUTS))
   } catch (err) {
     console.error(err)
-    database.addErrorLog(new ErrorLog(err as Error))
+    database.addAppLog(new AppLog(err as Error))
   }
 }
 
 async function getByStatus() {
   try {
     console.log(await database.getByStatus(Store.WORKOUTS, ActionStatus.ARCHIVED))
-    console.log(await database.getByStatus(Store.ERROR_LOGS, ActionStatus.DISABLED))
+    console.log(await database.getByStatus(Store.APP_LOGS, ActionStatus.DISABLED))
   } catch (err) {
     console.error(err)
-    database.addErrorLog(new ErrorLog(err as Error))
+    database.addAppLog(new AppLog(err as Error))
   }
 }
 
 async function getNewestByParentId() {
   try {
     console.log(await database.getNewestByParentId(Store.EXERCISE_RECORDS, 'UI04-JXKJ-VD5N'))
-    console.log(await database.bulkGetByIds(Store.ERROR_LOGS, ['65JW-C030-UWBZ', 'W3CE-1UH8-KSUW']))
-    console.log(await database.bulkGetByIds(Store.ERROR_LOGS, ['bad-id']))
+    console.log(await database.bulkGetByIds(Store.APP_LOGS, ['65JW-C030-UWBZ', 'W3CE-1UH8-KSUW']))
+    console.log(await database.bulkGetByIds(Store.APP_LOGS, ['bad-id']))
   } catch (err) {
     console.error(err)
-    database.addErrorLog(new ErrorLog(err as Error))
+    database.addAppLog(new AppLog(err as Error))
   }
 }
 </script>

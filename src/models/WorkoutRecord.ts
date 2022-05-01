@@ -20,12 +20,12 @@ interface IWorkoutRecordFields {
 
 /**
  * WorkoutRecord Class
- * @param {string} obj.id (Inherited, Optional)
- * @param {string} obj.createdAt (Inherited, Optional)
- * @param {string} obj.parentId (Inherited, Required)
- * @param {string} obj.note (Inherited, Optional)
- * @param {string} obj.finishedAt (Optional)
- * @param {string[]} obj.exerciseRecordIds (Defaulted)
+ * @arg obj.id (Inherited, Optional)
+ * @arg obj.createdAt (Inherited, Optional)
+ * @arg obj.parentId (Inherited, Required)
+ * @arg obj.note (Inherited, Optional)
+ * @arg obj.finishedAt (Optional)
+ * @arg obj.exerciseRecordIds (Defaulted)
  */
 export class WorkoutRecord extends _Record {
   finishedAt?: string

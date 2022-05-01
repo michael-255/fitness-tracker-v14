@@ -26,12 +26,12 @@ interface IExerciseRecordFields {
 
 /**
  * ExerciseRecord Class
- * @param {string} obj.id (Inherited, Optional)
- * @param {string} obj.createdAt (Inherited, Optional)
- * @param {string} obj.parentId (Inherited, Required)
- * @param {string} obj.note (Inherited, Optional)
- * @param {boolean} obj.skipped (Optional)
- * @param {ExerciseSet[]} obj.sets (Defaulted)
+ * @arg obj.id (Inherited, Optional)
+ * @arg obj.createdAt (Inherited, Optional)
+ * @arg obj.parentId (Inherited, Required)
+ * @arg obj.note (Inherited, Optional)
+ * @arg obj.skipped (Optional)
+ * @arg obj.sets (Defaulted)
  */
 export class ExerciseRecord extends _Record {
   skipped?: boolean

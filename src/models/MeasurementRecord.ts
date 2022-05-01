@@ -16,12 +16,12 @@ interface IMeasurementRecordFields {
 
 /**
  * MeasurementRecord Class
- * @param {string} obj.id (Inherited, Optional)
- * @param {string} obj.createdAt (Inherited, Optional)
- * @param {string} obj.parentId (Inherited, Required)
- * @param {string} obj.note (Inherited, Optional)
- * @param {number} obj.lbs (Optional)
- * @param {number} obj.inches (Optional)
+ * @arg obj.id (Inherited, Optional)
+ * @arg obj.createdAt (Inherited, Optional)
+ * @arg obj.parentId (Inherited, Required)
+ * @arg obj.note (Inherited, Optional)
+ * @arg obj.lbs (Optional)
+ * @arg obj.inches (Optional)
  */
 export class MeasurementRecord extends _Record {
   lbs?: number

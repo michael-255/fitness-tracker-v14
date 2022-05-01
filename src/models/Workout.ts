@@ -15,12 +15,12 @@ interface IWorkoutFields {
 
 /**
  * Workout Class
- * @param {string} obj.id (Inherited, Optional)
- * @param {string} obj.createdAt (Inherited, Optional)
- * @param {string} obj.name (Inherited, Required)
- * @param {string} obj.description (Inherited, Optional)
- * @param {ActionStatus} obj.status (Inherited, Optional)
- * @param {string[]} obj.exerciseIds (Defaulted)
+ * @arg obj.id (Inherited, Optional)
+ * @arg obj.createdAt (Inherited, Optional)
+ * @arg obj.name (Inherited, Required)
+ * @arg obj.description (Inherited, Optional)
+ * @arg obj.status (Inherited, Optional)
+ * @arg obj.exerciseIds (Defaulted)
  */
 export class Workout extends _Action {
   exerciseIds?: string[]

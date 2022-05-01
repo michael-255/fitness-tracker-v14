@@ -15,13 +15,12 @@ import { ExerciseRecord, exerciseRecordStoreIndices } from '@/models/ExerciseRec
 import type { IExerciseRecord, IUpdateExerciseRecord } from '@/models/ExerciseRecord'
 import { WorkoutRecord, workoutRecordStoreIndices } from '@/models/WorkoutRecord'
 import type { IWorkoutRecord, IUpdateWorkoutRecord } from '@/models/WorkoutRecord'
-import { ErrorLog, errorLogStoreIndices } from '@/models/ErrorLog'
-import type { IErrorLog } from '@/models/ErrorLog'
-import { logger } from '@/services/Logger'
+import { AppLog, errorLogStoreIndices } from '@/models/AppLog'
+import type { IAppLog } from '@/models/AppLog'
 
 /**
  * Wrapper for Dexie IndexedDB
- * @param name Database name
+ * @arg name Database name
  */
 export class LocalDatabase extends Dexie {
   // Information for the typing system to help Dexie out
@@ -33,7 +32,7 @@ export class LocalDatabase extends Dexie {
   [Store.WORKOUT_RECORDS]!: Table<IWorkoutRecord>;
   [Store.ACTIVE_EXERCISES]!: Table<IExerciseRecord>;
   [Store.ACTIVE_WORKOUTS]!: Table<IWorkoutRecord>;
-  [Store.ERROR_LOGS]!: Table<IErrorLog>
+  [Store.APP_LOGS]!: Table<IAppLog>
 
   constructor(name: string) {
     super(name)
@@ -56,7 +55,7 @@ export class LocalDatabase extends Dexie {
     this[Store.WORKOUT_RECORDS].mapToClass(WorkoutRecord)
     this[Store.ACTIVE_EXERCISES].mapToClass(ExerciseRecord)
     this[Store.ACTIVE_WORKOUTS].mapToClass(WorkoutRecord)
-    this[Store.ERROR_LOGS].mapToClass(ErrorLog)
+    this[Store.APP_LOGS].mapToClass(AppLog)
   }
 
   //
@@ -229,11 +228,11 @@ export class LocalDatabase extends Dexie {
   }
 
   //
-  // ErrorLogs
+  // AppLogs
   //
 
-  async addErrorLog(caughtError: Error | any, localError?: Error): Promise<IndexableType> {
-    return await this.table(Store.ERROR_LOGS).add(new ErrorLog(caughtError, localError))
+  async addAppLog(caughtErrorOrObject: Error | any, localError?: Error): Promise<IndexableType> {
+    return await this.table(Store.APP_LOGS).add(new AppLog(caughtErrorOrObject, localError))
   }
 }
 

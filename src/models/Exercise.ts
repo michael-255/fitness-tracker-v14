@@ -20,17 +20,17 @@ interface IExerciseFields {
 
 /**
  * Exercise Class
- * @param {string} obj.id (Inherited, Optional)
- * @param {string} obj.createdAt (Inherited, Optional)
- * @param {string} obj.name (Inherited, Required)
- * @param {string} obj.description (Inherited, Optional)
- * @param {ActionStatus} obj.status (Inherited, Optional)
- * @param {boolean} obj.trackConfirm (Optional)
- * @param {boolean} obj.trackMultipleSets (Optional)
- * @param {boolean} obj.trackDuration (Optional)
- * @param {boolean} obj.trackDistance (Optional)
- * @param {boolean} obj.trackWeight (Optional)
- * @param {boolean} obj.trackReps (Optional)
+ * @arg obj.id (Inherited, Optional)
+ * @arg obj.createdAt (Inherited, Optional)
+ * @arg obj.name (Inherited, Required)
+ * @arg obj.description (Inherited, Optional)
+ * @arg obj.status (Inherited, Optional)
+ * @arg obj.trackConfirm (Optional)
+ * @arg obj.trackMultipleSets (Optional)
+ * @arg obj.trackDuration (Optional)
+ * @arg obj.trackDistance (Optional)
+ * @arg obj.trackWeight (Optional)
+ * @arg obj.trackReps (Optional)
  */
 export class Exercise extends _Action {
   trackConfirm?: boolean

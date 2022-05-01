@@ -21,11 +21,11 @@ export interface IUpdateAction {
 
 /**
  * _Action Class
- * @param {string} obj.id (Inherited, Optional)
- * @param {string} obj.createdAt (Inherited, Optional)
- * @param {string} obj.name (Required)
- * @param {string} obj.description (Optional)
- * @param {ActionStatus} obj.status (Defaulted)
+ * @arg obj.id (Inherited, Optional)
+ * @arg obj.createdAt (Inherited, Optional)
+ * @arg obj.name (Required)
+ * @arg obj.description (Optional)
+ * @arg obj.status (Defaulted)
  */
 export class _Action extends _Entity {
   name: string // Required

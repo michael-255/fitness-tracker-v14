@@ -12,10 +12,10 @@ export interface IUpdateRecord {
 
 /**
  * _Record Class
- * @param {string} obj.id (Inherited, Optional)
- * @param {string} obj.createdAt (Inherited, Optional)
- * @param {string} obj.parentId (Required)
- * @param {string} obj.note (Optional)
+ * @arg obj.id (Inherited, Optional)
+ * @arg obj.createdAt (Inherited, Optional)
+ * @arg obj.parentId (Required)
+ * @arg obj.note (Optional)
  */
 export class _Record extends _Entity {
   parentId: string // Required

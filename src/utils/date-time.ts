@@ -16,15 +16,7 @@ export enum Ordinal {
 
 export const WeekdayShort = Object.freeze(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'])
 
-export const WeekdayLong = Object.freeze([
-  'Sunday',
-  'Monday',
-  'Tuesday',
-  'Wednesday',
-  'Thursday',
-  'Friday',
-  'Saturday',
-])
+export const WeekdayLong = Object.freeze(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])
 
 export const MonthShort = Object.freeze([
   'Jan',
@@ -58,7 +50,7 @@ export const MonthLong = Object.freeze([
 
 /**
  * Returns an ordinal for an integar parameter.
- * @param integar
+ * @arg integar
  * @returns Ordinal 'st', 'nd', 'rd', or 'th'
  */
 export function getOrdinalString(integar: number): string {
@@ -81,7 +73,7 @@ export function getOrdinalString(integar: number): string {
 
 /**
  * Uses integar milliseconds parameter to build a duration string.
- * @param milliseconds
+ * @arg milliseconds
  * @returns Duration String format: #d #h #m #s
  */
 export function getDurationString(milliseconds: number): string {
@@ -108,7 +100,7 @@ export function getDurationString(milliseconds: number): string {
 
 /**
  * Builds a concise display date string from a date.
- * @param date
+ * @arg date
  * @returns Date String format: MM/DD/YYYY
  */
 export function getShortDateString(date: Date): string {
@@ -121,7 +113,7 @@ export function getShortDateString(date: Date): string {
 
 /**
  * Builds a medium length display date string from a date.
- * @param date
+ * @arg date
  * @returns Date String format: [short weekday], [short month] [day], [year]
  */
 export function getMediumDateString(date: Date): string {
@@ -135,7 +127,7 @@ export function getMediumDateString(date: Date): string {
 
 /**
  * Builds a long detailed display date string from a date.
- * @param {Date} date
+ * @arg {Date} date
  * @returns Date String format: [long weekday], [long month] [day], [year]
  */
 export function getLongDateString(date: Date): string {

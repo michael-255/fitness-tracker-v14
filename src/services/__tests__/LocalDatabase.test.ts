@@ -351,12 +351,12 @@ describe('LocalDatabase', () => {
   })
 
   //
-  // ErrorLog
+  // AppLog
   //
 
-  test('addErrorLog calls correct Dexie methods', () => {
-    db.addErrorLog({}, {})
-    expect(tableMock).toHaveBeenCalledWith(Store.ERROR_LOGS)
+  test('addAppLog calls correct Dexie methods', () => {
+    db.addAppLog({}, {})
+    expect(tableMock).toHaveBeenCalledWith(Store.APP_LOGS)
     expect(addMock).toHaveBeenCalledWith({
       id: expect.any(String),
       createdAt: expect.any(String),

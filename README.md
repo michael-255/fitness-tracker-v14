@@ -21,8 +21,8 @@ Implement the following:
   - [x] Add class tests
   - [x] Add LocalDatabase methods
   - [x] Add LocalDatabase tests
-  - [x] Add LocalDatabase methods for `ErrorLog`
-  - [x] Add tests for `ErrorLog`
+  - [x] Add LocalDatabase methods for `AppLog`
+  - [x] Add tests for `AppLog`
 - [x] Constants and enums
 - [ ] Routes and Layouts
   - [x] Example Pages
@@ -35,22 +35,11 @@ Implement the following:
   - [x] Short message
   - [x] Link to GitHub repo
   - [x] Link to "My Apps" site (disabled)
-- [ ] Complete Options view
-  - [ ] Load Defaults (constant ids)
-    - [x] Create defaults service
-    - [x] Create option to load defaults into the database
-  - [ ] Import Data
-    - [x] Create `Fitness Tracker v14 Export` menu option in v13 app
-    - [x] Export your old fitness data
-    - [ ] Create import function to import data (v14 compatible data only)
-      - [x] Use a file selection input
-      - [ ] Validate data is `application/json`
-      - [ ] Validate size `<= 20mb`
-      - [ ] Convert uploaded file to in app JS objects
-      - [ ] Load imported data into database
-  - [ ] Export Data
-  - [ ] Convert Data
-  - [ ] Clear App Data
+- [x] Complete Options view
+  - [x] Load Defaults
+  - [x] Import Data
+  - [x] Export Data
+  - [x] Clear App Data
 - [ ] Complete Action views (reusable components)
   - [ ] Search actions and records data table
   - [ ] Create Action/Record

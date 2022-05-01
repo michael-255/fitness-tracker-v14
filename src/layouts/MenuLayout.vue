@@ -28,7 +28,6 @@ const ui = useUIStore()
         <QSeparator />
         <DrawerItem :to="{ name: Views.OPTIONS }" :icon="Icons.SETTINGS" label="Options" />
         <DrawerItem :to="{ name: Views.ABOUT }" :icon="Icons.INFO" label="About" />
-        <DrawerItem to="/example404" :icon="Icons.WARN" label="Not Found" />
       </QList>
     </QDrawer>
 
