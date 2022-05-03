@@ -1,1 +1,0 @@
-import{_ as e}from"./plugin-vue_export-helper.21dcd24c.js";import{o as r,a0 as t}from"./vendor.eecfd437.js";const a={};function o(c,n){return r(),t("h3",null,"Charts View")}var f=e(a,[["render",o]]);export{f as default};

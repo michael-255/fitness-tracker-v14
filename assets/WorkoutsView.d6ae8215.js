@@ -1,0 +1,1 @@
+import{_ as e}from"./plugin-vue_export-helper.21dcd24c.js";import{o,U as r}from"./index.d3a49b7a.js";const t={};function c(n,s){return o(),r("h3",null,"Workouts View")}var f=e(t,[["render",c]]);export{f as default};
