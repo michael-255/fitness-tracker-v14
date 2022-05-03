@@ -59,6 +59,12 @@ const router = createRouter({
       component: () => import(`../views/${Views.WORKOUTS}.vue`),
     },
     {
+      path: '/app-logs',
+      name: Views.APPLOGS,
+      meta: { layout: Layouts.MENU },
+      component: () => import(`../views/${Views.APPLOGS}.vue`),
+    },
+    {
       path: '/options',
       name: Views.OPTIONS,
       meta: { layout: Layouts.MENU },

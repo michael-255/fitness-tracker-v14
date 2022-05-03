@@ -26,6 +26,7 @@ const ui = useUIStore()
         <DrawerItem :to="{ name: Views.EXERCISES }" :icon="Icons.EXERCISE" label="Exercises" />
         <DrawerItem :to="{ name: Views.WORKOUTS }" :icon="Icons.WORKOUT" label="Workouts" />
         <QSeparator />
+        <DrawerItem :to="{ name: Views.APPLOGS }" :icon="Icons.APPLOGS" label="App Logs" />
         <DrawerItem :to="{ name: Views.OPTIONS }" :icon="Icons.SETTINGS" label="Options" />
         <DrawerItem :to="{ name: Views.ABOUT }" :icon="Icons.INFO" label="About" />
       </QList>
