@@ -29,7 +29,6 @@ Implement the following:
   - [x] Test page for experiments
   - [x] Route slugs/props?
   - [x] Working Routes
-  - [x] Increase ESLint line limit rule to 120
   - [ ] How to overwrite route history `---WIP---`
 - [x] Complete About view (reference old fitness app version)
   - [x] Short message
@@ -42,11 +41,23 @@ Implement the following:
   - [x] Clear App Data
 - [x] Debug deployment issues
 - [x] Reloading pages caused the site to break
+- [ ] `App Logs` View
+  - [ ] View Options
+    - [ ] Clear `App Logs` Store
+    - [ ] Search using a Data Table
+      - [ ] Columns: `Id`, `CreatedAt`, `First Message`, `Messages Length`, `Stack Length`, `Actions`
+      - [ ] Actions: `Details`, `Delete`
 - [ ] `Action` views (reusable components)
-  - [ ] Search actions and records data table
-  - [ ] Create `Action` & `Record`
-  - [ ] Edit `Action` & `Record`
-  - [ ] Move database clears here?
+  - [ ] View Options
+    - [ ] Clear `Actions` Store
+    - [ ] Clear `Records` Store
+    - [ ] View `Actions`
+    - [ ] View `Records`
+    - [ ] Search using a Data Table (Tabbed?)
+  - [ ] Use a Quasar Table element
+    - [ ] Action Columns: `Id`, `CreatedAt`, `Name`, `Status`, `Actions`
+    - [ ] Record Columns: `Id`, `CreatedAt`, `Parent Name`, `Actions`
+    - [ ] Actions: `Details`, `Edit`, `Delete`
 - [ ] `AppLogs` view
   - [ ] Option to clear logs
 - [ ] Complete `ActiveWorkout` view
