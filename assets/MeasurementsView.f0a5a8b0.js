@@ -1,0 +1,1 @@
+import{_ as e}from"./plugin-vue_export-helper.21dcd24c.js";import{o as r,a0 as t}from"./vendor.f0e0cb5f.js";const a={};function n(o,s){return r(),t("h3",null,"Measurements View")}var m=e(a,[["render",n]]);export{m as default};

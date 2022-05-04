@@ -1,1 +1,0 @@
-import{_ as e}from"./plugin-vue_export-helper.21dcd24c.js";import{o as r,U as c}from"./index.d3a49b7a.js";const o={};function s(t,n){return r(),c("h3",null,"Exercises View")}var i=e(o,[["render",s]]);export{i as default};
