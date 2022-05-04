@@ -6,6 +6,16 @@ Description TBA.
 
 Implement the following:
 
+`IMPORTANT --- NEW`
+
+- [ ] Build a `Quasar CLI with Vite` project
+
+  - [ ] `<https://quasar.dev/start/quasar-cli>`
+  - [ ] See if it solves your typescript issues
+  - [ ] If everything works, migrate your project
+
+---
+
 - [x] Clone boilerplate app over to this project somehow (must keep notes!)
 - [x] Data Types + LocalDatabase
   - [x] `_Entity`
@@ -45,7 +55,8 @@ Implement the following:
   - [ ] View Options
     - [ ] Clear `App Logs` Store
     - [ ] Search using a Data Table
-      - [ ] Columns: `Id`, `CreatedAt`, `First Message`, `Messages Length`, `Stack Length`, `Actions`
+      - [ ] Columns: `Id`, `CreatedAt`, `First Message`, `Messages Length`, `Stack Length`,
+            `Actions`
       - [ ] Actions: `Details`, `Delete`
 - [ ] `Action` views (reusable components)
   - [ ] View Options
@@ -211,7 +222,7 @@ npm upgrade
 
 ## Project Setup
 
-### Vue 3 (+Vite)
+### Vue 3 with Vite
 
 Initialize a new Vue 3 project with Vite and follow the prompts.
 
@@ -221,196 +232,26 @@ npm init vue@latest
 
 ### Vitest
 
-Add the coverage flag to the test script to generate code coverage reports. You may be required to install the `c8`
-package when you first run `vitest`.
+Setup may require you to install the `c8` package when you first run `vitest`.
 
-```jsonc
-// FILE: ~/package.json
-"scripts": {
-  "test": "vitest --environment jsdom --coverage"
-}
-```
+There are at least two test scripts in the `package.json` file. One that generates a coverage report
+(slow). One that does NOT generate a coverage report (fast).
 
 ### VSCode
 
-Recommended extensions file.
-
-```jsonc
-// FILE: ~/.vscode/extensions.json
-{
-  "recommendations": [
-    // Syntax highlighting for Vue/TypeScript
-    "johnsoncodehk.volar",
-    "johnsoncodehk.vscode-typescript-vue-plugin",
-    // JavaScript linting
-    "dbaeumer.vscode-eslint",
-    // CSS, LESS, SCSS linting
-    "stylelint.vscode-stylelint",
-    // MarkDown linting
-    "DavidAnson.vscode-markdownlint",
-    // Code formatting
-    "esbenp.prettier-vscode",
-    // Git information in editor
-    "eamodio.gitlens",
-    // Open server in browser
-    "ritwickdey.liveserver",
-    // Better VSCode icons
-    "pkief.material-icon-theme"
-  ]
-}
-```
-
-Code snippets file.
-
-```jsonc
-// FILE: ~/.vscode/project.code-snippets
-{
-  "component-vue3": {
-    "scope": "vue",
-    "prefix": "component (vue3)",
-    "description": "TypeScript component for Vue 3",
-    "body": [
-      "<script setup lang=\"ts\">", // 1
-      "import { ref } from 'vue'", // 2
-      "const data = ref('New Component')", // 3
-      "</script>\n", // 4
-      "<template>", // 5
-      "\t<h3>{{ data }}</h3>", // 6
-      "</template>\n", // 7
-      "<style></style>" // 8
-    ]
-  },
-
-  "imports-vitest": {
-    "scope": "typescript",
-    "prefix": "import (vitest imports)",
-    "description": "Common imports for vitest",
-    "body": "import { describe, test, expect } from 'vitest'"
-  },
-
-  "test-vitest": {
-    "scope": "typescript",
-    "prefix": "test (vitest func)",
-    "description": "Test function for vitest",
-    "body": [
-      "test('${0:testing...}', () => {", // 1
-      "\texpect(true).toBe(false)", // 2
-      "})" // 3
-    ]
-  },
-
-  "describe-vitest": {
-    "scope": "typescript",
-    "prefix": "describe (vitest func)",
-    "description": "Describe function for vitest",
-    "body": [
-      "describe('${1:Example}', () => {", // 1
-      "\t${0}", // 2
-      "})" // 3
-    ]
-  },
-
-  "beforeEach-vitest": {
-    "scope": "typescript",
-    "prefix": "beforeEach (vitest func)",
-    "description": "BeforeEach function for vitest",
-    "body": [
-      "beforeEach(() => {", // 1
-      "\t${0}", // 2
-      "})" // 3
-    ]
-  }
-}
-```
+I've included the `.vscode` folder in this project. It has extension recommendations and some useful
+code snippets.
 
 ### Git Ignore
 
-Good default ignore setup for this Vue 3 project.
-
-```bash
-# FILE: ~/.gitignore
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-# Build files
-node_modules
-dist
-dist-ssr
-
-# OS files
-.DS_Store
-Thumbs.db
-desktop.ini
-
-# Test suite files
-coverage
-/cypress/videos/
-/cypress/screenshots/
-
-# Editor directories and files
-# .vscode/* # Leaving .vscode on purpose
-# !.vscode/extensions.json # Leaving .vscode on purpose
-.idea
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# dotenv environment variables file
-.env
-.env.test
-*.local
-```
+Setup with some good defaults based on the default `node` project `.gitignore` file.
 
 ### Prettier
 
-Create Prettier config that should work with ESLint using "eslint-config-prettier" package.
+Setup `.prettierrc.js` and `.prettierignore` files that should work with ESLint using
+`eslint-config-prettier` package.
 
-```javascript
-// FILE: ~/.prettierrc.js
-module.exports = {
-  printWidth: 100,
-  tabWidth: 2,
-  useTabs: false,
-  semi: false,
-  singleQuote: true,
-  quoteProps: 'as-needed',
-  jsxSingleQuote: true,
-  trailingComma: 'es5',
-  bracketSpacing: true,
-  bracketSameLine: false,
-  arrowParens: 'always',
-  proseWrap: 'always',
-  htmlWhitespaceSensitivity: 'css',
-  vueIndentScriptAndStyle: false,
-  endOfLine: 'lf',
-}
-```
-
-Create Prettier ignore file so it won't format anything in the defined directories.
-
-```bash
-# FILE: ~/.prettierignore
-/node_modules/**
-/dist/**
-/coverage/**
-/logs/**
-```
-
-### Gh-pages
+### GitHub Pages
 
 Install gh-pages for GitHub Pages deployments.
 
@@ -418,15 +259,9 @@ Install gh-pages for GitHub Pages deployments.
 npm i -D gh-pages
 ```
 
-Use the following script to build and deploy your project. It makes a copy of the `index.html` in `dist` as `404.html`
-to address complications related to routing. This let's you avoid using hash based routing.
-
-```jsonc
-// FILE: ~/package.json
-"scripts": {
-  "deploy": "npm run build && cd dist && cp index.html 404.html && cd .. && gh-pages -d dist -m Deployment"
-}
-```
+Use the `deploy` script in `package.json` to build and deploy your project. It makes a copy of the
+`index.html` in `dist` as `404.html` to address complications related to routing. This let's you
+avoid using hash based routing (which looks ugly).
 
 ### Chart.js
 
@@ -444,6 +279,8 @@ npm i vue-chart-3
 
 ### Quasar
 
+`TODO`: Might be switching to the `Quasar CLI with Vite` setup...
+
 Install quasar and it's extras if desired (fonts, icons, etc).
 
 ```sh
@@ -456,15 +293,17 @@ Install the Quasar Vite plugin and SASS.
 npm i -D @quasar/vite-plugin sass@1.32.0
 ```
 
-Use the configurator tool to help setup Quasar for your specific project. It generates the files you'll need to copy
-over based on your selection.
+Use the configurator tool to help setup Quasar for your specific project. It generates the files
+you'll need to copy over based on your selection.
 
 <https://quasar.dev/start/vite-plugin>
 
-### Dexie (IndexedDB)
+### Dexie
 
-Using this package to store the apps data in an easy to use local database. I've wrapped `Dexie` with a class called
-`LocalDatabase` in this project.
+A wrapper package for `IndexedDB` in the browser.
+
+Using this package to store the apps data in an easy to use local database. I've wrapped `Dexie`
+with a class called `LocalDatabase` in this project.
 
 Installing the package.
 
@@ -523,7 +362,7 @@ hygen {NAME} help
 
 ### Services
 
-Services you can reuse in other projects located at `~/src/services/*`
+Common services you can reuse in other projects located at `~/src/services/*`
 
 - `LocalDatabase`
 - `LocalStorage`
@@ -531,7 +370,7 @@ Services you can reuse in other projects located at `~/src/services/*`
 
 ### Utils
 
-Utilities you can reuse in other projects located at `~/src/utils/*`
+Common utilities you can reuse in other projects located at `~/src/utils/*`
 
 - `build-id`
 - `common`
@@ -542,23 +381,25 @@ Utilities you can reuse in other projects located at `~/src/utils/*`
 ### Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) +
-[Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) +
+[Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable
+Vetur) +
 [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
 
 ### Type Support for `.vue` Imports in TS
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for
-type checking. In editors, we need
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI
+with `vue-tsc` for type checking. In editors, we need
 [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin)
 to make the TypeScript language service aware of `.vue` types.
 
 If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a
-[Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more
-performant. You can enable it by the following steps:
+[Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669)
+that is more performant. You can enable it by the following steps:
 
 1. Disable the built-in TypeScript Extension
    1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+   2. Find `TypeScript and JavaScript Language Features`, right click and select
+      `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
 ### Customize configuration
