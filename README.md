@@ -6,15 +6,7 @@ Description TBA.
 
 Implement the following:
 
-`IMPORTANT --- NEW`
-
-- [ ] Build a `Quasar CLI with Vite` project
-
-  - [ ] `<https://quasar.dev/start/quasar-cli>`
-  - [ ] See if it solves your typescript issues
-  - [ ] If everything works, migrate your project
-
----
+- [x] Use `(*) as any` to solve overload issues
 
 - [x] Clone boilerplate app over to this project somehow (must keep notes!)
 - [x] Data Types + LocalDatabase
