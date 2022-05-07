@@ -1,5 +1,19 @@
 <script setup lang="ts">
 import { QBtn, QTable, QTr, QTh, QTd } from 'quasar'
+import { Store } from '@/constants'
+import { database } from '@/services/LocalDatabase'
+import type { IAppLog } from '@/models/AppLog'
+import { useClearData } from '@/use/useClearData'
+import { ref, onMounted } from 'vue'
+import type { Ref } from 'vue'
+
+const { clearStoreData } = useClearData()
+
+let appLogs: Ref<IAppLog[]> = ref([])
+
+onMounted(async () => {
+  appLogs.value = await database.getAll(Store.APP_LOGS)
+})
 
 const logCols: any[] = [
   {
@@ -18,24 +32,29 @@ const logCols: any[] = [
     field: (row: any) => row.createdAt,
     sortable: true,
   },
-]
-
-const logRows = [
   {
-    id: '1',
-    createdAt: new Date('2022/01/01').toISOString(),
+    name: 'message',
+    label: 'First Message',
+    align: 'left',
+    required: true,
+    field: (row: any) => row.message[0],
+    sortable: true,
   },
   {
-    id: '2',
-    createdAt: new Date('2022/01/02').toISOString(),
+    name: 'message',
+    label: 'Message Count',
+    align: 'left',
+    required: true,
+    field: (row: any) => row.message.length,
+    sortable: true,
   },
   {
-    id: '3',
-    createdAt: new Date('2022/01/03').toISOString(),
-  },
-  {
-    id: '4',
-    createdAt: new Date('2022/01/04').toISOString(),
+    name: 'stack',
+    label: 'Stack Count',
+    align: 'left',
+    required: true,
+    field: (row: any) => row.stack.length,
+    sortable: true,
   },
 ]
 
@@ -47,8 +66,10 @@ function print(str: string): void {
 <template>
   <h3>App Logs</h3>
 
+  <QBtn color="negative" label="Clear App Logs" @click="clearStoreData(Store.APP_LOGS)" />
+
   <div class="q-pa-md">
-    <QTable title="App Logs" :rows="logRows" :columns="logCols">
+    <QTable title="App Logs" :rows="appLogs" :columns="logCols">
       <!-- Column Headers -->
       <template v-slot:header="props">
         <QTr :props="props">
@@ -65,7 +86,8 @@ function print(str: string): void {
             {{ col.value }}
           </QTd>
           <QTd auto-width>
-            <QBtn flat color="primary" round dense @click="print('edit')" icon="edit" />
+            <QBtn flat color="info" round dense @click="print('details')" icon="manage_search" />
+            <!-- <QBtn flat color="primary" round dense @click="print('edit')" icon="edit" /> -->
             <QBtn flat color="negative" round dense @click="print('delete')" icon="delete" />
           </QTd>
         </QTr>
