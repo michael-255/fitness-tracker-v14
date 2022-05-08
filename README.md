@@ -45,12 +45,9 @@ Implement the following:
 - [x] Reloading pages caused the site to break
 - [ ] `App Logs` View
   - [ ] View Options
-    - [ ] Search using a Data Table
-    - [ ] Colunm hiding switches
     - [x] Clear `App Logs` Store
-      - [x] Columns: `Id`, `CreatedAt`, `First Message`, `Messages Length`, `Stack Length`,
-            `Actions`
-      - [x] Actions: `Details`, `Delete`
+    - [ ] Record details
+    - [ ] Delete record
 - [ ] `Action` views (reusable components)
   - [ ] View Options
     - [ ] Clear `Actions` Store
