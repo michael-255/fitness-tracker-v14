@@ -58,6 +58,18 @@ const logCols: any[] = [
   },
 ]
 
+async function deleteRow(id: string) {
+  try {
+    if (confirm(`Delete App Log "${id}" from database?`)) {
+      await database.deleteById(Store.APP_LOGS, id)
+      appLogs.value = await database.getAll(Store.APP_LOGS)
+    }
+  } catch (err) {
+    console.error(err) // @todo - replace with logger.error
+    database.addAppLog(err, new Error('clearStoreData'))
+  }
+}
+
 function print(str: string): void {
   console.log(str)
 }
@@ -88,7 +100,14 @@ function print(str: string): void {
           <QTd auto-width>
             <QBtn flat color="info" round dense @click="print('details')" icon="manage_search" />
             <!-- <QBtn flat color="primary" round dense @click="print('edit')" icon="edit" /> -->
-            <QBtn flat color="negative" round dense @click="print('delete')" icon="delete" />
+            <QBtn
+              flat
+              color="negative"
+              round
+              dense
+              @click="deleteRow(props.cols[0].value)"
+              icon="delete"
+            />
           </QTd>
         </QTr>
       </template>
