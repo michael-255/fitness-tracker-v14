@@ -1,5 +1,4 @@
 import { database } from '@/services/LocalDatabase'
-
 import { Store } from '@/constants'
 import { logger } from '@/services/Logger'
 
