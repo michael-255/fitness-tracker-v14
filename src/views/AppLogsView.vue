@@ -3,11 +3,11 @@ import { QBtn, QTable, QTr, QTh, QTd } from 'quasar'
 import { Store } from '@/constants'
 import { database } from '@/services/LocalDatabase'
 import type { IAppLog } from '@/models/AppLog'
-import { useAppLogsSetup } from '@/use/useAppLogsSetup'
+import { useClearData } from '@/use/useClearData'
 import { ref, onMounted } from 'vue'
 import type { Ref } from 'vue'
 
-const { clearAppLogsTableData } = useAppLogsSetup()
+const { clearStoreData } = useClearData()
 
 let appLogs: Ref<IAppLog[]> = ref([])
 
@@ -78,7 +78,7 @@ function print(str: string): void {
 <template>
   <h3>App Logs</h3>
 
-  <QBtn color="negative" label="Clear App Logs" @click="clearAppLogsTableData" />
+  <QBtn color="negative" label="Clear App Logs" @click="clearStoreData(Store.APP_LOGS)" />
 
   <div class="q-pa-md">
     <QTable title="App Logs" :rows="appLogs" :columns="logCols">
