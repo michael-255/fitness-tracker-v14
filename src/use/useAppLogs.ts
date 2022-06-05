@@ -7,6 +7,7 @@ import type { Ref } from 'vue'
 
 export function useAppLogs() {
   const appLogs: Ref<IAppLog[]> = ref([])
+  const dialog: Ref<boolean> = ref(false)
 
   const logColumns: any[] = [
     {
@@ -86,6 +87,7 @@ export function useAppLogs() {
   return {
     appLogs,
     logColumns,
+    dialog,
     clearAppLogsTableData,
     deleteAppLogRow,
   }

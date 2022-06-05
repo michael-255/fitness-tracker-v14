@@ -1,21 +1,33 @@
 <script setup lang="ts">
-import { QBtn, QTable, QTr, QTh, QTd } from 'quasar'
+import {
+  QBtn,
+  QTable,
+  QTr,
+  QTh,
+  QTd,
+  QDialog,
+  QCard,
+  QCardSection,
+  QTooltip,
+  QBar,
+  QSpace,
+} from 'quasar'
 import { useAppLogs } from '@/use/useAppLogs'
 
-const { appLogs, logColumns, clearAppLogsTableData, deleteAppLogRow } = useAppLogs()
-
-function print(str: string): void {
-  console.log(str)
-}
+const { appLogs, logColumns, dialog, clearAppLogsTableData, deleteAppLogRow } = useAppLogs()
 </script>
 
 <template>
-  <h3>App Logs</h3>
-
-  <QBtn color="negative" label="Clear App Logs" @click="clearAppLogsTableData()" />
-
-  <div class="q-pa-md">
-    <QTable title="App Logs" :rows="appLogs" :columns="logColumns">
+  <div class="q-pa-sm">
+    <QTable :rows="appLogs" :columns="logColumns">
+      <!-- Table Header -->
+      <template v-slot:top>
+        <div class="col-2 q-table__title text-weight-bold">App Logs</div>
+        <QSpace />
+        <div>
+          <QBtn color="negative" label="Clear App Logs" @click="clearAppLogsTableData()" />
+        </div>
+      </template>
       <!-- Column Headers -->
       <template v-slot:header="props">
         <QTr :props="props">
@@ -32,8 +44,7 @@ function print(str: string): void {
             {{ col.value }}
           </QTd>
           <QTd auto-width>
-            <QBtn flat color="info" round dense @click="print('details')" icon="manage_search" />
-            <!-- <QBtn flat color="primary" round dense @click="print('edit')" icon="edit" /> -->
+            <QBtn flat color="info" round dense @click="dialog = true" icon="manage_search" />
             <QBtn
               flat
               color="negative"
@@ -46,5 +57,32 @@ function print(str: string): void {
         </QTr>
       </template>
     </QTable>
+  </div>
+
+  <!-- Testing out full screen details dialog -->
+  <div class="q-pa-md q-gutter-sm">
+    <QDialog
+      v-model="dialog"
+      persistent
+      maximized
+      transition-show="slide-up"
+      transition-hide="slide-down"
+    >
+      <QCard class="bg-primary text-white">
+        <QBar>
+          <QSpace />
+
+          <QBtn dense flat icon="close" v-close-popup>
+            <QTooltip class="bg-white text-primary">Close</QTooltip>
+          </QBtn>
+        </QBar>
+
+        <QCardSection>
+          <div class="text-h6">App Log Details</div>
+        </QCardSection>
+
+        <QCardSection class="q-pt-none">Log details...</QCardSection>
+      </QCard>
+    </QDialog>
   </div>
 </template>
