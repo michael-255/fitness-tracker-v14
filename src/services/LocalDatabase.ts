@@ -83,7 +83,9 @@ export class LocalDatabase extends Dexie {
   }
 
   async getNewestByParentId<T>(store: Store, parentId: string): Promise<T | undefined> {
-    return (await this.table(store).where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')).reverse()[0]
+    return (
+      await this.table(store).where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
+    ).reverse()[0]
   }
 
   async bulkGetByIds<T>(store: Store, ids: string[]): Promise<T[]> {
@@ -127,7 +129,10 @@ export class LocalDatabase extends Dexie {
     return await this.table(Store.MEASUREMENT_RECORDS).bulkAdd(items)
   }
 
-  async updateMeasurementRecordById(id: string, properties: IUpdateMeasurementRecord): Promise<IndexableType> {
+  async updateMeasurementRecordById(
+    id: string,
+    properties: IUpdateMeasurementRecord
+  ): Promise<IndexableType> {
     return await this.table(Store.MEASUREMENT_RECORDS).update(id, properties)
   }
 
@@ -159,7 +164,10 @@ export class LocalDatabase extends Dexie {
     return await this.table(Store.EXERCISE_RECORDS).bulkAdd(items)
   }
 
-  async updateExerciseRecordById(id: string, properties: IUpdateExerciseRecord): Promise<IndexableType> {
+  async updateExerciseRecordById(
+    id: string,
+    properties: IUpdateExerciseRecord
+  ): Promise<IndexableType> {
     return await this.table(Store.EXERCISE_RECORDS).update(id, properties)
   }
 
@@ -191,7 +199,10 @@ export class LocalDatabase extends Dexie {
     return await this.table(Store.WORKOUT_RECORDS).bulkAdd(items)
   }
 
-  async updateWorkoutRecordById(id: string, properties: IUpdateWorkoutRecord): Promise<IndexableType> {
+  async updateWorkoutRecordById(
+    id: string,
+    properties: IUpdateWorkoutRecord
+  ): Promise<IndexableType> {
     return await this.table(Store.WORKOUT_RECORDS).update(id, properties)
   }
 
@@ -207,7 +218,10 @@ export class LocalDatabase extends Dexie {
     return await this.table(Store.ACTIVE_EXERCISES).bulkAdd(items)
   }
 
-  async updateActiveExerciseById(id: string, properties: IUpdateExerciseRecord): Promise<IndexableType> {
+  async updateActiveExerciseById(
+    id: string,
+    properties: IUpdateExerciseRecord
+  ): Promise<IndexableType> {
     return await this.table(Store.ACTIVE_EXERCISES).update(id, properties)
   }
 
@@ -223,7 +237,10 @@ export class LocalDatabase extends Dexie {
     return await this.table(Store.ACTIVE_WORKOUTS).bulkAdd(items)
   }
 
-  async updateActiveWorkoutById(id: string, properties: IUpdateWorkoutRecord): Promise<IndexableType> {
+  async updateActiveWorkoutById(
+    id: string,
+    properties: IUpdateWorkoutRecord
+  ): Promise<IndexableType> {
     return await this.table(Store.ACTIVE_WORKOUTS).update(id, properties)
   }
 

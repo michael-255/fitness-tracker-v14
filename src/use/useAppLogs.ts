@@ -8,6 +8,7 @@ import type { Ref } from 'vue'
 export function useAppLogs() {
   const appLogs: Ref<IAppLog[]> = ref([])
   const dialog: Ref<boolean> = ref(false)
+  const details: Ref<any> = ref(null)
 
   const logColumns: any[] = [
     {
@@ -80,6 +81,16 @@ export function useAppLogs() {
     }
   }
 
+  async function getAppLogDetails(id: string) {
+    try {
+      details.value = await database.getById(Store.APP_LOGS, id)
+      dialog.value = true
+    } catch (err) {
+      logger.error(err)
+      database.addAppLog(err, new Error('getAppLogDetails'))
+    }
+  }
+
   async function updateAppLogsState() {
     appLogs.value = await database.getAll(Store.APP_LOGS)
   }
@@ -88,7 +99,9 @@ export function useAppLogs() {
     appLogs,
     logColumns,
     dialog,
+    details,
     clearAppLogsTableData,
     deleteAppLogRow,
+    getAppLogDetails,
   }
 }
