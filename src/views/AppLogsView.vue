@@ -1,74 +1,8 @@
 <script setup lang="ts">
 import { QBtn, QTable, QTr, QTh, QTd } from 'quasar'
-import { Store } from '@/constants'
-import { database } from '@/services/LocalDatabase'
-import type { IAppLog } from '@/models/AppLog'
-import { useClearData } from '@/use/useClearData'
-import { ref, onMounted } from 'vue'
-import type { Ref } from 'vue'
+import { useAppLogs } from '@/use/useAppLogs'
 
-const { clearStoreData } = useClearData()
-
-let appLogs: Ref<IAppLog[]> = ref([])
-
-onMounted(async () => {
-  appLogs.value = await database.getAll(Store.APP_LOGS)
-})
-
-const logCols: any[] = [
-  {
-    name: 'id',
-    label: 'Id',
-    align: 'left',
-    required: true,
-    field: (row: any) => row.id,
-    sortable: true,
-  },
-  {
-    name: 'createdAt',
-    label: 'Created At',
-    align: 'left',
-    required: true,
-    field: (row: any) => row.createdAt,
-    sortable: true,
-  },
-  {
-    name: 'message',
-    label: 'First Message',
-    align: 'left',
-    required: true,
-    field: (row: any) => row.message[0],
-    sortable: true,
-  },
-  {
-    name: 'message',
-    label: 'Message Count',
-    align: 'left',
-    required: true,
-    field: (row: any) => row.message.length,
-    sortable: true,
-  },
-  {
-    name: 'stack',
-    label: 'Stack Count',
-    align: 'left',
-    required: true,
-    field: (row: any) => row.stack.length,
-    sortable: true,
-  },
-]
-
-async function deleteRow(id: string) {
-  try {
-    if (confirm(`Delete App Log "${id}" from database?`)) {
-      await database.deleteById(Store.APP_LOGS, id)
-      appLogs.value = await database.getAll(Store.APP_LOGS)
-    }
-  } catch (err) {
-    console.error(err) // @todo - replace with logger.error
-    database.addAppLog(err, new Error('clearStoreData'))
-  }
-}
+const { appLogs, logColumns, clearAppLogsTableData, deleteAppLogRow } = useAppLogs()
 
 function print(str: string): void {
   console.log(str)
@@ -78,10 +12,10 @@ function print(str: string): void {
 <template>
   <h3>App Logs</h3>
 
-  <QBtn color="negative" label="Clear App Logs" @click="clearStoreData(Store.APP_LOGS)" />
+  <QBtn color="negative" label="Clear App Logs" @click="clearAppLogsTableData()" />
 
   <div class="q-pa-md">
-    <QTable title="App Logs" :rows="appLogs" :columns="logCols">
+    <QTable title="App Logs" :rows="appLogs" :columns="logColumns">
       <!-- Column Headers -->
       <template v-slot:header="props">
         <QTr :props="props">
@@ -105,7 +39,7 @@ function print(str: string): void {
               color="negative"
               round
               dense
-              @click="deleteRow(props.cols[0].value)"
+              @click="deleteAppLogRow(props.cols[0].value)"
               icon="delete"
             />
           </QTd>

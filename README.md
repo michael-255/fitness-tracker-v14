@@ -17,24 +17,35 @@ Implement the following:
 - [x] Complete Options view
 - [x] Debug deployment issues
 - [x] Reloading pages caused the site to break
-- [ ] `App Logs` View (`---WIP---`)
-  - [ ] View Options
-    - [x] Clear `App Logs` Store
-    - [ ] Record details
-    - [ ] Delete record
-- [ ] `Action` views (reusable components)
-  - [ ] View Options
-    - [ ] Clear `Actions` Store
-    - [ ] Clear `Records` Store
-    - [ ] View `Actions`
-    - [ ] View `Records`
-    - [ ] Search using a Data Table (Tabbed?)
-  - [ ] Use a Quasar Table element
-    - [ ] Action Columns: `Id`, `CreatedAt`, `Name`, `Status`, `Actions`
-    - [ ] Record Columns: `Id`, `CreatedAt`, `Parent Name`, `Actions`
-    - [ ] Actions: `Details`, `Edit`, `Delete`
-- [ ] `AppLogs` view
-  - [ ] Option to clear logs
+
+- [ ] `App Logs` View
+
+  - [x] Clear Store
+  - [ ] See Record details (Quasar modal?)
+  - [x] NO edit for App Logs
+  - [x] Delete record
+
+- [ ] `Measurements` View
+
+  - [ ] Clear Store
+  - [ ] See Record details
+  - [ ] Edit Record
+  - [ ] Delete record
+
+- [ ] `Exercises` View
+
+  - [ ] Clear Store
+  - [ ] See Record details
+  - [ ] Edit Record
+  - [ ] Delete record
+
+- [ ] `Workouts` View
+
+  - [ ] Clear Store
+  - [ ] See Record details
+  - [ ] Edit Record
+  - [ ] Delete record
+
 - [ ] Complete `ActiveWorkout` view
   - [ ] Layout (header/footer)
   - [ ] Input fields for exercises

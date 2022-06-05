@@ -190,7 +190,7 @@ export class DefaultsGenerator {
     const defaultExercises = await this.generateExercises()
 
     const getExerciseIdByName = (name: string) => {
-      return defaultExercises.find((de) => de.name === name)?.id
+      return defaultExercises.find((de) => de.name === name)?.id as string
     }
 
     return [
@@ -198,18 +198,18 @@ export class DefaultsGenerator {
         id: this.defaultIds.workouts[0],
         name: 'StrongLifts 5x5 - Alpha',
         exerciseIds: [
-          getExerciseIdByName('Barbell Squats') as string,
-          getExerciseIdByName('Barbell Bench Press') as string,
-          getExerciseIdByName('Barbell Rows') as string,
+          getExerciseIdByName('Barbell Squats'),
+          getExerciseIdByName('Barbell Bench Press'),
+          getExerciseIdByName('Barbell Rows'),
         ],
       }),
       new Workout({
         id: this.defaultIds.workouts[1],
         name: 'StrongLifts 5x5 - Beta',
         exerciseIds: [
-          getExerciseIdByName('Barbell Squats') as string,
-          getExerciseIdByName('Barbell Overhead Press') as string,
-          getExerciseIdByName('Deadlift') as string,
+          getExerciseIdByName('Barbell Squats'),
+          getExerciseIdByName('Barbell Overhead Press'),
+          getExerciseIdByName('Deadlift'),
         ],
       }),
       // Add new Workouts here...
