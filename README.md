@@ -22,10 +22,10 @@ Implement the following:
 
 - [ ] `Measurements` View
 
-  - [ ] Clear Store
-  - [ ] See Record details
+  - [x] Clear Store
+  - [x] See Record details
   - [ ] Edit Record
-  - [ ] Delete record
+  - [x] Delete record
 
 - [ ] `Exercises` View
 
@@ -44,6 +44,8 @@ Implement the following:
 - [ ] Fix `Options` View
 
   - [ ] Remove options that are no longer needed
+
+- [ ] Build basic test files for composable files (`use`)
 
 - [ ] Complete `ActiveWorkout` view
   - [ ] Layout (header/footer)

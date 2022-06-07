@@ -12,27 +12,33 @@ import {
   QBar,
   QSpace,
 } from 'quasar'
-import { useAppLogs } from '@/use/useAppLogs'
+import { useMeasurements } from '@/use/useMeasurements'
+import { logger } from '@/services/Logger'
 
 const {
-  appLogs,
-  logColumns,
+  tableRows,
+  tableColumns,
   dialog,
   details,
-  clearAppLogsTableData,
-  deleteAppLogRow,
-  getAppLogDetails,
-} = useAppLogs()
+  clearMeasurementsTableData,
+  deleteMeasurementRow,
+  getMeasurementDetails,
+} = useMeasurements()
+
+// TEMP FUNCTION
+function editThisClicked(value: any) {
+  logger.log(`Edit this: ${value}`)
+}
 </script>
 
 <template>
-  <QTable :rows="appLogs" :columns="logColumns" :rows-per-page-options="[10]">
+  <QTable :rows="tableRows" :columns="tableColumns" :rows-per-page-options="[10]">
     <!-- Table Header -->
     <template v-slot:top>
       <div class="q-table__title text-weight-bold">App Logs</div>
       <QSpace />
       <div>
-        <QBtn color="negative" label="Clear App Logs" @click="clearAppLogsTableData()" />
+        <QBtn color="negative" label="Clear Measurements" @click="clearMeasurementsTableData()" />
       </div>
     </template>
     <!-- Column Headers -->
@@ -56,15 +62,23 @@ const {
             color="info"
             round
             dense
-            @click="getAppLogDetails(props.cols[0].value)"
+            @click="getMeasurementDetails(props.cols[0].value)"
             icon="manage_search"
+          />
+          <QBtn
+            flat
+            color="primary"
+            round
+            dense
+            @click="editThisClicked(props.cols[0].value)"
+            icon="edit"
           />
           <QBtn
             flat
             color="negative"
             round
             dense
-            @click="deleteAppLogRow(props.cols[0].value)"
+            @click="deleteMeasurementRow(props.cols[0].value)"
             icon="delete"
           />
         </QTd>
@@ -90,7 +104,7 @@ const {
       </QBar>
 
       <QCardSection>
-        <div class="text-h6">App Log Details</div>
+        <div class="text-h6">Measurement Details</div>
       </QCardSection>
 
       <QCardSection class="q-pt-none">

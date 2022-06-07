@@ -6,11 +6,11 @@ import type { IAppLog } from '@/models/AppLog'
 import type { Ref } from 'vue'
 
 export function useAppLogs() {
-  const appLogs: Ref<IAppLog[]> = ref([])
+  const tableRows: Ref<IAppLog[]> = ref([])
   const dialog: Ref<boolean> = ref(false)
   const details: Ref<any> = ref(null)
 
-  const logColumns: any[] = [
+  const tableColumns: any[] = [
     {
       name: 'id',
       label: 'Id',
@@ -54,14 +54,14 @@ export function useAppLogs() {
   ]
 
   onMounted(async () => {
-    updateAppLogsState()
+    updateViewState()
   })
 
   async function clearAppLogsTableData() {
     try {
       if (confirm(`Clear "${Store.APP_LOGS}" table data?`)) {
         await database.clear(Store.APP_LOGS)
-        updateAppLogsState()
+        updateViewState()
       }
     } catch (err) {
       logger.error(err)
@@ -73,7 +73,7 @@ export function useAppLogs() {
     try {
       if (confirm(`Delete App Log "${id}" from database?`)) {
         await database.deleteById(Store.APP_LOGS, id)
-        updateAppLogsState()
+        updateViewState()
       }
     } catch (err) {
       logger.error(err)
@@ -91,13 +91,13 @@ export function useAppLogs() {
     }
   }
 
-  async function updateAppLogsState() {
-    appLogs.value = await database.getAll(Store.APP_LOGS)
+  async function updateViewState() {
+    tableRows.value = await database.getAll(Store.APP_LOGS)
   }
 
   return {
-    appLogs,
-    logColumns,
+    tableRows,
+    tableColumns,
     dialog,
     details,
     clearAppLogsTableData,

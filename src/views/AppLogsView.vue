@@ -15,8 +15,8 @@ import {
 import { useAppLogs } from '@/use/useAppLogs'
 
 const {
-  appLogs,
-  logColumns,
+  tableRows,
+  tableColumns,
   dialog,
   details,
   clearAppLogsTableData,
@@ -26,7 +26,7 @@ const {
 </script>
 
 <template>
-  <QTable :rows="appLogs" :columns="logColumns" :rows-per-page-options="[10]">
+  <QTable :rows="tableRows" :columns="tableColumns" :rows-per-page-options="[10]">
     <!-- Table Header -->
     <template v-slot:top>
       <div class="q-table__title text-weight-bold">App Logs</div>
