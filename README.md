@@ -18,12 +18,7 @@ Implement the following:
 - [x] Debug deployment issues
 - [x] Reloading pages caused the site to break
 
-- [ ] `App Logs` View
-
-  - [x] Clear Store
-  - [ ] See Record details (Quasar modal?)
-  - [x] NO edit for App Logs
-  - [x] Delete record
+- [x] `App Logs` View
 
 - [ ] `Measurements` View
 
@@ -45,6 +40,10 @@ Implement the following:
   - [ ] See Record details
   - [ ] Edit Record
   - [ ] Delete record
+
+- [ ] Fix `Options` View
+
+  - [ ] Remove options that are no longer needed
 
 - [ ] Complete `ActiveWorkout` view
   - [ ] Layout (header/footer)
