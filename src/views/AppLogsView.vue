@@ -95,7 +95,7 @@ const {
 
       <QCardSection class="q-pt-none">
         <div v-for="(item, key, i) in details" :key="i">
-          <div class="text-uppercase text-weight-bold">{{ key }}</div>
+          <div class="text-weight-bold">{{ key }}</div>
           <div>{{ item || '-' }}</div>
           <br />
         </div>

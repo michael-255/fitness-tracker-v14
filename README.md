@@ -272,7 +272,7 @@ npm i -D @quasar/vite-plugin sass@1.32.0
 Use the configurator tool to help setup Quasar for your specific project. It generates the files
 you'll need to copy over based on your selection.
 
-<https://quasar.dev/start/vite-plugin>
+`https://quasar.dev/start/vite-plugin`
 
 ### Dexie
 
