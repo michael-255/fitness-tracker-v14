@@ -15,10 +15,10 @@ import {
 import { useAppLogs } from '@/use/useAppLogs'
 
 const {
-  tableRows,
   tableColumns,
+  tableRows,
+  rowDetails,
   dialog,
-  details,
   clearAppLogsTableData,
   deleteAppLogRow,
   getAppLogDetails,
@@ -94,7 +94,7 @@ const {
       </QCardSection>
 
       <QCardSection class="q-pt-none">
-        <div v-for="(item, key, i) in details" :key="i">
+        <div v-for="(item, key, i) in rowDetails" :key="i">
           <div class="text-weight-bold">{{ key }}</div>
           <div>{{ item || '-' }}</div>
           <br />

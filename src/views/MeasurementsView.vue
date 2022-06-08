@@ -16,10 +16,10 @@ import { useMeasurements } from '@/use/useMeasurements'
 import { logger } from '@/services/Logger'
 
 const {
-  tableRows,
   tableColumns,
+  tableRows,
+  rowDetails,
   dialog,
-  details,
   clearMeasurementsTableData,
   deleteMeasurementRow,
   getMeasurementDetails,
@@ -108,7 +108,7 @@ function editThisClicked(value: any) {
       </QCardSection>
 
       <QCardSection class="q-pt-none">
-        <div v-for="(item, key, i) in details" :key="i">
+        <div v-for="(item, key, i) in rowDetails" :key="i">
           <div class="text-weight-bold">{{ key }}</div>
           <div>{{ item || '-' }}</div>
           <br />

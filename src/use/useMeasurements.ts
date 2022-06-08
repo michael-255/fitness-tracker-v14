@@ -1,14 +1,15 @@
-import { database } from '@/services/LocalDatabase'
 import { Store } from '@/constants'
-import { logger } from '@/services/Logger'
 import { ref, onMounted } from 'vue'
+import { useTableUtils } from '@/use/useTableUtils'
 import type { IMeasurement } from '@/models/Measurement'
 import type { Ref } from 'vue'
 
 export function useMeasurements() {
+  const { updateTableRows, deleteTableRow, clearTableData, openRowDetails } = useTableUtils()
+
   const tableRows: Ref<IMeasurement[]> = ref([])
+  const rowDetails: Ref<any> = ref(null)
   const dialog: Ref<boolean> = ref(false)
-  const details: Ref<any> = ref(null)
 
   const tableColumns: any[] = [
     {
@@ -30,52 +31,26 @@ export function useMeasurements() {
   ]
 
   onMounted(async () => {
-    updateTableRows()
+    updateTableRows(Store.MEASUREMENTS, tableRows)
   })
 
-  async function clearMeasurementsTableData() {
-    try {
-      if (confirm(`Clear "${Store.MEASUREMENTS}" table data?`)) {
-        await database.clear(Store.MEASUREMENTS)
-        updateTableRows()
-      }
-    } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error('clearMeasurementsTableData'))
-    }
+  async function clearMeasurementsTableData(): Promise<void> {
+    await clearTableData(Store.MEASUREMENTS, tableRows)
   }
 
-  async function deleteMeasurementRow(id: string) {
-    try {
-      if (confirm(`Delete Measurement "${id}" from database?`)) {
-        await database.deleteById(Store.MEASUREMENTS, id)
-        updateTableRows()
-      }
-    } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error('deleteMeasurementRow'))
-    }
+  async function deleteMeasurementRow(id: string): Promise<void> {
+    await deleteTableRow(Store.MEASUREMENTS, tableRows, id)
   }
 
-  async function getMeasurementDetails(id: string) {
-    try {
-      details.value = await database.getById(Store.MEASUREMENTS, id)
-      dialog.value = true
-    } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error('getMeasurementDetails'))
-    }
-  }
-
-  async function updateTableRows() {
-    tableRows.value = await database.getAll(Store.MEASUREMENTS)
+  async function getMeasurementDetails(id: string): Promise<void> {
+    await openRowDetails(Store.MEASUREMENTS, rowDetails, dialog, id)
   }
 
   return {
-    tableRows,
     tableColumns,
+    tableRows,
+    rowDetails,
     dialog,
-    details,
     clearMeasurementsTableData,
     deleteMeasurementRow,
     getMeasurementDetails,

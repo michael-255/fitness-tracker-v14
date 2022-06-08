@@ -15,6 +15,9 @@ export function useClearData() {
     }
   }
 
+  /**
+   * @todo - may end up removing this
+   */
   async function clearStoreData(store: Store) {
     try {
       if (confirm(`Clear "${store}" table data?`)) {

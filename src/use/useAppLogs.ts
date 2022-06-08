@@ -1,14 +1,15 @@
-import { database } from '@/services/LocalDatabase'
 import { Store } from '@/constants'
-import { logger } from '@/services/Logger'
+import { useTableUtils } from '@/use/useTableUtils'
 import { ref, onMounted } from 'vue'
 import type { IAppLog } from '@/models/AppLog'
 import type { Ref } from 'vue'
 
 export function useAppLogs() {
+  const { updateTableRows, deleteTableRow, clearTableData, openRowDetails } = useTableUtils()
+
   const tableRows: Ref<IAppLog[]> = ref([])
+  const rowDetails: Ref<any> = ref(null)
   const dialog: Ref<boolean> = ref(false)
-  const details: Ref<any> = ref(null)
 
   const tableColumns: any[] = [
     {
@@ -54,52 +55,26 @@ export function useAppLogs() {
   ]
 
   onMounted(async () => {
-    updateTableRows()
+    updateTableRows(Store.APP_LOGS, tableRows)
   })
 
-  async function clearAppLogsTableData() {
-    try {
-      if (confirm(`Clear "${Store.APP_LOGS}" table data?`)) {
-        await database.clear(Store.APP_LOGS)
-        updateTableRows()
-      }
-    } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error('clearAppLogsTableData'))
-    }
+  async function clearAppLogsTableData(): Promise<void> {
+    await clearTableData(Store.APP_LOGS, tableRows)
   }
 
-  async function deleteAppLogRow(id: string) {
-    try {
-      if (confirm(`Delete App Log "${id}" from database?`)) {
-        await database.deleteById(Store.APP_LOGS, id)
-        updateTableRows()
-      }
-    } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error('deleteAppLogRow'))
-    }
+  async function deleteAppLogRow(id: string): Promise<void> {
+    await deleteTableRow(Store.APP_LOGS, tableRows, id)
   }
 
-  async function getAppLogDetails(id: string) {
-    try {
-      details.value = await database.getById(Store.APP_LOGS, id)
-      dialog.value = true
-    } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error('getAppLogDetails'))
-    }
-  }
-
-  async function updateTableRows() {
-    tableRows.value = await database.getAll(Store.APP_LOGS)
+  async function getAppLogDetails(id: string): Promise<void> {
+    await openRowDetails(Store.APP_LOGS, rowDetails, dialog, id)
   }
 
   return {
-    tableRows,
     tableColumns,
+    tableRows,
+    rowDetails,
     dialog,
-    details,
     clearAppLogsTableData,
     deleteAppLogRow,
     getAppLogDetails,
