@@ -29,17 +29,17 @@ Implement the following:
 
 - [ ] `Exercises` View
 
-  - [ ] Clear Store
-  - [ ] See Record details
+  - [x] Clear Store
+  - [x] See Record details
   - [ ] Edit Record
-  - [ ] Delete record
+  - [x] Delete record
 
 - [ ] `Workouts` View
 
-  - [ ] Clear Store
-  - [ ] See Record details
+  - [x] Clear Store
+  - [x] See Record details
   - [ ] Edit Record
-  - [ ] Delete record
+  - [x] Delete record
 
 - [ ] Fix `Options` View
 

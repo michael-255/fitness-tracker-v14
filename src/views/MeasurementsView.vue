@@ -12,18 +12,39 @@ import {
   QBar,
   QSpace,
 } from 'quasar'
-import { useMeasurements } from '@/use/useMeasurements'
+import { useTable } from '@/use/useTable'
 import { logger } from '@/services/Logger'
+import { Store } from '@/constants'
 
 const {
   tableColumns,
   tableRows,
   rowDetails,
   dialog,
-  clearMeasurementsTableData,
-  deleteMeasurementRow,
-  getMeasurementDetails,
-} = useMeasurements()
+  clearTableData,
+  deleteTableRow,
+  openRowDetails,
+} = useTable({
+  store: Store.MEASUREMENTS,
+  tableColumns: [
+    {
+      name: 'id',
+      label: 'Id',
+      align: 'left',
+      required: true,
+      field: (row: any) => row.id,
+      sortable: true,
+    },
+    {
+      name: 'createdAt',
+      label: 'Created At',
+      align: 'left',
+      required: true,
+      field: (row: any) => row.createdAt,
+      sortable: true,
+    },
+  ],
+})
 
 // TEMP FUNCTION
 function editThisClicked(value: any) {
@@ -35,10 +56,10 @@ function editThisClicked(value: any) {
   <QTable :rows="tableRows" :columns="tableColumns" :rows-per-page-options="[10]">
     <!-- Table Header -->
     <template v-slot:top>
-      <div class="q-table__title text-weight-bold">App Logs</div>
+      <div class="q-table__title text-weight-bold">Measurements</div>
       <QSpace />
       <div>
-        <QBtn color="negative" label="Clear Measurements" @click="clearMeasurementsTableData()" />
+        <QBtn color="negative" label="Clear Measurements" @click="clearTableData()" />
       </div>
     </template>
     <!-- Column Headers -->
@@ -62,7 +83,7 @@ function editThisClicked(value: any) {
             color="info"
             round
             dense
-            @click="getMeasurementDetails(props.cols[0].value)"
+            @click="openRowDetails(props.cols[0].value)"
             icon="manage_search"
           />
           <QBtn
@@ -78,7 +99,7 @@ function editThisClicked(value: any) {
             color="negative"
             round
             dense
-            @click="deleteMeasurementRow(props.cols[0].value)"
+            @click="deleteTableRow(props.cols[0].value)"
             icon="delete"
           />
         </QTd>

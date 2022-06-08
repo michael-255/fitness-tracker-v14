@@ -12,17 +12,62 @@ import {
   QBar,
   QSpace,
 } from 'quasar'
-import { useAppLogs } from '@/use/useAppLogs'
+import { useTable } from '@/use/useTable'
+import { Store } from '@/constants'
 
 const {
   tableColumns,
   tableRows,
   rowDetails,
   dialog,
-  clearAppLogsTableData,
-  deleteAppLogRow,
-  getAppLogDetails,
-} = useAppLogs()
+  clearTableData,
+  deleteTableRow,
+  openRowDetails,
+} = useTable({
+  store: Store.APP_LOGS,
+  tableColumns: [
+    {
+      name: 'id',
+      label: 'Id',
+      align: 'left',
+      required: true,
+      field: (row: any) => row.id,
+      sortable: true,
+    },
+    {
+      name: 'createdAt',
+      label: 'Created At',
+      align: 'left',
+      required: true,
+      field: (row: any) => row.createdAt,
+      sortable: true,
+    },
+    {
+      name: 'message',
+      label: 'First Message',
+      align: 'left',
+      required: true,
+      field: (row: any) => row.message[0],
+      sortable: true,
+    },
+    {
+      name: 'message',
+      label: 'Message Count',
+      align: 'left',
+      required: true,
+      field: (row: any) => row.message.length,
+      sortable: true,
+    },
+    {
+      name: 'stack',
+      label: 'Stack Count',
+      align: 'left',
+      required: true,
+      field: (row: any) => row.stack.length,
+      sortable: true,
+    },
+  ],
+})
 </script>
 
 <template>
@@ -32,7 +77,7 @@ const {
       <div class="q-table__title text-weight-bold">App Logs</div>
       <QSpace />
       <div>
-        <QBtn color="negative" label="Clear App Logs" @click="clearAppLogsTableData()" />
+        <QBtn color="negative" label="Clear App Logs" @click="clearTableData()" />
       </div>
     </template>
     <!-- Column Headers -->
@@ -56,7 +101,7 @@ const {
             color="info"
             round
             dense
-            @click="getAppLogDetails(props.cols[0].value)"
+            @click="openRowDetails(props.cols[0].value)"
             icon="manage_search"
           />
           <QBtn
@@ -64,7 +109,7 @@ const {
             color="negative"
             round
             dense
-            @click="deleteAppLogRow(props.cols[0].value)"
+            @click="deleteTableRow(props.cols[0].value)"
             icon="delete"
           />
         </QTd>
