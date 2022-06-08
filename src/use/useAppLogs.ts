@@ -54,14 +54,14 @@ export function useAppLogs() {
   ]
 
   onMounted(async () => {
-    updateViewState()
+    updateTableRows()
   })
 
   async function clearAppLogsTableData() {
     try {
       if (confirm(`Clear "${Store.APP_LOGS}" table data?`)) {
         await database.clear(Store.APP_LOGS)
-        updateViewState()
+        updateTableRows()
       }
     } catch (err) {
       logger.error(err)
@@ -73,7 +73,7 @@ export function useAppLogs() {
     try {
       if (confirm(`Delete App Log "${id}" from database?`)) {
         await database.deleteById(Store.APP_LOGS, id)
-        updateViewState()
+        updateTableRows()
       }
     } catch (err) {
       logger.error(err)
@@ -91,7 +91,7 @@ export function useAppLogs() {
     }
   }
 
-  async function updateViewState() {
+  async function updateTableRows() {
     tableRows.value = await database.getAll(Store.APP_LOGS)
   }
 

@@ -30,14 +30,14 @@ export function useMeasurements() {
   ]
 
   onMounted(async () => {
-    updateViewState()
+    updateTableRows()
   })
 
   async function clearMeasurementsTableData() {
     try {
       if (confirm(`Clear "${Store.MEASUREMENTS}" table data?`)) {
         await database.clear(Store.MEASUREMENTS)
-        updateViewState()
+        updateTableRows()
       }
     } catch (err) {
       logger.error(err)
@@ -49,7 +49,7 @@ export function useMeasurements() {
     try {
       if (confirm(`Delete Measurement "${id}" from database?`)) {
         await database.deleteById(Store.MEASUREMENTS, id)
-        updateViewState()
+        updateTableRows()
       }
     } catch (err) {
       logger.error(err)
@@ -67,7 +67,7 @@ export function useMeasurements() {
     }
   }
 
-  async function updateViewState() {
+  async function updateTableRows() {
     tableRows.value = await database.getAll(Store.MEASUREMENTS)
   }
 
