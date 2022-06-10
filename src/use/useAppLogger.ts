@@ -4,6 +4,9 @@ import { DEBUG } from '@/constants'
 import { LogLevel } from '@/models/AppLog'
 
 export function useAppLogger() {
+  /**
+   * This function isn't meant to be used outside of this composable
+   */
   function consoleLog(error: Error, level: LogLevel, name: string, details?: string): void {
     if (DEBUG) {
       if (level === LogLevel.DEBUG || level === LogLevel.INFO) {
@@ -20,12 +23,16 @@ export function useAppLogger() {
     }
   }
 
+  /**
+   * Logs without alerting the user
+   */
   async function silentLog(error: Error, level: LogLevel, name: string, details?: string): Promise<void> {
     consoleLog(error, level, name, details)
     await database.addAppLog(error, level, name, details)
   }
 
   /**
+   * Logs and alerts the user
    * @todo Implement alert box and related components
    */
   async function alertLog(error: Error, level: LogLevel, name: string, details?: string): Promise<void> {
@@ -35,7 +42,6 @@ export function useAppLogger() {
   }
 
   return {
-    consoleLog,
     silentLog,
     alertLog,
   }
