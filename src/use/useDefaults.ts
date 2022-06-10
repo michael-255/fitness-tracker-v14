@@ -1,6 +1,9 @@
+import { LogLevel } from '@/models/AppLog'
 import { defaults } from '@/services/DefaultsGenerator'
 import { database } from '@/services/LocalDatabase'
-import { logger } from '@/services/Logger'
+import { useAppLogger } from './useAppLogger'
+
+const { silentLog } = useAppLogger()
 
 export function useDefaults() {
   async function loadAllDefaults() {
@@ -12,8 +15,7 @@ export function useDefaults() {
       await database.bulkAddExercises(exercises)
       await database.bulkAddWorkouts(workouts)
     } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error('loadAllDefaults'))
+      silentLog(err, LogLevel.ERROR, 'loadAllDefaults')
     }
   }
 
@@ -22,8 +24,7 @@ export function useDefaults() {
       const measurements = await defaults.generateMeasurements()
       await database.bulkAddMeasurements(measurements)
     } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error('loadMeasurements'))
+      silentLog(err, LogLevel.ERROR, 'loadMeasurements')
     }
   }
 
@@ -32,8 +33,7 @@ export function useDefaults() {
       const exercises = await defaults.generateExercises()
       await database.bulkAddExercises(exercises)
     } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error('loadExercises'))
+      silentLog(err, LogLevel.ERROR, 'loadExercises')
     }
   }
 
@@ -42,8 +42,7 @@ export function useDefaults() {
       const workouts = await defaults.generateWorkouts()
       await database.bulkAddWorkouts(workouts)
     } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error('loadWorkouts'))
+      silentLog(err, LogLevel.ERROR, 'loadWorkouts')
     }
   }
 

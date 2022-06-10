@@ -4,6 +4,10 @@ import { downloadFile } from '@/utils/common'
 import { Store } from '@/constants'
 import { logger } from '@/services/Logger'
 import { ref } from 'vue'
+import { useAppLogger } from './useAppLogger'
+import { LogLevel } from '@/models/AppLog'
+
+const { silentLog } = useAppLogger()
 
 export function useImportExport() {
   const file: any = ref(null)
@@ -14,12 +18,11 @@ export function useImportExport() {
     const fileName = entries[0]?.file?.name
     const failedValidation = entries[0]?.failedPropValidation
 
-    database.addAppLog(
-      {
-        name: fileName,
-        message: `failedPropValidation:${failedValidation}`,
-      },
-      new Error('onRejectedFile')
+    silentLog(
+      new Error('onRejectedFile'),
+      LogLevel.WARN,
+      'onRejectedFile',
+      `${fileName}:${failedValidation}`
     )
   }
 
@@ -51,8 +54,7 @@ export function useImportExport() {
       await database.bulkAddActiveExercises(fitnessData?.activeExercises)
       await database.bulkAddActiveWorkouts(fitnessData?.activeWorkouts)
     } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error('importData'))
+      silentLog(err, LogLevel.ERROR, 'importData')
     }
   }
 
@@ -79,8 +81,7 @@ export function useImportExport() {
         textContent: JSON.stringify(fitnessData),
       })
     } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error('exportData'))
+      silentLog(err, LogLevel.ERROR, 'exportData')
     }
   }
 

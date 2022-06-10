@@ -1,61 +1,48 @@
-import { createId } from '@/utils/build-id'
+import { _Entity } from '@/models/_Entity'
+import type { IEntity } from '@/models/_Entity'
 import { Store } from '@/constants'
 
-// Exports for LocalDatabase
-export const errorLogStoreIndices = Object.freeze({ [Store.APP_LOGS]: '&id, createdAt, name' })
+export enum LogLevel {
+  FATAL = "Fatal",
+  ERROR = "Error",
+  WARN = "Warning",
+  INFO = "Info",
+  DEBUG = "Debug",
+}
 
-export interface IAppLog {
-  id: string
-  createdAt: string
+// Exports for LocalDatabase
+export const errorLogStoreIndices = Object.freeze({ [Store.APP_LOGS]: '&id, createdAt' })
+
+export interface IAppLog extends IEntity {
+  level: LogLevel
   name: string
-  data: any
-  message?: string[]
-  stack?: string[]
+  details?: string
+  message?: string
+  stack?: string
 }
 
 /**
  * AppLog Class
- * @arg caughtErrorOrObject (Required) - Error provided in the catch block, or log object of a similar structure
- * @arg localError (Optional) - Additional error for name and trace information
+ * @arg error (Required) - Error object
+ * @arg level (Required) - Severity level of this log
+ * @arg name (Required) - Name of caller (normally the function name)
+ * @arg details (Optional) - Additional information about the event
  */
-export class AppLog {
+export class AppLog extends _Entity {
   id: string
   createdAt: string
+  level: LogLevel
   name: string
-  data: any
-  message?: string[]
-  stack?: string[]
+  details?: string
+  message?: string
+  stack?: string
 
-  constructor(caughtErrorOrObject: Error | any, localError?: Error) {
-    const stringToArray = (str: string | undefined): string[] => {
-      if (str) {
-        return str
-          ?.trim() // remove excess whitespace
-          ?.split('\n') // seperate on the newline character
-          ?.map((s: string) => s?.trim()) // trim whitespace on each new string element
-          ?.filter(Boolean) // remove falsy elements
-      } else {
-        return []
-      }
-    }
-
-    // Caught Error OR Log Object
-    const caughtName = caughtErrorOrObject?.name
-    const caughtData = caughtErrorOrObject?.data
-    const caughtMessages = stringToArray(caughtErrorOrObject?.message)
-    const caughtStack = stringToArray(caughtErrorOrObject?.stack)
-
-    // Local Error (ignoring Error.name since it's just the word Error)
-    const localErrorOriginalMessage = localError?.message // User provided when the Error is created
-    const localMessages = stringToArray(localError?.message)
-    const localStack = stringToArray(localError?.stack)
-    localStack.shift() // Removing first element since it just mentions it's an Error type
-
-    this.id = createId()
-    this.createdAt = new Date().toISOString()
-    this.name = `${localErrorOriginalMessage}:${caughtName}` // first message is undefined if no localError provided
-    this.data = caughtData // Make use of this when using an object for logging
-    this.message = [...localMessages, ...caughtMessages]
-    this.stack = [...localStack, ...caughtStack]
+  constructor(error: Error, level: LogLevel, name: string, details?: string) {
+    super() // Will use default id and createdAt
+    this.level = level
+    this.name = name
+    this.details = details
+    this.message = error?.message
+    this.stack = error?.stack
   }
 }

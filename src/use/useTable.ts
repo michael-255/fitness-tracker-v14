@@ -4,11 +4,15 @@ import { ref, onMounted } from 'vue'
 import type { Store } from '@/constants'
 import type { IEntity } from '@/models/_Entity'
 import type { Ref } from 'vue'
+import { useAppLogger } from './useAppLogger'
+import { LogLevel } from '@/models/AppLog'
 
 interface useTableParams {
   store: Store
   tableColumns: any[]
 }
+
+const { silentLog } = useAppLogger()
 
 export function useTable({ store, tableColumns }: useTableParams) {
   const tableRows: Ref<IEntity[]> = ref([])
@@ -23,8 +27,7 @@ export function useTable({ store, tableColumns }: useTableParams) {
     try {
       tableRows.value = await database.getAll(store)
     } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error(`updateTableRows:${store}`))
+      silentLog(err, LogLevel.ERROR, 'updateTableRows', store)
     }
   }
 
@@ -35,8 +38,7 @@ export function useTable({ store, tableColumns }: useTableParams) {
         updateTableRows()
       }
     } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error(`clearTableData:${store}`))
+      silentLog(err, LogLevel.ERROR, 'clearTableData', store)
     }
   }
 
@@ -47,8 +49,7 @@ export function useTable({ store, tableColumns }: useTableParams) {
         updateTableRows()
       }
     } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error(`deleteTableRow:${store}:${id}`))
+      silentLog(err, LogLevel.ERROR, 'deleteTableRow', `${store}:${id}`)
     }
   }
 
@@ -57,8 +58,7 @@ export function useTable({ store, tableColumns }: useTableParams) {
       rowDetails.value = await database.getById(store, id)
       dialog.value = true
     } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error(`openRowDetails:${store}:${id}`))
+      silentLog(err, LogLevel.ERROR, 'openRowDetails', `${store}:${id}`)
     }
   }
 

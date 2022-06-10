@@ -1,7 +1,10 @@
 import { database } from '@/services/LocalDatabase'
-
 import { Store } from '@/constants'
 import { logger } from '@/services/Logger'
+import { useAppLogger } from './useAppLogger'
+import { LogLevel } from '@/models/AppLog'
+
+const { silentLog } = useAppLogger()
 
 export function useClearData() {
   async function clearAllAppData() {
@@ -10,8 +13,7 @@ export function useClearData() {
         await Promise.all(Object.values(Store).map((store) => database.clear(store as Store)))
       }
     } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error('clearAllAppData'))
+      silentLog(err, LogLevel.ERROR, 'clearAllAppData')
     }
   }
 
@@ -24,8 +26,7 @@ export function useClearData() {
         database.clear(store)
       }
     } catch (err) {
-      logger.error(err)
-      database.addAppLog(err, new Error('clearStoreData'))
+      silentLog(err, LogLevel.ERROR, 'clearStoreData')
     }
   }
 
