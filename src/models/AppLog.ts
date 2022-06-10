@@ -15,7 +15,7 @@ export const errorLogStoreIndices = Object.freeze({ [Store.APP_LOGS]: '&id, crea
 
 export interface IAppLog extends IEntity {
   level: LogLevel
-  name: string
+  callerName: string
   details?: string
   errorName?: string
   message?: string
@@ -37,10 +37,8 @@ export type appLogParams = {
  * @arg obj.details (Optional) - Additional information about the event
  */
 export class AppLog extends _Entity {
-  id: string
-  createdAt: string
   level: LogLevel
-  name: string
+  callerName: string
   details?: string
   errorName?: string
   message?: string
@@ -49,7 +47,7 @@ export class AppLog extends _Entity {
   constructor(appLogParams: appLogParams) {
     super() // Will use default id and createdAt
     this.level = appLogParams?.level
-    this.name = appLogParams?.name
+    this.callerName = appLogParams?.name
     this.details = appLogParams?.details
     this.errorName = appLogParams?.error?.name
     this.message = appLogParams?.error?.message

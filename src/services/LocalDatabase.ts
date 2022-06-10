@@ -15,7 +15,8 @@ import { ExerciseRecord, exerciseRecordStoreIndices } from '@/models/ExerciseRec
 import type { IExerciseRecord, IUpdateExerciseRecord } from '@/models/ExerciseRecord'
 import { WorkoutRecord, workoutRecordStoreIndices } from '@/models/WorkoutRecord'
 import type { IWorkoutRecord, IUpdateWorkoutRecord } from '@/models/WorkoutRecord'
-import { AppLog, errorLogStoreIndices, appLogParams } from '@/models/AppLog'
+import { AppLog, errorLogStoreIndices } from '@/models/AppLog'
+import type { appLogParams } from '@/models/AppLog'
 import type { IAppLog } from '@/models/AppLog'
 
 /**

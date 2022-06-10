@@ -1,7 +1,8 @@
 import { database } from '@/services/LocalDatabase'
 import { logger } from '@/services/Logger'
 import { DEBUG } from '@/constants'
-import { LogLevel, appLogParams } from '@/models/AppLog'
+import { LogLevel } from '@/models/AppLog'
+import type { appLogParams } from '@/models/AppLog'
 
 export function useAppLogger() {
   /**
