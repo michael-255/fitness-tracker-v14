@@ -17,16 +17,24 @@ export interface IAppLog extends IEntity {
   level: LogLevel
   name: string
   details?: string
+  errorName?: string
   message?: string
   stack?: string
 }
 
+export type appLogParams = {
+  error: Error
+  level: LogLevel
+  name: string
+  details?: string
+}
+
 /**
  * AppLog Class
- * @arg error (Required) - Error object
- * @arg level (Required) - Severity level of this log
- * @arg name (Required) - Name of caller (normally the function name)
- * @arg details (Optional) - Additional information about the event
+ * @arg obj.error (Required) - Error object
+ * @arg obj.level (Required) - Severity level of this log
+ * @arg obj.name (Required) - Name of caller (normally the function name)
+ * @arg obj.details (Optional) - Additional information about the event
  */
 export class AppLog extends _Entity {
   id: string
@@ -34,15 +42,17 @@ export class AppLog extends _Entity {
   level: LogLevel
   name: string
   details?: string
+  errorName?: string
   message?: string
   stack?: string
 
-  constructor(error: Error, level: LogLevel, name: string, details?: string) {
+  constructor(appLogParams: appLogParams) {
     super() // Will use default id and createdAt
-    this.level = level
-    this.name = name
-    this.details = details
-    this.message = error?.message
-    this.stack = error?.stack
+    this.level = appLogParams?.level
+    this.name = appLogParams?.name
+    this.details = appLogParams?.details
+    this.errorName = appLogParams?.error?.name
+    this.message = appLogParams?.error?.message
+    this.stack = appLogParams?.error?.stack
   }
 }

@@ -18,12 +18,7 @@ export function useImportExport() {
     const fileName = entries[0]?.file?.name
     const failedValidation = entries[0]?.failedPropValidation
 
-    silentLog(
-      new Error('onRejectedFile'),
-      LogLevel.WARN,
-      'onRejectedFile',
-      `${fileName}:${failedValidation}`
-    )
+    silentLog({ error: new Error('onRejectedFile'), level: LogLevel.WARN, name: 'onRejectedFile', details: `${fileName}:${failedValidation}` })
   }
 
   async function importData() {
@@ -53,8 +48,8 @@ export function useImportExport() {
       await database.bulkAddWorkoutRecords(fitnessData?.workoutRecords)
       await database.bulkAddActiveExercises(fitnessData?.activeExercises)
       await database.bulkAddActiveWorkouts(fitnessData?.activeWorkouts)
-    } catch (err) {
-      silentLog(err, LogLevel.ERROR, 'importData')
+    } catch (error) {
+      silentLog({ error, level: LogLevel.ERROR, name: 'importData' })
     }
   }
 
@@ -80,8 +75,8 @@ export function useImportExport() {
         mimeType: 'application/json',
         textContent: JSON.stringify(fitnessData),
       })
-    } catch (err) {
-      silentLog(err, LogLevel.ERROR, 'exportData')
+    } catch (error) {
+      silentLog({ error, level: LogLevel.ERROR, name: 'exportData' })
     }
   }
 

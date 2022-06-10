@@ -1,5 +1,4 @@
 import { database } from '@/services/LocalDatabase'
-import { logger } from '@/services/Logger'
 import { ref, onMounted } from 'vue'
 import type { Store } from '@/constants'
 import type { IEntity } from '@/models/_Entity'
@@ -26,8 +25,8 @@ export function useTable({ store, tableColumns }: useTableParams) {
   async function updateTableRows(): Promise<void> {
     try {
       tableRows.value = await database.getAll(store)
-    } catch (err) {
-      silentLog(err, LogLevel.ERROR, 'updateTableRows', store)
+    } catch (error) {
+      silentLog({ error, level: LogLevel.ERROR, name: 'updateTableRows', details: store })
     }
   }
 
@@ -37,8 +36,8 @@ export function useTable({ store, tableColumns }: useTableParams) {
         await database.clear(store)
         updateTableRows()
       }
-    } catch (err) {
-      silentLog(err, LogLevel.ERROR, 'clearTableData', store)
+    } catch (error) {
+      silentLog({ error, level: LogLevel.ERROR, name: 'clearTableData', details: store })
     }
   }
 
@@ -48,8 +47,8 @@ export function useTable({ store, tableColumns }: useTableParams) {
         await database.deleteById(store, id)
         updateTableRows()
       }
-    } catch (err) {
-      silentLog(err, LogLevel.ERROR, 'deleteTableRow', `${store}:${id}`)
+    } catch (error) {
+      silentLog({ error, level: LogLevel.ERROR, name: 'deleteTableRow', details: `${store}:${id}` })
     }
   }
 
@@ -57,8 +56,8 @@ export function useTable({ store, tableColumns }: useTableParams) {
     try {
       rowDetails.value = await database.getById(store, id)
       dialog.value = true
-    } catch (err) {
-      silentLog(err, LogLevel.ERROR, 'openRowDetails', `${store}:${id}`)
+    } catch (error) {
+      silentLog({ error, level: LogLevel.ERROR, name: 'openRowDetails', details: `${store}:${id}` })
     }
   }
 

@@ -14,8 +14,8 @@ export function useDefaults() {
       await database.bulkAddMeasurements(measurements)
       await database.bulkAddExercises(exercises)
       await database.bulkAddWorkouts(workouts)
-    } catch (err) {
-      silentLog(err, LogLevel.ERROR, 'loadAllDefaults')
+    } catch (error) {
+      silentLog({ error, level: LogLevel.ERROR, name: 'loadAllDefaults' })
     }
   }
 
@@ -23,8 +23,8 @@ export function useDefaults() {
     try {
       const measurements = await defaults.generateMeasurements()
       await database.bulkAddMeasurements(measurements)
-    } catch (err) {
-      silentLog(err, LogLevel.ERROR, 'loadMeasurements')
+    } catch (error) {
+      silentLog({ error, level: LogLevel.ERROR, name: 'loadMeasurements' })
     }
   }
 
@@ -32,8 +32,8 @@ export function useDefaults() {
     try {
       const exercises = await defaults.generateExercises()
       await database.bulkAddExercises(exercises)
-    } catch (err) {
-      silentLog(err, LogLevel.ERROR, 'loadExercises')
+    } catch (error) {
+      silentLog({ error, level: LogLevel.ERROR, name: 'loadExercises' })
     }
   }
 
@@ -41,8 +41,8 @@ export function useDefaults() {
     try {
       const workouts = await defaults.generateWorkouts()
       await database.bulkAddWorkouts(workouts)
-    } catch (err) {
-      silentLog(err, LogLevel.ERROR, 'loadWorkouts')
+    } catch (error) {
+      silentLog({ error, level: LogLevel.ERROR, name: 'loadWorkouts' })
     }
   }
 

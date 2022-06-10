@@ -15,7 +15,7 @@ import { ExerciseRecord, exerciseRecordStoreIndices } from '@/models/ExerciseRec
 import type { IExerciseRecord, IUpdateExerciseRecord } from '@/models/ExerciseRecord'
 import { WorkoutRecord, workoutRecordStoreIndices } from '@/models/WorkoutRecord'
 import type { IWorkoutRecord, IUpdateWorkoutRecord } from '@/models/WorkoutRecord'
-import { AppLog, errorLogStoreIndices, LogLevel } from '@/models/AppLog'
+import { AppLog, errorLogStoreIndices, appLogParams } from '@/models/AppLog'
 import type { IAppLog } from '@/models/AppLog'
 
 /**
@@ -248,8 +248,8 @@ export class LocalDatabase extends Dexie {
   // AppLogs
   //
 
-  async addAppLog(error: Error, level: LogLevel, name: string, details?: string): Promise<IndexableType> {
-    return await this.table(Store.APP_LOGS).add(new AppLog(error, level, name, details))
+  async addAppLog(appLogParams: appLogParams): Promise<IndexableType> {
+    return await this.table(Store.APP_LOGS).add(new AppLog(appLogParams))
   }
 }
 

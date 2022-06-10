@@ -1,6 +1,5 @@
 import { database } from '@/services/LocalDatabase'
 import { Store } from '@/constants'
-import { logger } from '@/services/Logger'
 import { useAppLogger } from './useAppLogger'
 import { LogLevel } from '@/models/AppLog'
 
@@ -12,8 +11,8 @@ export function useClearData() {
       if (confirm('Clear all app data?')) {
         await Promise.all(Object.values(Store).map((store) => database.clear(store as Store)))
       }
-    } catch (err) {
-      silentLog(err, LogLevel.ERROR, 'clearAllAppData')
+    } catch (error) {
+      silentLog({ error, level: LogLevel.ERROR, name: 'clearAllAppData' })
     }
   }
 
@@ -25,8 +24,8 @@ export function useClearData() {
       if (confirm(`Clear "${store}" table data?`)) {
         database.clear(store)
       }
-    } catch (err) {
-      silentLog(err, LogLevel.ERROR, 'clearStoreData')
+    } catch (error) {
+      silentLog({ error, level: LogLevel.ERROR, name: 'clearStoreData' })
     }
   }
 
