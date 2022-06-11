@@ -1,6 +1,7 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { LocalDatabase } from '@/services/LocalDatabase'
 import { Store } from '@/constants'
+import { LogLevel } from '@/models/AppLog'
 
 const mockTableBuilder = ({
   toArrayMockFunc = vi.fn(),
@@ -355,17 +356,30 @@ describe('LocalDatabase', () => {
   //
 
   test('addAppLog calls correct Dexie methods', () => {
-    db.addAppLog({}, {})
+    const testErrorName = 'test-error'
+    const testError = new Error(testErrorName)
+    const testLevel = LogLevel.DEBUG
+    const testName = 'test-caller'
+    const testDetails = 'test-details'
+
+    const testFullParams = {
+      error: testError,
+      level: testLevel,
+      name: testName,
+      details: testDetails,
+    }
+
+    db.addAppLog(testFullParams)
     expect(tableMock).toHaveBeenCalledWith(Store.APP_LOGS)
     expect(addMock).toHaveBeenCalledWith({
       id: expect.any(String),
       createdAt: expect.any(String),
-      name: 'undefined:undefined',
-      failures: undefined,
-      failuresByPos: undefined,
-      inner: undefined,
-      message: expect.any(Array),
-      stack: expect.any(Array),
+      level: 'Debug',
+      callerName: testName,
+      details: testDetails,
+      errorName: 'Error',
+      message: expect.any(String),
+      stack: expect.any(String),
     })
   })
 })

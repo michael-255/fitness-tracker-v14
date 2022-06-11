@@ -4,7 +4,7 @@ import { Logger } from '@/services/Logger'
 describe('Logger', () => {
   const loggerName = 'TestLogger'
   const css = 'border-radius: 3px; padding: 2px 4px; color: white; background-color:'
-  const logger = new Logger({ name: loggerName })
+  const logger = new Logger(loggerName)
 
   beforeEach(() => {
     vi.clearAllMocks()

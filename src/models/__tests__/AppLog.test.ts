@@ -1,49 +1,87 @@
 import { describe, test, expect } from 'vitest'
-import { AppLog } from '@/models/AppLog'
+import { AppLog, LogLevel } from '@/models/AppLog'
 
 describe('AppLog', () => {
-  const caughtMsg = 'caught-error-test'
-  const localMsg = 'local-error-test'
-  const caughtError = new Error(caughtMsg)
-  const localError = new Error(localMsg)
+  const testErrorName = 'test-error'
+  const testError = new Error(testErrorName)
+  const testLevel = LogLevel.DEBUG
+  const testName = 'test-caller'
+  const testDetails = 'test-details'
 
-  test('creates log with invalid caughtError parameter', () => {
-    const errorLog = new AppLog(null)
+  test('creates valid app log with all parameters', () => {
+    const testFullParams = {
+      error: testError,
+      level: testLevel,
+      name: testName,
+      details: testDetails,
+    }
+    const errorLog = new AppLog(testFullParams)
     expect(errorLog.id).toEqual(expect.any(String))
     expect(errorLog.createdAt).toEqual(expect.any(String))
-    expect(errorLog.name).toEqual('undefined:undefined')
-    expect(errorLog.data).toBeUndefined()
-    expect(errorLog.message).toEqual([])
-    expect(errorLog.stack).toEqual([])
+    expect(errorLog.level).toBe('Debug')
+    expect(errorLog.callerName).toBe(testName)
+    expect(errorLog.details).toBe(testDetails)
+    expect(errorLog.errorName).toBe('Error')
+    expect(errorLog.message).toEqual(expect.any(String))
+    expect(errorLog.stack).toEqual(expect.any(String))
   })
 
-  test('creates log with valid caughtError parameter', () => {
-    const errorLog = new AppLog(caughtError)
+  test('creates valid app log without any details', () => {
+    const testPartialParams = {
+      error: testError,
+      level: testLevel,
+      name: testName,
+    }
+    const errorLog = new AppLog(testPartialParams)
     expect(errorLog.id).toEqual(expect.any(String))
     expect(errorLog.createdAt).toEqual(expect.any(String))
-    expect(errorLog.name).toEqual('undefined:Error')
-    expect(errorLog.data).toBeUndefined()
-    expect(errorLog.message).toEqual([caughtMsg])
-    expect(errorLog.stack).toEqual(expect.any(Array))
+    expect(errorLog.level).toBe('Debug')
+    expect(errorLog.callerName).toBe(testName)
+    expect(errorLog.details).toBeUndefined()
+    expect(errorLog.errorName).toBe('Error')
+    expect(errorLog.message).toEqual(expect.any(String))
+    expect(errorLog.stack).toEqual(expect.any(String))
   })
 
-  test('creates log with two valid error parameters', () => {
-    const errorLog = new AppLog(caughtError, localError)
+  test('creates valid app log with an empty error', () => {
+    const testNoErrorParams = {
+      error: {},
+      level: testLevel,
+      name: testName,
+    }
+    const errorLog = new AppLog(testNoErrorParams)
     expect(errorLog.id).toEqual(expect.any(String))
     expect(errorLog.createdAt).toEqual(expect.any(String))
-    expect(errorLog.name).toEqual(`${localMsg}:Error`)
-    expect(errorLog.data).toBeUndefined()
-    expect(errorLog.message).toEqual([localMsg, caughtMsg])
-    expect(errorLog.stack).toEqual(expect.any(Array))
+    expect(errorLog.level).toBe('Debug')
+    expect(errorLog.callerName).toBe(testName)
+    expect(errorLog.details).toBeUndefined()
+    expect(errorLog.errorName).toBeUndefined()
+    expect(errorLog.message).toBeUndefined()
+    expect(errorLog.stack).toBeUndefined()
   })
 
-  test('creates log with invalid caughtError and valid localError parameters', () => {
-    const errorLog = new AppLog(null, localError)
+  test('creates valid app log with custom error data', () => {
+    const customName = 'custom-name'
+    const customMessage = 'custom-message'
+    const customStack = 'custom-stack'
+    const testCustomErrorParams = {
+      error: {
+        name: customName,
+        message: customMessage,
+        stack: customStack,
+      },
+      level: testLevel,
+      name: testName,
+      details: testDetails,
+    }
+    const errorLog = new AppLog(testCustomErrorParams)
     expect(errorLog.id).toEqual(expect.any(String))
     expect(errorLog.createdAt).toEqual(expect.any(String))
-    expect(errorLog.name).toEqual(`${localMsg}:undefined`)
-    expect(errorLog.data).toBeUndefined()
-    expect(errorLog.message).toEqual([localMsg])
-    expect(errorLog.stack).toEqual(expect.any(Array))
+    expect(errorLog.level).toBe('Debug')
+    expect(errorLog.callerName).toBe(testName)
+    expect(errorLog.details).toBe(testDetails)
+    expect(errorLog.errorName).toBe(customName)
+    expect(errorLog.message).toBe(customMessage)
+    expect(errorLog.stack).toBe(customStack)
   })
 })

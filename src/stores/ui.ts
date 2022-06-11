@@ -9,12 +9,10 @@ export const useUIStore = defineStore({
 
   actions: {
     toggleDrawer() {
-      console.log('drawer toggle')
       this.drawer = !this.drawer
     },
 
     closeDrawer() {
-      console.log('drawer close')
       this.drawer = false
     },
 
