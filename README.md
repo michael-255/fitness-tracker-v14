@@ -22,26 +22,56 @@ Implement the following:
 
 - [ ] `Measurements` View
 
-  - [x] Clear Store
-  - [x] See Record details
-  - [ ] Edit Record
-  - [x] Delete record
+  - [ ] Design tabs for view (reusable)
+  - [ ] `Actions` Tab
+    - [x] Clear All Actions
+    - [x] Action details
+    - [ ] Edit Action
+    - [x] Delete Action
+  - [ ] `Records` Tab
+    - [ ] Clear All Records
+    - [ ] Record details
+    - [ ] Create Record
+    - [ ] Edit Record
+    - [ ] Delete Record
+  - [ ] `Reports` Tab (charts)
+    - [ ] TBD
 
 - [ ] `Exercises` View
 
-  - [x] Clear Store
-  - [x] See Record details
-  - [ ] Edit Record
-  - [x] Delete record
+  - [ ] `Actions` Tab
+    - [x] Clear All Actions
+    - [x] Action details
+    - [ ] Edit Action
+    - [x] Delete Action
+  - [ ] `Records` Tab
+    - [ ] Clear All Records
+    - [ ] Record details
+    - [ ] Create Record
+    - [ ] Edit Record
+    - [ ] Delete Record
+  - [ ] `Reports` Tab (charts)
+    - [ ] TBD
 
 - [ ] `Workouts` View
 
-  - [x] Clear Store
-  - [x] See Record details
-  - [ ] Edit Record
-  - [x] Delete record
+  - [ ] `Actions` Tab
+    - [x] Clear All Actions
+    - [x] Action details
+    - [ ] Edit Action
+    - [x] Delete Action
+  - [ ] `Records` Tab
+    - [ ] Clear All Records
+    - [ ] Record details
+    - [ ] Create Record
+    - [ ] Edit Record
+    - [ ] Delete Record
+  - [ ] `Reports` Tab (charts)
+    - [ ] TBD
 
+- [ ] Rebrand `Charts` as `Reports` (rename files/components)
 - [ ] Fix `Options` View
+- [ ] Build reusable components for action/record views
 
   - [ ] Remove options that are no longer needed
 

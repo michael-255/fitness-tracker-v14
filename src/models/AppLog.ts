@@ -3,11 +3,11 @@ import type { IEntity } from '@/models/_Entity'
 import { Store } from '@/constants'
 
 export enum LogLevel {
-  FATAL = "Fatal",
-  ERROR = "Error",
-  WARN = "Warning",
-  INFO = "Info",
-  DEBUG = "Debug",
+  FATAL = 'Fatal',
+  ERROR = 'Error',
+  WARN = 'Warning',
+  INFO = 'Info',
+  DEBUG = 'Debug',
 }
 
 // Exports for LocalDatabase
