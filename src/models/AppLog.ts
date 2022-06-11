@@ -23,7 +23,7 @@ export interface IAppLog extends IEntity {
 }
 
 export type appLogParams = {
-  error: Error
+  error: Error | any
   level: LogLevel
   name: string
   details?: string
@@ -31,7 +31,7 @@ export type appLogParams = {
 
 /**
  * AppLog Class
- * @arg obj.error (Required) - Error object
+ * @arg obj.error (Required) - Error object (or any since it's unknown)
  * @arg obj.level (Required) - Severity level of this log
  * @arg obj.name (Required) - Name of caller (normally the function name)
  * @arg obj.details (Optional) - Additional information about the event

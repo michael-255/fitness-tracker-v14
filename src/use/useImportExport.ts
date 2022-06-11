@@ -18,7 +18,12 @@ export function useImportExport() {
     const fileName = entries[0]?.file?.name
     const failedValidation = entries[0]?.failedPropValidation
 
-    silentLog({ error: new Error('onRejectedFile'), level: LogLevel.WARN, name: 'onRejectedFile', details: `${fileName}:${failedValidation}` })
+    silentLog({
+      error: new Error('onRejectedFile'),
+      level: LogLevel.WARN,
+      name: 'onRejectedFile',
+      details: `${fileName}:${failedValidation}`,
+    })
   }
 
   async function importData() {

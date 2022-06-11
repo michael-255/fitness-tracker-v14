@@ -10,7 +10,7 @@ export function useAppLogger() {
    */
   function consoleLog(appLogParams: appLogParams): void {
     const { error, level, name, details } = appLogParams
-    
+
     if (DEBUG) {
       if (level === LogLevel.DEBUG || level === LogLevel.INFO) {
         logger.log(name, details)
@@ -27,7 +27,7 @@ export function useAppLogger() {
   }
 
   /**
-   * Logs without alerting the user
+   * Silently logs to the DB and console without alerting the user
    */
   async function silentLog(appLogParams: appLogParams): Promise<void> {
     consoleLog(appLogParams)
@@ -35,7 +35,7 @@ export function useAppLogger() {
   }
 
   /**
-   * Logs and alerts the user
+   * Logs to the DB and console while also alerting the user on the front-end
    * @todo Implement alert box and related components
    */
   async function alertLog(appLogParams: appLogParams): Promise<void> {
