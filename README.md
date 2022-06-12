@@ -22,7 +22,6 @@ Implement the following:
 
 - [ ] `Measurements` View
 
-  - [ ] Design tabs for view (reusable)
   - [ ] `Activities` Tab
     - [x] Clear All Activities
     - [ ] View report
