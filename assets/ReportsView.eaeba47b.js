@@ -1,0 +1,1 @@
+import{o as n,a0 as a}from"./vendor.f1de0ac9.js";var s=(e,r)=>{const t=e.__vccOpts||e;for(const[o,c]of r)t[o]=c;return t};const _={};function f(e,r){return n(),a("h3",null,"Reports View")}var p=s(_,[["render",f]]);export{p as default};
