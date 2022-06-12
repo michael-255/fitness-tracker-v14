@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QBtn } from 'quasar'
-import { Views, Icons } from '@/constants'
+import { Views, Icon } from '@/constants'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import { Views, Icons } from '@/constants'
     class="q-my-sm"
     color="primary"
     label="Return to Dashboard"
-    :icon="Icons.DASHBOARD"
+    :icon="Icon.DASHBOARD"
     :to="{ name: Views.DASHBOARD }"
   />
 </template>

@@ -1,13 +1,13 @@
-import { _Action } from './_Action'
-import type { IAction, IUpdateAction } from '@/models/_Action'
+import { _Activity } from './_Activity'
+import type { IActivity, IUpdateActivity } from '@/models/_Activity'
 import { Store } from '@/constants'
 
 // Exports for LocalDatabase
 export const measurementStoreIndices = Object.freeze({ [Store.MEASUREMENTS]: '&id, name, status' })
 
-export interface IMeasurement extends IAction, IMeasurementFields {}
+export interface IMeasurement extends IActivity, IMeasurementFields {}
 
-export interface IUpdateMeasurement extends IUpdateAction, IMeasurementFields {}
+export interface IUpdateMeasurement extends IUpdateActivity, IMeasurementFields {}
 
 interface IMeasurementFields {
   trackLbs?: boolean
@@ -28,7 +28,7 @@ interface IMeasurementFields {
  * @arg obj.trackFeet (Optional)
  * @arg obj.trackPercent (Optional)
  */
-export class Measurement extends _Action {
+export class Measurement extends _Activity {
   trackLbs?: boolean
   trackInches?: boolean
   trackFeet?: boolean

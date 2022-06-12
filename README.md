@@ -23,55 +23,54 @@ Implement the following:
 - [ ] `Measurements` View
 
   - [ ] Design tabs for view (reusable)
-  - [ ] `Actions` Tab
-    - [x] Clear All Actions
-    - [x] Action details
-    - [ ] Edit Action
-    - [x] Delete Action
+  - [ ] `Activities` Tab
+    - [x] Clear All Activities
+    - [ ] View report
+    - [x] Activity details
+    - [ ] Edit Activity
+    - [x] Delete Activity
   - [ ] `Records` Tab
     - [ ] Clear All Records
     - [ ] Record details
     - [ ] Create Record
     - [ ] Edit Record
     - [ ] Delete Record
-  - [ ] `Reports` Tab (charts)
-    - [ ] TBD
 
 - [ ] `Exercises` View
 
-  - [ ] `Actions` Tab
-    - [x] Clear All Actions
-    - [x] Action details
-    - [ ] Edit Action
-    - [x] Delete Action
+  - [ ] `Activities` Tab
+    - [x] Clear All Activities
+    - [x] Activity details
+    - [ ] Edit Activity
+    - [x] Delete Activity
   - [ ] `Records` Tab
     - [ ] Clear All Records
     - [ ] Record details
     - [ ] Create Record
     - [ ] Edit Record
     - [ ] Delete Record
-  - [ ] `Reports` Tab (charts)
-    - [ ] TBD
 
 - [ ] `Workouts` View
 
-  - [ ] `Actions` Tab
-    - [x] Clear All Actions
-    - [x] Action details
-    - [ ] Edit Action
-    - [x] Delete Action
+  - [ ] `Activities` Tab
+    - [x] Clear All Activities
+    - [x] Activity details
+    - [ ] Edit Activity
+    - [x] Delete Activity
   - [ ] `Records` Tab
     - [ ] Clear All Records
     - [ ] Record details
     - [ ] Create Record
     - [ ] Edit Record
     - [ ] Delete Record
-  - [ ] `Reports` Tab (charts)
-    - [ ] TBD
 
-- [ ] Rebrand `Charts` as `Reports` (rename files/components)
+- [x] Enforce `Icon` enum for icons/props
+- [ ] Table column reveal/hide switches
+- [x] Rebrand `Action` as `Activity` (rename files/components)
+- [x] Rebrand `Charts` as `Reports` (rename files/components)
 - [ ] Fix `Options` View
-- [ ] Build reusable components for action/record views
+- [ ] Consider removing `Reports` view
+- [ ] Build reusable components for activity/record views
 
   - [ ] Remove options that are no longer needed
 

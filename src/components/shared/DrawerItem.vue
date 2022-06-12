@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { QItem, QItemSection, QIcon } from 'quasar'
+import type { Icon } from '@/constants'
 
 defineProps<{
   to: string | object
-  icon: string
+  icon: Icon
   label: string
 }>()
 </script>

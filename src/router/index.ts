@@ -22,10 +22,10 @@ const router = createRouter({
       component: () => import(`../views/${Views.ACTIVEWORKOUT}.vue`),
     },
     {
-      path: '/charts',
-      name: Views.CHARTS,
+      path: '/reports',
+      name: Views.REPORTS,
       meta: { layout: Layouts.MENU },
-      component: () => import(`../views/${Views.CHARTS}.vue`),
+      component: () => import(`../views/${Views.REPORTS}.vue`),
     },
     // {
     //   path: '/measurements/edit/:id',

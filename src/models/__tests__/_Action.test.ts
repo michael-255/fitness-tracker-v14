@@ -1,10 +1,10 @@
 import { describe, test, expect } from 'vitest'
-import { _Action } from '../_Action'
+import { _Activity } from '../_Activity'
 
-describe('_Action', () => {
+describe('_Activity', () => {
   test('requires name parameter for constructor', () => {
-    const name = 'Test Action Name'
-    const result = new _Action({ name })
+    const name = 'Test Activity Name'
+    const result = new _Activity({ name })
     expect(result.name).toBeDefined()
   })
 })

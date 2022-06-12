@@ -1,38 +1,38 @@
 import { _Entity } from '@/models/_Entity'
 import type { IEntity } from '@/models/_Entity'
 
-export enum ActionStatus {
+export enum ActivityStatus {
   DISABLED = 'Disabled',
   ENABLED = 'Enabled',
   ARCHIVED = 'Archived',
 }
 
-export interface IAction extends IEntity {
+export interface IActivity extends IEntity {
   name: string // Required
   description?: string
-  status?: ActionStatus
+  status?: ActivityStatus
 }
 
-export interface IUpdateAction {
+export interface IUpdateActivity {
   name?: string
   description?: string
-  status?: ActionStatus
+  status?: ActivityStatus
 }
 
 /**
- * _Action Class
+ * _Activity Class
  * @arg obj.id (Inherited, Optional)
  * @arg obj.createdAt (Inherited, Optional)
  * @arg obj.name (Required)
  * @arg obj.description (Optional)
  * @arg obj.status (Defaulted)
  */
-export class _Action extends _Entity {
+export class _Activity extends _Entity {
   name: string // Required
   description?: string
-  status?: ActionStatus
+  status?: ActivityStatus
 
-  constructor({ id, createdAt, name, description, status = ActionStatus.ENABLED }: IAction) {
+  constructor({ id, createdAt, name, description, status = ActivityStatus.ENABLED }: IActivity) {
     super({ id, createdAt })
     this.name = name
     this.description = description

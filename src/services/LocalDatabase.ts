@@ -2,7 +2,7 @@ import Dexie, { type IndexableType } from 'dexie'
 import type { Table } from 'dexie'
 // Database Stores
 import { Store } from '@/constants'
-import type { ActionStatus } from '@/models/_Action'
+import type { ActivityStatus } from '@/models/_Activity'
 import { Measurement, measurementStoreIndices } from '@/models/Measurement'
 import type { IMeasurement, IUpdateMeasurement } from '@/models/Measurement'
 import { Exercise, exerciseStoreIndices } from '@/models/Exercise'
@@ -71,7 +71,7 @@ export class LocalDatabase extends Dexie {
     return await this.table(store).where('id').equalsIgnoreCase(id).first()
   }
 
-  async getByStatus<T>(store: Store, status: ActionStatus): Promise<T[]> {
+  async getByStatus<T>(store: Store, status: ActivityStatus): Promise<T[]> {
     return await this.table(store).where('status').equalsIgnoreCase(status).toArray()
   }
 

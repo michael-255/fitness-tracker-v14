@@ -8,7 +8,7 @@ const router = useRouter()
 
 <template>
   <QLayout elevated view="hHh lpR lFf">
-    <QHeader bordered class="bg-primary text-white">
+    <QHeader class="bg-primary text-white">
       <QToolbar>
         <QBtn dense flat round icon="home" @click="router.push({ name: Views.DASHBOARD })" />
 

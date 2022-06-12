@@ -1,13 +1,13 @@
-import { _Action } from '@/models/_Action'
-import type { IAction, IUpdateAction } from '@/models/_Action'
+import { _Activity } from '@/models/_Activity'
+import type { IActivity, IUpdateActivity } from '@/models/_Activity'
 import { Store } from '@/constants'
 
 // Exports for LocalDatabase
 export const exerciseStoreIndices = Object.freeze({ [Store.EXERCISES]: '&id, name, status' })
 
-export interface IExercise extends IAction, IExerciseFields {}
+export interface IExercise extends IActivity, IExerciseFields {}
 
-export interface IUpdateExercise extends IUpdateAction, IExerciseFields {}
+export interface IUpdateExercise extends IUpdateActivity, IExerciseFields {}
 
 interface IExerciseFields {
   trackConfirm?: boolean
@@ -32,7 +32,7 @@ interface IExerciseFields {
  * @arg obj.trackWeight (Optional)
  * @arg obj.trackReps (Optional)
  */
-export class Exercise extends _Action {
+export class Exercise extends _Activity {
   trackConfirm?: boolean
   trackMultipleSets?: boolean
   trackDuration?: boolean

@@ -17,14 +17,19 @@ export enum Links {
   MYAPPS = 'https://www.example.com', // @todo - Make 'My Apps' site
 }
 
-export enum Icons {
-  DASHBOARD = 'dashboard',
-  CHART = 'timeline',
-  MANAGEMENT = 'tune',
-  MEASUREMENT = 'straighten',
-  EXERCISE = 'fitness_center',
-  WORKOUT = 'assignment',
+export enum Icon {
+  // Entities
+  ACTIVITIES = 'directions_run',
+  RECORDS = 'web_stories',
+  MEASUREMENTS = 'straighten',
+  EXERCISES = 'fitness_center',
+  WORKOUTS = 'assignment',
   APPLOGS = 'plagiarism',
+  // Misc
+  DASHBOARD = 'dashboard',
+  REPORT = 'timeline',
+  MANAGEMENT = 'tune',
+  WORKOUT = 'assignment',
   SETTINGS = 'settings',
   CODE = 'code',
   WEB = 'language',
@@ -50,7 +55,7 @@ export enum Limits {
 export enum Views {
   DASHBOARD = 'DashboardView',
   ACTIVEWORKOUT = 'ActiveWorkoutView',
-  CHARTS = 'ChartsView',
+  REPORTS = 'ReportsView',
   MEASUREMENTS = 'MeasurementsView',
   EXERCISES = 'ExercisesView',
   WORKOUTS = 'WorkoutsView',

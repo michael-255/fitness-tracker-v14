@@ -12,14 +12,14 @@ import {
 } from 'quasar'
 import DrawerItem from '@/components/shared/DrawerItem.vue'
 import { useUIStore } from '@/stores/ui'
-import { Views, Icons } from '@/constants'
+import { Views, Icon } from '@/constants'
 
 const ui = useUIStore()
 </script>
 
 <template>
   <QLayout view="hHh lpR lFf">
-    <QHeader bordered elevated class="bg-primary text-white">
+    <QHeader elevated class="bg-primary text-white">
       <QToolbar>
         <QBtn dense flat round icon="menu" @click="ui.toggleDrawer()" />
 
@@ -29,20 +29,19 @@ const ui = useUIStore()
 
     <QDrawer v-model="ui.drawer" :width="200" show-if-above side="left" bordered>
       <QList>
-        <DrawerItem :to="{ name: Views.DASHBOARD }" :icon="Icons.DASHBOARD" label="Dashboard" />
-        <DrawerItem :to="{ name: Views.CHARTS }" :icon="Icons.CHART" label="Charts" />
+        <DrawerItem :to="{ name: Views.DASHBOARD }" :icon="Icon.DASHBOARD" label="Dashboard" />
         <QSeparator />
         <DrawerItem
           :to="{ name: Views.MEASUREMENTS }"
-          :icon="Icons.MEASUREMENT"
+          :icon="Icon.MEASUREMENTS"
           label="Measurements"
         />
-        <DrawerItem :to="{ name: Views.EXERCISES }" :icon="Icons.EXERCISE" label="Exercises" />
-        <DrawerItem :to="{ name: Views.WORKOUTS }" :icon="Icons.WORKOUT" label="Workouts" />
+        <DrawerItem :to="{ name: Views.EXERCISES }" :icon="Icon.EXERCISES" label="Exercises" />
+        <DrawerItem :to="{ name: Views.WORKOUTS }" :icon="Icon.WORKOUTS" label="Workouts" />
         <QSeparator />
-        <DrawerItem :to="{ name: Views.APPLOGS }" :icon="Icons.APPLOGS" label="App Logs" />
-        <DrawerItem :to="{ name: Views.OPTIONS }" :icon="Icons.SETTINGS" label="Options" />
-        <DrawerItem :to="{ name: Views.ABOUT }" :icon="Icons.INFO" label="About" />
+        <DrawerItem :to="{ name: Views.APPLOGS }" :icon="Icon.APPLOGS" label="App Logs" />
+        <DrawerItem :to="{ name: Views.OPTIONS }" :icon="Icon.SETTINGS" label="Options" />
+        <DrawerItem :to="{ name: Views.ABOUT }" :icon="Icon.INFO" label="About" />
       </QList>
     </QDrawer>
 
