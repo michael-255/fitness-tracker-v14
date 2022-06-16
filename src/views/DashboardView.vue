@@ -1,9 +1,19 @@
 <script setup lang="ts">
-import { QSeparator, QTabs, QTab, QTabPanels, QTabPanel } from 'quasar'
+import { QSeparator, QTabs, QTab, QTabPanels, QTabPanel, QBtn } from 'quasar'
 import { Icon } from '@/constants'
 import { ref } from 'vue'
+import ConfirmDialog from '@/components/shared/ConfirmDialog.vue'
 
+const dialog = ref(false)
 const tab = ref('activities')
+
+function toggleDialog() {
+  dialog.value = !dialog.value
+}
+
+function confirmedDialog() {
+  console.log('Action confirmed!')
+}
 </script>
 
 <template>
@@ -28,6 +38,18 @@ const tab = ref('activities')
 
     <QTabPanel name="records">
       <div class="text-h6">Records</div>
+      <div>
+        <QBtn flat label="Dialog" color="primary" @click="dialog = !dialog" />
+        <ConfirmDialog
+          title="Test"
+          :icon="Icon.APPLOGS"
+          message="Testing this with a larger message to see how the dialog box will be formatted. Who knows what this will end up looking like."
+          color="primary"
+          :dialog="dialog"
+          @toggle:dialog="toggleDialog()"
+          @confirm:dialog="confirmedDialog()"
+        />
+      </div>
     </QTabPanel>
   </QTabPanels>
 </template>
