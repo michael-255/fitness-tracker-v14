@@ -16,7 +16,14 @@ const { silentLog } = useAppLogger()
 export function useTable({ store, tableColumns }: useTableParams) {
   const tableRows: Ref<IEntity[]> = ref([])
   const rowDetails: Ref<IEntity | undefined> = ref(undefined)
-  const dialog: Ref<boolean> = ref(false)
+  const selectedRowId: Ref<string> = ref('')
+
+  const createDialog: Ref<boolean> = ref(false)
+  const clearDialog: Ref<boolean> = ref(false)
+  const reportDialog: Ref<boolean> = ref(false)
+  const detailsDialog: Ref<boolean> = ref(false)
+  const editDialog: Ref<boolean> = ref(false)
+  const deleteDialog: Ref<boolean> = ref(false)
 
   onMounted(async () => {
     updateTableRows()
@@ -30,34 +37,93 @@ export function useTable({ store, tableColumns }: useTableParams) {
     }
   }
 
-  async function clearTableData(): Promise<void> {
+  //
+  // Create
+  //
+
+  function openCreateDialog() {
+    createDialog.value = true
+  }
+
+  //
+  // Clear
+  //
+
+  function openClearDialog() {
+    clearDialog.value = true
+  }
+
+  async function confirmClearDialog() {
     try {
-      if (confirm(`Clear "${store}" table data?`)) {
-        await database.clear(store)
-        updateTableRows()
-      }
+      await database.clear(store)
+      updateTableRows()
     } catch (error) {
-      silentLog({ error, level: LogLevel.ERROR, name: 'clearTableData', details: store })
+      silentLog({ error, level: LogLevel.ERROR, name: 'confirmClearDialog', details: store })
+    } finally {
+      clearDialog.value = false
     }
   }
 
-  async function deleteTableRow(id: string): Promise<void> {
-    try {
-      if (confirm(`Delete "${id}" from "${store}" table?`)) {
-        await database.deleteById(store, id)
-        updateTableRows()
-      }
-    } catch (error) {
-      silentLog({ error, level: LogLevel.ERROR, name: 'deleteTableRow', details: `${store}:${id}` })
-    }
+  //
+  // Report
+  //
+
+  function openReportDialog(id: string) {
+    selectedRowId.value = id
+    reportDialog.value = true
   }
 
-  async function openRowDetails(id: string): Promise<void> {
+  //
+  // Details
+  //
+
+  async function openDetailsDialog(id: string) {
     try {
       rowDetails.value = await database.getById(store, id)
-      dialog.value = true
+      detailsDialog.value = true
     } catch (error) {
-      silentLog({ error, level: LogLevel.ERROR, name: 'openRowDetails', details: `${store}:${id}` })
+      silentLog({
+        error,
+        level: LogLevel.ERROR,
+        name: 'openDetailsDialog',
+        details: `${store}:${id}`,
+      })
+    }
+  }
+
+  //
+  // Edit
+  //
+
+  function openEditDialog(id: string) {
+    selectedRowId.value = id
+    editDialog.value = true
+  }
+
+  //
+  // Delete
+  //
+
+  function openDeleteDialog(id: string) {
+    selectedRowId.value = id
+    deleteDialog.value = true
+  }
+
+  async function confirmDeleteDialog() {
+    const id = selectedRowId.value
+
+    try {
+      await database.deleteById(store, id)
+      updateTableRows()
+    } catch (error) {
+      silentLog({
+        error,
+        level: LogLevel.ERROR,
+        name: 'confirmDeleteDialog',
+        details: `${store}:${id}`,
+      })
+    } finally {
+      deleteDialog.value = false
     }
   }
 
@@ -65,9 +131,20 @@ export function useTable({ store, tableColumns }: useTableParams) {
     tableColumns,
     tableRows,
     rowDetails,
-    dialog,
-    clearTableData,
-    deleteTableRow,
-    openRowDetails,
+    selectedRowId,
+    createDialog,
+    clearDialog,
+    reportDialog,
+    detailsDialog,
+    editDialog,
+    deleteDialog,
+    openCreateDialog,
+    openClearDialog,
+    confirmClearDialog,
+    openReportDialog,
+    openDetailsDialog,
+    openEditDialog,
+    openDeleteDialog,
+    confirmDeleteDialog,
   }
 }

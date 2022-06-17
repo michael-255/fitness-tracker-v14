@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Icon } from '@/constants'
-import { QDialog, QCard, QCardSection, QCardActions, QBtn } from 'quasar'
+import { QDialog, QCard, QCardSection, QCardActions, QIcon, QBtn } from 'quasar'
 import { computed } from 'vue'
 
 const props = defineProps<{
@@ -28,16 +28,23 @@ const dialog = computed({
 
 <template>
   <QDialog v-model="dialog" persistent transition-show="scale" transition-hide="scale">
-    <QCard class="bg-teal text-white">
-      <QCardSection>
-        <div class="text-h6">{{ title }}</div>
+    <QCard>
+      <QCardSection :class="`bg-${props.color} text-white`">
+        <QIcon :name="props.icon" size="sm" class="q-pb-sm" />
+        <span class="text-h6 q-pl-md">{{ title }}</span>
       </QCardSection>
 
-      <QCardSection class="q-pt-none">{{ message }}</QCardSection>
+      <QCardSection>{{ message }}</QCardSection>
 
-      <QCardActions align="right" class="bg-white text-teal">
-        <QBtn flat label="Cancel" color="primary" v-close-popup />
-        <QBtn flat label="Confirm" color="primary" v-close-popup @click="emits('confirm:dialog')" />
+      <QCardActions align="right">
+        <QBtn flat label="Cancel" v-close-popup />
+        <QBtn
+          flat
+          label="Confirm"
+          :color="props.color"
+          v-close-popup
+          @click="emits('confirm:dialog')"
+        />
       </QCardActions>
     </QCard>
   </QDialog>
