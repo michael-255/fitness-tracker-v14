@@ -18,50 +18,63 @@ Implement the following:
 - [x] Debug deployment issues
 - [x] Reloading pages caused the site to break
 
-- [x] `App Logs` View
+- [ ] `App Logs` View
+
+  - [x] Clear
+  - [ ] Report
+  - [x] Details
+  - [x] Delete
 
 - [ ] `Measurements` View
 
   - [ ] `Activities` Tab
-    - [x] Clear All Activities
-    - [ ] View report
-    - [x] Activity details
-    - [ ] Edit Activity
-    - [x] Delete Activity
+    - [ ] Create
+    - [x] Clear
+    - [ ] Report
+    - [x] Details
+    - [ ] Edit
+    - [x] Delete
   - [ ] `Records` Tab
-    - [ ] Clear All Records
-    - [ ] Record details
-    - [ ] Create Record
-    - [ ] Edit Record
-    - [ ] Delete Record
+    - [ ] Create
+    - [x] Clear
+    - [ ] Report
+    - [x] Details
+    - [ ] Edit
+    - [x] Delete
 
 - [ ] `Exercises` View
 
   - [ ] `Activities` Tab
-    - [x] Clear All Activities
-    - [x] Activity details
-    - [ ] Edit Activity
-    - [x] Delete Activity
+    - [ ] Create
+    - [x] Clear
+    - [ ] Report
+    - [x] Details
+    - [ ] Edit
+    - [x] Delete
   - [ ] `Records` Tab
-    - [ ] Clear All Records
-    - [ ] Record details
-    - [ ] Create Record
-    - [ ] Edit Record
-    - [ ] Delete Record
+    - [ ] Create
+    - [x] Clear
+    - [ ] Report
+    - [x] Details
+    - [ ] Edit
+    - [x] Delete
 
 - [ ] `Workouts` View
 
   - [ ] `Activities` Tab
-    - [x] Clear All Activities
-    - [x] Activity details
-    - [ ] Edit Activity
-    - [x] Delete Activity
+    - [ ] Create
+    - [x] Clear
+    - [ ] Report
+    - [x] Details
+    - [ ] Edit
+    - [x] Delete
   - [ ] `Records` Tab
-    - [ ] Clear All Records
-    - [ ] Record details
-    - [ ] Create Record
-    - [ ] Edit Record
-    - [ ] Delete Record
+    - [ ] Create
+    - [x] Clear
+    - [ ] Report
+    - [x] Details
+    - [ ] Edit
+    - [x] Delete
 
 - [x] Enforce `Icon` enum for icons/props
 - [ ] Table column reveal/hide switches
