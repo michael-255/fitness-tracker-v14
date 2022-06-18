@@ -41,19 +41,23 @@ export function useTable({ store, tableColumns }: useTableParams) {
   // Create
   //
 
-  function openCreateDialog() {
+  function openCreateDialog(): void {
     createDialog.value = true
+  }
+
+  function saveCreateDialog(): void {
+    createDialog.value = false
   }
 
   //
   // Clear
   //
 
-  function openClearDialog() {
+  function openClearDialog(): void {
     clearDialog.value = true
   }
 
-  async function confirmClearDialog() {
+  async function confirmClearDialog(): Promise<void> {
     try {
       await database.clear(store)
       updateTableRows()
@@ -68,7 +72,7 @@ export function useTable({ store, tableColumns }: useTableParams) {
   // Report
   //
 
-  function openReportDialog(id: string) {
+  function openReportDialog(id: string): void {
     selectedRowId.value = id
     reportDialog.value = true
   }
@@ -77,7 +81,7 @@ export function useTable({ store, tableColumns }: useTableParams) {
   // Details
   //
 
-  async function openDetailsDialog(id: string) {
+  async function openDetailsDialog(id: string): Promise<void> {
     try {
       rowDetails.value = await database.getById(store, id)
       detailsDialog.value = true
@@ -95,21 +99,25 @@ export function useTable({ store, tableColumns }: useTableParams) {
   // Edit
   //
 
-  function openEditDialog(id: string) {
+  function openEditDialog(id: string): void {
     selectedRowId.value = id
     editDialog.value = true
+  }
+
+  function saveEditDialog(): void {
+    editDialog.value = false
   }
 
   //
   // Delete
   //
 
-  function openDeleteDialog(id: string) {
+  function openDeleteDialog(id: string): void {
     selectedRowId.value = id
     deleteDialog.value = true
   }
 
-  async function confirmDeleteDialog() {
+  async function confirmDeleteDialog(): Promise<void> {
     const id = selectedRowId.value
 
     try {
@@ -139,11 +147,13 @@ export function useTable({ store, tableColumns }: useTableParams) {
     editDialog,
     deleteDialog,
     openCreateDialog,
+    saveCreateDialog,
     openClearDialog,
     confirmClearDialog,
     openReportDialog,
     openDetailsDialog,
     openEditDialog,
+    saveEditDialog,
     openDeleteDialog,
     confirmDeleteDialog,
   }

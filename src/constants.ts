@@ -32,6 +32,7 @@ export enum Icon {
   WORKOUT = 'assignment',
   SETTINGS = 'settings',
   DETAILS = 'summarize',
+  SAVE = 'save',
   CLOSE = 'close',
   EDIT = 'edit',
   DELETE = 'delete',
