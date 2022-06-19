@@ -1,18 +1,26 @@
 <script setup lang="ts">
 import { Measurement } from '@/models/Measurement'
 
-const inputKeys = Object.keys(new Measurement())
-/*
- * @arg obj.id (Inherited)
- * @arg obj.createdAt (Inherited)
- * @arg obj.name (Inherited)
- * @arg obj.description (Inherited)
- * @arg obj.status (Inherited)
- * @arg obj.trackLbs
- * @arg obj.trackInches
- * @arg obj.trackFeet
- * @arg obj.trackPercent
+/**
+ * @todo
+ * These should be compared as part of a test, but not break the component
+ * Ensure they are the same length
+ * Ensure they have the exact same keys
+ *
+ * Might want to make an Input component for each key?
  */
+const measurementKeys = Measurement.keys()
+const inputKeys = [
+  'id',
+  'createdAt',
+  'name',
+  'description',
+  'status',
+  'trackLbs',
+  'trackInches',
+  'trackFeet',
+  'trackPercent',
+]
 </script>
 
 <template>
@@ -20,15 +28,15 @@ const inputKeys = Object.keys(new Measurement())
 
   <h5>Measurement: {{ inputKeys.length }}</h5>
 
-  <div v-for="key in inputKeys" :key="key">
-    <div v-if="key == 'id'">Key: {{ key }}</div>
-    <div v-if="key == 'createdAt'">Key: {{ key }}</div>
-    <div v-if="key == 'name'">Key: {{ key }}</div>
-    <div v-if="key == 'description'">Key: {{ key }}</div>
-    <div v-if="key == 'status'">Key: {{ key }}</div>
-    <div v-if="key == 'trackLbs'">Key: {{ key }}</div>
-    <div v-if="key == 'trackInches'">Key: {{ key }}</div>
-    <div v-if="key == 'trackFeet'">Key: {{ key }}</div>
-    <div v-if="key == 'trackPercent'">Key: {{ key }}</div>
+  <div v-for="(value, index) in measurementKeys" :key="index">
+    <div v-if="value == 'id'">Key: {{ value }}</div>
+    <div v-if="value == 'createdAt'">Key: {{ value }}</div>
+    <div v-if="value == 'name'">Key: {{ value }}</div>
+    <div v-if="value == 'description'">Key: {{ value }}</div>
+    <div v-if="value == 'status'">Key: {{ value }}</div>
+    <div v-if="value == 'trackLbs'">Key: {{ value }}</div>
+    <div v-if="value == 'trackInches'">Key: {{ value }}</div>
+    <div v-if="value == 'trackFeet'">Key: {{ value }}</div>
+    <div v-if="value == 'trackPercent'">Key: {{ value }}</div>
   </div>
 </template>

@@ -15,4 +15,8 @@ export class _Entity {
     this.id = id
     this.createdAt = createdAt
   }
+
+  static keys(): string[] {
+    return Object.keys(new this())
+  }
 }
