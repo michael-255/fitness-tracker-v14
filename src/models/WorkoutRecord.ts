@@ -30,7 +30,7 @@ export class WorkoutRecord extends _Record {
     note,
     finishedAt = null,
     exerciseRecordIds = [],
-  }: IWorkoutRecord) {
+  }: IWorkoutRecord = {}) {
     super({ id, createdAt, parentId, note })
     this.finishedAt = finishedAt
     this.exerciseRecordIds = exerciseRecordIds

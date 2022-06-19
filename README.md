@@ -18,8 +18,8 @@ Implement the following:
 - [x] Debug deployment issues
 - [x] Reloading pages caused the site to break
 
+- [ ] Build out `Inputs` components for each core class
 - [ ] Record notes from Typescript/Jest talk into README!
-
 - [ ] Global `Dialogs` (less repeated code)
 
   - [ ] Use STATE to manage them

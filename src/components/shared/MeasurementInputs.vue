@@ -16,10 +16,6 @@ const inputKeys = Object.keys(new Measurement())
 </script>
 
 <template>
-  <h3>Dashboard</h3>
-
-  <h5>Measurement: {{ inputKeys.length }}</h5>
-
   <div v-for="key in inputKeys" :key="key">
     <div v-if="key == 'id'">Key: {{ key }}</div>
     <div v-if="key == 'createdAt'">Key: {{ key }}</div>
