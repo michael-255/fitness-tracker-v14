@@ -1,5 +1,6 @@
 import { describe, test, expect } from 'vitest'
-import { AppLog, LogLevel } from '@/models/AppLog'
+import { AppLog } from '@/models/AppLog'
+import { LogLevel } from '@/constants/enums'
 
 describe('AppLog', () => {
   const testErrorName = 'test-error'

@@ -1,7 +1,8 @@
+import type { FinishedAt, Id } from '@/constants/types'
+import type { IWorkoutRecord } from '@/constants/interfaces'
+import { Store } from '@/constants/enums'
 import { _Record } from '@/models/_Record'
-import type { IRecord, IUpdateRecord } from '@/models/_Record'
 import { getDurationString, getMediumDateString } from '@/utils/date-time'
-import { Store } from '@/constants'
 
 // Exports for LocalDatabase
 export const workoutRecordStoreIndices = Object.freeze({
@@ -9,29 +10,27 @@ export const workoutRecordStoreIndices = Object.freeze({
   [Store.ACTIVE_WORKOUTS]: '&id, parentId',
 })
 
-export interface IWorkoutRecord extends IRecord, IWorkoutRecordFields {}
-
-export interface IUpdateWorkoutRecord extends IUpdateRecord, IWorkoutRecordFields {}
-
-interface IWorkoutRecordFields {
-  finishedAt?: string
-  exerciseRecordIds?: string[]
-}
-
 /**
  * WorkoutRecord Class
- * @arg obj.id (Inherited, Optional)
- * @arg obj.createdAt (Inherited, Optional)
- * @arg obj.parentId (Inherited, Required)
- * @arg obj.note (Inherited, Optional)
- * @arg obj.finishedAt (Optional)
- * @arg obj.exerciseRecordIds (Defaulted)
+ * @arg obj.id (Inherited)
+ * @arg obj.createdAt (Inherited)
+ * @arg obj.parentId (Inherited)
+ * @arg obj.note (Inherited)
+ * @arg obj.finishedAt
+ * @arg obj.exerciseRecordIds
  */
 export class WorkoutRecord extends _Record {
-  finishedAt?: string
-  exerciseRecordIds?: string[]
+  finishedAt?: FinishedAt
+  exerciseRecordIds?: Id[]
 
-  constructor({ id, createdAt, parentId, note, finishedAt, exerciseRecordIds = [] }: IWorkoutRecord) {
+  constructor({
+    id,
+    createdAt,
+    parentId,
+    note,
+    finishedAt = null,
+    exerciseRecordIds = [],
+  }: IWorkoutRecord) {
     super({ id, createdAt, parentId, note })
     this.finishedAt = finishedAt
     this.exerciseRecordIds = exerciseRecordIds

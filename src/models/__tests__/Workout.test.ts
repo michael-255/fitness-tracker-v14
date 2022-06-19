@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { Workout } from '../Workout'
+import { Workout } from '@/models/Workout'
 
 describe('Workout', () => {
   test('requires name parameter for constructor', () => {

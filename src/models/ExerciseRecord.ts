@@ -1,13 +1,7 @@
+import type { TrackBoolean, ExerciseSet } from '@/constants/types'
+import type { IExerciseRecord } from '@/constants/interfaces'
+import { Store } from '@/constants/enums'
 import { _Record } from '@/models/_Record'
-import type { IRecord, IUpdateRecord } from '@/models/_Record'
-import { Store } from '@/constants'
-
-export type ExerciseSet = {
-  weight?: number
-  reps?: number
-  distance?: number
-  duration?: number
-}
 
 // Exports for LocalDatabase
 export const exerciseRecordStoreIndices = Object.freeze({
@@ -15,29 +9,20 @@ export const exerciseRecordStoreIndices = Object.freeze({
   [Store.ACTIVE_EXERCISES]: '&id, parentId',
 })
 
-export interface IExerciseRecord extends IRecord, IExerciseRecordFields {}
-
-export interface IUpdateExerciseRecord extends IUpdateRecord, IExerciseRecordFields {}
-
-interface IExerciseRecordFields {
-  skipped?: boolean
-  sets?: ExerciseSet[]
-}
-
 /**
  * ExerciseRecord Class
- * @arg obj.id (Inherited, Optional)
- * @arg obj.createdAt (Inherited, Optional)
- * @arg obj.parentId (Inherited, Required)
- * @arg obj.note (Inherited, Optional)
- * @arg obj.skipped (Optional)
- * @arg obj.sets (Defaulted)
+ * @arg obj.id (Inherited)
+ * @arg obj.createdAt (Inherited)
+ * @arg obj.parentId (Inherited)
+ * @arg obj.note (Inherited)
+ * @arg obj.skipped
+ * @arg obj.sets
  */
 export class ExerciseRecord extends _Record {
-  skipped?: boolean
+  skipped?: TrackBoolean
   sets?: ExerciseSet[]
 
-  constructor({ id, createdAt, parentId, note, skipped, sets = [] }: IExerciseRecord) {
+  constructor({ id, createdAt, parentId, note, skipped = false, sets = [] }: IExerciseRecord = {}) {
     super({ id, createdAt, parentId, note })
     this.skipped = skipped
     this.sets = sets

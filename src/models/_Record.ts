@@ -1,27 +1,19 @@
+import type { Id, Note } from '@/constants/types'
+import type { IRecord } from '@/constants/interfaces'
 import { _Entity } from '@/models/_Entity'
-import type { IEntity } from '@/models/_Entity'
-
-export interface IRecord extends IEntity {
-  parentId: string // Required
-  note?: string
-}
-
-export interface IUpdateRecord {
-  note?: string
-}
 
 /**
  * _Record Class
- * @arg obj.id (Inherited, Optional)
- * @arg obj.createdAt (Inherited, Optional)
- * @arg obj.parentId (Required)
- * @arg obj.note (Optional)
+ * @arg obj.id (Inherited)
+ * @arg obj.createdAt (Inherited)
+ * @arg obj.parentId
+ * @arg obj.note
  */
 export class _Record extends _Entity {
-  parentId: string // Required
-  note?: string
+  parentId?: Id
+  note?: Note
 
-  constructor({ id, createdAt, parentId, note }: IRecord) {
+  constructor({ id, createdAt, parentId = '', note = '' }: IRecord = {}) {
     super({ id, createdAt })
     this.parentId = parentId
     this.note = note

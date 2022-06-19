@@ -1,10 +1,9 @@
 import { database } from '@/services/LocalDatabase'
 import { ref, onMounted } from 'vue'
-import type { Store } from '@/constants'
-import type { IEntity } from '@/models/_Entity'
+import { type Store, LogLevel } from '@/constants/enums'
+import type { IEntity } from '@/constants/interfaces'
 import type { Ref } from 'vue'
 import { useAppLogger } from './useAppLogger'
-import { LogLevel } from '@/models/AppLog'
 
 interface useTableParams {
   store: Store

@@ -16,7 +16,15 @@ export enum Ordinal {
 
 export const WeekdayShort = Object.freeze(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'])
 
-export const WeekdayLong = Object.freeze(['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'])
+export const WeekdayLong = Object.freeze([
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+])
 
 export const MonthShort = Object.freeze([
   'Jan',

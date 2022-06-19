@@ -1,33 +1,34 @@
+import type { RecordNumber } from '@/constants/types'
+import type { IMeasurementRecord } from '@/constants/interfaces'
+import { Store } from '@/constants/enums'
 import { _Record } from '@/models/_Record'
-import type { IRecord, IUpdateRecord } from '@/models/_Record'
-import { Store } from '@/constants'
 
 // Exports for LocalDatabase
-export const measurementRecordStoreIndices = Object.freeze({ [Store.MEASUREMENT_RECORDS]: '&id, parentId' })
-
-export interface IMeasurementRecord extends IRecord, IMeasurementRecordFields {}
-
-export interface IUpdateMeasurementRecord extends IUpdateRecord, IMeasurementRecordFields {}
-
-interface IMeasurementRecordFields {
-  lbs?: number
-  inches?: number
-}
+export const measurementRecordStoreIndices = Object.freeze({
+  [Store.MEASUREMENT_RECORDS]: '&id, parentId',
+})
 
 /**
  * MeasurementRecord Class
- * @arg obj.id (Inherited, Optional)
- * @arg obj.createdAt (Inherited, Optional)
- * @arg obj.parentId (Inherited, Required)
- * @arg obj.note (Inherited, Optional)
- * @arg obj.lbs (Optional)
- * @arg obj.inches (Optional)
+ * @arg obj.id (Inherited)
+ * @arg obj.createdAt (Inherited)
+ * @arg obj.parentId (Inherited)
+ * @arg obj.note (Inherited)
+ * @arg obj.lbs
+ * @arg obj.inches
  */
 export class MeasurementRecord extends _Record {
-  lbs?: number
-  inches?: number
+  lbs?: RecordNumber
+  inches?: RecordNumber
 
-  constructor({ id, createdAt, parentId, note, lbs, inches }: IMeasurementRecord) {
+  constructor({
+    id,
+    createdAt,
+    parentId,
+    note,
+    lbs = null,
+    inches = null,
+  }: IMeasurementRecord = {}) {
     super({ id, createdAt, parentId, note })
     this.lbs = lbs
     this.inches = inches

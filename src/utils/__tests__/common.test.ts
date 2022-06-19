@@ -1,5 +1,5 @@
 import { describe, test, expect, spyOn, vi } from 'vitest'
-import * as common from '../common'
+import * as common from '@/utils/common'
 
 describe('downloadFile', () => {
   test('should be a function', () => {

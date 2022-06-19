@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { _Record } from '../_Record'
+import { _Record } from '@/models/_Record'
 
 describe('_Record', () => {
   test('requires parentId parameter for constructor', () => {

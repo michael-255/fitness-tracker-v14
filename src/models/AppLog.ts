@@ -1,40 +1,16 @@
+import type { AppLogParams } from '@/constants/types'
+import { type LogLevel, Store } from '@/constants/enums'
 import { _Entity } from '@/models/_Entity'
-import type { IEntity } from '@/models/_Entity'
-import { Store } from '@/constants'
-
-export enum LogLevel {
-  FATAL = 'Fatal',
-  ERROR = 'Error',
-  WARN = 'Warning',
-  INFO = 'Info',
-  DEBUG = 'Debug',
-}
 
 // Exports for LocalDatabase
-export const errorLogStoreIndices = Object.freeze({ [Store.APP_LOGS]: '&id, createdAt' })
-
-export interface IAppLog extends IEntity {
-  level: LogLevel
-  callerName: string
-  details?: string
-  errorName?: string
-  message?: string
-  stack?: string
-}
-
-export type appLogParams = {
-  error: Error | any
-  level: LogLevel
-  name: string
-  details?: string
-}
+export const appLogStoreIndices = Object.freeze({ [Store.APP_LOGS]: '&id, createdAt' })
 
 /**
  * AppLog Class
- * @arg obj.error (Required) - Error object (or any since it's unknown)
- * @arg obj.level (Required) - Severity level of this log
- * @arg obj.name (Required) - Name of caller (normally the function name)
- * @arg obj.details (Optional) - Additional information about the event
+ * @arg obj.error Error object (or any since it's unknown)
+ * @arg obj.level Severity level of this log
+ * @arg obj.name Name of caller (normally the function name)
+ * @arg obj.details Optional - Additional string with information about the event (str:str:str)
  */
 export class AppLog extends _Entity {
   level: LogLevel
@@ -44,13 +20,13 @@ export class AppLog extends _Entity {
   message?: string
   stack?: string
 
-  constructor(appLogParams: appLogParams) {
+  constructor(params: AppLogParams) {
     super() // Will use default id and createdAt
-    this.level = appLogParams?.level
-    this.callerName = appLogParams?.name
-    this.details = appLogParams?.details
-    this.errorName = appLogParams?.error?.name
-    this.message = appLogParams?.error?.message
-    this.stack = appLogParams?.error?.stack
+    this.level = params?.level
+    this.callerName = params?.name
+    this.details = params?.details
+    this.errorName = params?.error?.name
+    this.message = params?.error?.message
+    this.stack = params?.error?.stack
   }
 }

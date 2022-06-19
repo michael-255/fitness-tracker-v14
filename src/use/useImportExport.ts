@@ -1,11 +1,11 @@
 import { FitnessData } from '@/models/FitnessData'
 import { database } from '@/services/LocalDatabase'
 import { downloadFile } from '@/utils/common'
-import { Store } from '@/constants'
+import { Store } from '@/constants/enums'
 import { logger } from '@/services/Logger'
 import { ref } from 'vue'
 import { useAppLogger } from './useAppLogger'
-import { LogLevel } from '@/models/AppLog'
+import { LogLevel } from '@/constants/enums'
 
 const { silentLog } = useAppLogger()
 

@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { WorkoutRecord } from '../WorkoutRecord'
+import { WorkoutRecord } from '@/models/WorkoutRecord'
 
 describe('WorkoutRecord', () => {
   const parentId = 'TEST-1234'

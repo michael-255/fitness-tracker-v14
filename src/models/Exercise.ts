@@ -1,58 +1,46 @@
+import type { TrackBoolean } from '@/constants/types'
+import type { IExercise } from '@/constants/interfaces'
+import { Store } from '@/constants/enums'
 import { _Activity } from '@/models/_Activity'
-import type { IActivity, IUpdateActivity } from '@/models/_Activity'
-import { Store } from '@/constants'
 
 // Exports for LocalDatabase
 export const exerciseStoreIndices = Object.freeze({ [Store.EXERCISES]: '&id, name, status' })
 
-export interface IExercise extends IActivity, IExerciseFields {}
-
-export interface IUpdateExercise extends IUpdateActivity, IExerciseFields {}
-
-interface IExerciseFields {
-  trackConfirm?: boolean
-  trackMultipleSets?: boolean
-  trackDuration?: boolean
-  trackDistance?: boolean
-  trackWeight?: boolean
-  trackReps?: boolean
-}
-
 /**
  * Exercise Class
- * @arg obj.id (Inherited, Optional)
- * @arg obj.createdAt (Inherited, Optional)
- * @arg obj.name (Inherited, Required)
- * @arg obj.description (Inherited, Optional)
- * @arg obj.status (Inherited, Optional)
- * @arg obj.trackConfirm (Optional)
- * @arg obj.trackMultipleSets (Optional)
- * @arg obj.trackDuration (Optional)
- * @arg obj.trackDistance (Optional)
- * @arg obj.trackWeight (Optional)
- * @arg obj.trackReps (Optional)
+ * @arg obj.id (Inherited)
+ * @arg obj.createdAt (Inherited)
+ * @arg obj.name (Inherited)
+ * @arg obj.description (Inherited)
+ * @arg obj.status (Inherited)
+ * @arg obj.trackConfirm
+ * @arg obj.trackMultipleSets
+ * @arg obj.trackDuration
+ * @arg obj.trackDistance
+ * @arg obj.trackWeight
+ * @arg obj.trackReps
  */
 export class Exercise extends _Activity {
-  trackConfirm?: boolean
-  trackMultipleSets?: boolean
-  trackDuration?: boolean
-  trackDistance?: boolean
-  trackWeight?: boolean
-  trackReps?: boolean
+  trackConfirm?: TrackBoolean
+  trackMultipleSets?: TrackBoolean
+  trackDuration?: TrackBoolean
+  trackDistance?: TrackBoolean
+  trackWeight?: TrackBoolean
+  trackReps?: TrackBoolean
 
   constructor({
     id,
     createdAt,
-    name,
+    name = 'My Exercise',
     description,
     status,
-    trackConfirm,
-    trackMultipleSets,
-    trackDuration,
-    trackDistance,
-    trackWeight,
-    trackReps,
-  }: IExercise) {
+    trackConfirm = false,
+    trackMultipleSets = false,
+    trackDuration = false,
+    trackDistance = false,
+    trackWeight = false,
+    trackReps = false,
+  }: IExercise = {}) {
     super({ id, createdAt, name, description, status })
     this.trackConfirm = trackConfirm
     this.trackMultipleSets = trackMultipleSets

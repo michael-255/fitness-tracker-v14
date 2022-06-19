@@ -1,4 +1,16 @@
-export const DEBUG = Object.freeze(true)
+export enum LogLevel {
+  FATAL = 'Fatal',
+  ERROR = 'Error',
+  WARN = 'Warning',
+  INFO = 'Info',
+  DEBUG = 'Debug',
+}
+
+export enum ActivityStatus {
+  DISABLED = 'Disabled',
+  ENABLED = 'Enabled',
+  ARCHIVED = 'Archived',
+}
 
 export enum Store {
   MEASUREMENTS = 'measurements',
@@ -12,9 +24,30 @@ export enum Store {
   APP_LOGS = 'appLogs',
 }
 
-export enum Links {
-  GITHUB = 'https://github.com/michael-255/fitness-tracker-v14',
-  MYAPPS = 'https://www.example.com', // @todo - Make 'My Apps' site
+export enum Views {
+  DASHBOARD = 'DashboardView',
+  ACTIVEWORKOUT = 'ActiveWorkoutView',
+  REPORTS = 'ReportsView',
+  MEASUREMENTS = 'MeasurementsView',
+  EXERCISES = 'ExercisesView',
+  WORKOUTS = 'WorkoutsView',
+  APPLOGS = 'AppLogsView',
+  OPTIONS = 'OptionsView',
+  ABOUT = 'AboutView',
+  NOTFOUND = 'NotFoundView',
+}
+
+export enum Layouts {
+  DEFAULT = 'DefaultLayout',
+  MENU = 'MenuLayout',
+}
+
+export enum Limits {
+  maxWorkoutExercises = 40,
+  maxSets = 100,
+  maxNameLength = 50,
+  maxDescriptionLength = 500,
+  maxNoteLength = 1000,
 }
 
 export enum Icon {
@@ -49,28 +82,7 @@ export enum Icon {
   MAXIMUM = 'priority_high',
 }
 
-export enum Limits {
-  maxWorkoutExercises = 40,
-  maxSets = 100,
-  maxNameLength = 50,
-  maxDescriptionLength = 500,
-  maxNoteLength = 1000,
-}
-
-export enum Views {
-  DASHBOARD = 'DashboardView',
-  ACTIVEWORKOUT = 'ActiveWorkoutView',
-  REPORTS = 'ReportsView',
-  MEASUREMENTS = 'MeasurementsView',
-  EXERCISES = 'ExercisesView',
-  WORKOUTS = 'WorkoutsView',
-  APPLOGS = 'AppLogsView',
-  OPTIONS = 'OptionsView',
-  ABOUT = 'AboutView',
-  NOTFOUND = 'NotFoundView',
-}
-
-export enum Layouts {
-  DEFAULT = 'DefaultLayout',
-  MENU = 'MenuLayout',
+export enum Links {
+  GITHUB = 'https://github.com/michael-255/fitness-tracker-v14',
+  MYAPPS = 'https://www.example.com', // @todo - Make 'My Apps' site
 }

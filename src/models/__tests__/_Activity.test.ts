@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { _Activity } from '../_Activity'
+import { _Activity } from '@/models/_Activity'
 
 describe('_Activity', () => {
   test('requires name parameter for constructor', () => {

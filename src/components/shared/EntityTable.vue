@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { QBtn, QTable, QTr, QTh, QTd, QSpace } from 'quasar'
 import { useTable } from '@/use/useTable'
-import { Icon, Store } from '@/constants'
+import { Icon, Store } from '@/constants/enums'
 import ConfirmDialog from '@/components/shared/ConfirmDialog.vue'
 import FullscreenDialog from './FullscreenDialog.vue'
 
@@ -39,7 +39,13 @@ const {
 </script>
 
 <template>
-  <QTable :rows="tableRows" :columns="tableColumns" :rows-per-page-options="[10]">
+  <QTable
+    :rows="tableRows"
+    :columns="tableColumns"
+    :rows-per-page-options="[0]"
+    virtual-scroll
+    style="height: 80vh"
+  >
     <!-- Table Header -->
     <template v-slot:top>
       <div class="q-table__title text-weight-bold">{{ props.tableName }}</div>
@@ -67,29 +73,29 @@ const {
         <QTd auto-width>
           <QBtn
             flat
-            color="primary"
             round
+            color="primary"
             @click="openReportDialog(props.cols[0].value)"
             :icon="Icon.REPORT"
           />
           <QBtn
             flat
-            color="info"
             round
+            color="info"
             @click="openDetailsDialog(props.cols[0].value)"
             :icon="Icon.DETAILS"
           />
           <QBtn
             flat
-            color="warning"
             round
+            color="warning"
             @click="openEditDialog(props.cols[0].value)"
             :icon="Icon.EDIT"
           />
           <QBtn
             flat
-            color="negative"
             round
+            color="negative"
             @click="openDeleteDialog(props.cols[0].value)"
             :icon="Icon.DELETE"
           />
@@ -115,8 +121,8 @@ const {
     :message="`Permanently clear all data from the '${props.store}' table in the database?`"
     color="negative"
     :dialog="clearDialog"
-    @toggle:dialog="clearDialog = !clearDialog"
-    @confirm:dialog="confirmClearDialog()"
+    :confirmFunc="confirmClearDialog"
+    @update:dialog="clearDialog = $event"
   />
 
   <FullscreenDialog
@@ -154,10 +160,10 @@ const {
   <ConfirmDialog
     title="Delete"
     :icon="Icon.DELETE"
-    :message="`Permanently delete ${selectedRowId} from the '${props.store}' table in the database?`"
+    :message="`Permanently delete ${selectedRowId} from the '${store}' table in the database?`"
     color="negative"
     :dialog="deleteDialog"
-    @toggle:dialog="deleteDialog = !deleteDialog"
-    @confirm:dialog="confirmDeleteDialog()"
+    :confirmFunc="confirmDeleteDialog"
+    @update:dialog="deleteDialog = $event"
   />
 </template>

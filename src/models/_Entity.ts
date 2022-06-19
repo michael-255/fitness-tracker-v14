@@ -1,18 +1,15 @@
+import type { Id, CreatedAt } from '@/constants/types'
+import type { IEntity } from '@/constants/interfaces'
 import { createId } from '@/utils/build-id'
-
-export interface IEntity {
-  id?: string
-  createdAt?: string
-}
 
 /**
  * _Entity Class
- * @arg obj.id (Defaulted)
- * @arg obj.createdAt (Defaulted)
+ * @arg obj.id
+ * @arg obj.createdAt
  */
 export class _Entity {
-  id?: string
-  createdAt?: string
+  id?: Id
+  createdAt?: CreatedAt
 
   constructor({ id = createId(), createdAt = new Date().toISOString() }: IEntity = {}) {
     this.id = id

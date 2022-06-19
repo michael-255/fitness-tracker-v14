@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QBtn } from 'quasar'
-import { Links, Icon } from '@/constants'
+import { Links, Icon } from '@/constants/enums'
 </script>
 
 <template>

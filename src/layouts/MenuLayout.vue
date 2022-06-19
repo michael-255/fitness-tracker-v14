@@ -12,7 +12,7 @@ import {
 } from 'quasar'
 import DrawerItem from '@/components/shared/DrawerItem.vue'
 import { useUIStore } from '@/stores/ui'
-import { Views, Icon } from '@/constants'
+import { Views, Icon } from '@/constants/enums'
 
 const ui = useUIStore()
 </script>

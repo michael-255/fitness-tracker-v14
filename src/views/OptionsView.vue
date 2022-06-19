@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QBtn, QFile, QIcon } from 'quasar'
-import { Store } from '@/constants'
+import { Store } from '@/constants/enums'
 import { useDefaults } from '@/use/useDefaults'
 import { useImportExport } from '@/use/useImportExport'
 import { useClearData } from '@/use/useClearData'
@@ -38,7 +38,7 @@ const { clearAllAppData, clearStoreData } = useClearData()
     counter
   >
     <template v-slot:prepend>
-      <QIcon name="cloud_upload" @click.stop />
+      <QIcon name="cloud_upload" @click.stop="" />
     </template>
     <template v-slot:append>
       <QIcon name="cancel" @click.stop="file = null" class="cursor-pointer" />

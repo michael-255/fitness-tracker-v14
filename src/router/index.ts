@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { Views, Layouts } from '@/constants'
+import { Views, Layouts } from '@/constants/enums'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

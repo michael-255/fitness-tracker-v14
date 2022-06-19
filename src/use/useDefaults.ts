@@ -1,4 +1,4 @@
-import { LogLevel } from '@/models/AppLog'
+import { LogLevel } from '@/constants/enums'
 import { defaults } from '@/services/DefaultsGenerator'
 import { database } from '@/services/LocalDatabase'
 import { useAppLogger } from './useAppLogger'

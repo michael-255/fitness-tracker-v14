@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { ExerciseRecord } from '../ExerciseRecord'
+import { ExerciseRecord } from '@/models/ExerciseRecord'
 
 describe('ExerciseRecord', () => {
   test('requires parentId parameter for constructor', () => {

@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { FitnessData } from '../FitnessData'
+import { FitnessData } from '@/models/FitnessData'
 
 describe('FitnessData', () => {
   test('should create FitnessData object', () => {

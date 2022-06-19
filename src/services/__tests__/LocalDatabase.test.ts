@@ -1,7 +1,7 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { LocalDatabase } from '@/services/LocalDatabase'
-import { Store } from '@/constants'
-import { LogLevel } from '@/models/AppLog'
+import { Store } from '@/constants/enums'
+import { LogLevel } from '@/constants/enums'
 
 const mockTableBuilder = ({
   toArrayMockFunc = vi.fn(),

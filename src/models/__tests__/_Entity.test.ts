@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { _Entity } from '../_Entity'
+import { _Entity } from '@/models/_Entity'
 
 describe('_Entity', () => {
   test('id and createdAt are generated if not provided', () => {

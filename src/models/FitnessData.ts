@@ -1,10 +1,12 @@
-import type { IAppLog } from './AppLog'
-import type { IExercise } from './Exercise'
-import type { IExerciseRecord } from './ExerciseRecord'
-import type { IMeasurement } from './Measurement'
-import type { IMeasurementRecord } from './MeasurementRecord'
-import type { IWorkout } from './Workout'
-import type { IWorkoutRecord } from './WorkoutRecord'
+import type {
+  IAppLog,
+  IExercise,
+  IExerciseRecord,
+  IMeasurement,
+  IMeasurementRecord,
+  IWorkout,
+  IWorkoutRecord,
+} from '@/constants/interfaces'
 
 export interface IFitnessData {
   measurements?: IMeasurement[]
@@ -20,15 +22,15 @@ export interface IFitnessData {
 
 /**
  * FitnessData Class
- * @arg measurements (Defaulted)
- * @arg exercises (Defaulted)
- * @arg workouts (Defaulted)
- * @arg measurementRecords (Defaulted)
- * @arg exerciseRecords (Defaulted)
- * @arg workoutRecords (Defaulted)
- * @arg activeExercises (Defaulted)
- * @arg activeWorkouts (Defaulted)
- * @arg appLogs (Defaulted)
+ * @arg measurements
+ * @arg exercises
+ * @arg workouts
+ * @arg measurementRecords
+ * @arg exerciseRecords
+ * @arg workoutRecords
+ * @arg activeExercises
+ * @arg activeWorkouts
+ * @arg appLogs
  */
 export class FitnessData {
   measurements: IMeasurement[]

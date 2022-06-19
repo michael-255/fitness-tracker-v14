@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QSeparator, QTabs, QTab, QTabPanels, QTabPanel } from 'quasar'
-import { Icon } from '@/constants'
+import { Icon } from '@/constants/enums'
 import { ref } from 'vue'
 
 const tab = ref('activities')

@@ -18,6 +18,21 @@ Implement the following:
 - [x] Debug deployment issues
 - [x] Reloading pages caused the site to break
 
+- [ ] Record notes from Typescript/Jest talk into README!
+
+- [ ] Global `Dialogs` (less repeated code)
+
+  - [ ] Use STATE to manage them
+  - [ ] `ConfirmDialog`
+
+    - [ ] confirmFunc
+    - [ ] STATE for activation
+
+  - [ ] `FullscreenDialog`
+
+    - [ ] saveFunc
+    - [ ] STATE for activation
+
 - [ ] `App Logs` View
 
   - [x] Clear

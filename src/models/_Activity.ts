@@ -1,38 +1,28 @@
+import type { Name, Description } from '@/constants/types'
+import { ActivityStatus } from '@/constants/enums'
+import type { IActivity } from '@/constants/interfaces'
 import { _Entity } from '@/models/_Entity'
-import type { IEntity } from '@/models/_Entity'
-
-export enum ActivityStatus {
-  DISABLED = 'Disabled',
-  ENABLED = 'Enabled',
-  ARCHIVED = 'Archived',
-}
-
-export interface IActivity extends IEntity {
-  name: string // Required
-  description?: string
-  status?: ActivityStatus
-}
-
-export interface IUpdateActivity {
-  name?: string
-  description?: string
-  status?: ActivityStatus
-}
 
 /**
  * _Activity Class
- * @arg obj.id (Inherited, Optional)
- * @arg obj.createdAt (Inherited, Optional)
- * @arg obj.name (Required)
- * @arg obj.description (Optional)
- * @arg obj.status (Defaulted)
+ * @arg obj.id (Inherited)
+ * @arg obj.createdAt (Inherited)
+ * @arg obj.name
+ * @arg obj.description
+ * @arg obj.status
  */
 export class _Activity extends _Entity {
-  name: string // Required
-  description?: string
+  name?: Name
+  description?: Description
   status?: ActivityStatus
 
-  constructor({ id, createdAt, name, description, status = ActivityStatus.ENABLED }: IActivity) {
+  constructor({
+    id,
+    createdAt,
+    name = 'My Activity',
+    description = '',
+    status = ActivityStatus.ENABLED,
+  }: IActivity = {}) {
     super({ id, createdAt })
     this.name = name
     this.description = description

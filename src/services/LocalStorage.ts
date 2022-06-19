@@ -1,4 +1,4 @@
-export type localStorageParams = {
+export type LocalStorageParams = {
   prefix?: string
   suffix?: string
   initialValue?: any
@@ -15,7 +15,7 @@ export class LocalStorage {
   suffix: string
   initialValue: any
 
-  constructor({ prefix = '', suffix = '', initialValue = [] }: localStorageParams = {}) {
+  constructor({ prefix = '', suffix = '', initialValue = [] }: LocalStorageParams = {}) {
     this.prefix = prefix
     this.suffix = suffix
     this.initialValue = initialValue

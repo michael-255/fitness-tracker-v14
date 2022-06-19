@@ -1,4 +1,4 @@
-type styleProps = {
+type StyleProps = {
   log: string
   warn: string
   error: string
@@ -10,7 +10,7 @@ type styleProps = {
  */
 export class Logger {
   private name: string
-  private style: styleProps
+  private style: StyleProps
 
   constructor(name = 'Logger') {
     this.name = `%c${name}`

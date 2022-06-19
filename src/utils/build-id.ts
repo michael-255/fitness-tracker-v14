@@ -1,4 +1,4 @@
-type buildIdParams = {
+type BuildIdParams = {
   segmentLengths?: number[]
   delimiter?: string
 }
@@ -9,7 +9,10 @@ type buildIdParams = {
  * @arg obj.delimiter Single string character delimiter for id segments
  * @returns Create id function
  */
-export function buildIdFunction({ segmentLengths = [4, 4, 4], delimiter = '-' }: buildIdParams = {}): () => string {
+export function buildIdFunction({
+  segmentLengths = [4, 4, 4],
+  delimiter = '-',
+}: BuildIdParams = {}): () => string {
   if (segmentLengths.length < 1) {
     throw new Error('segmentLengths parameter must have at least one element')
   } else if (segmentLengths.some((el) => typeof el !== 'number' || el < 1)) {

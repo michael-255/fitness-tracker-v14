@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Store } from '@/constants'
+import { Store } from '@/constants/enums'
 import EntityTable from '@/components/shared/EntityTable.vue'
 
 const tableColumns = [

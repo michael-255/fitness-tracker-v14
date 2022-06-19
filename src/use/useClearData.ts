@@ -1,7 +1,7 @@
 import { database } from '@/services/LocalDatabase'
-import { Store } from '@/constants'
+import { Store } from '@/constants/enums'
 import { useAppLogger } from './useAppLogger'
-import { LogLevel } from '@/models/AppLog'
+import { LogLevel } from '@/constants/enums'
 
 const { silentLog } = useAppLogger()
 

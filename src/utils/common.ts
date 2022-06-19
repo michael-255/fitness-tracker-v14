@@ -1,4 +1,4 @@
-type downloadFileParams = {
+type DownloadFileParams = {
   fileName?: string
   extension?: string
   mimeType?: string
@@ -18,7 +18,7 @@ export function downloadFile({
   extension = 'json',
   mimeType = 'application/json',
   textContent = '',
-}: downloadFileParams = {}): void {
+}: DownloadFileParams = {}): void {
   const file = `${fileName}.${extension}`
   const content = `data:${mimeType};charset=utf-8,${encodeURIComponent(textContent)}`
 
@@ -37,7 +37,11 @@ export function downloadFile({
  */
 export function isDataInObject(obj: object): boolean {
   return (
-    obj !== null && obj !== undefined && typeof obj === 'object' && !Array.isArray(obj) && Object.keys(obj).length !== 0
+    obj !== null &&
+    obj !== undefined &&
+    typeof obj === 'object' &&
+    !Array.isArray(obj) &&
+    Object.keys(obj).length !== 0
   )
 }
 

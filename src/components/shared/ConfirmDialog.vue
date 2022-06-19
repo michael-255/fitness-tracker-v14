@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Icon } from '@/constants'
+import type { Icon } from '@/constants/enums'
 import { QDialog, QCard, QCardSection, QCardActions, QIcon, QBtn } from 'quasar'
 import { computed } from 'vue'
 
@@ -9,19 +9,19 @@ const props = defineProps<{
   message: string
   color: string
   dialog: boolean
+  confirmFunc: () => any
 }>()
 
 const emits = defineEmits<{
-  (eventName: 'toggle:dialog', bool: boolean): void
-  (eventName: 'confirm:dialog'): void
+  (eventName: 'update:dialog', bool: boolean): void
 }>()
 
 const dialog = computed({
   get() {
     return props.dialog
   },
-  set(bool) {
-    emits('toggle:dialog', !!bool)
+  set(bool: boolean) {
+    emits('update:dialog', !!bool)
   },
 })
 </script>
@@ -38,13 +38,7 @@ const dialog = computed({
 
       <QCardActions align="right">
         <QBtn flat label="Cancel" v-close-popup />
-        <QBtn
-          flat
-          label="Confirm"
-          :color="props.color"
-          v-close-popup
-          @click="emits('confirm:dialog')"
-        />
+        <QBtn flat label="Confirm" :color="props.color" v-close-popup @click="confirmFunc()" />
       </QCardActions>
     </QCard>
   </QDialog>

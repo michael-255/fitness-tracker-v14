@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QItem, QItemSection, QIcon } from 'quasar'
-import type { Icon } from '@/constants'
+import type { Icon } from '@/constants/enums'
 
 defineProps<{
   to: string | object

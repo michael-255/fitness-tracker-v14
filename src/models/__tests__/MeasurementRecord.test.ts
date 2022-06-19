@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest'
-import { MeasurementRecord } from '../MeasurementRecord'
+import { MeasurementRecord } from '@/models/MeasurementRecord'
 
 describe('MeasurementRecord', () => {
   const parentId = 'TEST-1234'

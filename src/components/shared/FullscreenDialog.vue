@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QDialog, QCard, QCardSection, QBtn } from 'quasar'
-import { Icon } from '@/constants'
+import { Icon } from '@/constants/enums'
 import { computed, ref, type Ref } from 'vue'
 import ConfirmDialog from '@/components/shared/ConfirmDialog.vue'
 
@@ -62,7 +62,7 @@ function confirmSaveDialog() {
     message="Are you sure you'd like to save these changes?"
     color="primary"
     :dialog="confirmDialog"
-    @toggle:dialog="confirmDialog = !confirmDialog"
-    @confirm:dialog="confirmSaveDialog()"
+    :confirmFunc="confirmSaveDialog"
+    @update:dialog="confirmDialog = $event"
   />
 </template>
