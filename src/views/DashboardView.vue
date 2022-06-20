@@ -6,6 +6,9 @@ import NameInput from '@/components/shared/NameInput.vue'
 import DescriptionInput from '@/components/shared/DescriptionInput.vue'
 import StatusInput from '@/components/shared/StatusInput.vue'
 import TrackBooleanInput from '@/components/shared/TrackBooleanInput.vue'
+import { ref } from 'vue'
+
+const id = ref('')
 
 /**
  * @todo
@@ -32,7 +35,7 @@ const inputKeys = [
 <template>
   <h3>Dashboard</h3>
 
-  <IdInput />
+  <IdInput :id="id" @update:id="id = $event" />
   <CreatedAtInput />
   <NameInput />
   <DescriptionInput />
