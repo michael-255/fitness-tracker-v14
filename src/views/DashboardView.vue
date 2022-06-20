@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import { Measurement } from '@/models/Measurement'
+import IdInput from '@/components/shared/IdInput.vue'
+import CreatedAtInput from '@/components/shared/CreatedAtInput.vue'
+import NameInput from '@/components/shared/NameInput.vue'
+import DescriptionInput from '@/components/shared/DescriptionInput.vue'
+import StatusInput from '@/components/shared/StatusInput.vue'
+import TrackBooleanInput from '@/components/shared/TrackBooleanInput.vue'
 
 /**
  * @todo
@@ -25,6 +31,13 @@ const inputKeys = [
 
 <template>
   <h3>Dashboard</h3>
+
+  <IdInput />
+  <CreatedAtInput />
+  <NameInput />
+  <DescriptionInput />
+  <StatusInput />
+  <TrackBooleanInput />
 
   <h5>Measurement: {{ inputKeys.length }}</h5>
 
