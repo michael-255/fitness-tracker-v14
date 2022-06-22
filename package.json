@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.12.5",
+    "@vueuse/core": "^8.7.4",
     "chart.js": "^3.7.1",
     "dexie": "^3.2.1",
     "pinia": "^2.0.11",
