@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import { QInput, QIcon } from 'quasar'
 import { createId } from '@/utils/build-id'
-import { isIdValid } from '@/utils/validators'
+import { ValidationMessage, isIdValid } from '@/utils/validators'
 import type { Id } from '@/constants/types'
 import { useVModel } from '@vueuse/core'
+
+/**
+ * Example Usage:
+ * const id: Ref<Id> = ref(createId())
+ * ...
+ * <IdInput :id="id" @update:id="id = $event" />
+ */
 
 const props = defineProps<{
   id: Id
@@ -14,12 +21,6 @@ const emits = defineEmits<{
 }>()
 
 const id = useVModel(props, 'id', emits)
-
-/**
- * @todo - NOTES
- * - Create validator functions for your fields and types in `utils/validators.ts`
- * - Consider having constant validator strings stored as well?
- */
 </script>
 
 <template>
@@ -27,11 +28,9 @@ const id = useVModel(props, 'id', emits)
     v-model="id"
     label="Id"
     mask="XXXX-XXXX-XXXX"
-    maxlength="14"
     fill-mask="_"
     :rules="[
-      val => !!val || '* Required',
-      (val: string) => isIdValid(val) || 'Id must be of the format XXXX-XXXX-XXXX',
+      (val: string) => isIdValid(val) || ValidationMessage.ID,
     ]"
     dense
     outlined

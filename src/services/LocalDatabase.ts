@@ -10,7 +10,7 @@ import type {
   IWorkoutRecord,
 } from '@/constants/interfaces'
 import type { Id, AppLogParams, Name } from '@/constants/types'
-import { type ActivityStatus, Store } from '@/constants/enums'
+import { type Status, Store } from '@/constants/enums'
 import { Measurement, measurementStoreIndices } from '@/models/Measurement'
 import { Exercise, exerciseStoreIndices } from '@/models/Exercise'
 import { Workout, workoutStoreIndices } from '@/models/Workout'
@@ -71,7 +71,7 @@ export class LocalDatabase extends Dexie {
     return await this.table(store).where('id').equalsIgnoreCase(id).first()
   }
 
-  async getByStatus<T>(store: Store, status: ActivityStatus): Promise<T[]> {
+  async getByStatus<T>(store: Store, status: Status): Promise<T[]> {
     return await this.table(store).where('status').equalsIgnoreCase(status).toArray()
   }
 

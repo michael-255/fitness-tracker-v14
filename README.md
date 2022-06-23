@@ -20,33 +20,20 @@ Implement the following:
 
 - [ ] Build out core Inputs
 
-  - [ ] `Id`
-    - [ ] Component setup
-    - [ ] Validators with error strings
+  - [x] `Id`
+  - [x] `Name`
+  - [x] `Description`
+  - [x] `Note`
+  - [x] `Status`
   - [ ] `Date` (CreatedAt & FinishedAt)
     - [ ] Component setup (isNullable prop?)
     - [ ] Date picker
     - [ ] Time picker
     - [ ] Validators with error strings
-  - [ ] `Name`
-    - [ ] Component setup
-    - [ ] Validators with error strings
-  - [ ] `Description`
-    - [ ] Component setup
-    - [ ] Larger textarea for input
-    - [ ] Validators with error strings
-  - [ ] `Status`
-    - [ ] Component setup
-    - [ ] Select box (ActivityStatus -> rename to Status?)
-    - [ ] Validators with error strings
   - [ ] `ParentId`
     - [ ] Component setup
     - [ ] Select box (Alpha sorted Activities)
       - [ ] Example: My Exercise 1 (XXXX-XXXX-XXXX)
-    - [ ] Validators with error strings
-  - [ ] `Note`
-    - [ ] Component setup
-    - [ ] Larger textarea for input
     - [ ] Validators with error strings
   - [ ] `TrackBoolean`
     - [ ] Component setup

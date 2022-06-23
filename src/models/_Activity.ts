@@ -1,5 +1,5 @@
 import type { Name, Description } from '@/constants/types'
-import { ActivityStatus } from '@/constants/enums'
+import { Status } from '@/constants/enums'
 import type { IActivity } from '@/constants/interfaces'
 import { _Entity } from '@/models/_Entity'
 
@@ -14,14 +14,14 @@ import { _Entity } from '@/models/_Entity'
 export class _Activity extends _Entity {
   name?: Name
   description?: Description
-  status?: ActivityStatus
+  status?: Status
 
   constructor({
     id,
     createdAt,
     name = 'My Activity',
     description = '',
-    status = ActivityStatus.ENABLED,
+    status = Status.ENABLED,
   }: IActivity = {}) {
     super({ id, createdAt })
     this.name = name

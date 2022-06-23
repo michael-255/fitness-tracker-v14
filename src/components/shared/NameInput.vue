@@ -1,20 +1,36 @@
 <script setup lang="ts">
-import { QInput, QIcon } from 'quasar'
-import { ref } from 'vue'
+import { QInput } from 'quasar'
+import { ValidationMessage, isNameValid } from '@/utils/validators'
+import type { Name } from '@/constants/types'
+import { useVModel } from '@vueuse/core'
 
-const name = ref('Activity')
 /**
- * @todo
- * - Prop using ref from parent instead
- * - Validator
- * - Events
+ * Example Usage:
+ * const name: Ref<Name> = ref('Activity')
+ * ...
+ * <NameInput :name="name" @update:name="name = $event" />
  */
+
+const props = defineProps<{
+  name: Name
+}>()
+
+const emits = defineEmits<{
+  (eventName: 'update:name', name: Name): void
+}>()
+
+const name = useVModel(props, 'name', emits)
 </script>
 
 <template>
-  <QInput v-model="name" dense filled label="Name" color="primary">
-    <template v-slot:append>
-      <QIcon name="close" @click="name = ''" class="cursor-pointer" />
-    </template>
-  </QInput>
+  <QInput
+    v-model="name"
+    label="Name"
+    :rules="[
+      (val: string) => isNameValid(val) || ValidationMessage.NAME,
+    ]"
+    dense
+    outlined
+    color="primary"
+  />
 </template>

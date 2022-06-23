@@ -6,7 +6,7 @@ export enum LogLevel {
   DEBUG = 'Debug',
 }
 
-export enum ActivityStatus {
+export enum Status {
   DISABLED = 'Disabled',
   ENABLED = 'Enabled',
   ARCHIVED = 'Archived',

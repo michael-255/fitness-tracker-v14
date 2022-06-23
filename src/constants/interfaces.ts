@@ -10,7 +10,7 @@ import type {
   ExerciseSet,
   FinishedAt,
 } from '@/constants/types'
-import type { LogLevel, ActivityStatus } from '@/constants/enums'
+import type { LogLevel, Status } from '@/constants/enums'
 
 // Entities
 export interface IEntity {
@@ -31,7 +31,7 @@ export interface IAppLog extends IEntity {
 export interface IActivity extends IEntity {
   name?: Name
   description?: Description
-  status?: ActivityStatus
+  status?: Status
 }
 
 export interface IMeasurement extends IActivity {
