@@ -1,11 +1,11 @@
 import type { RecordNumber } from '@/constants/types'
 import type { IMeasurementRecord } from '@/constants/interfaces'
-import { Store } from '@/constants/enums'
+import { DBTable } from '@/constants/enums'
 import { _Record } from '@/models/_Record'
 
 // Exports for LocalDatabase
-export const measurementRecordStoreIndices = Object.freeze({
-  [Store.MEASUREMENT_RECORDS]: '&id, parentId',
+export const measurementRecordTableIndices = Object.freeze({
+  [DBTable.MEASUREMENT_RECORDS]: '&id, parentId',
 })
 
 /**

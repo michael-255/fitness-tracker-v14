@@ -1,13 +1,13 @@
 import type { FinishedAt, Id } from '@/constants/types'
 import type { IWorkoutRecord } from '@/constants/interfaces'
-import { Store } from '@/constants/enums'
+import { DBTable } from '@/constants/enums'
 import { _Record } from '@/models/_Record'
 import { getDurationString, getMediumDateString } from '@/utils/date-time'
 
 // Exports for LocalDatabase
-export const workoutRecordStoreIndices = Object.freeze({
-  [Store.WORKOUT_RECORDS]: '&id, parentId',
-  [Store.ACTIVE_WORKOUTS]: '&id, parentId',
+export const workoutRecordTableIndices = Object.freeze({
+  [DBTable.WORKOUT_RECORDS]: '&id, parentId',
+  [DBTable.ACTIVE_WORKOUTS]: '&id, parentId',
 })
 
 /**

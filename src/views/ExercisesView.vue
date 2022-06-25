@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Store } from '@/constants/enums'
+import { DBTable } from '@/constants/enums'
 import EntityTabs from '@/components/shared/EntityTabs.vue'
 import EntityTable from '@/components/shared/EntityTable.vue'
 
@@ -45,13 +45,17 @@ const recordColumns = [
 <template>
   <EntityTabs>
     <template v-slot:activities>
-      <EntityTable tableName="Exercises" :store="Store.EXERCISES" :tableColumns="activityColumns" />
+      <EntityTable
+        tableName="Exercises"
+        :table="DBTable.EXERCISES"
+        :tableColumns="activityColumns"
+      />
     </template>
 
     <template v-slot:records>
       <EntityTable
         tableName="Exercise Records"
-        :store="Store.EXERCISE_RECORDS"
+        :table="DBTable.EXERCISE_RECORDS"
         :tableColumns="recordColumns"
       />
     </template>

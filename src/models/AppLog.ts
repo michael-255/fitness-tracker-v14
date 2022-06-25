@@ -1,9 +1,9 @@
 import type { AppLogParams } from '@/constants/types'
-import { type LogLevel, Store } from '@/constants/enums'
+import { type LogLevel, DBTable } from '@/constants/enums'
 import { _Entity } from '@/models/_Entity'
 
 // Exports for LocalDatabase
-export const appLogStoreIndices = Object.freeze({ [Store.APP_LOGS]: '&id, createdAt' })
+export const appLogTableIndices = Object.freeze({ [DBTable.APP_LOGS]: '&id, createdAt' })
 
 /**
  * AppLog Class

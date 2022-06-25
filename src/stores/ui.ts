@@ -7,20 +7,6 @@ export const useUIStore = defineStore({
 
   state: () => ({
     drawer: false,
-    confirmDialog: {
-      isActive: false,
-      confirmFunc: () => null, // default function that closes the dialog?
-      title: '',
-      icon: '',
-      message: '',
-      color: '',
-    },
-    fullDialog: {
-      isActive: false,
-      saveFunc: () => null, // default function that closes the dialog?
-      title: '',
-      // How to handle the inner inputs? (loop through provided data?)
-    },
   }),
 
   actions: {
@@ -34,11 +20,6 @@ export const useUIStore = defineStore({
 
     openDrawer(): void {
       this.drawer = true
-    },
-
-    openConfirmDialog(confirmFunc: any): void {
-      this.confirmDialog.confirmFunc = confirmFunc
-      this.confirmDialog.isActive = true
     },
   },
 })

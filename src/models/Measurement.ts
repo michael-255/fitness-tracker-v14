@@ -1,10 +1,12 @@
 import type { TrackBoolean } from '@/constants/types'
 import type { IMeasurement } from '@/constants/interfaces'
-import { Store } from '@/constants/enums'
+import { DBTable } from '@/constants/enums'
 import { _Activity } from './_Activity'
 
 // Exports for LocalDatabase
-export const measurementStoreIndices = Object.freeze({ [Store.MEASUREMENTS]: '&id, name, status' })
+export const measurementTableIndices = Object.freeze({
+  [DBTable.MEASUREMENTS]: '&id, name, status',
+})
 
 /**
  * Measurement Class
@@ -12,7 +14,6 @@ export const measurementStoreIndices = Object.freeze({ [Store.MEASUREMENTS]: '&i
  * @arg obj.createdAt (Inherited)
  * @arg obj.name (Inherited)
  * @arg obj.description (Inherited)
- * @arg obj.status (Inherited)
  * @arg obj.trackLbs
  * @arg obj.trackInches
  * @arg obj.trackFeet
@@ -29,13 +30,12 @@ export class Measurement extends _Activity {
     createdAt,
     name = 'My Measurement',
     description,
-    status,
     trackLbs = false,
     trackInches = false,
     trackFeet = false,
     trackPercent = false,
   }: IMeasurement = {}) {
-    super({ id, createdAt, name, description, status })
+    super({ id, createdAt, name, description })
     this.trackLbs = trackLbs
     this.trackInches = trackInches
     this.trackFeet = trackFeet

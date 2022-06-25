@@ -6,13 +6,7 @@ export enum LogLevel {
   DEBUG = 'Debug',
 }
 
-export enum Status {
-  DISABLED = 'Disabled',
-  ENABLED = 'Enabled',
-  ARCHIVED = 'Archived',
-}
-
-export enum Store {
+export enum DBTable {
   MEASUREMENTS = 'measurements',
   EXERCISES = 'exercises',
   WORKOUTS = 'workouts',
@@ -40,14 +34,6 @@ export enum Views {
 export enum Layouts {
   DEFAULT = 'DefaultLayout',
   MENU = 'MenuLayout',
-}
-
-export enum Limits {
-  maxWorkoutExercises = 40,
-  maxSets = 100,
-  maxNameLength = 50,
-  maxDescriptionLength = 500,
-  maxNoteLength = 1000,
 }
 
 export enum Icon {

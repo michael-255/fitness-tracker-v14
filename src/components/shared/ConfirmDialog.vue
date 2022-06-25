@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Icon } from '@/constants/enums'
 import { QDialog, QCard, QCardSection, QCardActions, QIcon, QBtn } from 'quasar'
-import { computed } from 'vue'
+import { useVModel } from '@vueuse/core'
 
 const props = defineProps<{
   title: string
@@ -16,14 +16,7 @@ const emits = defineEmits<{
   (eventName: 'update:dialog', bool: boolean): void
 }>()
 
-const dialog = computed({
-  get() {
-    return props.dialog
-  },
-  set(bool: boolean) {
-    emits('update:dialog', !!bool)
-  },
-})
+const dialog = useVModel(props, 'dialog', emits)
 </script>
 
 <template>

@@ -1,5 +1,5 @@
 import { database } from '@/services/LocalDatabase'
-import { Store } from '@/constants/enums'
+import { DBTable } from '@/constants/enums'
 import { useAppLogger } from './useAppLogger'
 import { LogLevel } from '@/constants/enums'
 import { Measurement } from '@/models/Measurement'
@@ -21,7 +21,7 @@ export function useInputs() {
 
   async function Inputs() {
     try {
-      await Promise.all(Object.values(Store).map((store) => database.clear(store as Store)))
+      await Promise.all(Object.values(DBTable).map((table) => database.clear(table as DBTable)))
     } catch (error) {
       silentLog({ error, level: LogLevel.ERROR, name: 'clearAllAppData' })
     }

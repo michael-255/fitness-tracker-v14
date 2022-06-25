@@ -1,16 +1,14 @@
 import type {
   Id,
   CreatedAt,
-  Name,
-  Description,
+  ActivityName,
+  TextBlock,
   TrackBoolean,
-  ParentId,
-  Note,
   RecordNumber,
   ExerciseSet,
   FinishedAt,
 } from '@/constants/types'
-import type { LogLevel, Status } from '@/constants/enums'
+import type { LogLevel } from '@/constants/enums'
 
 // Entities
 export interface IEntity {
@@ -18,20 +16,10 @@ export interface IEntity {
   createdAt?: CreatedAt
 }
 
-export interface IAppLog extends IEntity {
-  level: LogLevel
-  callerName: string
-  details?: string
-  errorName?: string
-  message?: string
-  stack?: string
-}
-
 // Activities
 export interface IActivity extends IEntity {
-  name?: Name
-  description?: Description
-  status?: Status
+  name?: ActivityName
+  description?: TextBlock
 }
 
 export interface IMeasurement extends IActivity {
@@ -42,7 +30,6 @@ export interface IMeasurement extends IActivity {
 }
 
 export interface IExercise extends IActivity {
-  trackConfirm?: TrackBoolean
   trackMultipleSets?: TrackBoolean
   trackDuration?: TrackBoolean
   trackDistance?: TrackBoolean
@@ -56,8 +43,8 @@ export interface IWorkout extends IActivity {
 
 // Records
 export interface IRecord extends IEntity {
-  parentId?: ParentId
-  note?: Note
+  parentId?: Id
+  note?: TextBlock
 }
 
 export interface IMeasurementRecord extends IRecord {
@@ -66,11 +53,20 @@ export interface IMeasurementRecord extends IRecord {
 }
 
 export interface IExerciseRecord extends IRecord {
-  skipped?: TrackBoolean
   sets?: ExerciseSet[]
 }
 
 export interface IWorkoutRecord extends IRecord {
   finishedAt?: FinishedAt
   exerciseRecordIds?: Id[]
+}
+
+// Other
+export interface IAppLog extends IEntity {
+  level: LogLevel
+  callerName: string
+  details?: string
+  errorName?: string
+  message?: string
+  stack?: string
 }

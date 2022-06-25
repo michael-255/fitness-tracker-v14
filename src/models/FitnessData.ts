@@ -22,15 +22,15 @@ export interface IFitnessData {
 
 /**
  * FitnessData Class
- * @arg measurements
- * @arg exercises
- * @arg workouts
- * @arg measurementRecords
- * @arg exerciseRecords
- * @arg workoutRecords
- * @arg activeExercises
- * @arg activeWorkouts
- * @arg appLogs
+ * @arg obj.measurements
+ * @arg obj.exercises
+ * @arg obj.workouts
+ * @arg obj.measurementRecords
+ * @arg obj.exerciseRecords
+ * @arg obj.workoutRecords
+ * @arg obj.activeExercises
+ * @arg obj.activeWorkouts
+ * @arg obj.appLogs
  */
 export class FitnessData {
   measurements: IMeasurement[]

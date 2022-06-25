@@ -1,7 +1,7 @@
 import { FitnessData } from '@/models/FitnessData'
 import { database } from '@/services/LocalDatabase'
 import { downloadFile } from '@/utils/common'
-import { Store } from '@/constants/enums'
+import { DBTable } from '@/constants/enums'
 import { logger } from '@/services/Logger'
 import { ref } from 'vue'
 import { useAppLogger } from './useAppLogger'
@@ -61,15 +61,15 @@ export function useImportExport() {
   async function exportData() {
     try {
       const fitnessData = new FitnessData({
-        measurements: await database.getAll(Store.MEASUREMENTS),
-        exercises: await database.getAll(Store.EXERCISES),
-        workouts: await database.getAll(Store.WORKOUTS),
-        measurementRecords: await database.getAll(Store.MEASUREMENT_RECORDS),
-        exerciseRecords: await database.getAll(Store.EXERCISE_RECORDS),
-        workoutRecords: await database.getAll(Store.WORKOUT_RECORDS),
-        activeExercises: await database.getAll(Store.ACTIVE_EXERCISES),
-        activeWorkouts: await database.getAll(Store.ACTIVE_WORKOUTS),
-        appLogs: await database.getAll(Store.APP_LOGS),
+        measurements: await database.getAll(DBTable.MEASUREMENTS),
+        exercises: await database.getAll(DBTable.EXERCISES),
+        workouts: await database.getAll(DBTable.WORKOUTS),
+        measurementRecords: await database.getAll(DBTable.MEASUREMENT_RECORDS),
+        exerciseRecords: await database.getAll(DBTable.EXERCISE_RECORDS),
+        workoutRecords: await database.getAll(DBTable.WORKOUT_RECORDS),
+        activeExercises: await database.getAll(DBTable.ACTIVE_EXERCISES),
+        activeWorkouts: await database.getAll(DBTable.ACTIVE_WORKOUTS),
+        appLogs: await database.getAll(DBTable.APP_LOGS),
       })
 
       logger.log(fitnessData)

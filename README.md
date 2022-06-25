@@ -6,34 +6,32 @@ Description TBA.
 
 Implement the following:
 
-- [x] Use `(*) as any` to solve overload issues
+- [ ] App clean up and prepwork!
 
-- [x] Clone boilerplate app over to this project somehow (must keep notes!)
-- [x] Data Types + LocalDatabase
-- [x] Constants and enums
-- [ ] Routes and Layouts
-  - [ ] How to overwrite route history (`---WIP---`)
-- [x] Complete About view (reference old fitness app version)
-- [x] Complete Options view
-- [x] Debug deployment issues
-- [x] Reloading pages caused the site to break
+  - [ ] Test `useLocalStorage` and consider removing your service if it's good enough
+  - [ ] Fix tests for `LocalDatabase`
+  - [ ] `Add / Update` input to database workflow
+    - [ ] Get `Id` and `CreatedAt` inputs (DateInput) working completly
+    - [ ] Test adding a record with those inputs
+    - [ ] Test updating a record with those inputs
+  - [ ] Record notes from Typescript/Jest talk into README!
 
-- [ ] Build out core Inputs
+- [ ] Build out core `Input` components
 
   - [x] `Id`
   - [x] `Name`
-  - [x] `Description`
-  - [x] `Note`
-  - [x] `Status`
-  - [ ] `Date` (CreatedAt & FinishedAt)
-    - [ ] Component setup (isNullable prop?)
+  - [ ] `DateInput` (createdAt & finishedAt)
+    - [ ] Component setup (isNullable prop)
     - [ ] Date picker
     - [ ] Time picker
     - [ ] Validators with error strings
+  - [ ] `TextBlockInput` (description & note)
+    - [ ] Component setup
+    - [ ] Textarea
+    - [ ] Validators with error strings
   - [ ] `ParentId`
     - [ ] Component setup
-    - [ ] Select box (Alpha sorted Activities)
-      - [ ] Example: My Exercise 1 (XXXX-XXXX-XXXX)
+    - [ ] Select box (Alpha sorted Activities with Id)
     - [ ] Validators with error strings
   - [ ] `TrackBoolean`
     - [ ] Component setup
@@ -43,19 +41,17 @@ Implement the following:
     - [ ] Component setup
     - [ ] Input field (number)
     - [ ] Validators with error strings
+  - [ ] `ExerciseSet`
+    - [ ] Component setup
+    - [ ] Control based on trackMultipleSets
 
-- [ ] Build out `Inputs` components for each core class
-- [ ] Record notes from Typescript/Jest talk into README!
 - [ ] Global `Dialogs` (less repeated code)
 
   - [ ] Use STATE to manage them
   - [ ] `ConfirmDialog`
-
     - [ ] confirmFunc
     - [ ] STATE for activation
-
   - [ ] `FullscreenDialog`
-
     - [ ] saveFunc
     - [ ] STATE for activation
 
@@ -117,17 +113,15 @@ Implement the following:
     - [ ] Edit
     - [x] Delete
 
-- [x] Enforce `Icon` enum for icons/props
 - [ ] Table column reveal/hide switches
-- [x] Rebrand `Action` as `Activity` (rename files/components)
-- [x] Rebrand `Charts` as `Reports` (rename files/components)
+- [ ] How to overwrite route history
 - [ ] Fix `Options` View
 - [ ] Consider removing `Reports` view
 - [ ] Build reusable components for activity/record views
 
   - [ ] Remove options that are no longer needed
 
-- [ ] Build basic test files for composable files (`use`)
+- [ ] Build basic tests for composable files (`use`)
 
 - [ ] Complete `ActiveWorkout` view
   - [ ] Layout (header/footer)

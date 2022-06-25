@@ -1,6 +1,8 @@
-import Dexie, { type IndexableType } from 'dexie'
-import type { Table } from 'dexie'
+import Dexie, { type IndexableType, type Table } from 'dexie'
 import type {
+  IEntity,
+  IActivity,
+  IRecord,
   IAppLog,
   IMeasurement,
   IExercise,
@@ -9,15 +11,15 @@ import type {
   IExerciseRecord,
   IWorkoutRecord,
 } from '@/constants/interfaces'
-import type { Id, AppLogParams, Name } from '@/constants/types'
-import { type Status, Store } from '@/constants/enums'
-import { Measurement, measurementStoreIndices } from '@/models/Measurement'
-import { Exercise, exerciseStoreIndices } from '@/models/Exercise'
-import { Workout, workoutStoreIndices } from '@/models/Workout'
-import { MeasurementRecord, measurementRecordStoreIndices } from '@/models/MeasurementRecord'
-import { ExerciseRecord, exerciseRecordStoreIndices } from '@/models/ExerciseRecord'
-import { WorkoutRecord, workoutRecordStoreIndices } from '@/models/WorkoutRecord'
-import { AppLog, appLogStoreIndices } from '@/models/AppLog'
+import type { Id, AppLogParams, ActivityName } from '@/constants/types'
+import { DBTable } from '@/constants/enums'
+import { Measurement, measurementTableIndices } from '@/models/Measurement'
+import { Exercise, exerciseTableIndices } from '@/models/Exercise'
+import { Workout, workoutTableIndices } from '@/models/Workout'
+import { MeasurementRecord, measurementRecordTableIndices } from '@/models/MeasurementRecord'
+import { ExerciseRecord, exerciseRecordTableIndices } from '@/models/ExerciseRecord'
+import { WorkoutRecord, workoutRecordTableIndices } from '@/models/WorkoutRecord'
+import { AppLog, appLogTableIndices } from '@/models/AppLog'
 
 /**
  * Wrapper for Dexie IndexedDB
@@ -25,212 +27,101 @@ import { AppLog, appLogStoreIndices } from '@/models/AppLog'
  */
 export class LocalDatabase extends Dexie {
   // Information for the typing system to help Dexie out
-  [Store.MEASUREMENTS]!: Table<IMeasurement>;
-  [Store.EXERCISES]!: Table<IExercise>;
-  [Store.WORKOUTS]!: Table<IWorkout>;
-  [Store.MEASUREMENT_RECORDS]!: Table<IMeasurementRecord>;
-  [Store.EXERCISE_RECORDS]!: Table<IExerciseRecord>;
-  [Store.WORKOUT_RECORDS]!: Table<IWorkoutRecord>;
-  [Store.ACTIVE_EXERCISES]!: Table<IExerciseRecord>;
-  [Store.ACTIVE_WORKOUTS]!: Table<IWorkoutRecord>;
-  [Store.APP_LOGS]!: Table<IAppLog>
+  [DBTable.MEASUREMENTS]!: Table<IMeasurement>;
+  [DBTable.EXERCISES]!: Table<IExercise>;
+  [DBTable.WORKOUTS]!: Table<IWorkout>;
+  [DBTable.MEASUREMENT_RECORDS]!: Table<IMeasurementRecord>;
+  [DBTable.EXERCISE_RECORDS]!: Table<IExerciseRecord>;
+  [DBTable.WORKOUT_RECORDS]!: Table<IWorkoutRecord>;
+  [DBTable.ACTIVE_EXERCISES]!: Table<IExerciseRecord>;
+  [DBTable.ACTIVE_WORKOUTS]!: Table<IWorkoutRecord>;
+  [DBTable.APP_LOGS]!: Table<IAppLog>
 
   constructor(name: string) {
     super(name)
 
     this.version(1).stores({
-      ...measurementStoreIndices,
-      ...exerciseStoreIndices,
-      ...workoutStoreIndices,
-      ...measurementRecordStoreIndices,
-      ...exerciseRecordStoreIndices,
-      ...workoutRecordStoreIndices,
-      ...appLogStoreIndices,
+      ...measurementTableIndices,
+      ...exerciseTableIndices,
+      ...workoutTableIndices,
+      ...measurementRecordTableIndices,
+      ...exerciseRecordTableIndices,
+      ...workoutRecordTableIndices,
+      ...appLogTableIndices,
     })
 
-    this[Store.MEASUREMENTS].mapToClass(Measurement)
-    this[Store.EXERCISES].mapToClass(Exercise)
-    this[Store.WORKOUTS].mapToClass(Workout)
-    this[Store.MEASUREMENT_RECORDS].mapToClass(MeasurementRecord)
-    this[Store.EXERCISE_RECORDS].mapToClass(ExerciseRecord)
-    this[Store.WORKOUT_RECORDS].mapToClass(WorkoutRecord)
-    this[Store.ACTIVE_EXERCISES].mapToClass(ExerciseRecord)
-    this[Store.ACTIVE_WORKOUTS].mapToClass(WorkoutRecord)
-    this[Store.APP_LOGS].mapToClass(AppLog)
+    this[DBTable.MEASUREMENTS].mapToClass(Measurement)
+    this[DBTable.EXERCISES].mapToClass(Exercise)
+    this[DBTable.WORKOUTS].mapToClass(Workout)
+    this[DBTable.MEASUREMENT_RECORDS].mapToClass(MeasurementRecord)
+    this[DBTable.EXERCISE_RECORDS].mapToClass(ExerciseRecord)
+    this[DBTable.WORKOUT_RECORDS].mapToClass(WorkoutRecord)
+    this[DBTable.ACTIVE_EXERCISES].mapToClass(ExerciseRecord)
+    this[DBTable.ACTIVE_WORKOUTS].mapToClass(WorkoutRecord)
+    this[DBTable.APP_LOGS].mapToClass(AppLog)
   }
 
   //
-  // Shared Methods
+  // Get
   //
 
-  async getAll<T>(store: Store): Promise<T[]> {
-    return await this.table(store).toArray()
+  async getAll<T>(table: DBTable): Promise<T[]> {
+    return await this.table(table).toArray()
   }
 
-  async getById<T>(store: Store, id: Id): Promise<T | undefined> {
-    return await this.table(store).where('id').equalsIgnoreCase(id).first()
+  async getById<T>(table: DBTable, id: Id): Promise<T | undefined> {
+    return await this.table(table).where('id').equalsIgnoreCase(id).first()
   }
 
-  async getByStatus<T>(store: Store, status: Status): Promise<T[]> {
-    return await this.table(store).where('status').equalsIgnoreCase(status).toArray()
+  async getByName(table: DBTable, name: ActivityName): Promise<IActivity[]> {
+    return await this.table(table).where('name').equalsIgnoreCase(name).toArray()
   }
 
-  async getByName(store: Store, name: Name): Promise<IExercise[]> {
-    return await this.table(store).where('name').equalsIgnoreCase(name).toArray()
+  async getByParentId(table: DBTable, parentId: Id): Promise<IRecord[]> {
+    return await this.table(table).where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
   }
 
-  async getByParentId<T>(store: Store, parentId: Id): Promise<T[]> {
-    return await this.table(store).where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
-  }
-
-  async getNewestByParentId<T>(store: Store, parentId: Id): Promise<T | undefined> {
+  async getNewestByParentId(table: DBTable, parentId: Id): Promise<IRecord | undefined> {
     return (
-      await this.table(store).where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
+      await this.table(table).where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
     ).reverse()[0]
   }
 
-  async bulkGetByIds<T>(store: Store, ids: Id[]): Promise<T[]> {
+  async bulkGetByIds<T>(table: DBTable, ids: Id[]): Promise<T[]> {
     // Filters out falsy values and casts the result type
-    return (await this.table(store).bulkGet(ids)).filter(Boolean) as T[]
-  }
-
-  async deleteById(store: Store, id: Id): Promise<void> {
-    return await this.table(store).delete(id)
-  }
-
-  async clear(store: Store): Promise<void> {
-    return await this.table(store).clear()
+    return (await this.table(table).bulkGet(ids)).filter(Boolean) as T[]
   }
 
   //
-  // Measurement
+  // Delete
   //
 
-  async addMeasurement(measurement: IMeasurement): Promise<IndexableType> {
-    return await this.table(Store.MEASUREMENTS).add(measurement)
+  async deleteById(table: DBTable, id: Id): Promise<void> {
+    return await this.table(table).delete(id)
   }
 
-  async bulkAddMeasurements(items: IMeasurement[]): Promise<IndexableType> {
-    return await this.table(Store.MEASUREMENTS).bulkAdd(items)
-  }
-
-  async updateMeasurementById(id: Id, properties: IMeasurement): Promise<IndexableType> {
-    return await this.table(Store.MEASUREMENTS).update(id, properties)
+  async clear(table: DBTable): Promise<void> {
+    return await this.table(table).clear()
   }
 
   //
-  // MeasurementRecord
+  // Add
   //
 
-  async addMeasurementRecord(measurementRecord: IMeasurementRecord): Promise<IndexableType> {
-    return await this.table(Store.MEASUREMENT_RECORDS).add(measurementRecord)
+  async add(table: DBTable, item: IEntity): Promise<IndexableType> {
+    return await this.table(table).add(item)
   }
 
-  async bulkAddMeasurementRecords(items: IMeasurementRecord[]): Promise<IndexableType> {
-    return await this.table(Store.MEASUREMENT_RECORDS).bulkAdd(items)
-  }
-
-  async updateMeasurementRecordById(
-    id: Id,
-    properties: IMeasurementRecord
-  ): Promise<IndexableType> {
-    return await this.table(Store.MEASUREMENT_RECORDS).update(id, properties)
+  async bulkAdd(table: DBTable, items: IEntity[]): Promise<IndexableType> {
+    return await this.table(table).bulkAdd(items)
   }
 
   //
-  // Exercise
+  // Update
   //
 
-  async addExercise(exercise: IExercise): Promise<IndexableType> {
-    return await this.table(Store.EXERCISES).add(exercise)
-  }
-
-  async bulkAddExercises(items: IExercise[]): Promise<IndexableType> {
-    return await this.table(Store.EXERCISES).bulkAdd(items)
-  }
-
-  async updateExerciseById(id: Id, properties: IExercise): Promise<IndexableType> {
-    return await this.table(Store.EXERCISES).update(id, properties)
-  }
-
-  //
-  // ExerciseRecord
-  //
-
-  async addExerciseRecord(exerciseRecord: IExerciseRecord): Promise<IndexableType> {
-    return await this.table(Store.EXERCISE_RECORDS).add(exerciseRecord)
-  }
-
-  async bulkAddExerciseRecords(items: IExerciseRecord[]): Promise<IndexableType> {
-    return await this.table(Store.EXERCISE_RECORDS).bulkAdd(items)
-  }
-
-  async updateExerciseRecordById(id: Id, properties: IExerciseRecord): Promise<IndexableType> {
-    return await this.table(Store.EXERCISE_RECORDS).update(id, properties)
-  }
-
-  //
-  // Workouts
-  //
-
-  async addWorkout(workout: IWorkout): Promise<IndexableType> {
-    return await this.table(Store.WORKOUTS).add(workout)
-  }
-
-  async bulkAddWorkouts(items: IWorkout[]): Promise<IndexableType> {
-    return await this.table(Store.WORKOUTS).bulkAdd(items)
-  }
-
-  async updateWorkoutById(id: Id, properties: IWorkout): Promise<IndexableType> {
-    return await this.table(Store.WORKOUTS).update(id, properties)
-  }
-
-  //
-  // WorkoutRecord
-  //
-
-  async addWorkoutRecord(workoutRecord: IWorkoutRecord): Promise<IndexableType> {
-    return await this.table(Store.WORKOUT_RECORDS).add(workoutRecord)
-  }
-
-  async bulkAddWorkoutRecords(items: IWorkoutRecord[]): Promise<IndexableType> {
-    return await this.table(Store.WORKOUT_RECORDS).bulkAdd(items)
-  }
-
-  async updateWorkoutRecordById(id: Id, properties: IWorkoutRecord): Promise<IndexableType> {
-    return await this.table(Store.WORKOUT_RECORDS).update(id, properties)
-  }
-
-  //
-  // ActiveExercises (ExerciseRecord)
-  //
-
-  async addActiveExercise(activeExercise: IExerciseRecord): Promise<IndexableType> {
-    return await this.table(Store.ACTIVE_EXERCISES).add(activeExercise)
-  }
-
-  async bulkAddActiveExercises(items: IExerciseRecord[]): Promise<IndexableType> {
-    return await this.table(Store.ACTIVE_EXERCISES).bulkAdd(items)
-  }
-
-  async updateActiveExerciseById(id: Id, properties: IExerciseRecord): Promise<IndexableType> {
-    return await this.table(Store.ACTIVE_EXERCISES).update(id, properties)
-  }
-
-  //
-  // ActiveWorkouts (WorkoutRecord)
-  //
-
-  async addActiveWorkout(activeWorkout: IWorkoutRecord): Promise<IndexableType> {
-    return await this.table(Store.ACTIVE_WORKOUTS).add(activeWorkout)
-  }
-
-  async bulkAddActiveWorkouts(items: IWorkoutRecord[]): Promise<IndexableType> {
-    return await this.table(Store.ACTIVE_WORKOUTS).bulkAdd(items)
-  }
-
-  async updateActiveWorkoutById(id: Id, properties: IWorkoutRecord): Promise<IndexableType> {
-    return await this.table(Store.ACTIVE_WORKOUTS).update(id, properties)
+  async updateById(table: DBTable, id: Id, properties: IEntity): Promise<IndexableType> {
+    return await this.table(table).update(id, properties)
   }
 
   //
@@ -238,7 +129,7 @@ export class LocalDatabase extends Dexie {
   //
 
   async addAppLog(params: AppLogParams): Promise<IndexableType> {
-    return await this.table(Store.APP_LOGS).add(new AppLog(params))
+    return await this.table(DBTable.APP_LOGS).add(new AppLog(params))
   }
 }
 

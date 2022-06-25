@@ -1,5 +1,4 @@
-import type { Name, Description } from '@/constants/types'
-import { Status } from '@/constants/enums'
+import type { ActivityName, TextBlock } from '@/constants/types'
 import type { IActivity } from '@/constants/interfaces'
 import { _Entity } from '@/models/_Entity'
 
@@ -9,23 +8,14 @@ import { _Entity } from '@/models/_Entity'
  * @arg obj.createdAt (Inherited)
  * @arg obj.name
  * @arg obj.description
- * @arg obj.status
  */
 export class _Activity extends _Entity {
-  name?: Name
-  description?: Description
-  status?: Status
+  name?: ActivityName
+  description?: TextBlock
 
-  constructor({
-    id,
-    createdAt,
-    name = 'My Activity',
-    description = '',
-    status = Status.ENABLED,
-  }: IActivity = {}) {
+  constructor({ id, createdAt, name = 'My Activity', description = null }: IActivity = {}) {
     super({ id, createdAt })
     this.name = name
     this.description = description
-    this.status = status
   }
 }

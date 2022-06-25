@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Store } from '@/constants/enums'
+import { DBTable } from '@/constants/enums'
 import EntityTable from '@/components/shared/EntityTable.vue'
 
 const tableColumns = [
@@ -47,5 +47,5 @@ const tableColumns = [
 </script>
 
 <template>
-  <EntityTable tableName="App Logs" :store="Store.APP_LOGS" :tableColumns="tableColumns" />
+  <EntityTable tableName="App Logs" :table="DBTable.APP_LOGS" :tableColumns="tableColumns" />
 </template>

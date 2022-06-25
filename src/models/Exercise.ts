@@ -1,10 +1,10 @@
 import type { TrackBoolean } from '@/constants/types'
 import type { IExercise } from '@/constants/interfaces'
-import { Store } from '@/constants/enums'
+import { DBTable } from '@/constants/enums'
 import { _Activity } from '@/models/_Activity'
 
 // Exports for LocalDatabase
-export const exerciseStoreIndices = Object.freeze({ [Store.EXERCISES]: '&id, name, status' })
+export const exerciseTableIndices = Object.freeze({ [DBTable.EXERCISES]: '&id, name, status' })
 
 /**
  * Exercise Class
@@ -12,8 +12,6 @@ export const exerciseStoreIndices = Object.freeze({ [Store.EXERCISES]: '&id, nam
  * @arg obj.createdAt (Inherited)
  * @arg obj.name (Inherited)
  * @arg obj.description (Inherited)
- * @arg obj.status (Inherited)
- * @arg obj.trackConfirm
  * @arg obj.trackMultipleSets
  * @arg obj.trackDuration
  * @arg obj.trackDistance
@@ -33,16 +31,13 @@ export class Exercise extends _Activity {
     createdAt,
     name = 'My Exercise',
     description,
-    status,
-    trackConfirm = false,
     trackMultipleSets = false,
     trackDuration = false,
     trackDistance = false,
     trackWeight = false,
     trackReps = false,
   }: IExercise = {}) {
-    super({ id, createdAt, name, description, status })
-    this.trackConfirm = trackConfirm
+    super({ id, createdAt, name, description })
     this.trackMultipleSets = trackMultipleSets
     this.trackDuration = trackDuration
     this.trackDistance = trackDistance

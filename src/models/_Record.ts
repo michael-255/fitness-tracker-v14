@@ -1,4 +1,4 @@
-import type { Id, Note } from '@/constants/types'
+import type { Id, TextBlock } from '@/constants/types'
 import type { IRecord } from '@/constants/interfaces'
 import { _Entity } from '@/models/_Entity'
 
@@ -11,9 +11,9 @@ import { _Entity } from '@/models/_Entity'
  */
 export class _Record extends _Entity {
   parentId?: Id
-  note?: Note
+  note?: TextBlock
 
-  constructor({ id, createdAt, parentId = '', note = '' }: IRecord = {}) {
+  constructor({ id, createdAt, parentId = '', note = null }: IRecord = {}) {
     super({ id, createdAt })
     this.parentId = parentId
     this.note = note

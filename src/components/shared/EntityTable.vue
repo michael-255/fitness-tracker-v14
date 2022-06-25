@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { QBtn, QTable, QTr, QTh, QTd, QSpace } from 'quasar'
 import { useTable } from '@/use/useTable'
-import { Icon, Store } from '@/constants/enums'
+import { Icon, DBTable } from '@/constants/enums'
 import ConfirmDialog from '@/components/shared/ConfirmDialog.vue'
 import FullscreenDialog from './FullscreenDialog.vue'
 
 const props = defineProps<{
   tableName: string
-  store: Store
+  table: DBTable
   tableColumns: any[]
 }>()
 
@@ -33,7 +33,7 @@ const {
   openDeleteDialog,
   confirmDeleteDialog,
 } = useTable({
-  store: props.store,
+  table: props.table,
   tableColumns: props.tableColumns,
 })
 </script>
@@ -118,7 +118,7 @@ const {
   <ConfirmDialog
     title="Clear"
     :icon="Icon.DELETE"
-    :message="`Permanently clear all data from the '${props.store}' table in the database?`"
+    :message="`Permanently clear all data from the '${props.table}' table in the database?`"
     color="negative"
     :dialog="clearDialog"
     :confirmFunc="confirmClearDialog"
@@ -160,7 +160,7 @@ const {
   <ConfirmDialog
     title="Delete"
     :icon="Icon.DELETE"
-    :message="`Permanently delete ${selectedRowId} from the '${store}' table in the database?`"
+    :message="`Permanently delete ${selectedRowId} from the '${table}' table in the database?`"
     color="negative"
     :dialog="deleteDialog"
     :confirmFunc="confirmDeleteDialog"

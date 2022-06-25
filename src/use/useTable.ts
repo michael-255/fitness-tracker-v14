@@ -1,18 +1,18 @@
 import { database } from '@/services/LocalDatabase'
 import { ref, onMounted } from 'vue'
-import { type Store, LogLevel } from '@/constants/enums'
+import { type DBTable, LogLevel } from '@/constants/enums'
 import type { IEntity } from '@/constants/interfaces'
 import type { Ref } from 'vue'
 import { useAppLogger } from './useAppLogger'
 
 interface useTableParams {
-  store: Store
+  table: DBTable
   tableColumns: any[]
 }
 
 const { silentLog } = useAppLogger()
 
-export function useTable({ store, tableColumns }: useTableParams) {
+export function useTable({ table, tableColumns }: useTableParams) {
   const tableRows: Ref<IEntity[]> = ref([])
   const rowDetails: Ref<IEntity | undefined> = ref(undefined)
   const selectedRowId: Ref<string> = ref('')
@@ -30,9 +30,9 @@ export function useTable({ store, tableColumns }: useTableParams) {
 
   async function updateTableRows(): Promise<void> {
     try {
-      tableRows.value = await database.getAll(store)
+      tableRows.value = await database.getAll(table)
     } catch (error) {
-      silentLog({ error, level: LogLevel.ERROR, name: 'updateTableRows', details: store })
+      silentLog({ error, level: LogLevel.ERROR, name: 'updateTableRows', details: table })
     }
   }
 
@@ -58,10 +58,10 @@ export function useTable({ store, tableColumns }: useTableParams) {
 
   async function confirmClearDialog(): Promise<void> {
     try {
-      await database.clear(store)
+      await database.clear(table)
       updateTableRows()
     } catch (error) {
-      silentLog({ error, level: LogLevel.ERROR, name: 'confirmClearDialog', details: store })
+      silentLog({ error, level: LogLevel.ERROR, name: 'confirmClearDialog', details: table })
     } finally {
       clearDialog.value = false
     }
@@ -82,14 +82,14 @@ export function useTable({ store, tableColumns }: useTableParams) {
 
   async function openDetailsDialog(id: string): Promise<void> {
     try {
-      rowDetails.value = await database.getById(store, id)
+      rowDetails.value = await database.getById(table, id)
       detailsDialog.value = true
     } catch (error) {
       silentLog({
         error,
         level: LogLevel.ERROR,
         name: 'openDetailsDialog',
-        details: `${store}:${id}`,
+        details: `${table}:${id}`,
       })
     }
   }
@@ -120,14 +120,14 @@ export function useTable({ store, tableColumns }: useTableParams) {
     const id = selectedRowId.value
 
     try {
-      await database.deleteById(store, id)
+      await database.deleteById(table, id)
       updateTableRows()
     } catch (error) {
       silentLog({
         error,
         level: LogLevel.ERROR,
         name: 'confirmDeleteDialog',
-        details: `${store}:${id}`,
+        details: `${table}:${id}`,
       })
     } finally {
       deleteDialog.value = false

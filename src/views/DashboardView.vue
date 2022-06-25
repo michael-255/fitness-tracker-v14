@@ -6,18 +6,19 @@ import CreatedAtInput from '@/components/shared/CreatedAtInput.vue'
 import NameInput from '@/components/shared/NameInput.vue'
 import DescriptionInput from '@/components/shared/DescriptionInput.vue'
 import NoteInput from '@/components/shared/NoteInput.vue'
-import StatusInput from '@/components/shared/StatusInput.vue'
+import ParentIdInput from '@/components/shared/ParentIdInput.vue'
 import TrackBooleanInput from '@/components/shared/TrackBooleanInput.vue'
+import { DBTable } from '@/constants/enums'
 import { ref, type Ref } from 'vue'
-import { Status } from '@/constants/enums'
 import { createId } from '@/utils/build-id'
-import type { Description, Id, Name, Note } from '@/constants/types'
+import type { TextBlock, Id, ActivityName } from '@/constants/types'
+import { database } from '@/services/LocalDatabase'
 
 const id: Ref<Id> = ref(createId())
-const name: Ref<Name> = ref('Activity')
-const description: Ref<Description> = ref('')
-const note: Ref<Note> = ref('')
-const status: Ref<Status> = ref(Status.ENABLED)
+const name: Ref<ActivityName> = ref('Activity')
+const description: Ref<TextBlock> = ref('')
+const note: Ref<TextBlock> = ref('')
+const parentId: Ref<Id> = ref('')
 
 /**
  * @todo
@@ -43,19 +44,35 @@ const inputKeys = [
 function sayit() {
   console.log(id.value)
 }
+
+async function addToDB() {
+  const obj = {
+    test: '123',
+    id: 'test6',
+    // createdAt: new Date().toISOString(),
+    // name: 'test',
+  }
+
+  await database.add(DBTable.MEASUREMENTS, obj)
+  await database.add(DBTable.MEASUREMENT_RECORDS, obj)
+}
 </script>
 
 <template>
   <h3>Dashboard</h3>
 
-  <QBtn color="primary" label="Print" @click="sayit()" />
+  <QBtn color="primary" label="Print" @click="addToDB()" />
 
   <IdInput :id="id" @update:id="id = $event" />
   <CreatedAtInput />
   <NameInput :name="name" @update:name="name = $event" />
   <DescriptionInput :description="description" @update:description="description = $event" />
   <NoteInput :note="note" @update:note="note = $event" />
-  <StatusInput :status="status" @update:status="status = $event" />
+  <ParentIdInput
+    :parentId="parentId"
+    :table="DBTable.MEASUREMENTS"
+    @update:parentId="parentId = $event"
+  />
   <TrackBooleanInput />
 
   <h5>Measurement: {{ inputKeys.length }}</h5>

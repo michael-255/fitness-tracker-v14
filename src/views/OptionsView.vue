@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { QBtn, QFile, QIcon } from 'quasar'
-import { Store } from '@/constants/enums'
+import { DBTable } from '@/constants/enums'
 import { useDefaults } from '@/use/useDefaults'
 import { useImportExport } from '@/use/useImportExport'
 import { useClearData } from '@/use/useClearData'
 
 const { loadAllDefaults, loadMeasurements, loadExercises, loadWorkouts } = useDefaults()
 const { file, onRejectedFile, importData, exportData } = useImportExport()
-const { clearAllAppData, clearStoreData } = useClearData()
+const { clearAllAppData, clearTableData } = useClearData()
 </script>
 
 <template>
@@ -69,58 +69,63 @@ const { clearAllAppData, clearStoreData } = useClearData()
     class="q-mb-sm"
     color="negative"
     label="Measurements"
-    @click="clearStoreData(Store.MEASUREMENTS)"
+    @click="clearTableData(DBTable.MEASUREMENTS)"
   />
   <br />
   <QBtn
     class="q-mb-sm"
     color="negative"
     label="Exercises"
-    @click="clearStoreData(Store.EXERCISES)"
+    @click="clearTableData(DBTable.EXERCISES)"
   />
   <br />
-  <QBtn class="q-mb-sm" color="negative" label="Workouts" @click="clearStoreData(Store.WORKOUTS)" />
+  <QBtn
+    class="q-mb-sm"
+    color="negative"
+    label="Workouts"
+    @click="clearTableData(DBTable.WORKOUTS)"
+  />
   <br />
   <QBtn
     class="q-mb-sm"
     color="negative"
     label="Measurement Records"
-    @click="clearStoreData(Store.MEASUREMENT_RECORDS)"
+    @click="clearTableData(DBTable.MEASUREMENT_RECORDS)"
   />
   <br />
   <QBtn
     class="q-mb-sm"
     color="negative"
     label="Exercise Records"
-    @click="clearStoreData(Store.EXERCISE_RECORDS)"
+    @click="clearTableData(DBTable.EXERCISE_RECORDS)"
   />
   <br />
   <QBtn
     class="q-mb-sm"
     color="negative"
     label="Workout Records"
-    @click="clearStoreData(Store.WORKOUT_RECORDS)"
+    @click="clearTableData(DBTable.WORKOUT_RECORDS)"
   />
   <br />
   <QBtn
     class="q-mb-sm"
     color="negative"
     label="Active Exercises"
-    @click="clearStoreData(Store.ACTIVE_EXERCISES)"
+    @click="clearTableData(DBTable.ACTIVE_EXERCISES)"
   />
   <br />
   <QBtn
     class="q-mb-sm"
     color="negative"
     label="Active Workouts"
-    @click="clearStoreData(Store.ACTIVE_WORKOUTS)"
+    @click="clearTableData(DBTable.ACTIVE_WORKOUTS)"
   />
   <br />
   <QBtn
     class="q-mb-sm"
     color="negative"
     label="Error Logs"
-    @click="clearStoreData(Store.APP_LOGS)"
+    @click="clearTableData(DBTable.APP_LOGS)"
   />
   <br />
 </template>
