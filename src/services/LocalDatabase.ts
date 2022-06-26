@@ -61,6 +61,18 @@ export class LocalDatabase extends Dexie {
     this[DBTable.APP_LOGS].mapToClass(AppLog)
   }
 
+  /**
+   * @todo
+   * Gets
+   * - Return empty object if nothing found
+   * - Log info that nothing was found
+   * Deletes
+   * - Return deleted object if found
+   * - Log info what was deleted
+   * - Return something if no object was found to delete?
+   * - Log info that delete object was not found
+   */
+
   //
   // Get
   //

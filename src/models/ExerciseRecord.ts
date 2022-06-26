@@ -18,7 +18,7 @@ export const exerciseRecordTableIndices = Object.freeze({
  * @arg obj.sets
  */
 export class ExerciseRecord extends _Record {
-  sets?: ExerciseSet[]
+  sets: ExerciseSet[]
 
   constructor({ id, createdAt, parentId, note, sets = [] }: IExerciseRecord = {}) {
     super({ id, createdAt, parentId, note })

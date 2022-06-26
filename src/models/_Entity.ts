@@ -8,8 +8,8 @@ import { createId } from '@/utils/build-id'
  * @arg obj.createdAt
  */
 export class _Entity {
-  id?: Id
-  createdAt?: CreatedAt
+  id: Id
+  createdAt: CreatedAt
 
   constructor({ id = createId(), createdAt = new Date().toISOString() }: IEntity = {}) {
     this.id = id

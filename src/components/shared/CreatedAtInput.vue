@@ -7,6 +7,11 @@ import { useVModel } from '@vueuse/core'
 import { useLuxon } from '@/use/useLuxon'
 
 /**
+ * @todo
+ * Combine CreatedAtInput and FinishedAtInput somehow (haven't figured it out yet).
+ */
+
+/**
  * @example
  * Script: const createdAt: Ref<CreatedAt> = ref(new Date().toISOString())
  * Template: <CreatedAtInput :createdAt="createdAt" @update:createdAt="createdAt = $event" />

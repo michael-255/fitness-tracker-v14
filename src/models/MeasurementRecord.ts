@@ -18,8 +18,8 @@ export const measurementRecordTableIndices = Object.freeze({
  * @arg obj.inches
  */
 export class MeasurementRecord extends _Record {
-  lbs?: RecordNumber
-  inches?: RecordNumber
+  lbs: RecordNumber
+  inches: RecordNumber
 
   constructor({
     id,

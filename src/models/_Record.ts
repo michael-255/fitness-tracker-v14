@@ -10,8 +10,8 @@ import { _Entity } from '@/models/_Entity'
  * @arg obj.note
  */
 export class _Record extends _Entity {
-  parentId?: Id
-  note?: TextBlock
+  parentId: Id
+  note: TextBlock
 
   constructor({ id, createdAt, parentId = '', note = null }: IRecord = {}) {
     super({ id, createdAt })

@@ -20,8 +20,8 @@ export const workoutRecordTableIndices = Object.freeze({
  * @arg obj.exerciseRecordIds
  */
 export class WorkoutRecord extends _Record {
-  finishedAt?: FinishedAt
-  exerciseRecordIds?: Id[]
+  finishedAt: FinishedAt
+  exerciseRecordIds: Id[]
 
   constructor({
     id,

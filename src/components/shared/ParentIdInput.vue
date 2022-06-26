@@ -27,9 +27,9 @@ const parentId = useVModel(props, 'parentId', emits)
 const options: Ref<IdLabelOption[]> = ref([])
 
 onMounted(async () => {
-  const activities = await database.getAll(props.table)
+  const response: any[] = await database.getAll(props.table)
 
-  options.value = activities.map((a: any) => ({
+  options.value = response.map((a: any) => ({
     value: a.id,
     label: `${a.name} -- ${a.id}`,
   }))

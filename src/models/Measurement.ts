@@ -20,10 +20,10 @@ export const measurementTableIndices = Object.freeze({
  * @arg obj.trackPercent
  */
 export class Measurement extends _Activity {
-  trackLbs?: TrackBoolean
-  trackInches?: TrackBoolean
-  trackFeet?: TrackBoolean
-  trackPercent?: TrackBoolean
+  trackLbs: TrackBoolean
+  trackInches: TrackBoolean
+  trackFeet: TrackBoolean
+  trackPercent: TrackBoolean
 
   constructor({
     id,

@@ -9,6 +9,7 @@ import ParentIdInput from '@/components/shared/ParentIdInput.vue'
 import ExerciseIdsInput from '@/components/shared/ExerciseIdsInput.vue'
 import ExerciseRecordIdsInput from '@/components/shared/ExerciseRecordIdsInput.vue'
 import TrackBooleanInput from '@/components/shared/TrackBooleanInput.vue'
+import ExerciseSetsInput from '@/components/shared/ExerciseSetsInput.vue'
 import { ref, type Ref } from 'vue'
 import { createId } from '@/utils/build-id'
 import type {
@@ -18,6 +19,7 @@ import type {
   ActivityName,
   TextBlock,
   TrackBoolean,
+  ExerciseSet,
 } from '@/constants/types'
 import { useLuxon } from '@/use/useLuxon'
 import { DBTable } from '@/constants/enums'
@@ -33,8 +35,14 @@ const note: Ref<TextBlock> = ref(null)
 const parentId: Ref<Id> = ref('')
 const exerciseIds: Ref<Id[]> = ref([])
 const exerciseRecordIds: Ref<Id[]> = ref([])
-const bool1: Ref<TrackBoolean> = ref(false)
-const bool2: Ref<TrackBoolean> = ref(false)
+
+const trackMultipleSets: Ref<TrackBoolean> = ref(false)
+const trackDuration: Ref<TrackBoolean> = ref(false)
+const trackDistance: Ref<TrackBoolean> = ref(false)
+const trackWeight: Ref<TrackBoolean> = ref(false)
+const trackReps: Ref<TrackBoolean> = ref(false)
+
+const exerciseSets: Ref<ExerciseSet[]> = ref([])
 
 async function test() {
   console.log(id.value)
@@ -45,8 +53,11 @@ async function test() {
   console.log(note.value)
   console.log(parentId.value)
   console.log(exerciseIds.value)
-  console.log(bool1.value)
-  console.log(bool2.value)
+  console.log(trackMultipleSets.value)
+  console.log(trackDuration.value)
+  console.log(trackWeight.value)
+  console.log(trackReps.value)
+  console.log(exerciseSets.value)
 }
 </script>
 
@@ -71,6 +82,24 @@ async function test() {
     :exerciseRecordIds="exerciseRecordIds"
     @update:exerciseRecordIds="exerciseRecordIds = $event"
   />
-  <TrackBooleanInput :bool="bool1" label="Track Multiple Sets" @update:bool="bool1 = $event" />
-  <TrackBooleanInput :bool="bool2" label="Track Lbs" @update:bool="bool2 = $event" />
+
+  <TrackBooleanInput
+    :bool="trackMultipleSets"
+    label="Multiple Sets"
+    @update:bool="trackMultipleSets = $event"
+  />
+  <TrackBooleanInput :bool="trackDuration" label="Duration" @update:bool="trackDuration = $event" />
+  <TrackBooleanInput :bool="trackDistance" label="Distance" @update:bool="trackDistance = $event" />
+  <TrackBooleanInput :bool="trackWeight" label="Weight (lbs)" @update:bool="trackWeight = $event" />
+  <TrackBooleanInput :bool="trackReps" label="Reps" @update:bool="trackReps = $event" />
+
+  <ExerciseSetsInput
+    :exerciseSets="exerciseSets"
+    :trackMultipleSets="trackMultipleSets"
+    :trackDuration="trackDuration"
+    :trackDistance="trackDistance"
+    :trackWeight="trackWeight"
+    :trackReps="trackReps"
+    @update:exerciseSets="exerciseSets = $event"
+  />
 </template>

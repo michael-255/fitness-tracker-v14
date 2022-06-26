@@ -15,7 +15,7 @@ export const workoutTableIndices = Object.freeze({ [DBTable.WORKOUTS]: '&id, nam
  * @arg obj.exerciseIds
  */
 export class Workout extends _Activity {
-  exerciseIds?: Id[]
+  exerciseIds: Id[]
 
   constructor({
     id,

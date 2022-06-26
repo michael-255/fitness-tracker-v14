@@ -19,11 +19,11 @@ export const exerciseTableIndices = Object.freeze({ [DBTable.EXERCISES]: '&id, n
  * @arg obj.trackReps
  */
 export class Exercise extends _Activity {
-  trackMultipleSets?: TrackBoolean
-  trackDuration?: TrackBoolean
-  trackDistance?: TrackBoolean
-  trackWeight?: TrackBoolean
-  trackReps?: TrackBoolean
+  trackMultipleSets: TrackBoolean
+  trackDuration: TrackBoolean
+  trackDistance: TrackBoolean
+  trackWeight: TrackBoolean
+  trackReps: TrackBoolean
 
   constructor({
     id,
