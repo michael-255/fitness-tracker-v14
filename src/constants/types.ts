@@ -26,9 +26,9 @@ export type AppLogParams = {
 }
 
 // Helper Types
-export type ParentIdOptions = {
+export type IdLabelOption = {
+  value: Id
   label: string
-  id: Id
 }
 
 // export type ConfirmDialogProps = {

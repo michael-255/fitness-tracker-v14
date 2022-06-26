@@ -1,17 +1,36 @@
 <script setup lang="ts">
 import { QToggle } from 'quasar'
-import { ref } from 'vue'
+import type { TrackBoolean } from '@/constants/types'
+import { useVModel } from '@vueuse/core'
 
-const label = 'Track Pounds'
-const bool = ref(false)
 /**
- * @todo
- * - Prop using ref from parent instead
- * - Validator
- * - Events
+ * @example
+ * Script: const bool: Ref<TrackBoolean> = ref(false)
+ * Template: <TrackBooleanInput :bool="bool" @update:bool="bool = $event" />
  */
+
+const props = defineProps<{
+  bool: TrackBoolean
+  label: string
+}>()
+
+const emits = defineEmits<{
+  (eventName: 'update:bool', bool: TrackBoolean): void
+}>()
+
+const bool = useVModel(props, 'bool', emits)
 </script>
 
 <template>
-  <QToggle v-model="bool" dense filled :label="label" color="primary" />
+  <div>
+    <QToggle
+      v-bind="$attrs"
+      v-model="bool"
+      :label="label"
+      dense
+      filled
+      color="primary"
+      class="q-ma-sm"
+    />
+  </div>
 </template>

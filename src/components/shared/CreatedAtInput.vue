@@ -1,15 +1,18 @@
 <script setup lang="ts">
 import type { CreatedAt } from '@/constants/types'
-import { QInput, QIcon, QDate, QBtn, QTime, QPopupProxy } from 'quasar'
-import { type Ref, ref, onMounted } from 'vue'
+import { QInput, QDate, QBtn, QTime, QPopupProxy } from 'quasar'
+import { type Ref, ref } from 'vue'
 import { ValidationMessage, isCreatedAtValid } from '@/utils/validators'
 import { useVModel } from '@vueuse/core'
+import { useLuxon } from '@/use/useLuxon'
 
 /**
  * @example
  * Script: const createdAt: Ref<CreatedAt> = ref(new Date().toISOString())
  * Template: <CreatedAtInput :createdAt="createdAt" @update:createdAt="createdAt = $event" />
  */
+
+const { dateISOToDisplay } = useLuxon()
 
 const props = defineProps<{
   createdAt: CreatedAt
@@ -21,33 +24,18 @@ const emits = defineEmits<{
 
 const createdAt = useVModel(props, 'createdAt', emits)
 
-const datePick: Ref<string> = ref('')
-const timePick: Ref<string> = ref('')
+const dateTimePicker: Ref<string> = ref('')
 
-onMounted(() => {
-  let dateParts: string[] = []
-
-  if (createdAt.value) {
-    dateParts = createdAt.value.split('T')
-  } else {
-    dateParts = new Date().toISOString().split('T')
-  }
-
-  datePick.value = dateParts[0]
-  timePick.value = dateParts[1].split('.')[0]
-})
-
-function changeCreatedAt() {
-  createdAt.value = `${datePick.value}T${timePick.value}.000Z`
+function changeDate() {
+  createdAt.value = dateISOToDisplay(dateTimePicker.value)
 }
 </script>
 
 <template>
   <QInput
+    disable
     v-model="createdAt"
     label="Created At"
-    mask="####-##-##T##:##:##.###Z"
-    fill-mask="_"
     :rules="[
       (val: string) => isCreatedAtValid(val) || ValidationMessage.DATE,
     ]"
@@ -55,28 +43,35 @@ function changeCreatedAt() {
     outlined
     color="primary"
   >
-    <template v-slot:append>
-      <QIcon name="event" color="primary" class="cursor-pointer">
+    <template v-slot:after>
+      <QBtn icon="event" color="primary" class="q-ml-xs q-px-sm">
         <QPopupProxy cover transition-show="scale" transition-hide="scale">
-          <QDate v-model="datePick" mask="YYYY-MM-DD">
+          <QDate v-model="dateTimePicker" mask="YYYY-MM-DDTHH:mm:ss.000Z">
             <div class="row items-center justify-end q-gutter-sm">
               <QBtn label="Cancel" flat v-close-popup />
-              <QBtn label="OK" color="primary" flat @click="changeCreatedAt()" v-close-popup />
+              <QBtn label="OK" color="primary" flat @click="changeDate()" v-close-popup />
             </div>
           </QDate>
         </QPopupProxy>
-      </QIcon>
+      </QBtn>
 
-      <QIcon name="access_time" color="primary" class="cursor-pointer">
+      <QBtn icon="access_time" color="primary" class="q-ml-sm q-px-sm">
         <QPopupProxy cover transition-show="scale" transition-hide="scale">
-          <QTime v-model="timePick" mask="HH:mm:00">
+          <QTime v-model="dateTimePicker" now-btn mask="YYYY-MM-DDTHH:mm:ss.000Z">
             <div class="row items-center justify-end q-gutter-sm">
               <QBtn label="Cancel" flat v-close-popup />
-              <QBtn label="OK" color="primary" flat @click="changeCreatedAt()" v-close-popup />
+              <QBtn label="OK" color="primary" flat @click="changeDate()" v-close-popup />
             </div>
           </QTime>
         </QPopupProxy>
-      </QIcon>
+      </QBtn>
+
+      <QBtn
+        icon="event_available"
+        color="positive"
+        class="q-ml-sm q-px-sm"
+        @click="createdAt = dateISOToDisplay(new Date().toISOString())"
+      />
     </template>
   </QInput>
 </template>

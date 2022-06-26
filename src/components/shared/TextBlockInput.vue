@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QInput } from 'quasar'
-import { ValidationMessage, isTextBlockValid } from '@/utils/validators'
+import { ValidationLimit, ValidationMessage, isTextBlockValid } from '@/utils/validators'
 import type { TextBlock } from '@/constants/types'
 import { useVModel } from '@vueuse/core'
 
@@ -31,8 +31,8 @@ const text = useVModel(props, 'text', emits)
     :rules="[
       (val: string) => isTextBlockValid(val) || ValidationMessage.TEXTBLOCK,
     ]"
-    maxlength="500"
-    :hint="`${props.text?.length || '0'}/500`"
+    :maxlength="ValidationLimit.TEXTBLOCK"
+    :hint="`${props.text?.length || '0'}/${ValidationLimit.TEXTBLOCK}`"
     dense
     outlined
     color="primary"

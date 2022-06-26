@@ -8,6 +8,7 @@ Description TBA.
 
   - [ ] How do you want to store your dates in the DB?
   - [ ] How do you want formatted dates to appear?
+  - [ ] Swedish format: `new Date().toLocaleString('sv').replace(' ', 'T')` = '2022-06-25T21:33:19'
   - [ ] Do you want to use `useDateFormat`?
 
 - [ ] Build out core `Input` components

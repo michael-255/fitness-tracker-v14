@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { QInput, QIcon } from 'quasar'
+import { QInput } from 'quasar'
 import { createId } from '@/utils/build-id'
-import { ValidationMessage, isIdValid } from '@/utils/validators'
+import { ValidationLimit, ValidationMessage, isIdValid } from '@/utils/validators'
 import type { Id } from '@/constants/types'
 import { useVModel } from '@vueuse/core'
 
@@ -26,17 +26,16 @@ const id = useVModel(props, 'id', emits)
   <QInput
     v-model="id"
     label="Id"
-    mask="XXXX-XXXX-XXXX"
-    fill-mask="_"
     :rules="[
       (val: string) => isIdValid(val) || ValidationMessage.ID,
     ]"
+    :maxlength="ValidationLimit.ID"
     dense
     outlined
     color="primary"
   >
-    <template v-slot:append>
-      <QIcon color="warning" name="autorenew" @click="id = createId()" class="cursor-pointer" />
+    <template v-slot:after>
+      <QBtn icon="autorenew" color="primary" class="q-ml-xs q-px-sm" @click="id = createId()" />
     </template>
   </QInput>
 </template>
