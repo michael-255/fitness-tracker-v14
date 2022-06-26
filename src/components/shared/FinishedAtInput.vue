@@ -1,25 +1,25 @@
 <script setup lang="ts">
-import type { CreatedAt } from '@/constants/types'
+import type { FinishedAt } from '@/constants/types'
 import { QInput, QIcon, QDate, QBtn, QTime, QPopupProxy } from 'quasar'
 import { type Ref, ref, onMounted } from 'vue'
-import { ValidationMessage, isCreatedAtValid } from '@/utils/validators'
+import { ValidationMessage, isFinishedAtValid } from '@/utils/validators'
 import { useVModel } from '@vueuse/core'
 
 /**
  * @example
- * Script: const createdAt: Ref<CreatedAt> = ref(new Date().toISOString())
- * Template: <CreatedAtInput :createdAt="createdAt" @update:createdAt="createdAt = $event" />
+ * Script: const finishedAt: Ref<FinishedAt> = ref('')
+ * Template: <FinishedAtInput :finishedAt="finishedAt" @update:finishedAt="finishedAt = $event" />
  */
 
 const props = defineProps<{
-  createdAt: CreatedAt
+  finishedAt: FinishedAt
 }>()
 
 const emits = defineEmits<{
-  (eventName: 'update:createdAt', createdAt: CreatedAt): void
+  (eventName: 'update:finishedAt', finishedAt: FinishedAt): void
 }>()
 
-const createdAt = useVModel(props, 'createdAt', emits)
+const finishedAt = useVModel(props, 'finishedAt', emits)
 
 const datePick: Ref<string> = ref('')
 const timePick: Ref<string> = ref('')
@@ -27,8 +27,8 @@ const timePick: Ref<string> = ref('')
 onMounted(() => {
   let dateParts: string[] = []
 
-  if (createdAt.value) {
-    dateParts = createdAt.value.split('T')
+  if (finishedAt.value) {
+    dateParts = finishedAt.value.split('T')
   } else {
     dateParts = new Date().toISOString().split('T')
   }
@@ -37,20 +37,16 @@ onMounted(() => {
   timePick.value = dateParts[1].split('.')[0]
 })
 
-function changeCreatedAt() {
-  createdAt.value = `${datePick.value}T${timePick.value}.000Z`
+function changeFinishedAt() {
+  finishedAt.value = `${datePick.value}T${timePick.value}.000Z`
 }
 </script>
 
 <template>
   <QInput
-    v-model="createdAt"
-    label="Created At"
-    mask="####-##-##T##:##:##.###Z"
-    fill-mask="_"
-    :rules="[
-      (val: string) => isCreatedAtValid(val) || ValidationMessage.DATE,
-    ]"
+    v-model="finishedAt"
+    label="Finished At"
+    :rules="[(val: string) => isFinishedAtValid(val) || ValidationMessage.DATE]"
     dense
     outlined
     color="primary"
@@ -61,7 +57,7 @@ function changeCreatedAt() {
           <QDate v-model="datePick" mask="YYYY-MM-DD">
             <div class="row items-center justify-end q-gutter-sm">
               <QBtn label="Cancel" flat v-close-popup />
-              <QBtn label="OK" color="primary" flat @click="changeCreatedAt()" v-close-popup />
+              <QBtn label="OK" color="primary" flat @click="changeFinishedAt()" v-close-popup />
             </div>
           </QDate>
         </QPopupProxy>
@@ -72,7 +68,7 @@ function changeCreatedAt() {
           <QTime v-model="timePick" mask="HH:mm:00">
             <div class="row items-center justify-end q-gutter-sm">
               <QBtn label="Cancel" flat v-close-popup />
-              <QBtn label="OK" color="primary" flat @click="changeCreatedAt()" v-close-popup />
+              <QBtn label="OK" color="primary" flat @click="changeFinishedAt()" v-close-popup />
             </div>
           </QTime>
         </QPopupProxy>

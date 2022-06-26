@@ -6,10 +6,9 @@ import type { Id } from '@/constants/types'
 import { useVModel } from '@vueuse/core'
 
 /**
- * Example Usage:
- * const id: Ref<Id> = ref(createId())
- * ...
- * <IdInput :id="id" @update:id="id = $event" />
+ * @example
+ * Script: const id: Ref<Id> = ref(createId())
+ * Template: <IdInput :id="id" @update:id="id = $event" />
  */
 
 const props = defineProps<{

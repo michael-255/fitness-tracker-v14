@@ -1,22 +1,21 @@
 <script setup lang="ts">
 import { QInput } from 'quasar'
 import { ValidationMessage, isNameValid } from '@/utils/validators'
-import type { Name } from '@/constants/types'
+import type { ActivityName } from '@/constants/types'
 import { useVModel } from '@vueuse/core'
 
 /**
- * Example Usage:
- * const name: Ref<Name> = ref('Activity')
- * ...
- * <NameInput :name="name" @update:name="name = $event" />
+ * @example
+ * Script: const name: Ref<ActivityName> = ref('My Activity')
+ * Template: <NameInput :name="name" @update:name="name = $event" />
  */
 
 const props = defineProps<{
-  name: Name
+  name: ActivityName
 }>()
 
 const emits = defineEmits<{
-  (eventName: 'update:name', name: Name): void
+  (eventName: 'update:name', name: ActivityName): void
 }>()
 
 const name = useVModel(props, 'name', emits)

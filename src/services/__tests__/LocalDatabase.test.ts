@@ -1,6 +1,6 @@
 import { describe, test, expect, beforeEach, vi } from 'vitest'
 import { LocalDatabase } from '@/services/LocalDatabase'
-import { Table } from '@/constants/enums'
+import { DBTable } from '@/constants/enums'
 import { LogLevel } from '@/constants/enums'
 
 const mockTableBuilder = ({
@@ -55,6 +55,8 @@ describe('LocalDatabase', () => {
   const testId = 'test-id-123'
   const testIds = [testId, testId, testId]
   const testName = 'Test Name'
+  const testData = { id: 'test1' }
+  const testDatas = [{ id: 'test1' }, { id: 'test2' }]
 
   const toArrayMock = vi.fn()
   const firstMock = vi.fn()
@@ -92,7 +94,7 @@ describe('LocalDatabase', () => {
   })
 
   //
-  // Shared Methods
+  // Get
   //
 
   test('getAll calls correct Dexie methods', () => {
@@ -107,14 +109,6 @@ describe('LocalDatabase', () => {
     expect(whereMock).toHaveBeenCalledWith('id')
     expect(equalsIgnoreCaseMock).toHaveBeenCalledWith(testId)
     expect(firstMock).toHaveBeenCalled()
-  })
-
-  test('getByStatus calls correct Dexie methods', () => {
-    db.getByStatus(testTable, 'ARCHIVED')
-    expect(tableMock).toHaveBeenCalledWith(testTable)
-    expect(whereMock).toHaveBeenCalledWith('status')
-    expect(equalsIgnoreCaseMock).toHaveBeenCalledWith('ARCHIVED')
-    expect(toArrayMock).toHaveBeenCalled()
   })
 
   test('getByName calls correct Dexie methods', () => {
@@ -147,6 +141,10 @@ describe('LocalDatabase', () => {
     expect(bulkGetMock).toHaveBeenCalledWith(testIds)
   })
 
+  //
+  // Delete
+  //
+
   test('deleteById calls correct Dexie methods', () => {
     db.deleteById(testTable, testId)
     expect(tableMock).toHaveBeenCalledWith(testTable)
@@ -160,195 +158,30 @@ describe('LocalDatabase', () => {
   })
 
   //
-  // Measurement
+  // Add
   //
 
-  test('addMeasurement calls correct Dexie methods', () => {
-    db.addMeasurement({})
-    expect(tableMock).toHaveBeenCalledWith(Table.MEASUREMENTS)
-    expect(addMock).toHaveBeenCalledWith({})
+  test('add calls correct Dexie methods', () => {
+    db.add(testTable, testData)
+    expect(tableMock).toHaveBeenCalledWith(testTable)
+    expect(addMock).toHaveBeenCalledWith(testData)
   })
 
-  test('bulkAddMeasurements calls correct Dexie methods', () => {
-    db.bulkAddMeasurements(testIds)
-    expect(tableMock).toHaveBeenCalledWith(Table.MEASUREMENTS)
-    expect(bulkAddMock).toHaveBeenCalledWith(testIds)
+  test('bulkAdd calls correct Dexie methods', () => {
+    db.bulkAdd(testTable, testDatas)
+    expect(tableMock).toHaveBeenCalledWith(testTable)
+    expect(bulkAddMock).toHaveBeenCalledWith(testDatas)
   })
 
-  test('updateMeasurementById calls correct Dexie methods', () => {
-    const id = testId
+  //
+  // Update
+  //
+
+  test('updateById calls correct Dexie methods', () => {
     const properties = { name: testName }
-    db.updateMeasurementById(id, properties)
-    expect(tableMock).toHaveBeenCalledWith(Table.MEASUREMENTS)
-    expect(updateMock).toHaveBeenCalledWith(id, properties)
-  })
-
-  //
-  // MeasurementRecord
-  //
-
-  test('addMeasurementRecord calls correct Dexie methods', () => {
-    db.addMeasurementRecord({})
-    expect(tableMock).toHaveBeenCalledWith(Table.MEASUREMENT_RECORDS)
-    expect(addMock).toHaveBeenCalledWith({})
-  })
-
-  test('bulkAddMeasurementRecords calls correct Dexie methods', () => {
-    db.bulkAddMeasurementRecords(testIds)
-    expect(tableMock).toHaveBeenCalledWith(Table.MEASUREMENT_RECORDS)
-    expect(bulkAddMock).toHaveBeenCalledWith(testIds)
-  })
-
-  test('updateMeasurementRecordById calls correct Dexie methods', () => {
-    const id = testId
-    const properties = { name: testName }
-    db.updateMeasurementRecordById(id, properties)
-    expect(tableMock).toHaveBeenCalledWith(Table.MEASUREMENT_RECORDS)
-    expect(updateMock).toHaveBeenCalledWith(id, properties)
-  })
-
-  //
-  // Exercise
-  //
-
-  test('addExercise calls correct Dexie methods', () => {
-    db.addExercise({})
-    expect(tableMock).toHaveBeenCalledWith(Table.EXERCISES)
-    expect(addMock).toHaveBeenCalledWith({})
-  })
-
-  test('bulkAddExercises calls correct Dexie methods', () => {
-    db.bulkAddExercises(testIds)
-    expect(tableMock).toHaveBeenCalledWith(Table.EXERCISES)
-    expect(bulkAddMock).toHaveBeenCalledWith(testIds)
-  })
-
-  test('updateExerciseById calls correct Dexie methods', () => {
-    const id = testId
-    const properties = { name: testName }
-    db.updateExerciseById(id, properties)
-    expect(tableMock).toHaveBeenCalledWith(Table.EXERCISES)
-    expect(updateMock).toHaveBeenCalledWith(id, properties)
-  })
-
-  //
-  // ExerciseRecord
-  //
-
-  test('addExerciseRecord calls correct Dexie methods', () => {
-    db.addExerciseRecord({})
-    expect(tableMock).toHaveBeenCalledWith(Table.EXERCISE_RECORDS)
-    expect(addMock).toHaveBeenCalledWith({})
-  })
-
-  test('bulkAddExerciseRecords calls correct Dexie methods', () => {
-    db.bulkAddExerciseRecords(testIds)
-    expect(tableMock).toHaveBeenCalledWith(Table.EXERCISE_RECORDS)
-    expect(bulkAddMock).toHaveBeenCalledWith(testIds)
-  })
-
-  test('updateExerciseRecordById calls correct Dexie methods', () => {
-    const id = testId
-    const properties = { name: testName }
-    db.updateExerciseRecordById(id, properties)
-    expect(tableMock).toHaveBeenCalledWith(Table.EXERCISE_RECORDS)
-    expect(updateMock).toHaveBeenCalledWith(id, properties)
-  })
-
-  //
-  // Workouts
-  //
-
-  test('addWorkout calls correct Dexie methods', () => {
-    db.addWorkout({})
-    expect(tableMock).toHaveBeenCalledWith(Table.WORKOUTS)
-    expect(addMock).toHaveBeenCalledWith({})
-  })
-
-  test('bulkAddWorkouts calls correct Dexie methods', () => {
-    db.bulkAddWorkouts(testIds)
-    expect(tableMock).toHaveBeenCalledWith(Table.WORKOUTS)
-    expect(bulkAddMock).toHaveBeenCalledWith(testIds)
-  })
-
-  test('updateWorkoutById calls correct Dexie methods', () => {
-    const id = testId
-    const properties = { name: testName }
-    db.updateWorkoutById(id, properties)
-    expect(tableMock).toHaveBeenCalledWith(Table.WORKOUTS)
-    expect(updateMock).toHaveBeenCalledWith(id, properties)
-  })
-
-  //
-  // WorkoutRecord
-  //
-
-  test('addWorkoutRecord calls correct Dexie methods', () => {
-    db.addWorkoutRecord({})
-    expect(tableMock).toHaveBeenCalledWith(Table.WORKOUT_RECORDS)
-    expect(addMock).toHaveBeenCalledWith({})
-  })
-
-  test('bulkAddWorkoutRecords calls correct Dexie methods', () => {
-    db.bulkAddWorkoutRecords(testIds)
-    expect(tableMock).toHaveBeenCalledWith(Table.WORKOUT_RECORDS)
-    expect(bulkAddMock).toHaveBeenCalledWith(testIds)
-  })
-
-  test('updateWorkoutRecordById calls correct Dexie methods', () => {
-    const id = testId
-    const properties = { name: testName }
-    db.updateWorkoutRecordById(id, properties)
-    expect(tableMock).toHaveBeenCalledWith(Table.WORKOUT_RECORDS)
-    expect(updateMock).toHaveBeenCalledWith(id, properties)
-  })
-
-  //
-  // ActiveExercises (ExerciseRecord)
-  //
-
-  test('addActiveExercise calls correct Dexie methods', () => {
-    db.addActiveExercise({})
-    expect(tableMock).toHaveBeenCalledWith(Table.ACTIVE_EXERCISES)
-    expect(addMock).toHaveBeenCalledWith({})
-  })
-
-  test('bulkAddActiveExercises calls correct Dexie methods', () => {
-    db.bulkAddActiveExercises(testIds)
-    expect(tableMock).toHaveBeenCalledWith(Table.ACTIVE_EXERCISES)
-    expect(bulkAddMock).toHaveBeenCalledWith(testIds)
-  })
-
-  test('updateActiveExerciseById calls correct Dexie methods', () => {
-    const id = testId
-    const properties = { name: testName }
-    db.updateActiveExerciseById(id, properties)
-    expect(tableMock).toHaveBeenCalledWith(Table.ACTIVE_EXERCISES)
-    expect(updateMock).toHaveBeenCalledWith(id, properties)
-  })
-
-  //
-  // ActiveWorkouts (WorkoutRecord)
-  //
-
-  test('addActiveWorkout calls correct Dexie methods', () => {
-    db.addActiveWorkout({})
-    expect(tableMock).toHaveBeenCalledWith(Table.ACTIVE_WORKOUTS)
-    expect(addMock).toHaveBeenCalledWith({})
-  })
-
-  test('bulkAddActiveWorkouts calls correct Dexie methods', () => {
-    db.bulkAddActiveWorkouts(testIds)
-    expect(tableMock).toHaveBeenCalledWith(Table.ACTIVE_WORKOUTS)
-    expect(bulkAddMock).toHaveBeenCalledWith(testIds)
-  })
-
-  test('updateActiveWorkoutById calls correct Dexie methods', () => {
-    const id = testId
-    const properties = { name: testName }
-    db.updateActiveWorkoutById(id, properties)
-    expect(tableMock).toHaveBeenCalledWith(Table.ACTIVE_WORKOUTS)
-    expect(updateMock).toHaveBeenCalledWith(id, properties)
+    db.updateById(testTable, testId, properties)
+    expect(tableMock).toHaveBeenCalledWith(testTable)
+    expect(updateMock).toHaveBeenCalledWith(testId, properties)
   })
 
   //
@@ -370,7 +203,7 @@ describe('LocalDatabase', () => {
     }
 
     db.addAppLog(testFullParams)
-    expect(tableMock).toHaveBeenCalledWith(Table.APP_LOGS)
+    expect(tableMock).toHaveBeenCalledWith(DBTable.APP_LOGS)
     expect(addMock).toHaveBeenCalledWith({
       id: expect.any(String),
       createdAt: expect.any(String),

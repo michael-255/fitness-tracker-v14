@@ -4,27 +4,14 @@ Description TBA.
 
 ## Todo
 
-Implement the following:
+- [ ] Determine the following:
 
-- [ ] App clean up and prepwork!
-
-  - [ ] Test `useLocalStorage` and consider removing your service if it's good enough
-  - [ ] Fix tests for `LocalDatabase`
-  - [ ] `Add / Update` input to database workflow
-    - [ ] Get `Id` and `CreatedAt` inputs (DateInput) working completly
-    - [ ] Test adding a record with those inputs
-    - [ ] Test updating a record with those inputs
-  - [ ] Record notes from Typescript/Jest talk into README!
+  - [ ] How do you want to store your dates in the DB?
+  - [ ] How do you want formatted dates to appear?
+  - [ ] Do you want to use `useDateFormat`?
 
 - [ ] Build out core `Input` components
 
-  - [x] `Id`
-  - [x] `Name`
-  - [ ] `DateInput` (createdAt & finishedAt)
-    - [ ] Component setup (isNullable prop)
-    - [ ] Date picker
-    - [ ] Time picker
-    - [ ] Validators with error strings
   - [ ] `TextBlockInput` (description & note)
     - [ ] Component setup
     - [ ] Textarea
@@ -137,6 +124,26 @@ Implement the following:
   - [ ] Fitness data importer/exporter
   - [ ] Validators for LocalDatabase creates and edits
 - [ ] `LAST!!!` Flesh out app theme/design elements
+
+## Notes from Jest Talk
+
+- ts-jest
+- JestConfig
+  - Coverage Reports
+  - Max concurrency
+- package.json > args = `--watch --verbose --silent`
+  - silent means no console logs
+- Typescript: `Partial<T>`
+- Jest object comparison using `.toStrictEqual(...)`
+- `npx jest` vs `npm jest`
+- Process: `Given` > `When` > `Then`
+- Jest coverageThreshold \*
+- Setup TS info for mock
+  - jest.mock('...')
+- use `as const` to see extra TS info
+- aws-sdk-client-mock (v3)
+  - mockClient(...) <- S3, etc.
+- Example repo: `swftdev/typescript-testing`
 
 ## Ideas
 
