@@ -46,6 +46,7 @@ function removeSet() {
  * - May have to create refs in an array if you add sets
  * - Build an ExerciseSetItemInput.vue component
  * - Figure out how to organize the inputs in the layout
+ * - Use inputs or a table for sets??? <--IMPORTANT
  */
 
 const text: Ref<number> = ref(0)

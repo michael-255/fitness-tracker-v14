@@ -45,14 +45,14 @@ export function useImportExport() {
 
       logger.log(fitnessData)
 
-      await database.bulkAddMeasurements(fitnessData?.measurements)
-      await database.bulkAddExercises(fitnessData?.exercises)
-      await database.bulkAddWorkouts(fitnessData?.workouts)
-      await database.bulkAddMeasurementRecords(fitnessData?.measurementRecords)
-      await database.bulkAddExerciseRecords(fitnessData?.exerciseRecords)
-      await database.bulkAddWorkoutRecords(fitnessData?.workoutRecords)
-      await database.bulkAddActiveExercises(fitnessData?.activeExercises)
-      await database.bulkAddActiveWorkouts(fitnessData?.activeWorkouts)
+      await database.bulkAdd(DBTable.MEASUREMENTS, fitnessData?.measurements)
+      await database.bulkAdd(DBTable.EXERCISES, fitnessData?.exercises)
+      await database.bulkAdd(DBTable.WORKOUTS, fitnessData?.workouts)
+      await database.bulkAdd(DBTable.MEASUREMENT_RECORDS, fitnessData?.measurementRecords)
+      await database.bulkAdd(DBTable.EXERCISE_RECORDS, fitnessData?.exerciseRecords)
+      await database.bulkAdd(DBTable.WORKOUT_RECORDS, fitnessData?.workoutRecords)
+      await database.bulkAdd(DBTable.ACTIVE_EXERCISES, fitnessData?.activeExercises)
+      await database.bulkAdd(DBTable.ACTIVE_WORKOUTS, fitnessData?.activeWorkouts)
     } catch (error) {
       silentLog({ error, level: LogLevel.ERROR, name: 'importData' })
     }

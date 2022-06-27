@@ -1,4 +1,4 @@
-import { LogLevel } from '@/constants/enums'
+import { DBTable, LogLevel } from '@/constants/enums'
 import { defaults } from '@/services/DefaultsGenerator'
 import { database } from '@/services/LocalDatabase'
 import { useAppLogger } from './useAppLogger'
@@ -11,9 +11,9 @@ export function useDefaults() {
       const measurements = await defaults.generateMeasurements()
       const exercises = await defaults.generateExercises()
       const workouts = await defaults.generateWorkouts()
-      await database.bulkAddMeasurements(measurements)
-      await database.bulkAddExercises(exercises)
-      await database.bulkAddWorkouts(workouts)
+      await database.bulkAdd(DBTable.MEASUREMENTS, measurements)
+      await database.bulkAdd(DBTable.EXERCISES, exercises)
+      await database.bulkAdd(DBTable.WORKOUTS, workouts)
     } catch (error) {
       silentLog({ error, level: LogLevel.ERROR, name: 'loadAllDefaults' })
     }
@@ -22,7 +22,7 @@ export function useDefaults() {
   async function loadMeasurements() {
     try {
       const measurements = await defaults.generateMeasurements()
-      await database.bulkAddMeasurements(measurements)
+      await database.bulkAdd(DBTable.MEASUREMENTS, measurements)
     } catch (error) {
       silentLog({ error, level: LogLevel.ERROR, name: 'loadMeasurements' })
     }
@@ -31,7 +31,7 @@ export function useDefaults() {
   async function loadExercises() {
     try {
       const exercises = await defaults.generateExercises()
-      await database.bulkAddExercises(exercises)
+      await database.bulkAdd(DBTable.EXERCISES, exercises)
     } catch (error) {
       silentLog({ error, level: LogLevel.ERROR, name: 'loadExercises' })
     }
@@ -40,7 +40,7 @@ export function useDefaults() {
   async function loadWorkouts() {
     try {
       const workouts = await defaults.generateWorkouts()
-      await database.bulkAddWorkouts(workouts)
+      await database.bulkAdd(DBTable.WORKOUTS, workouts)
     } catch (error) {
       silentLog({ error, level: LogLevel.ERROR, name: 'loadWorkouts' })
     }
