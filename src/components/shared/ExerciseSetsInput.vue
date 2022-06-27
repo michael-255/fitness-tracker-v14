@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { QInput, QIcon } from 'quasar'
 import type { ExerciseSet, TrackBoolean } from '@/constants/types'
 import { useVModel } from '@vueuse/core'
+import { ref, type Ref } from 'vue'
 
 /**
  * @example
@@ -25,14 +27,70 @@ const exerciseSets = useVModel(props, 'exerciseSets', emits)
 
 /**
  * @todo
- * Booleans control what shows up and if you can add sets!
+ * - Booleans control what shows up and if you can add sets
+ * - May have to create refs in an array if you add sets
+ * - Build an ExerciseSetItemInput.vue component
+ * - Figure out how to organize the inputs in the layout
  */
+
+const text: Ref<number> = ref(0)
 </script>
 
 <template>
-  <div v-if="trackMultipleSets">trackMultipleSets</div>
-  <div v-if="trackDuration">trackDuration</div>
-  <div v-if="trackDistance">trackDistance</div>
-  <div v-if="trackWeight">trackWeight</div>
-  <div v-if="trackReps">trackReps</div>
+  <QInput
+    v-if="trackDuration"
+    v-model.number="text"
+    label="Duration"
+    type="number"
+    dense
+    outlined
+    color="primary"
+    style="max-width: 120px"
+  >
+    <template v-slot:prepend>
+      <QIcon name="event" />
+    </template>
+  </QInput>
+  <QInput
+    v-if="trackDistance"
+    v-model.number="text"
+    label="Distance"
+    type="number"
+    dense
+    outlined
+    color="primary"
+    style="max-width: 120px"
+  >
+    <template v-slot:prepend>
+      <QIcon name="event" />
+    </template>
+  </QInput>
+  <QInput
+    v-if="trackWeight"
+    v-model.number="text"
+    label="Weight"
+    type="number"
+    dense
+    outlined
+    color="primary"
+    style="max-width: 120px"
+  >
+    <template v-slot:prepend>
+      <QIcon name="event" />
+    </template>
+  </QInput>
+  <QInput
+    v-if="trackReps"
+    v-model.number="text"
+    label="Reps"
+    type="number"
+    dense
+    outlined
+    color="primary"
+    style="max-width: 120px"
+  >
+    <template v-slot:prepend>
+      <QIcon name="event" />
+    </template>
+  </QInput>
 </template>
