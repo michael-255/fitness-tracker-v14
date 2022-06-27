@@ -11,7 +11,7 @@ import ExerciseRecordIdsInput from '@/components/shared/ExerciseRecordIdsInput.v
 import TrackBooleanInput from '@/components/shared/TrackBooleanInput.vue'
 import ExerciseSetsInput from '@/components/shared/ExerciseSetsInput.vue'
 import { ref, type Ref } from 'vue'
-import { createId } from '@/utils/build-id'
+import { v4 as createId } from 'uuid'
 import type {
   Id,
   CreatedAt,

@@ -22,6 +22,11 @@ const emits = defineEmits<{
 }>()
 
 const exerciseSets = useVModel(props, 'exerciseSets', emits)
+
+/**
+ * @todo
+ * Booleans control what shows up and if you can add sets!
+ */
 </script>
 
 <template>
@@ -30,19 +35,4 @@ const exerciseSets = useVModel(props, 'exerciseSets', emits)
   <div v-if="trackDistance">trackDistance</div>
   <div v-if="trackWeight">trackWeight</div>
   <div v-if="trackReps">trackReps</div>
-  <!-- <QInput
-    v-model="exerciseSets"
-    label="Id"
-    :rules="[
-      (val: string) => isIdValid(val) || ValidationMessage.ID,
-    ]"
-    :maxlength="ValidationLimit.ID"
-    dense
-    outlined
-    color="primary"
-  >
-    <template v-slot:after>
-      <QBtn icon="autorenew" color="primary" class="q-ml-xs q-px-sm" @click="id = createId()" />
-    </template>
-  </QInput> -->
 </template>

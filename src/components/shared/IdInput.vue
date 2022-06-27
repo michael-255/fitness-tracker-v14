@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { QInput } from 'quasar'
-import { createId } from '@/utils/build-id'
+import { v4 as createId } from 'uuid'
 import { ValidationLimit, ValidationMessage, isIdValid } from '@/utils/validators'
 import type { Id } from '@/constants/types'
 import { useVModel } from '@vueuse/core'
 
 /**
  * @example
- * Script: const id: Ref<Id> = ref(createId())
+ * Script: const id: Ref<Id> = ref('')
  * Template: <IdInput :id="id" @update:id="id = $event" />
  */
 

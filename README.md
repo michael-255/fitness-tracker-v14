@@ -6,25 +6,9 @@ Description TBA.
 
 - [ ] Build out core `Input` components
 
-  - [ ] `TextBlockInput` (description & note)
-    - [ ] Component setup
-    - [ ] Textarea
-    - [ ] Validators with error strings
-  - [ ] `ParentId`
-    - [ ] Component setup
-    - [ ] Select box (Alpha sorted Activities with Id)
-    - [ ] Validators with error strings
-  - [ ] `TrackBoolean`
-    - [ ] Component setup
-    - [ ] Toggle
-    - [ ] Validators with error strings
-  - [ ] `RecordNumber`
-    - [ ] Component setup
-    - [ ] Input field (number)
-    - [ ] Validators with error strings
   - [ ] `ExerciseSet`
     - [ ] Component setup
-    - [ ] Control based on trackMultipleSets
+    - [ ] Control based on Track Booleans
 
 - [ ] Global `Dialogs` (less repeated code)
 

@@ -1,6 +1,6 @@
 import type { Id, CreatedAt } from '@/constants/types'
 import type { IEntity } from '@/constants/interfaces'
-import { createId } from '@/utils/build-id'
+import { v4 as createId } from 'uuid'
 
 /**
  * _Entity Class
