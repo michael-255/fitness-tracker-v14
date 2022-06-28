@@ -3,15 +3,15 @@ import { Measurement } from '@/models/Measurement'
 
 const inputKeys = Object.keys(new Measurement())
 /*
- * @arg obj.id (Inherited)
- * @arg obj.createdAt (Inherited)
- * @arg obj.name (Inherited)
- * @arg obj.description (Inherited)
- * @arg obj.status (Inherited)
- * @arg obj.trackLbs
- * @arg obj.trackInches
- * @arg obj.trackFeet
- * @arg obj.trackPercent
+ * @param obj.id (Inherited)
+ * @param obj.createdAt (Inherited)
+ * @param obj.name (Inherited)
+ * @param obj.description (Inherited)
+ * @param obj.status (Inherited)
+ * @param obj.trackLbs
+ * @param obj.trackInches
+ * @param obj.trackFeet
+ * @param obj.trackPercent
  */
 </script>
 

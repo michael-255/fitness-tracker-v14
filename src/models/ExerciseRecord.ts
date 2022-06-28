@@ -11,11 +11,11 @@ export const exerciseRecordTableIndices = Object.freeze({
 
 /**
  * ExerciseRecord Class
- * @arg obj.id (Inherited)
- * @arg obj.createdAt (Inherited)
- * @arg obj.parentId (Inherited)
- * @arg obj.note (Inherited)
- * @arg obj.sets
+ * @param obj.id (Inherited)
+ * @param obj.createdAt (Inherited)
+ * @param obj.parentId (Inherited)
+ * @param obj.note (Inherited)
+ * @param obj.sets
  */
 export class ExerciseRecord extends _Record {
   sets: ExerciseSet[]

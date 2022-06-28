@@ -12,12 +12,12 @@ export const workoutRecordTableIndices = Object.freeze({
 
 /**
  * WorkoutRecord Class
- * @arg obj.id (Inherited)
- * @arg obj.createdAt (Inherited)
- * @arg obj.parentId (Inherited)
- * @arg obj.note (Inherited)
- * @arg obj.finishedAt
- * @arg obj.exerciseRecordIds
+ * @param obj.id (Inherited)
+ * @param obj.createdAt (Inherited)
+ * @param obj.parentId (Inherited)
+ * @param obj.note (Inherited)
+ * @param obj.finishedAt
+ * @param obj.exerciseRecordIds
  */
 export class WorkoutRecord extends _Record {
   finishedAt: FinishedAt

@@ -8,15 +8,15 @@ export const exerciseTableIndices = Object.freeze({ [DBTable.EXERCISES]: '&id, n
 
 /**
  * Exercise Class
- * @arg obj.id (Inherited)
- * @arg obj.createdAt (Inherited)
- * @arg obj.name (Inherited)
- * @arg obj.description (Inherited)
- * @arg obj.trackMultipleSets
- * @arg obj.trackDuration
- * @arg obj.trackDistance
- * @arg obj.trackWeight
- * @arg obj.trackReps
+ * @param obj.id (Inherited)
+ * @param obj.createdAt (Inherited)
+ * @param obj.name (Inherited)
+ * @param obj.description (Inherited)
+ * @param obj.trackMultipleSets
+ * @param obj.trackDuration
+ * @param obj.trackDistance
+ * @param obj.trackWeight
+ * @param obj.trackReps
  */
 export class Exercise extends _Activity {
   trackMultipleSets: TrackBoolean

@@ -6,7 +6,7 @@ type StyleProps = {
 
 /**
  * Logger that adds some style to your console.
- * @arg name Logger name appearing in the console
+ * @param name Logger name appearing in the console
  */
 export class Logger {
   private name: string

@@ -8,11 +8,11 @@ export const workoutTableIndices = Object.freeze({ [DBTable.WORKOUTS]: '&id, nam
 
 /**
  * Workout Class
- * @arg obj.id (Inherited)
- * @arg obj.createdAt (Inherited)
- * @arg obj.name (Inherited)
- * @arg obj.description (Inherited)
- * @arg obj.exerciseIds
+ * @param obj.id (Inherited)
+ * @param obj.createdAt (Inherited)
+ * @param obj.name (Inherited)
+ * @param obj.description (Inherited)
+ * @param obj.exerciseIds
  */
 export class Workout extends _Activity {
   exerciseIds: Id[]

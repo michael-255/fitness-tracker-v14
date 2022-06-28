@@ -7,10 +7,10 @@ export const appLogTableIndices = Object.freeze({ [DBTable.APP_LOGS]: '&id, crea
 
 /**
  * AppLog Class
- * @arg obj.error Error object (or any since it's unknown)
- * @arg obj.level Severity level of this log
- * @arg obj.name Name of caller (normally the function name)
- * @arg obj.details Optional - Additional string with information about the event (str:str:str)
+ * @param obj.error Error object (or any since it's unknown)
+ * @param obj.level Severity level of this log
+ * @param obj.name Name of caller (normally the function name)
+ * @param obj.details Optional - Additional string with information about the event (str:str:str)
  */
 export class AppLog extends _Entity {
   level: LogLevel

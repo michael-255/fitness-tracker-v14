@@ -10,14 +10,14 @@ export const measurementTableIndices = Object.freeze({
 
 /**
  * Measurement Class
- * @arg obj.id (Inherited)
- * @arg obj.createdAt (Inherited)
- * @arg obj.name (Inherited)
- * @arg obj.description (Inherited)
- * @arg obj.trackLbs
- * @arg obj.trackInches
- * @arg obj.trackFeet
- * @arg obj.trackPercent
+ * @param obj.id (Inherited)
+ * @param obj.createdAt (Inherited)
+ * @param obj.name (Inherited)
+ * @param obj.description (Inherited)
+ * @param obj.trackLbs
+ * @param obj.trackInches
+ * @param obj.trackFeet
+ * @param obj.trackPercent
  */
 export class Measurement extends _Activity {
   trackLbs: TrackBoolean

@@ -10,12 +10,12 @@ export const measurementRecordTableIndices = Object.freeze({
 
 /**
  * MeasurementRecord Class
- * @arg obj.id (Inherited)
- * @arg obj.createdAt (Inherited)
- * @arg obj.parentId (Inherited)
- * @arg obj.note (Inherited)
- * @arg obj.lbs
- * @arg obj.inches
+ * @param obj.id (Inherited)
+ * @param obj.createdAt (Inherited)
+ * @param obj.parentId (Inherited)
+ * @param obj.note (Inherited)
+ * @param obj.lbs
+ * @param obj.inches
  */
 export class MeasurementRecord extends _Record {
   lbs: RecordNumber

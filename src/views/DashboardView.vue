@@ -23,6 +23,8 @@ import type {
 } from '@/constants/types'
 import { useLuxon } from '@/use/useLuxon'
 import { DBTable } from '@/constants/enums'
+import { database } from '@/services/LocalDatabase'
+import type { Workout } from '@/models/Workout'
 
 const { dateISOToDisplay } = useLuxon()
 
@@ -45,6 +47,9 @@ const trackReps: Ref<TrackBoolean> = ref(false)
 const exerciseSets: Ref<ExerciseSet[]> = ref([])
 
 async function test() {
+  const res = await database.updateById(DBTable.WORKOUTS, 'test-1234', null)
+  console.log('RESPONSE:', res)
+
   console.log(id.value)
   console.log(createdAt.value)
   console.log(finishedAt.value)

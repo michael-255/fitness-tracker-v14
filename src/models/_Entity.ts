@@ -4,8 +4,8 @@ import { v4 as createId } from 'uuid'
 
 /**
  * _Entity Class
- * @arg obj.id
- * @arg obj.createdAt
+ * @param obj.id
+ * @param obj.createdAt
  */
 export class _Entity {
   id: Id

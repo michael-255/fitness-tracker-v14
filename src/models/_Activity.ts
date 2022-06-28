@@ -4,10 +4,10 @@ import { _Entity } from '@/models/_Entity'
 
 /**
  * _Activity Class
- * @arg obj.id (Inherited)
- * @arg obj.createdAt (Inherited)
- * @arg obj.name
- * @arg obj.description
+ * @param obj.id (Inherited)
+ * @param obj.createdAt (Inherited)
+ * @param obj.name
+ * @param obj.description
  */
 export class _Activity extends _Entity {
   name: ActivityName

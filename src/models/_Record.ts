@@ -4,10 +4,10 @@ import { _Entity } from '@/models/_Entity'
 
 /**
  * _Record Class
- * @arg obj.id (Inherited)
- * @arg obj.createdAt (Inherited)
- * @arg obj.parentId
- * @arg obj.note
+ * @param obj.id (Inherited)
+ * @param obj.createdAt (Inherited)
+ * @param obj.parentId
+ * @param obj.note
  */
 export class _Record extends _Entity {
   parentId: Id
