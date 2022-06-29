@@ -6,6 +6,7 @@ import { logger } from '@/services/Logger'
 import { ref } from 'vue'
 import { useAppLogger } from './useAppLogger'
 import { LogLevel } from '@/constants/enums'
+import type { IMeasurement } from '@/constants/interfaces'
 
 const { silentLog } = useAppLogger()
 
@@ -45,7 +46,7 @@ export function useImportExport() {
 
       logger.log(fitnessData)
 
-      await database.bulkAdd(DBTable.MEASUREMENTS, fitnessData?.measurements)
+      await database.bulkAdd<IMeasurement>(DBTable.MEASUREMENTS, fitnessData?.measurements)
       await database.bulkAdd(DBTable.EXERCISES, fitnessData?.exercises)
       await database.bulkAdd(DBTable.WORKOUTS, fitnessData?.workouts)
       await database.bulkAdd(DBTable.MEASUREMENT_RECORDS, fitnessData?.measurementRecords)

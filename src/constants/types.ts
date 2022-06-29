@@ -1,6 +1,4 @@
 import type { LogLevel } from '@/constants/enums'
-import type { Exercise } from '@/models/Exercise'
-import type { IExercise } from './interfaces'
 
 export type Nullable<T> = T | null
 

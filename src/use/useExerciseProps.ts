@@ -26,7 +26,7 @@ export function useExerciseProps(exerciseId?: Id): any {
   })
 
   async function setExerciseRefs(exerciseId: Id) {
-    const exercise: Exercise | undefined = await database.getById(DBTable.EXERCISES, exerciseId)
+    const exercise = await database.getById<Exercise>(DBTable.EXERCISES, exerciseId)
 
     if (exercise) {
       e_id.value = exercise.id

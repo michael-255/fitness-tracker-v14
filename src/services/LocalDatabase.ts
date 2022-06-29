@@ -1,7 +1,5 @@
 import Dexie, { type IndexableType, type Table } from 'dexie'
 import type {
-  IActivity,
-  IRecord,
   IAppLog,
   IMeasurement,
   IExercise,
@@ -10,7 +8,7 @@ import type {
   IExerciseRecord,
   IWorkoutRecord,
 } from '@/constants/interfaces'
-import type { Id, AppLogParams, ActivityName } from '@/constants/types'
+import type { Id, ActivityName } from '@/constants/types'
 import { DBTable } from '@/constants/enums'
 import { Measurement, measurementTableIndices } from '@/models/Measurement'
 import { Exercise, exerciseTableIndices } from '@/models/Exercise'
@@ -60,101 +58,116 @@ export class LocalDatabase extends Dexie {
     this[DBTable.APP_LOGS].mapToClass(AppLog)
   }
 
-  //
-  // Get
-  //
-
+  /**
+   * Get all items from table.
+   * @param table
+   * @returns Array of all table items
+   */
   async getAll<T>(table: DBTable): Promise<T[]> {
     return await this.table(table).toArray()
   }
 
+  /**
+   * Get item from table by id.
+   * @param table
+   * @param id
+   * @returns Single item or undefined
+   */
   async getById<T>(table: DBTable, id: Id): Promise<T | undefined> {
     return await this.table(table).where('id').equalsIgnoreCase(id).first()
   }
 
   /**
-   * @todo Confirm if interface is okay
+   * Get Activities from table by name.
+   * @param table
+   * @param name
+   * @returns Array of Activities
    */
-  async getByName(table: DBTable, name: ActivityName): Promise<IActivity[]> {
+  async getByName<T>(table: DBTable, name: ActivityName): Promise<T[]> {
     return await this.table(table).where('name').equalsIgnoreCase(name).toArray()
   }
 
   /**
-   * @todo Confirm if interface is okay
+   * Get Records from table by parentId.
+   * @param table
+   * @param parentId
+   * @returns Array of Records
    */
-  async getByParentId(table: DBTable, parentId: Id): Promise<IRecord[]> {
+  async getByParentId<T>(table: DBTable, parentId: Id): Promise<T[]> {
     return await this.table(table).where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
   }
 
   /**
-   * @todo Confirm if interface is okay
+   * Get newest Records from table by parentId.
+   * @param table
+   * @param parentId
+   * @returns Newest Record or undefined
    */
-  async getNewestByParentId(table: DBTable, parentId: Id): Promise<IRecord | undefined> {
+  async getNewestByParentId<T>(table: DBTable, parentId: Id): Promise<T | undefined> {
     return (
       await this.table(table).where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
     ).reverse()[0]
   }
 
   /**
-   * @todo CONFIRM as T[] still needed
+   * Get items from table by array of ids.
    * @param table
    * @param ids
-   * @returns
+   * @returns Array of items
    */
   async bulkGetByIds<T>(table: DBTable, ids: Id[]): Promise<T[]> {
-    // Filters out falsy values and casts the result type
-    return (await this.table(table).bulkGet(ids)).filter(Boolean) as T[]
+    // Filters out falsy values
+    return (await this.table(table).bulkGet(ids)).filter(Boolean)
   }
 
-  //
-  // Delete
-  //
-
   /**
-   * @todo FIX TESTS
-   *
    * Delete item in table by id.
    * @param table
    * @param id
-   * @returns item that was deleted or undefined
+   * @returns undefined even if nothing was deleted
    */
   async deleteById<T>(table: DBTable, id: Id): Promise<T | undefined> {
-    const itemToDelete: T | undefined = await database.getById(table, id)
+    const itemToDelete: T | undefined = await this.table(table)
+      .where('id')
+      .equalsIgnoreCase(id)
+      .first()
 
     if (itemToDelete) {
-      await database.deleteById<T>(table, id)
+      await this.table(table).delete(id)
       return itemToDelete
     } else {
       return undefined
     }
-    // return await this.table(table).delete(id)
   }
 
+  /**
+   * Clears all items from table.
+   * @param table
+   * @returns undefined
+   */
   async clear(table: DBTable): Promise<void> {
     return await this.table(table).clear()
   }
 
-  //
-  // Add
-  //
-
   /**
-   * Add item to database table.
+   * Add item to table.
    * @param table
    * @param item
-   * @returns id of the new item
+   * @returns Id of new item
    */
   async add<T>(table: DBTable, item: T): Promise<IndexableType> {
     return await this.table(table).add(item)
   }
 
-  async bulkAdd<T>(table: DBTable, items: T[]): Promise<IndexableType> {
-    return await this.table(table).bulkAdd(items)
+  /**
+   * Add items to table.
+   * @param table
+   * @param items
+   * @returns Array of new item ids
+   */
+  async bulkAdd<T>(table: DBTable, items: T[]): Promise<IndexableType[]> {
+    return await this.table(table).bulkAdd(items, { allKeys: true })
   }
-
-  //
-  // Update
-  //
 
   /**
    * Update provided properties on table item by id.
@@ -165,17 +178,6 @@ export class LocalDatabase extends Dexie {
    */
   async updateById<T>(table: DBTable, id: Id, properties: T): Promise<IndexableType> {
     return await this.table(table).update(id, properties)
-  }
-
-  //
-  // AppLogs
-  //
-
-  /**
-   * @todo This won't be needed anymore
-   */
-  async addAppLog(params: AppLogParams): Promise<IndexableType> {
-    return await this.table(DBTable.APP_LOGS).add(new AppLog(params))
   }
 }
 

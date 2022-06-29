@@ -1,10 +1,23 @@
 import { database } from '@/services/LocalDatabase'
 import { logger } from '@/services/Logger'
 import { DEBUG } from '@/constants/globals'
-import { LogLevel } from '@/constants/enums'
+import { DBTable, LogLevel } from '@/constants/enums'
 import type { AppLogParams } from '@/constants/types'
+import { AppLog } from '@/models/AppLog'
 
+/**
+ * @todo Comments and tests maybe!
+ * @returns
+ */
 export function useAppLogger() {
+  /**
+   *
+   * @param params
+   */
+  async function addAppLog(params: AppLogParams): Promise<void> {
+    await database.add(DBTable.APP_LOGS, new AppLog(params))
+  }
+
   /**
    * This function isn't meant to be used outside of this composable
    */
@@ -31,7 +44,7 @@ export function useAppLogger() {
    */
   async function silentLog(params: AppLogParams): Promise<void> {
     consoleLog(params)
-    await database.addAppLog(params)
+    await addAppLog(params)
   }
 
   /**
@@ -40,7 +53,7 @@ export function useAppLogger() {
    */
   async function alertLog(params: AppLogParams): Promise<void> {
     consoleLog(params)
-    await database.addAppLog(params)
+    await addAppLog(params)
     // Alert...
   }
 
