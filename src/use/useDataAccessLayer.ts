@@ -10,12 +10,12 @@ import type { ExerciseRecord } from '@/models/ExerciseRecord'
 import type { WorkoutRecord } from '@/models/WorkoutRecord'
 import type { AppLog } from '@/models/AppLog'
 import type {
-  IExercise,
-  IExerciseRecord,
-  IMeasurement,
-  IMeasurementRecord,
-  IWorkout,
-  IWorkoutRecord,
+  ExerciseObject,
+  ExerciseRecordObject,
+  MeasurementObject,
+  MeasurementRecordObject,
+  WorkoutObject,
+  WorkoutRecordObject,
 } from '@/constants/interfaces'
 
 /**
@@ -206,23 +206,26 @@ export function useDataAccessLayer() {
   // Update (AppLog is omitted)
   //
 
-  async function updateMeasurementById(id: Id, properties: IMeasurement): Promise<IndexableType> {
-    return await database.updateById<IMeasurement>(DBTable.MEASUREMENTS, id, properties)
+  async function updateMeasurementById(
+    id: Id,
+    properties: MeasurementObject
+  ): Promise<IndexableType> {
+    return await database.updateById<MeasurementObject>(DBTable.MEASUREMENTS, id, properties)
   }
 
-  async function updateExerciseById(id: Id, properties: IExercise): Promise<IndexableType> {
-    return await database.updateById<IExercise>(DBTable.EXERCISES, id, properties)
+  async function updateExerciseById(id: Id, properties: ExerciseObject): Promise<IndexableType> {
+    return await database.updateById<ExerciseObject>(DBTable.EXERCISES, id, properties)
   }
 
-  async function updateWorkoutById(id: Id, properties: IWorkout): Promise<IndexableType> {
-    return await database.updateById<IWorkout>(DBTable.WORKOUTS, id, properties)
+  async function updateWorkoutById(id: Id, properties: WorkoutObject): Promise<IndexableType> {
+    return await database.updateById<WorkoutObject>(DBTable.WORKOUTS, id, properties)
   }
 
   async function updateMeasurementRecordById(
     id: Id,
-    properties: IMeasurementRecord
+    properties: MeasurementRecordObject
   ): Promise<IndexableType> {
-    return await database.updateById<IMeasurementRecord>(
+    return await database.updateById<MeasurementRecordObject>(
       DBTable.MEASUREMENT_RECORDS,
       id,
       properties
@@ -231,30 +234,30 @@ export function useDataAccessLayer() {
 
   async function updateExerciseRecordById(
     id: Id,
-    properties: IExerciseRecord
+    properties: ExerciseRecordObject
   ): Promise<IndexableType> {
-    return await database.updateById<IExerciseRecord>(DBTable.EXERCISE_RECORDS, id, properties)
+    return await database.updateById<ExerciseRecordObject>(DBTable.EXERCISE_RECORDS, id, properties)
   }
 
   async function updateWorkoutRecordById(
     id: Id,
-    properties: IWorkoutRecord
+    properties: WorkoutRecordObject
   ): Promise<IndexableType> {
-    return await database.updateById<IWorkoutRecord>(DBTable.WORKOUT_RECORDS, id, properties)
+    return await database.updateById<WorkoutRecordObject>(DBTable.WORKOUT_RECORDS, id, properties)
   }
 
   async function updateActiveExerciseById(
     id: Id,
-    properties: IExerciseRecord
+    properties: ExerciseRecordObject
   ): Promise<IndexableType> {
-    return await database.updateById<IExerciseRecord>(DBTable.ACTIVE_EXERCISES, id, properties)
+    return await database.updateById<ExerciseRecordObject>(DBTable.ACTIVE_EXERCISES, id, properties)
   }
 
   async function updateActiveWorkoutById(
     id: Id,
-    properties: IWorkoutRecord
+    properties: WorkoutRecordObject
   ): Promise<IndexableType> {
-    return await database.updateById<IWorkoutRecord>(DBTable.ACTIVE_WORKOUTS, id, properties)
+    return await database.updateById<WorkoutRecordObject>(DBTable.ACTIVE_WORKOUTS, id, properties)
   }
 
   return {

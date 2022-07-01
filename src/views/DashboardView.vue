@@ -23,6 +23,7 @@ import type {
 } from '@/constants/types'
 import { useLuxon } from '@/use/useLuxon'
 import { DBTable } from '@/constants/enums'
+import PageTableVue from '@/components/PageTable/PageTable.vue'
 
 const { dateISOToDisplay } = useLuxon()
 
@@ -66,7 +67,7 @@ async function test() {
 
   <QBtn color="primary" label="Print" @click="test()" />
 
-  <IdInput :id="id" @update:id="id = $event" />
+  <!-- <IdInput :id="id" @update:id="id = $event" />
   <CreatedAtInput :createdAt="createdAt" @update:createdAt="createdAt = $event" />
   <FinishedAtInput :finishedAt="finishedAt" @update:finishedAt="finishedAt = $event" />
   <NameInput :name="name" @update:name="name = $event" />
@@ -101,5 +102,7 @@ async function test() {
     :trackWeight="trackWeight"
     :trackReps="trackReps"
     @update:exerciseSets="exerciseSets = $event"
-  />
+  /> -->
+
+  <PageTableVue />
 </template>

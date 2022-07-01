@@ -1,47 +1,28 @@
 import type {
-  IAppLog,
-  IExercise,
-  IExerciseRecord,
-  IMeasurement,
-  IMeasurementRecord,
-  IWorkout,
-  IWorkoutRecord,
+  FitnessDataObject,
+  AppLogObject,
+  ExerciseObject,
+  ExerciseRecordObject,
+  MeasurementObject,
+  MeasurementRecordObject,
+  WorkoutObject,
+  WorkoutRecordObject,
 } from '@/constants/interfaces'
-
-export interface IFitnessData {
-  measurements?: IMeasurement[]
-  exercises?: IExercise[]
-  workouts?: IWorkout[]
-  measurementRecords?: IMeasurementRecord[]
-  exerciseRecords?: IExerciseRecord[]
-  workoutRecords?: IWorkoutRecord[]
-  activeExercises?: IExerciseRecord[]
-  activeWorkouts?: IWorkoutRecord[]
-  appLogs?: IAppLog[]
-}
 
 /**
  * FitnessData Class
- * @param obj.measurements
- * @param obj.exercises
- * @param obj.workouts
- * @param obj.measurementRecords
- * @param obj.exerciseRecords
- * @param obj.workoutRecords
- * @param obj.activeExercises
- * @param obj.activeWorkouts
- * @param obj.appLogs
+ * @param obj FitnessDataObject
  */
 export class FitnessData {
-  measurements: IMeasurement[]
-  exercises: IExercise[]
-  workouts: IWorkout[]
-  measurementRecords: IMeasurementRecord[]
-  exerciseRecords: IExerciseRecord[]
-  workoutRecords: IWorkoutRecord[]
-  activeExercises: IExerciseRecord[]
-  activeWorkouts: IWorkoutRecord[]
-  appLogs: IAppLog[]
+  protected measurements: MeasurementObject[]
+  protected exercises: ExerciseObject[]
+  protected workouts: WorkoutObject[]
+  protected measurementRecords: MeasurementRecordObject[]
+  protected exerciseRecords: ExerciseRecordObject[]
+  protected workoutRecords: WorkoutRecordObject[]
+  protected activeExercises: ExerciseRecordObject[]
+  protected activeWorkouts: WorkoutRecordObject[]
+  protected appLogs: AppLogObject[]
 
   constructor({
     measurements = [],
@@ -53,7 +34,7 @@ export class FitnessData {
     activeExercises = [],
     activeWorkouts = [],
     appLogs = [],
-  }: IFitnessData = {}) {
+  }: FitnessDataObject = {}) {
     this.measurements = measurements
     this.exercises = exercises
     this.workouts = workouts

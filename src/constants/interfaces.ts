@@ -10,26 +10,28 @@ import type {
 } from '@/constants/types'
 import type { LogLevel } from '@/constants/enums'
 
+// Database storage object interfaces
+
 // Entities
-export interface IEntity {
+export interface EntityObject {
   id?: Id
   createdAt?: CreatedAt
 }
 
 // Activities
-export interface IActivity extends IEntity {
+export interface ActivityObject extends EntityObject {
   name?: ActivityName
   description?: TextBlock
 }
 
-export interface IMeasurement extends IActivity {
+export interface MeasurementObject extends ActivityObject {
   trackLbs?: TrackBoolean
   trackInches?: TrackBoolean
   trackFeet?: TrackBoolean
   trackPercent?: TrackBoolean
 }
 
-export interface IExercise extends IActivity {
+export interface ExerciseObject extends ActivityObject {
   trackMultipleSets?: TrackBoolean
   trackDuration?: TrackBoolean
   trackDistance?: TrackBoolean
@@ -37,36 +39,48 @@ export interface IExercise extends IActivity {
   trackReps?: TrackBoolean
 }
 
-export interface IWorkout extends IActivity {
+export interface WorkoutObject extends ActivityObject {
   exerciseIds?: Id[]
 }
 
 // Records
-export interface IRecord extends IEntity {
+export interface RecordObject extends EntityObject {
   parentId?: Id
   note?: TextBlock
 }
 
-export interface IMeasurementRecord extends IRecord {
+export interface MeasurementRecordObject extends RecordObject {
   lbs?: RecordNumber
   inches?: RecordNumber
 }
 
-export interface IExerciseRecord extends IRecord {
+export interface ExerciseRecordObject extends RecordObject {
   sets?: ExerciseSet[]
 }
 
-export interface IWorkoutRecord extends IRecord {
+export interface WorkoutRecordObject extends RecordObject {
   finishedAt?: FinishedAt
   exerciseRecordIds?: Id[]
 }
 
 // Other
-export interface IAppLog extends IEntity {
+export interface AppLogObject extends EntityObject {
   level: LogLevel
   callerName: string
   details?: string
   errorName?: string
   message?: string
   stack?: string
+}
+
+export interface FitnessDataObject {
+  measurements?: MeasurementObject[]
+  exercises?: ExerciseObject[]
+  workouts?: WorkoutObject[]
+  measurementRecords?: MeasurementRecordObject[]
+  exerciseRecords?: ExerciseRecordObject[]
+  workoutRecords?: WorkoutRecordObject[]
+  activeExercises?: ExerciseRecordObject[]
+  activeWorkouts?: WorkoutRecordObject[]
+  appLogs?: AppLogObject[]
 }

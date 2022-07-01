@@ -1,19 +1,16 @@
 import type { Id, TextBlock } from '@/constants/types'
-import type { IRecord } from '@/constants/interfaces'
+import type { RecordObject } from '@/constants/interfaces'
 import { _Entity } from '@/models/_Entity'
 
 /**
  * _Record Class
- * @param obj.id (Inherited)
- * @param obj.createdAt (Inherited)
- * @param obj.parentId
- * @param obj.note
+ * @param obj RecordObject
  */
 export class _Record extends _Entity {
-  parentId: Id
-  note: TextBlock
+  protected parentId: Id
+  protected note: TextBlock
 
-  constructor({ id, createdAt, parentId = '', note = null }: IRecord = {}) {
+  constructor({ id, createdAt, parentId = '', note = null }: RecordObject = {}) {
     super({ id, createdAt })
     this.parentId = parentId
     this.note = note

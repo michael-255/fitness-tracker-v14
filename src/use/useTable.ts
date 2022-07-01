@@ -1,7 +1,7 @@
 import { database } from '@/services/LocalDatabase'
 import { ref, onMounted } from 'vue'
 import { type DBTable, LogLevel } from '@/constants/enums'
-import type { IEntity } from '@/constants/interfaces'
+import type { EntityObject } from '@/constants/interfaces'
 import type { Ref } from 'vue'
 import { useAppLogger } from './useAppLogger'
 
@@ -13,8 +13,8 @@ interface useTableParams {
 const { silentLog } = useAppLogger()
 
 export function useTable({ table, tableColumns }: useTableParams) {
-  const tableRows: Ref<IEntity[]> = ref([])
-  const rowDetails: Ref<IEntity | undefined> = ref(undefined)
+  const tableRows: Ref<EntityObject[]> = ref([])
+  const rowDetails: Ref<EntityObject | undefined> = ref(undefined)
   const selectedRowId: Ref<string> = ref('')
 
   const createDialog: Ref<boolean> = ref(false)

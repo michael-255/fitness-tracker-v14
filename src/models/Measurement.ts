@@ -1,29 +1,16 @@
 import type { TrackBoolean } from '@/constants/types'
-import type { IMeasurement } from '@/constants/interfaces'
-import { DBTable } from '@/constants/enums'
+import type { MeasurementObject } from '@/constants/interfaces'
 import { _Activity } from './_Activity'
-
-// Exports for LocalDatabase
-export const measurementTableIndices = Object.freeze({
-  [DBTable.MEASUREMENTS]: '&id, name, status',
-})
 
 /**
  * Measurement Class
- * @param obj.id (Inherited)
- * @param obj.createdAt (Inherited)
- * @param obj.name (Inherited)
- * @param obj.description (Inherited)
- * @param obj.trackLbs
- * @param obj.trackInches
- * @param obj.trackFeet
- * @param obj.trackPercent
+ * @param obj MeasurementObject
  */
 export class Measurement extends _Activity {
-  trackLbs: TrackBoolean
-  trackInches: TrackBoolean
-  trackFeet: TrackBoolean
-  trackPercent: TrackBoolean
+  protected trackLbs: TrackBoolean
+  protected trackInches: TrackBoolean
+  protected trackFeet: TrackBoolean
+  protected trackPercent: TrackBoolean
 
   constructor({
     id,
@@ -34,7 +21,7 @@ export class Measurement extends _Activity {
     trackInches = false,
     trackFeet = false,
     trackPercent = false,
-  }: IMeasurement = {}) {
+  }: MeasurementObject = {}) {
     super({ id, createdAt, name, description })
     this.trackLbs = trackLbs
     this.trackInches = trackInches

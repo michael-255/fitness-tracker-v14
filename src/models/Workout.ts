@@ -1,21 +1,13 @@
 import type { Id } from '@/constants/types'
-import type { IWorkout } from '@/constants/interfaces'
-import { DBTable } from '@/constants/enums'
+import type { WorkoutObject } from '@/constants/interfaces'
 import { _Activity } from '@/models/_Activity'
-
-// Exports for LocalDatabase
-export const workoutTableIndices = Object.freeze({ [DBTable.WORKOUTS]: '&id, name, status' })
 
 /**
  * Workout Class
- * @param obj.id (Inherited)
- * @param obj.createdAt (Inherited)
- * @param obj.name (Inherited)
- * @param obj.description (Inherited)
- * @param obj.exerciseIds
+ * @param obj WorkoutObject
  */
 export class Workout extends _Activity {
-  exerciseIds: Id[]
+  protected exerciseIds: Id[]
 
   constructor({
     id,
@@ -23,7 +15,7 @@ export class Workout extends _Activity {
     name = 'My Workout',
     description,
     exerciseIds = [],
-  }: IWorkout = {}) {
+  }: WorkoutObject = {}) {
     super({ id, createdAt, name, description })
     this.exerciseIds = exerciseIds
   }

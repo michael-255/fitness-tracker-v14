@@ -1,25 +1,14 @@
 import type { RecordNumber } from '@/constants/types'
-import type { IMeasurementRecord } from '@/constants/interfaces'
-import { DBTable } from '@/constants/enums'
+import type { MeasurementRecordObject } from '@/constants/interfaces'
 import { _Record } from '@/models/_Record'
-
-// Exports for LocalDatabase
-export const measurementRecordTableIndices = Object.freeze({
-  [DBTable.MEASUREMENT_RECORDS]: '&id, parentId',
-})
 
 /**
  * MeasurementRecord Class
- * @param obj.id (Inherited)
- * @param obj.createdAt (Inherited)
- * @param obj.parentId (Inherited)
- * @param obj.note (Inherited)
- * @param obj.lbs
- * @param obj.inches
+ * @param obj MeasurementRecordObject
  */
 export class MeasurementRecord extends _Record {
-  lbs: RecordNumber
-  inches: RecordNumber
+  protected lbs: RecordNumber
+  protected inches: RecordNumber
 
   constructor({
     id,
@@ -28,7 +17,7 @@ export class MeasurementRecord extends _Record {
     note,
     lbs = null,
     inches = null,
-  }: IMeasurementRecord = {}) {
+  }: MeasurementRecordObject = {}) {
     super({ id, createdAt, parentId, note })
     this.lbs = lbs
     this.inches = inches

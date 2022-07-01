@@ -1,22 +1,23 @@
 import Dexie, { type IndexableType, type Table } from 'dexie'
 import type {
-  IAppLog,
-  IMeasurement,
-  IExercise,
-  IWorkout,
-  IMeasurementRecord,
-  IExerciseRecord,
-  IWorkoutRecord,
+  AppLogObject,
+  MeasurementObject,
+  ExerciseObject,
+  WorkoutObject,
+  MeasurementRecordObject,
+  ExerciseRecordObject,
+  WorkoutRecordObject,
 } from '@/constants/interfaces'
+import { databaseTableIndices } from '@/constants/globals'
+import { Measurement } from '@/models/Measurement'
+import { Exercise } from '@/models/Exercise'
+import { Workout } from '@/models/Workout'
+import { MeasurementRecord } from '@/models/MeasurementRecord'
+import { ExerciseRecord } from '@/models/ExerciseRecord'
+import { WorkoutRecord } from '@/models/WorkoutRecord'
+import { AppLog } from '@/models/AppLog'
 import type { Id, ActivityName } from '@/constants/types'
 import { DBTable } from '@/constants/enums'
-import { Measurement, measurementTableIndices } from '@/models/Measurement'
-import { Exercise, exerciseTableIndices } from '@/models/Exercise'
-import { Workout, workoutTableIndices } from '@/models/Workout'
-import { MeasurementRecord, measurementRecordTableIndices } from '@/models/MeasurementRecord'
-import { ExerciseRecord, exerciseRecordTableIndices } from '@/models/ExerciseRecord'
-import { WorkoutRecord, workoutRecordTableIndices } from '@/models/WorkoutRecord'
-import { AppLog, appLogTableIndices } from '@/models/AppLog'
 
 /**
  * Wrapper for Dexie IndexedDB
@@ -24,28 +25,20 @@ import { AppLog, appLogTableIndices } from '@/models/AppLog'
  */
 export class LocalDatabase extends Dexie {
   // Information for the typing system to help Dexie out
-  [DBTable.MEASUREMENTS]!: Table<IMeasurement>;
-  [DBTable.EXERCISES]!: Table<IExercise>;
-  [DBTable.WORKOUTS]!: Table<IWorkout>;
-  [DBTable.MEASUREMENT_RECORDS]!: Table<IMeasurementRecord>;
-  [DBTable.EXERCISE_RECORDS]!: Table<IExerciseRecord>;
-  [DBTable.WORKOUT_RECORDS]!: Table<IWorkoutRecord>;
-  [DBTable.ACTIVE_EXERCISES]!: Table<IExerciseRecord>;
-  [DBTable.ACTIVE_WORKOUTS]!: Table<IWorkoutRecord>;
-  [DBTable.APP_LOGS]!: Table<IAppLog>
+  [DBTable.MEASUREMENTS]!: Table<MeasurementObject>;
+  [DBTable.EXERCISES]!: Table<ExerciseObject>;
+  [DBTable.WORKOUTS]!: Table<WorkoutObject>;
+  [DBTable.MEASUREMENT_RECORDS]!: Table<MeasurementRecordObject>;
+  [DBTable.EXERCISE_RECORDS]!: Table<ExerciseRecordObject>;
+  [DBTable.WORKOUT_RECORDS]!: Table<WorkoutRecordObject>;
+  [DBTable.ACTIVE_EXERCISES]!: Table<ExerciseRecordObject>;
+  [DBTable.ACTIVE_WORKOUTS]!: Table<WorkoutRecordObject>;
+  [DBTable.APP_LOGS]!: Table<AppLogObject>
 
   constructor(name: string) {
     super(name)
 
-    this.version(1).stores({
-      ...measurementTableIndices,
-      ...exerciseTableIndices,
-      ...workoutTableIndices,
-      ...measurementRecordTableIndices,
-      ...exerciseRecordTableIndices,
-      ...workoutRecordTableIndices,
-      ...appLogTableIndices,
-    })
+    this.version(1).stores({ ...databaseTableIndices })
 
     this[DBTable.MEASUREMENTS].mapToClass(Measurement)
     this[DBTable.EXERCISES].mapToClass(Exercise)

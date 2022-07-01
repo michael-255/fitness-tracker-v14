@@ -1,27 +1,15 @@
 import type { FinishedAt, Id } from '@/constants/types'
-import type { IWorkoutRecord } from '@/constants/interfaces'
-import { DBTable } from '@/constants/enums'
+import type { WorkoutRecordObject } from '@/constants/interfaces'
 import { _Record } from '@/models/_Record'
 import { getDurationString, getMediumDateString } from '@/utils/date-time'
 
-// Exports for LocalDatabase
-export const workoutRecordTableIndices = Object.freeze({
-  [DBTable.WORKOUT_RECORDS]: '&id, parentId',
-  [DBTable.ACTIVE_WORKOUTS]: '&id, parentId',
-})
-
 /**
  * WorkoutRecord Class
- * @param obj.id (Inherited)
- * @param obj.createdAt (Inherited)
- * @param obj.parentId (Inherited)
- * @param obj.note (Inherited)
- * @param obj.finishedAt
- * @param obj.exerciseRecordIds
+ * @param obj WorkoutRecordObject
  */
 export class WorkoutRecord extends _Record {
-  finishedAt: FinishedAt
-  exerciseRecordIds: Id[]
+  protected finishedAt: FinishedAt
+  protected exerciseRecordIds: Id[]
 
   constructor({
     id,
@@ -30,7 +18,7 @@ export class WorkoutRecord extends _Record {
     note,
     finishedAt = null,
     exerciseRecordIds = [],
-  }: IWorkoutRecord = {}) {
+  }: WorkoutRecordObject = {}) {
     super({ id, createdAt, parentId, note })
     this.finishedAt = finishedAt
     this.exerciseRecordIds = exerciseRecordIds

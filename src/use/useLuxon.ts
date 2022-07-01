@@ -1,6 +1,12 @@
 import type { CreatedAt, FinishedAt } from '@/constants/types'
 import { DateTime } from 'luxon'
 
+/**
+ * @todo
+ * - Use Luxon in the classes directly to output the date
+ * - Removed this composable and import and use in classes instead
+ */
+
 export function useLuxon() {
   /**
    * Converts and outputs the ISO date string as a human readable local date string

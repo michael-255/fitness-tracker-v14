@@ -1,17 +1,16 @@
 import type { Id, CreatedAt } from '@/constants/types'
-import type { IEntity } from '@/constants/interfaces'
+import type { EntityObject } from '@/constants/interfaces'
 import { v4 as createId } from 'uuid'
 
 /**
  * _Entity Class
- * @param obj.id
- * @param obj.createdAt
+ * @param obj EntityObject
  */
 export class _Entity {
-  id: Id
-  createdAt: CreatedAt
+  protected readonly id: Id
+  protected readonly createdAt: CreatedAt
 
-  constructor({ id = createId(), createdAt = new Date().toISOString() }: IEntity = {}) {
+  constructor({ id = createId(), createdAt = new Date().toISOString() }: EntityObject = {}) {
     this.id = id
     this.createdAt = createdAt
   }

@@ -1,24 +1,21 @@
 import type { AppLogParams } from '@/constants/types'
-import { type LogLevel, DBTable } from '@/constants/enums'
+import type { LogLevel } from '@/constants/enums'
 import { _Entity } from '@/models/_Entity'
-
-// Exports for LocalDatabase
-export const appLogTableIndices = Object.freeze({ [DBTable.APP_LOGS]: '&id, createdAt' })
 
 /**
  * AppLog Class
- * @param obj.error Error object (or any since it's unknown)
- * @param obj.level Severity level of this log
+ * @param obj.error Error or any if unknown
+ * @param obj.level LogLevel severity
  * @param obj.name Name of caller (normally the function name)
  * @param obj.details Optional - Additional string with information about the event (str:str:str)
  */
 export class AppLog extends _Entity {
-  level: LogLevel
-  callerName: string
-  details?: string
-  errorName?: string
-  message?: string
-  stack?: string
+  protected level: LogLevel
+  protected callerName: string
+  protected details?: string
+  protected errorName?: string
+  protected message?: string
+  protected stack?: string
 
   constructor(params: AppLogParams) {
     super() // Will use default id and createdAt
