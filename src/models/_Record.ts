@@ -1,6 +1,7 @@
 import type { Id, TextBlock } from '@/constants/types'
 import type { RecordObject } from '@/constants/interfaces'
 import { _Entity } from '@/models/_Entity'
+import { truncateString } from '@/utils/common'
 
 /**
  * _Record Class
@@ -30,7 +31,7 @@ export class _Record extends _Entity {
         name: 'note',
         label: 'Note',
         align: 'left',
-        field: (row: _Record) => row.getNote(),
+        field: (row: _Record) => truncateString(row.getNote() as string, 40),
         sortable: true,
       },
     ]

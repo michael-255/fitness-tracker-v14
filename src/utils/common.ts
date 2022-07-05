@@ -53,3 +53,16 @@ export function isDataInObject(obj: object): boolean {
 export function isDataInArray(arr: any[]): boolean {
   return arr !== null && arr !== undefined && Array.isArray(arr) && arr.length !== 0
 }
+
+/**
+ * Truncates a string if it exceeds the provided length.
+ * @param str String to be truncated
+ * @param len Max length of truncated string
+ * @returns Truncated string with a '...' at the end
+ */
+export function truncateString(str: string, len: number): string {
+  if (str.length <= len) {
+    return str
+  }
+  return str.slice(0, len) + '...'
+}

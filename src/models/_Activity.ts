@@ -1,6 +1,7 @@
 import type { ActivityName, TextBlock } from '@/constants/types'
 import type { ActivityObject } from '@/constants/interfaces'
 import { _Entity } from '@/models/_Entity'
+import { truncateString } from '@/utils/common'
 
 /**
  * _Activity Class
@@ -30,7 +31,7 @@ export class _Activity extends _Entity {
         name: 'description',
         label: 'Description',
         align: 'left',
-        field: (row: _Activity) => row.getDescription(),
+        field: (row: _Activity) => truncateString(row.getDescription() as string, 40),
         sortable: true,
       },
     ]

@@ -1,6 +1,7 @@
 import type { AppLogParams } from '@/constants/types'
 import type { LogLevel } from '@/constants/enums'
 import { _Entity } from '@/models/_Entity'
+import { truncateString } from '@/utils/common'
 
 /**
  * AppLog Class
@@ -69,14 +70,14 @@ export class AppLog extends _Entity {
         name: 'message',
         label: 'Messages',
         align: 'left',
-        field: (row: AppLog) => row.getMessage(),
+        field: (row: AppLog) => truncateString(row.getMessage(), 40),
         sortable: true,
       },
       {
         name: 'stack',
         label: 'Stack Trace',
         align: 'left',
-        field: (row: AppLog) => row.getStack(),
+        field: (row: AppLog) => truncateString(row.getStack(), 40),
         sortable: true,
       },
     ]
