@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { QBtn, QPageContainer, QPage, QLayout } from 'quasar'
-import IdInput from '@/components/shared/IdInput.vue'
-import CreatedAtInput from '@/components/shared/CreatedAtInput.vue'
-import FinishedAtInput from '@/components/shared/FinishedAtInput.vue'
-import NameInput from '@/components/shared/NameInput.vue'
-import TextBlockInput from '@/components/shared/TextBlockInput.vue'
-import ParentIdInput from '@/components/shared/ParentIdInput.vue'
-import ExerciseIdsInput from '@/components/shared/ExerciseIdsInput.vue'
-import ExerciseRecordIdsInput from '@/components/shared/ExerciseRecordIdsInput.vue'
-import TrackBooleanInput from '@/components/shared/TrackBooleanInput.vue'
-import ExerciseSetsInput from '@/components/shared/ExerciseSetsInput.vue'
+import { QBtn } from 'quasar'
+import IdInput from '@/components/inputs/IdInput.vue'
+import CreatedAtInput from '@/components/inputs/CreatedAtInput.vue'
+import FinishedAtInput from '@/components/inputs/FinishedAtInput.vue'
+import NameInput from '@/components/inputs/NameInput.vue'
+import TextBlockInput from '@/components/inputs/TextBlockInput.vue'
+import ParentIdInput from '@/components/inputs/ParentIdInput.vue'
+import ExerciseIdsInput from '@/components/inputs/ExerciseIdsInput.vue'
+import ExerciseRecordIdsInput from '@/components/inputs/ExerciseRecordIdsInput.vue'
+import TrackBooleanInput from '@/components/inputs/TrackBooleanInput.vue'
+import ExerciseSetsInput from '@/components/inputs/ExerciseSetsInput.vue'
 import { ref, type Ref } from 'vue'
 import { v4 as createId } from 'uuid'
 import type {
@@ -23,8 +23,6 @@ import type {
 } from '@/constants/types'
 import { useLuxon } from '@/use/useLuxon'
 import { DBTable } from '@/constants/enums'
-import PageTable from '@/components/PageTable/PageTable.vue'
-import { Exercise } from '@/models/Exercise'
 
 const { dateISOToDisplay } = useLuxon()
 
@@ -64,22 +62,11 @@ async function test() {
 </script>
 
 <template>
-  <PageTable
-    :table="DBTable.EXERCISES"
-    tableName="Exercises"
-    :tableColumns="Exercise.getTableColumns()"
-    :columnOptions="Exercise.getColumnOptions()"
-    :visibleColumns="Exercise.getVisibleColumns()"
-    :showCreate="true"
-    :showReport="true"
-    :showEdit="true"
-  />
+  <h3>Dashboard</h3>
 
-  <!-- <h3>Dashboard</h3>
+  <QBtn color="primary" label="Print" @click="test()" />
 
-  <QBtn color="primary" label="Print" @click="test()" /> -->
-
-  <!-- <IdInput :id="id" @update:id="id = $event" />
+  <IdInput :id="id" @update:id="id = $event" />
   <CreatedAtInput :createdAt="createdAt" @update:createdAt="createdAt = $event" />
   <FinishedAtInput :finishedAt="finishedAt" @update:finishedAt="finishedAt = $event" />
   <NameInput :name="name" @update:name="name = $event" />
@@ -114,5 +101,5 @@ async function test() {
     :trackWeight="trackWeight"
     :trackReps="trackReps"
     @update:exerciseSets="exerciseSets = $event"
-  /> -->
+  />
 </template>

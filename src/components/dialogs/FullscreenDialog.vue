@@ -2,7 +2,7 @@
 import { QDialog, QCard, QCardSection, QBtn } from 'quasar'
 import { Icon } from '@/constants/enums'
 import { computed, ref, type Ref } from 'vue'
-import ConfirmDialog from '@/components/shared/ConfirmDialog.vue'
+import ConfirmDialog from '@/components/dialogs/ConfirmDialog.vue'
 
 const confirmDialog: Ref<boolean> = ref(false)
 

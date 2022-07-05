@@ -19,4 +19,25 @@ export class Workout extends _Activity {
     super({ id, createdAt, name, description })
     this.exerciseIds = exerciseIds
   }
+
+  static getTableColumns(): any[] {
+    return [
+      ..._Activity.getTableColumns(),
+      {
+        name: 'exerciseIds',
+        label: 'Exercise Ids',
+        align: 'left',
+        field: (row: Workout) => row.getExerciseIds(),
+        sortable: true,
+      },
+    ]
+  }
+
+  static getVisibleColumns(): string[] {
+    return [..._Activity.getVisibleColumns(), 'exerciseIds']
+  }
+
+  getExerciseIds(): Id[] {
+    return this.exerciseIds
+  }
 }

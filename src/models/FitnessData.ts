@@ -14,15 +14,15 @@ import type {
  * @param obj FitnessDataObject
  */
 export class FitnessData {
-  protected measurements: MeasurementObject[]
-  protected exercises: ExerciseObject[]
-  protected workouts: WorkoutObject[]
-  protected measurementRecords: MeasurementRecordObject[]
-  protected exerciseRecords: ExerciseRecordObject[]
-  protected workoutRecords: WorkoutRecordObject[]
-  protected activeExercises: ExerciseRecordObject[]
-  protected activeWorkouts: WorkoutRecordObject[]
-  protected appLogs: AppLogObject[]
+  public measurements: MeasurementObject[]
+  public exercises: ExerciseObject[]
+  public workouts: WorkoutObject[]
+  public measurementRecords: MeasurementRecordObject[]
+  public exerciseRecords: ExerciseRecordObject[]
+  public workoutRecords: WorkoutRecordObject[]
+  public activeExercises: ExerciseRecordObject[]
+  public activeWorkouts: WorkoutRecordObject[]
+  public appLogs: AppLogObject[]
 
   constructor({
     measurements = [],

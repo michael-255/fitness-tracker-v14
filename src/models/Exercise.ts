@@ -34,35 +34,7 @@ export class Exercise extends _Activity {
 
   static getTableColumns(): any[] {
     return [
-      {
-        name: 'id',
-        label: 'Id',
-        align: 'left',
-        required: true,
-        field: (row: Exercise) => row.getId(),
-        sortable: true,
-      },
-      {
-        name: 'createdAt',
-        label: 'Created At',
-        align: 'left',
-        field: (row: Exercise) => row.getDisplayCreatedAt(),
-        sortable: true,
-      },
-      {
-        name: 'name',
-        label: 'Name',
-        align: 'left',
-        field: (row: Exercise) => row.getName(),
-        sortable: true,
-      },
-      {
-        name: 'description',
-        label: 'Description',
-        align: 'left',
-        field: (row: Exercise) => row.getDescription(),
-        sortable: true,
-      },
+      ..._Activity.getTableColumns(),
       {
         name: 'trackMultipleSets',
         label: 'Tracks Multiple Sets',
@@ -101,15 +73,9 @@ export class Exercise extends _Activity {
     ]
   }
 
-  static getColumnOptions(): any[] {
-    return this.getTableColumns().filter((i: any) => i.name !== 'id')
-  }
-
   static getVisibleColumns(): string[] {
     return [
-      'createdAt',
-      'name',
-      'description',
+      ..._Activity.getVisibleColumns(),
       'trackMultipleSets',
       'trackDuration',
       'trackDistance',

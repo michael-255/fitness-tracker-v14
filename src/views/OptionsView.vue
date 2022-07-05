@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { QBtn, QFile, QIcon } from 'quasar'
-import { DBTable } from '@/constants/enums'
 import { useDefaults } from '@/use/useDefaults'
 import { useImportExport } from '@/use/useImportExport'
 import { useClearData } from '@/use/useClearData'
 
 const { loadAllDefaults, loadMeasurements, loadExercises, loadWorkouts } = useDefaults()
 const { file, onRejectedFile, importData, exportData } = useImportExport()
-const { clearAllAppData, clearTableData } = useClearData()
+const { clearAllAppData } = useClearData()
 </script>
 
 <template>
@@ -64,69 +63,6 @@ const { clearAllAppData, clearTableData } = useClearData()
   <div class="q-mb-sm q-mt-md text-weight-bolder">Clear App Data</div>
 
   <QBtn class="q-mb-sm" color="negative" label="Clear All App Data" @click="clearAllAppData()" />
-  <br />
-  <QBtn
-    class="q-mb-sm"
-    color="negative"
-    label="Measurements"
-    @click="clearTableData(DBTable.MEASUREMENTS)"
-  />
-  <br />
-  <QBtn
-    class="q-mb-sm"
-    color="negative"
-    label="Exercises"
-    @click="clearTableData(DBTable.EXERCISES)"
-  />
-  <br />
-  <QBtn
-    class="q-mb-sm"
-    color="negative"
-    label="Workouts"
-    @click="clearTableData(DBTable.WORKOUTS)"
-  />
-  <br />
-  <QBtn
-    class="q-mb-sm"
-    color="negative"
-    label="Measurement Records"
-    @click="clearTableData(DBTable.MEASUREMENT_RECORDS)"
-  />
-  <br />
-  <QBtn
-    class="q-mb-sm"
-    color="negative"
-    label="Exercise Records"
-    @click="clearTableData(DBTable.EXERCISE_RECORDS)"
-  />
-  <br />
-  <QBtn
-    class="q-mb-sm"
-    color="negative"
-    label="Workout Records"
-    @click="clearTableData(DBTable.WORKOUT_RECORDS)"
-  />
-  <br />
-  <QBtn
-    class="q-mb-sm"
-    color="negative"
-    label="Active Exercises"
-    @click="clearTableData(DBTable.ACTIVE_EXERCISES)"
-  />
-  <br />
-  <QBtn
-    class="q-mb-sm"
-    color="negative"
-    label="Active Workouts"
-    @click="clearTableData(DBTable.ACTIVE_WORKOUTS)"
-  />
-  <br />
-  <QBtn
-    class="q-mb-sm"
-    color="negative"
-    label="Error Logs"
-    @click="clearTableData(DBTable.APP_LOGS)"
-  />
   <br />
 </template>
 

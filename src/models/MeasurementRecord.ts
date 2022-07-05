@@ -23,6 +23,38 @@ export class MeasurementRecord extends _Record {
     this.inches = inches
   }
 
+  static getTableColumns(): any[] {
+    return [
+      ..._Record.getTableColumns(),
+      {
+        name: 'lbs',
+        label: 'Lbs',
+        align: 'left',
+        field: (row: MeasurementRecord) => row.getLbs(),
+        sortable: true,
+      },
+      {
+        name: 'inches',
+        label: 'Inches',
+        align: 'left',
+        field: (row: MeasurementRecord) => row.getInches(),
+        sortable: true,
+      },
+    ]
+  }
+
+  static getVisibleColumns(): string[] {
+    return [..._Record.getVisibleColumns(), 'lbs', 'inches']
+  }
+
+  getLbs(): RecordNumber {
+    return this.lbs
+  }
+
+  getInches(): RecordNumber {
+    return this.inches
+  }
+
   getFeetAndInches(): string {
     if (this.inches) {
       const feet = Math.floor(this.inches / 12)

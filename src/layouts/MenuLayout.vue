@@ -10,7 +10,7 @@ import {
   QList,
   QSeparator,
 } from 'quasar'
-import DrawerItem from '@/components/shared/DrawerItem.vue'
+import DrawerItem from '@/components/drawer/DrawerItem.vue'
 import { useUIStore } from '@/stores/ui'
 import { Views, Icon } from '@/constants/enums'
 
@@ -30,6 +30,7 @@ const ui = useUIStore()
     <QDrawer v-model="ui.drawer" :width="200" show-if-above side="left" bordered>
       <QList>
         <DrawerItem :to="{ name: Views.DASHBOARD }" :icon="Icon.DASHBOARD" label="Dashboard" />
+        <DrawerItem :to="{ name: Views.ACTIVE }" :icon="Icon.ACTIVE" label="Active" />
         <QSeparator />
         <DrawerItem
           :to="{ name: Views.MEASUREMENTS }"

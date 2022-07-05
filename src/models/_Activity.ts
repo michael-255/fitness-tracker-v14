@@ -16,6 +16,30 @@ export class _Activity extends _Entity {
     this.description = description
   }
 
+  static getTableColumns(): any[] {
+    return [
+      ..._Entity.getTableColumns(),
+      {
+        name: 'name',
+        label: 'Name',
+        align: 'left',
+        field: (row: _Activity) => row.getName(),
+        sortable: true,
+      },
+      {
+        name: 'description',
+        label: 'Description',
+        align: 'left',
+        field: (row: _Activity) => row.getDescription(),
+        sortable: true,
+      },
+    ]
+  }
+
+  static getVisibleColumns(): string[] {
+    return [..._Entity.getVisibleColumns(), 'name', 'description']
+  }
+
   getName(): ActivityName {
     return this.name
   }

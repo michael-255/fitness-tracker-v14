@@ -2,6 +2,8 @@
 import { QSelect } from 'quasar'
 import { Icon, DBTable } from '@/constants/enums'
 import { useTable } from '@/use/useTable'
+import ConfirmDialog from '@/components/dialogs/ConfirmDialog.vue'
+import FullscreenDialog from '@/components/dialogs/FullscreenDialog.vue'
 
 const props = defineProps<{
   table: DBTable
@@ -43,10 +45,6 @@ const {
   columnOptions: props.columnOptions,
   visibleColumns: props.visibleColumns,
 })
-
-function test(val: any) {
-  console.log(val)
-}
 </script>
 
 <template>
@@ -79,8 +77,14 @@ function test(val: any) {
         class="q-mr-sm"
       />
       <div>
-        <QBtn v-if="showCreate" color="positive" label="Create" class="q-mr-sm" />
-        <QBtn color="negative" label="Clear" />
+        <QBtn
+          v-if="showCreate"
+          color="positive"
+          label="Create"
+          class="q-mr-sm"
+          @click="openCreateDialog()"
+        />
+        <QBtn color="negative" label="Clear" @click="openClearDialog()" />
       </div>
     </template>
 
@@ -108,7 +112,7 @@ function test(val: any) {
             dense
             class="q-ml-xs"
             color="accent"
-            @click="test(props.cols[0].value)"
+            @click="openReportDialog(props.cols[0].value)"
             :icon="Icon.REPORT"
           />
           <QBtn
@@ -117,7 +121,7 @@ function test(val: any) {
             dense
             class="q-ml-xs"
             color="primary"
-            @click="test(props.cols[0].value)"
+            @click="openDetailsDialog(props.cols[0].value)"
             :icon="Icon.DETAILS"
           />
           <QBtn
@@ -127,7 +131,7 @@ function test(val: any) {
             dense
             class="q-ml-xs"
             color="warning"
-            @click="test(props.cols[0].value)"
+            @click="openEditDialog(props.cols[0].value)"
             :icon="Icon.EDIT"
           />
           <QBtn
@@ -136,11 +140,74 @@ function test(val: any) {
             dense
             class="q-ml-xs"
             color="negative"
-            @click="test(props.cols[0].value)"
+            @click="openDeleteDialog(props.cols[0].value)"
             :icon="Icon.DELETE"
           />
         </QTd>
       </QTr>
     </template>
   </QTable>
+
+  <!-- Dialogs -->
+  <FullscreenDialog
+    title="Create"
+    :canSave="true"
+    :dialog="createDialog"
+    @toggle:fullDialog="createDialog = !createDialog"
+    @save:fullDialog="saveCreateDialog()"
+  >
+    <div>Not Implemented</div>
+  </FullscreenDialog>
+
+  <ConfirmDialog
+    title="Clear"
+    :icon="Icon.DELETE"
+    :message="`Permanently clear all data from the '${props.table}' table in the database?`"
+    color="negative"
+    :dialog="clearDialog"
+    :confirmFunc="confirmClearDialog"
+    @update:dialog="clearDialog = $event"
+  />
+
+  <FullscreenDialog
+    title="Report"
+    :canSave="false"
+    :dialog="reportDialog"
+    @toggle:fullDialog="reportDialog = !reportDialog"
+  >
+    <div>Not Implemented</div>
+  </FullscreenDialog>
+
+  <FullscreenDialog
+    title="Details"
+    :canSave="false"
+    :dialog="detailsDialog"
+    @toggle:fullDialog="detailsDialog = !detailsDialog"
+  >
+    <div v-for="(item, key, i) in rowDetails" :key="i">
+      <div class="text-weight-bold">{{ key }}</div>
+      <div>{{ item || '-' }}</div>
+      <br />
+    </div>
+  </FullscreenDialog>
+
+  <FullscreenDialog
+    title="Edit"
+    :canSave="true"
+    :dialog="editDialog"
+    @toggle:fullDialog="editDialog = !editDialog"
+    @save:fullDialog="saveEditDialog()"
+  >
+    <div>Not Implemented</div>
+  </FullscreenDialog>
+
+  <ConfirmDialog
+    title="Delete"
+    :icon="Icon.DELETE"
+    :message="`Permanently delete ${selectedRowId} from the '${table}' table in the database?`"
+    color="negative"
+    :dialog="deleteDialog"
+    :confirmFunc="confirmDeleteDialog"
+    @update:dialog="deleteDialog = $event"
+  />
 </template>

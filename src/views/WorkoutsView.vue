@@ -1,59 +1,43 @@
 <script setup lang="ts">
 import { DBTable } from '@/constants/enums'
-import EntityTabs from '@/components/shared/EntityTabs.vue'
-import EntityTable from '@/components/shared/EntityTable.vue'
-
-const activityColumns = [
-  {
-    name: 'id',
-    label: 'Id',
-    align: 'left',
-    required: true,
-    field: (row: any) => row.id,
-    sortable: true,
-  },
-  {
-    name: 'createdAt',
-    label: 'Created At',
-    align: 'left',
-    required: true,
-    field: (row: any) => row.createdAt,
-    sortable: true,
-  },
-]
-
-const recordColumns = [
-  {
-    name: 'id',
-    label: 'Id',
-    align: 'left',
-    required: true,
-    field: (row: any) => row.id,
-    sortable: true,
-  },
-  {
-    name: 'createdAt',
-    label: 'Created At',
-    align: 'left',
-    required: true,
-    field: (row: any) => row.createdAt,
-    sortable: true,
-  },
-]
+import PageTabs from '@/components/PageTabs.vue'
+import PageTable from '@/components/PageTable.vue'
+import { Workout } from '@/models/Workout'
+import { WorkoutRecord } from '@/models/WorkoutRecord'
+import { Icon } from '@/constants/enums'
 </script>
 
 <template>
-  <EntityTabs>
-    <template v-slot:activities>
-      <EntityTable tableName="Workouts" :table="DBTable.WORKOUTS" :tableColumns="activityColumns" />
-    </template>
-
-    <template v-slot:records>
-      <EntityTable
-        tableName="Workout Records"
-        :table="DBTable.WORKOUT_RECORDS"
-        :tableColumns="recordColumns"
+  <PageTabs
+    tab1Name="Activities"
+    :tab1Icon="Icon.ACTIVITIES"
+    tab2Name="Records"
+    :tab2Icon="Icon.RECORDS"
+  >
+    <template v-slot:tab1>
+      <PageTable
+        :table="DBTable.WORKOUTS"
+        tableName="Workouts"
+        :tableColumns="Workout.getTableColumns()"
+        :columnOptions="Workout.getColumnOptions()"
+        :visibleColumns="Workout.getVisibleColumns()"
+        :showCreate="true"
+        :showReport="false"
+        :showEdit="true"
       />
     </template>
-  </EntityTabs>
+
+    <template v-slot:tab2>
+      <PageTable
+        :table="DBTable.WORKOUT_RECORDS"
+        tableName="Workout Records"
+        :tableColumns="WorkoutRecord.getTableColumns()"
+        :columnOptions="WorkoutRecord.getColumnOptions()"
+        :visibleColumns="WorkoutRecord.getVisibleColumns()"
+        :showCreate="true"
+        :showReport="true"
+        :showEdit="true"
+      />
+    </template>
+  </PageTabs>
 </template>

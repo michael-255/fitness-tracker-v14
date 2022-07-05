@@ -15,4 +15,36 @@ export class _Record extends _Entity {
     this.parentId = parentId
     this.note = note
   }
+
+  static getTableColumns(): any[] {
+    return [
+      ..._Entity.getTableColumns(),
+      {
+        name: 'parentId',
+        label: 'Parent Id',
+        align: 'left',
+        field: (row: _Record) => row.getParentId(),
+        sortable: true,
+      },
+      {
+        name: 'note',
+        label: 'Note',
+        align: 'left',
+        field: (row: _Record) => row.getNote(),
+        sortable: true,
+      },
+    ]
+  }
+
+  static getVisibleColumns(): string[] {
+    return [..._Entity.getVisibleColumns(), 'parentId', 'note']
+  }
+
+  getParentId(): Id {
+    return this.parentId
+  }
+
+  getNote(): TextBlock {
+    return this.note
+  }
 }

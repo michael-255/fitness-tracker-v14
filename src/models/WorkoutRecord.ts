@@ -2,6 +2,7 @@ import type { FinishedAt, Id } from '@/constants/types'
 import type { WorkoutRecordObject } from '@/constants/interfaces'
 import { _Record } from '@/models/_Record'
 import { getDurationString, getMediumDateString } from '@/utils/date-time'
+import { DateTime } from 'luxon'
 
 /**
  * WorkoutRecord Class
@@ -22,6 +23,46 @@ export class WorkoutRecord extends _Record {
     super({ id, createdAt, parentId, note })
     this.finishedAt = finishedAt
     this.exerciseRecordIds = exerciseRecordIds
+  }
+
+  static getTableColumns(): any[] {
+    return [
+      ..._Record.getTableColumns(),
+      {
+        name: 'finishedAt',
+        label: 'Finished At',
+        align: 'left',
+        field: (row: WorkoutRecord) => row.getDisplayFinishedAt(),
+        sortable: true,
+      },
+      {
+        name: 'exerciseRecordIds',
+        label: 'Exercise Record Ids',
+        align: 'left',
+        field: (row: WorkoutRecord) => row.getExerciseRecordIds(),
+        sortable: true,
+      },
+    ]
+  }
+
+  static getVisibleColumns(): string[] {
+    return [..._Record.getVisibleColumns(), 'finishedAt', 'exerciseRecordIds']
+  }
+
+  getFinishedAt(): FinishedAt {
+    return this.finishedAt
+  }
+
+  getDisplayFinishedAt(): string {
+    if (this.finishedAt) {
+      return DateTime.fromISO(this.finishedAt).toFormat('ccc LLL d yyyy ttt')
+    } else {
+      return '-'
+    }
+  }
+
+  getExerciseRecordIds(): Id[] {
+    return this.exerciseRecordIds
   }
 
   getDuration(): string {

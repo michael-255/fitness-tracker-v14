@@ -13,4 +13,25 @@ export class ExerciseRecord extends _Record {
     super({ id, createdAt, parentId, note })
     this.sets = sets
   }
+
+  static getTableColumns(): any[] {
+    return [
+      ..._Record.getTableColumns(),
+      {
+        name: 'sets',
+        label: 'Sets',
+        align: 'left',
+        field: (row: ExerciseRecord) => row.getSets(),
+        sortable: true,
+      },
+    ]
+  }
+
+  static getVisibleColumns(): string[] {
+    return [..._Record.getVisibleColumns(), 'sets']
+  }
+
+  getSets(): ExerciseSet[] {
+    return this.sets
+  }
 }

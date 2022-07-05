@@ -4,12 +4,7 @@ Description TBA.
 
 ## Todo
 
-- [ ] Build common `Base` components
-
-  - [ ] `PageTable`
-  - [ ] `TableHeader`
-  - [ ] `TableColumnHeaders`
-  - [ ] `TableRows`
+- [ ] Build out class methods for complex actions (Exercise Sets!)
 
 - [ ] Build out core `Input` components
 

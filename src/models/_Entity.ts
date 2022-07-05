@@ -20,6 +20,34 @@ export class _Entity {
     return Object.keys(new this())
   }
 
+  static getTableColumns(): any[] {
+    return [
+      {
+        name: 'id',
+        label: 'Id',
+        align: 'left',
+        required: true,
+        field: (row: _Entity) => row.getId(),
+        sortable: true,
+      },
+      {
+        name: 'createdAt',
+        label: 'Created At',
+        align: 'left',
+        field: (row: _Entity) => row.getDisplayCreatedAt(),
+        sortable: true,
+      },
+    ]
+  }
+
+  static getVisibleColumns(): string[] {
+    return ['createdAt']
+  }
+
+  static getColumnOptions(): any[] {
+    return this.getTableColumns().filter((i: any) => i.name !== 'id')
+  }
+
   getId(): Id {
     return this.id
   }

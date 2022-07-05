@@ -20,6 +20,7 @@ export enum DBTable {
 
 export enum Views {
   DASHBOARD = 'DashboardView',
+  ACTIVE = 'ActiveView',
   ACTIVEWORKOUT = 'ActiveWorkoutView',
   REPORTS = 'ReportsView',
   MEASUREMENTS = 'MeasurementsView',
@@ -51,6 +52,7 @@ export enum Icon {
   WORKOUT = 'assignment',
   SETTINGS = 'settings',
   DETAILS = 'summarize',
+  ACTIVE = 'local_fire_department',
   SAVE = 'save',
   CLOSE = 'close',
   EDIT = 'edit',

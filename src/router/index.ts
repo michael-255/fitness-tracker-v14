@@ -22,24 +22,11 @@ const router = createRouter({
       component: () => import(`../views/${Views.ACTIVEWORKOUT}.vue`),
     },
     {
-      path: '/reports',
-      name: Views.REPORTS,
+      path: '/active',
+      name: Views.ACTIVE,
       meta: { layout: Layouts.MENU },
-      component: () => import(`../views/${Views.REPORTS}.vue`),
+      component: () => import(`../views/${Views.ACTIVE}.vue`),
     },
-    // {
-    //   path: '/measurements/edit/:id',
-    //   props: true,
-    //   name: Views.MEASUREMENTS,
-    //   meta: { layout: Layouts.MENU },
-    //   component: () => import(`../views/${Views.MEASUREMENTS}.vue`),
-    // },
-    // {
-    //   path: '/measurements/create',
-    //   name: Views.MEASUREMENTS,
-    //   meta: { layout: Layouts.MENU },
-    //   component: () => import(`../views/${Views.MEASUREMENTS}.vue`),
-    // },
     {
       path: '/measurements',
       name: Views.MEASUREMENTS,
