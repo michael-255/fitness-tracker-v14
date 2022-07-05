@@ -16,7 +16,7 @@ const router = useRouter()
       </QToolbar>
     </QHeader>
 
-    <QPageContainer class="q-mx-sm">
+    <QPageContainer>
       <router-view />
     </QPageContainer>
   </QLayout>

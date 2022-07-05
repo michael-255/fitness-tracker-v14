@@ -35,6 +35,8 @@ const {
 } = useTable({
   table: props.table,
   tableColumns: props.tableColumns,
+  columnOptions: props.columnOptions,
+  visibleColumns: props.visibleColumns,
 })
 </script>
 
@@ -44,7 +46,7 @@ const {
     :columns="tableColumns"
     :rows-per-page-options="[0]"
     virtual-scroll
-    style="height: 80vh"
+    style="height: 85vh"
   >
     <!-- Table Header -->
     <template v-slot:top>

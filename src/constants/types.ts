@@ -30,12 +30,3 @@ export type IdLabelOption = {
   value: Id
   label: string
 }
-
-// export type ConfirmDialogProps = {
-//   title: string
-//   icon: Icon
-//   message: string
-//   color: string
-//   dialog: boolean
-//   confirmFunc: () => any
-// }

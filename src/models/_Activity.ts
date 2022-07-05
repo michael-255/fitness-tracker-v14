@@ -15,4 +15,12 @@ export class _Activity extends _Entity {
     this.name = name
     this.description = description
   }
+
+  getName(): ActivityName {
+    return this.name
+  }
+
+  getDescription(): TextBlock {
+    return this.description
+  }
 }

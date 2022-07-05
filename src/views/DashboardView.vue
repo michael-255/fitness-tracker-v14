@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { QBtn } from 'quasar'
+import { QBtn, QPageContainer, QPage, QLayout } from 'quasar'
 import IdInput from '@/components/shared/IdInput.vue'
 import CreatedAtInput from '@/components/shared/CreatedAtInput.vue'
 import FinishedAtInput from '@/components/shared/FinishedAtInput.vue'
@@ -23,7 +23,8 @@ import type {
 } from '@/constants/types'
 import { useLuxon } from '@/use/useLuxon'
 import { DBTable } from '@/constants/enums'
-import PageTableVue from '@/components/PageTable/PageTable.vue'
+import PageTable from '@/components/PageTable/PageTable.vue'
+import { Exercise } from '@/models/Exercise'
 
 const { dateISOToDisplay } = useLuxon()
 
@@ -63,9 +64,20 @@ async function test() {
 </script>
 
 <template>
-  <h3>Dashboard</h3>
+  <PageTable
+    :table="DBTable.EXERCISES"
+    tableName="Exercises"
+    :tableColumns="Exercise.getTableColumns()"
+    :columnOptions="Exercise.getColumnOptions()"
+    :visibleColumns="Exercise.getVisibleColumns()"
+    :showCreate="true"
+    :showReport="true"
+    :showEdit="true"
+  />
 
-  <QBtn color="primary" label="Print" @click="test()" />
+  <!-- <h3>Dashboard</h3>
+
+  <QBtn color="primary" label="Print" @click="test()" /> -->
 
   <!-- <IdInput :id="id" @update:id="id = $event" />
   <CreatedAtInput :createdAt="createdAt" @update:createdAt="createdAt = $event" />
@@ -103,6 +115,4 @@ async function test() {
     :trackReps="trackReps"
     @update:exerciseSets="exerciseSets = $event"
   /> -->
-
-  <PageTableVue />
 </template>
