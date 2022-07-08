@@ -34,4 +34,36 @@ export class ExerciseRecord extends _Record {
   getSets(): ExerciseSet[] {
     return this.sets
   }
+
+  addNewSet(): number {
+    return this.sets.push({
+      weight: null,
+      reps: null,
+      distance: null,
+      duration: null,
+    } as ExerciseSet)
+  }
+
+  removeLastSet(): ExerciseSet | undefined {
+    return this.sets.pop()
+  }
+
+  updateSetByIndex(index: number, properties: ExerciseSet): void {
+    if (!properties.weight) {
+      properties.weight = null
+    }
+    if (!properties.reps) {
+      properties.reps = null
+    }
+    if (!properties.distance) {
+      properties.distance = null
+    }
+    if (!properties.duration) {
+      properties.duration = null
+    }
+
+    this.sets[index] = properties
+
+    console.log(this.sets)
+  }
 }

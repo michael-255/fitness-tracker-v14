@@ -1,113 +1,106 @@
 <script setup lang="ts">
 import { QBtn, QInput, QIcon } from 'quasar'
-import type { ExerciseSet, TrackBoolean } from '@/constants/types'
 import { useVModel } from '@vueuse/core'
 import { ref, type Ref } from 'vue'
+import type { Exercise } from '@/models/Exercise'
+import type { ExerciseRecord } from '@/models/ExerciseRecord'
 
 /**
  * @example
- * Script: const exerciseSets: Ref<ExerciseSet[]> = ref([])
- * Template: <ExerciseSetsInput :exerciseSets="exerciseSets" @update:exerciseSets="exerciseSets = $event" />
+ * Script: const exerciseRecord: Ref<ExerciseRecord> = ref(...)
+ * Template: <ExerciseSetsInput :exercise="exercise" :exerciseRecord="exerciseRecord" @update:exerciseRecord="exerciseRecord = $event" />
  */
 
 const props = defineProps<{
-  exerciseSets: ExerciseSet[]
-  trackMultipleSets: TrackBoolean
-  trackDuration: TrackBoolean
-  trackDistance: TrackBoolean
-  trackWeight: TrackBoolean
-  trackReps: TrackBoolean
+  exercise: Exercise | null
+  exerciseRecord: ExerciseRecord | null
 }>()
 
 const emits = defineEmits<{
-  (eventName: 'update:exerciseSets', exerciseSets: ExerciseSet[]): void
+  (eventName: 'update:exerciseRecord', exerciseRecord: ExerciseRecord): void
 }>()
 
-const exerciseSets = useVModel(props, 'exerciseSets', emits)
+const exerciseRecord = useVModel(props, 'exerciseRecord', emits)
 
-function addSet() {
-  exerciseSets.value.push({
-    weight: null,
-    reps: null,
-    distance: null,
-    duration: null,
-  } as ExerciseSet)
+const weight: Ref<number | null> = ref(null)
+const reps: Ref<number | null> = ref(null)
+const distance: Ref<number | null> = ref(null)
+const duration: Ref<number | null> = ref(null)
+
+// const exerciseSets: Ref<ExerciseSet[]> = ref([])
+
+function updateSet(index: number) {
+  props.exerciseRecord?.updateSetByIndex(index, {
+    weight: weight.value,
+    reps: reps.value,
+    distance: distance.value,
+    duration: duration.value,
+  })
 }
-
-function removeSet() {
-  if (exerciseSets.value.length) {
-    exerciseSets.value.pop()
-  }
-}
-
-/**
- * @todo
- * - Booleans control what shows up and if you can add sets
- * - May have to create refs in an array if you add sets
- * - Build an ExerciseSetItemInput.vue component
- * - Figure out how to organize the inputs in the layout
- * - Use inputs or a table for sets??? <--IMPORTANT
- */
-
-const text: Ref<number> = ref(0)
 </script>
 
 <template>
-  <QBtn v-if="trackMultipleSets" label="Add Set" color="positive" @click="addSet()" />
-  <QBtn v-if="trackMultipleSets" label="Remove Set" color="negative" @click="removeSet()" />
+  <div v-if="exercise?.getTrackMultipleSets()">
+    <QBtn label="Add Set" color="positive" @click="exerciseRecord?.addNewSet()" />
+    <QBtn label="Remove Set" color="negative" @click="exerciseRecord?.removeLastSet()" />
+  </div>
 
-  <div v-for="(set, i) in props.exerciseSets" :key="i">
+  <div v-for="(set, i) in exerciseRecord?.getSets()" :key="i">
     <QInput
-      v-if="trackDuration"
-      v-model.number="text"
-      label="Duration"
-      type="number"
-      dense
-      outlined
-      color="primary"
-      style="max-width: 120px"
-    >
-      <template v-slot:prepend>
-        <QIcon name="event" />
-      </template>
-    </QInput>
-    <QInput
-      v-if="trackDistance"
-      v-model.number="text"
-      label="Distance"
-      type="number"
-      dense
-      outlined
-      color="primary"
-      style="max-width: 120px"
-    >
-      <template v-slot:prepend>
-        <QIcon name="event" />
-      </template>
-    </QInput>
-    <QInput
-      v-if="trackWeight"
-      v-model.number="text"
+      v-if="exercise?.getTrackWeight()"
+      v-model.number="weight"
       label="Weight"
       type="number"
       dense
       outlined
       color="primary"
       style="max-width: 120px"
+      @blur="updateSet(i)"
     >
       <template v-slot:prepend>
         <QIcon name="event" />
       </template>
     </QInput>
     <QInput
-      v-if="trackReps"
-      v-model.number="text"
+      v-if="exercise?.getTrackReps()"
+      v-model.number="reps"
       label="Reps"
       type="number"
       dense
       outlined
       color="primary"
       style="max-width: 120px"
+      @blur="updateSet(i)"
+    >
+      <template v-slot:prepend>
+        <QIcon name="event" />
+      </template>
+    </QInput>
+    <QInput
+      v-if="exercise?.getTrackDuration()"
+      v-model.number="distance"
+      label="Duration"
+      type="number"
+      dense
+      outlined
+      color="primary"
+      style="max-width: 120px"
+      @blur="updateSet(i)"
+    >
+      <template v-slot:prepend>
+        <QIcon name="event" />
+      </template>
+    </QInput>
+    <QInput
+      v-if="exercise?.getTrackDistance()"
+      v-model.number="duration"
+      label="Distance"
+      type="number"
+      dense
+      outlined
+      color="primary"
+      style="max-width: 120px"
+      @blur="updateSet(i)"
     >
       <template v-slot:prepend>
         <QIcon name="event" />

@@ -1,11 +1,11 @@
 import { DBTable } from './enums'
 
-export const DEBUG = Object.freeze(true)
+export const DEBUG: Readonly<boolean> = true
 
 /**
  * Indices for LocalDatabase (Dexie)
  */
-export const databaseTableIndices = Object.freeze({
+export const databaseTableIndices: Readonly<object> = {
   [DBTable.MEASUREMENTS]: '&id, name, status',
   [DBTable.EXERCISES]: '&id, name, status',
   [DBTable.WORKOUTS]: '&id, name, status',
@@ -15,4 +15,4 @@ export const databaseTableIndices = Object.freeze({
   [DBTable.ACTIVE_EXERCISES]: '&id, parentId',
   [DBTable.ACTIVE_WORKOUTS]: '&id, parentId',
   [DBTable.APP_LOGS]: '&id, createdAt',
-})
+}

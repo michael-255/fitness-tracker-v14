@@ -76,7 +76,7 @@ export class LocalDatabase extends Dexie {
    * @param name
    * @returns Array of Activities
    */
-  async getByName<T>(table: DBTable, name: ActivityName): Promise<T[]> {
+  async getActivityByName<T>(table: DBTable, name: ActivityName): Promise<T[]> {
     return await this.table(table).where('name').equalsIgnoreCase(name).toArray()
   }
 
@@ -86,7 +86,7 @@ export class LocalDatabase extends Dexie {
    * @param parentId
    * @returns Array of Records
    */
-  async getByParentId<T>(table: DBTable, parentId: Id): Promise<T[]> {
+  async getRecordsByParentId<T>(table: DBTable, parentId: Id): Promise<T[]> {
     return await this.table(table).where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
   }
 
@@ -96,7 +96,7 @@ export class LocalDatabase extends Dexie {
    * @param parentId
    * @returns Newest Record or undefined
    */
-  async getNewestByParentId<T>(table: DBTable, parentId: Id): Promise<T | undefined> {
+  async getNewestRecordByParentId<T>(table: DBTable, parentId: Id): Promise<T | undefined> {
     return (
       await this.table(table).where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
     ).reverse()[0]
@@ -169,7 +169,7 @@ export class LocalDatabase extends Dexie {
    * @param properties
    * @returns 1 on a successful update
    */
-  async updateById<T>(table: DBTable, id: Id, properties: T): Promise<IndexableType> {
+  async updateById<T>(table: DBTable, id: Id, properties: Partial<T>): Promise<IndexableType> {
     return await this.table(table).update(id, properties)
   }
 }

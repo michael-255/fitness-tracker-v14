@@ -10,7 +10,7 @@ import ExerciseIdsInput from '@/components/inputs/ExerciseIdsInput.vue'
 import ExerciseRecordIdsInput from '@/components/inputs/ExerciseRecordIdsInput.vue'
 import TrackBooleanInput from '@/components/inputs/TrackBooleanInput.vue'
 import ExerciseSetsInput from '@/components/inputs/ExerciseSetsInput.vue'
-import { ref, type Ref } from 'vue'
+import { onMounted, ref, type Ref } from 'vue'
 import { v4 as createId } from 'uuid'
 import type {
   Id,
@@ -23,8 +23,13 @@ import type {
 } from '@/constants/types'
 import { useLuxon } from '@/use/useLuxon'
 import { DBTable } from '@/constants/enums'
+import { Exercise } from '@/models/Exercise'
+import { ExerciseRecord } from '@/models/ExerciseRecord'
 
 const { dateISOToDisplay } = useLuxon()
+
+const exercise: Ref<Exercise | null> = ref(null)
+const exerciseRecord: Ref<ExerciseRecord | null> = ref(null)
 
 const id: Ref<Id> = ref(createId())
 const createdAt: Ref<CreatedAt> = ref(dateISOToDisplay(new Date().toISOString()))
@@ -43,6 +48,21 @@ const trackWeight: Ref<TrackBoolean> = ref(false)
 const trackReps: Ref<TrackBoolean> = ref(false)
 
 const exerciseSets: Ref<ExerciseSet[]> = ref([])
+
+onMounted(async () => {
+  exercise.value = new Exercise({
+    id: 'test-1234',
+    trackMultipleSets: true,
+    trackWeight: true,
+    trackReps: true,
+    trackDistance: true,
+    trackDuration: true,
+  })
+
+  exerciseRecord.value = new ExerciseRecord({
+    parentId: 'test-1234',
+  })
+})
 
 async function test() {
   console.log(id.value)
@@ -94,12 +114,8 @@ async function test() {
   <TrackBooleanInput :bool="trackReps" label="Reps" @update:bool="trackReps = $event" />
 
   <ExerciseSetsInput
-    :exerciseSets="exerciseSets"
-    :trackMultipleSets="trackMultipleSets"
-    :trackDuration="trackDuration"
-    :trackDistance="trackDistance"
-    :trackWeight="trackWeight"
-    :trackReps="trackReps"
-    @update:exerciseSets="exerciseSets = $event"
+    :exercise="exercise"
+    :exerciseRecord="exerciseRecord"
+    @update:exerciseRecord="exerciseRecord = $event"
   />
 </template>
