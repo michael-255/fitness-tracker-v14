@@ -1,5 +1,5 @@
 import { DBTable } from '@/constants/enums'
-import type { Id, CreatedAt, ActivityName, TextBlock, TrackBoolean } from '@/constants/types'
+import type { Id, CreatedAt, ActivityName, TextBlock, TrackBoolean } from '@/constants/globals'
 import type { Exercise } from '@/models/Exercise'
 import { database } from '@/services/LocalDatabase'
 import { type Ref, ref, onMounted } from 'vue'

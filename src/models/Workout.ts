@@ -1,4 +1,7 @@
+import { DBTable } from '@/constants/enums'
 import { _Activity, type ActivityParams } from '@/models/_Activity'
+import { database } from '@/services/LocalDatabase'
+import { truncateString } from '@/utils/common'
 
 interface WorkoutParams extends ActivityParams {
   exerciseIds?: string[]
@@ -9,16 +12,17 @@ interface WorkoutParams extends ActivityParams {
  * @param obj Partial<WorkoutParams>
  */
 export class Workout extends _Activity {
-  protected exerciseIds: string[]
+  public exerciseIds: string[]
 
   constructor({
     id,
     createdAt,
     name = 'My Workout',
     description,
+    status,
     exerciseIds = [],
   }: Partial<WorkoutParams> = {}) {
-    super({ id, createdAt, name, description })
+    super({ id, createdAt, name, description, status })
     this.exerciseIds = exerciseIds
   }
 
@@ -29,7 +33,7 @@ export class Workout extends _Activity {
         name: 'exerciseIds',
         label: 'Exercise Ids',
         align: 'left',
-        field: (row: Workout) => row.getExerciseIds(),
+        field: (row: Workout) => truncateString(row.exerciseIds.toString(), 40),
         sortable: true,
       },
     ]
@@ -39,7 +43,11 @@ export class Workout extends _Activity {
     return [..._Activity.getVisibleColumns(), 'exerciseIds']
   }
 
-  getExerciseIds(): string[] {
-    return this.exerciseIds
+  async update(): Promise<void> {
+    await database.updateById(DBTable.WORKOUTS, this.id, this)
+  }
+
+  async delete(): Promise<void> {
+    await database.deleteById(DBTable.WORKOUTS, this.id)
   }
 }

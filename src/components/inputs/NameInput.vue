@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { QInput } from 'quasar'
 import { ValidationLimit, ValidationMessage, isNameValid } from '@/utils/validators'
-import type { ActivityName } from '@/constants/types'
+import type { ActivityName } from '@/constants/globals'
 import { useVModel } from '@vueuse/core'
 
 /**

@@ -6,6 +6,17 @@ export enum LogLevel {
   DEBUG = 'Debug',
 }
 
+export enum ActivityStatus {
+  ENABLED = 'Enabled',
+  DISABLED = 'Disabled',
+  ARCHIVED = 'Archived',
+}
+
+export enum RecordStatus {
+  IN_PROGRESS = 'In Progress',
+  COMPLETED = 'Completed',
+}
+
 export enum DBTable {
   MEASUREMENTS = 'measurements',
   EXERCISES = 'exercises',

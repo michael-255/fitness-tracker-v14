@@ -1,10 +1,12 @@
-import type { Nullable } from '@/constants/types'
+import { ActivityStatus } from '@/constants/enums'
+import type { Nullable } from '@/constants/globals'
 import { _Entity, type EntityParams } from '@/models/_Entity'
 import { truncateString } from '@/utils/common'
 
 export interface ActivityParams extends EntityParams {
   name?: string
   description?: Nullable<string>
+  status?: ActivityStatus
 }
 
 /**
@@ -12,18 +14,21 @@ export interface ActivityParams extends EntityParams {
  * @param obj Partial<ActivityParams>
  */
 export class _Activity extends _Entity {
-  protected name: string
-  protected description: Nullable<string>
+  public name: string
+  public description: Nullable<string>
+  public status: ActivityStatus
 
   constructor({
     id,
     createdAt,
     name = 'My Activity',
     description = null,
+    status = ActivityStatus.ENABLED,
   }: Partial<ActivityParams> = {}) {
     super({ id, createdAt })
     this.name = name
     this.description = description
+    this.status = status
   }
 
   static getTableColumns(): any[] {
@@ -33,14 +38,21 @@ export class _Activity extends _Entity {
         name: 'name',
         label: 'Name',
         align: 'left',
-        field: (row: _Activity) => row.getName(),
+        field: (row: _Activity) => row.name,
         sortable: true,
       },
       {
         name: 'description',
         label: 'Description',
         align: 'left',
-        field: (row: _Activity) => truncateString(row.getDescription(), 40),
+        field: (row: _Activity) => truncateString(row.description, 40),
+        sortable: true,
+      },
+      {
+        name: 'status',
+        label: 'Status',
+        align: 'left',
+        field: (row: _Activity) => row.status,
         sortable: true,
       },
     ]
@@ -48,13 +60,5 @@ export class _Activity extends _Entity {
 
   static getVisibleColumns(): string[] {
     return [..._Entity.getVisibleColumns(), 'name', 'description']
-  }
-
-  getName(): string {
-    return this.name
-  }
-
-  getDescription(): Nullable<string> {
-    return this.description
   }
 }

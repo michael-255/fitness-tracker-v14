@@ -7,7 +7,7 @@ import { MeasurementRecord } from '@/models/MeasurementRecord'
 import { ExerciseRecord } from '@/models/ExerciseRecord'
 import { WorkoutRecord } from '@/models/WorkoutRecord'
 import { AppLog } from '@/models/AppLog'
-import { DBTable } from '@/constants/enums'
+import { ActivityStatus, DBTable, RecordStatus } from '@/constants/enums'
 
 /**
  * Wrapper for Dexie IndexedDB
@@ -21,8 +21,6 @@ export class LocalDatabase extends Dexie {
   [DBTable.MEASUREMENT_RECORDS]!: Table<Partial<MeasurementRecord>>;
   [DBTable.EXERCISE_RECORDS]!: Table<Partial<ExerciseRecord>>;
   [DBTable.WORKOUT_RECORDS]!: Table<Partial<WorkoutRecord>>;
-  [DBTable.ACTIVE_EXERCISES]!: Table<Partial<ExerciseRecord>>;
-  [DBTable.ACTIVE_WORKOUTS]!: Table<Partial<WorkoutRecord>>;
   [DBTable.APP_LOGS]!: Table<Partial<AppLog>>
 
   constructor(name: string) {
@@ -36,8 +34,6 @@ export class LocalDatabase extends Dexie {
     this[DBTable.MEASUREMENT_RECORDS].mapToClass(MeasurementRecord)
     this[DBTable.EXERCISE_RECORDS].mapToClass(ExerciseRecord)
     this[DBTable.WORKOUT_RECORDS].mapToClass(WorkoutRecord)
-    this[DBTable.ACTIVE_EXERCISES].mapToClass(ExerciseRecord)
-    this[DBTable.ACTIVE_WORKOUTS].mapToClass(WorkoutRecord)
     this[DBTable.APP_LOGS].mapToClass(AppLog)
   }
 
@@ -52,8 +48,6 @@ export class LocalDatabase extends Dexie {
   async getAll<MeasurementRecord>(table: DBTable.MEASUREMENT_RECORDS): Promise<MeasurementRecord[]>
   async getAll<ExerciseRecord>(table: DBTable.EXERCISE_RECORDS): Promise<ExerciseRecord[]>
   async getAll<WorkoutRecord>(table: DBTable.WORKOUT_RECORDS): Promise<WorkoutRecord[]>
-  async getAll<ExerciseRecord>(table: DBTable.ACTIVE_EXERCISES): Promise<ExerciseRecord[]>
-  async getAll<WorkoutRecord>(table: DBTable.ACTIVE_WORKOUTS): Promise<WorkoutRecord[]>
   async getAll<AppLog>(table: DBTable.APP_LOGS): Promise<AppLog[]>
   async getAll<T>(table: DBTable): Promise<T[]> {
     return await this.table(table).toArray()
@@ -75,8 +69,28 @@ export class LocalDatabase extends Dexie {
    * @param name
    * @returns Array of Activities
    */
-  async getActivityByName<T>(table: DBTable, name: string): Promise<T[]> {
+  async getActivitiesByName<T>(table: DBTable, name: string): Promise<T[]> {
     return await this.table(table).where('name').equalsIgnoreCase(name).toArray()
+  }
+
+  /**
+   * Get Activities from table by status.
+   * @param table
+   * @param status
+   * @returns Array of Activities
+   */
+  async getActivitiesByStatus<T>(table: DBTable, status: ActivityStatus): Promise<T[]> {
+    return await this.table(table).where('status').equalsIgnoreCase(status).toArray()
+  }
+
+  /**
+   * Get Records from table by status.
+   * @param table
+   * @param status
+   * @returns Array of Records
+   */
+  async getRecordsByStatus<T>(table: DBTable, status: RecordStatus): Promise<T[]> {
+    return await this.table(table).where('status').equalsIgnoreCase(status).toArray()
   }
 
   /**

@@ -2,7 +2,7 @@
 import { QInput } from 'quasar'
 import { v4 as createId } from 'uuid'
 import { ValidationLimit, ValidationMessage, isIdValid } from '@/utils/validators'
-import type { Id } from '@/constants/types'
+import type { Id } from '@/constants/globals'
 import { useVModel } from '@vueuse/core'
 
 /**

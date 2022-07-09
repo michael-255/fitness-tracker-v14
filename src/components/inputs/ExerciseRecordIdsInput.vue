@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QSelect, QItem } from 'quasar'
-import type { Id } from '@/constants/types'
+import type { Id } from '@/constants/globals'
 import { onMounted, ref, type Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { ValidationMessage, isRequired } from '@/utils/validators'

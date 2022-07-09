@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { QToggle } from 'quasar'
-import type { TrackBoolean } from '@/constants/types'
+import type { TrackBoolean } from '@/constants/globals'
 import { useVModel } from '@vueuse/core'
 
 /**

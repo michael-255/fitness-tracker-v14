@@ -1,5 +1,8 @@
 import { _Record, type RecordParams } from '@/models/_Record'
 import { ExerciseSet } from '@/models/ExerciseSet'
+import { database } from '@/services/LocalDatabase'
+import { DBTable } from '@/constants/enums'
+import { truncateString } from '@/utils/common'
 
 interface ExerciseRecordParams extends RecordParams {
   sets?: ExerciseSet[]
@@ -10,10 +13,17 @@ interface ExerciseRecordParams extends RecordParams {
  * @param obj Partial<ExerciseRecordParams>
  */
 export class ExerciseRecord extends _Record {
-  protected sets: ExerciseSet[]
+  public sets: ExerciseSet[]
 
-  constructor({ id, createdAt, parentId, note, sets = [] }: Partial<ExerciseRecordParams> = {}) {
-    super({ id, createdAt, parentId, note })
+  constructor({
+    id,
+    createdAt,
+    parentId,
+    note,
+    status,
+    sets = [],
+  }: Partial<ExerciseRecordParams> = {}) {
+    super({ id, createdAt, parentId, note, status })
     this.sets = sets
   }
 
@@ -24,7 +34,7 @@ export class ExerciseRecord extends _Record {
         name: 'sets',
         label: 'Sets',
         align: 'left',
-        field: (row: ExerciseRecord) => row.getSets(),
+        field: (row: ExerciseRecord) => truncateString(row.sets.toString(), 40),
         sortable: true,
       },
     ]
@@ -34,15 +44,19 @@ export class ExerciseRecord extends _Record {
     return [..._Record.getVisibleColumns(), 'sets']
   }
 
-  getSets(): ExerciseSet[] {
-    return this.sets
-  }
-
   addNewSet(): number {
     return this.sets.push(new ExerciseSet())
   }
 
   removeLastSet(): ExerciseSet | undefined {
     return this.sets.pop()
+  }
+
+  async update(): Promise<void> {
+    await database.updateById(DBTable.EXERCISE_RECORDS, this.id, this)
+  }
+
+  async delete(): Promise<void> {
+    await database.deleteById(DBTable.EXERCISE_RECORDS, this.id)
   }
 }

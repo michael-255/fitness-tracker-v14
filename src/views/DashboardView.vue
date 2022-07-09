@@ -16,7 +16,7 @@ import { useLuxon } from '@/use/useLuxon'
 import { DBTable } from '@/constants/enums'
 import { Exercise } from '@/models/Exercise'
 import { ExerciseRecord } from '@/models/ExerciseRecord'
-import type { Nullable } from '@/constants/types'
+import type { Nullable } from '@/constants/globals'
 
 const { dateISOToDisplay } = useLuxon()
 

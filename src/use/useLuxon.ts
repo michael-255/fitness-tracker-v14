@@ -1,4 +1,4 @@
-import type { Nullable } from '@/constants/types'
+import type { Nullable } from '@/constants/globals'
 import { DateTime } from 'luxon'
 
 /**

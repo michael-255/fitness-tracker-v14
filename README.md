@@ -83,10 +83,8 @@ Description TBA.
     - [ ] Edit
     - [x] Delete
 
-- [ ] Table column reveal/hide switches
 - [ ] How to overwrite route history
 - [ ] Fix `Options` View
-- [ ] Consider removing `Reports` view
 - [ ] Build reusable components for activity/record views
 
   - [ ] Remove options that are no longer needed

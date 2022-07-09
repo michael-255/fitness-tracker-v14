@@ -2,7 +2,7 @@ import { database } from '@/services/LocalDatabase'
 import { logger } from '@/services/Logger'
 import { DEBUG } from '@/constants/globals'
 import { DBTable, LogLevel } from '@/constants/enums'
-import type { AppLogParams } from '@/constants/types'
+import type { AppLogParams } from '@/constants/globals'
 import { AppLog } from '@/models/AppLog'
 
 /**

@@ -1,4 +1,6 @@
+import { DBTable } from '@/constants/enums'
 import { _Activity, type ActivityParams } from '@/models/_Activity'
+import { database } from '@/services/LocalDatabase'
 
 interface ExerciseParams extends ActivityParams {
   trackMultipleSets?: boolean
@@ -13,24 +15,25 @@ interface ExerciseParams extends ActivityParams {
  * @param obj Partial<ExerciseParams>
  */
 export class Exercise extends _Activity {
-  protected trackMultipleSets: boolean
-  protected trackDuration: boolean
-  protected trackDistance: boolean
-  protected trackWeight: boolean
-  protected trackReps: boolean
+  public trackMultipleSets: boolean
+  public trackDuration: boolean
+  public trackDistance: boolean
+  public trackWeight: boolean
+  public trackReps: boolean
 
   constructor({
     id,
     createdAt,
     name = 'My Exercise',
     description,
+    status,
     trackMultipleSets = false,
     trackDuration = false,
     trackDistance = false,
     trackWeight = false,
     trackReps = false,
   }: Partial<ExerciseParams> = {}) {
-    super({ id, createdAt, name, description })
+    super({ id, createdAt, name, description, status })
     this.trackMultipleSets = trackMultipleSets
     this.trackDuration = trackDuration
     this.trackDistance = trackDistance
@@ -45,35 +48,35 @@ export class Exercise extends _Activity {
         name: 'trackMultipleSets',
         label: 'Tracks Multiple Sets',
         align: 'left',
-        field: (row: Exercise) => row.getTrackMultipleSets(),
-        sortable: true,
-      },
-      {
-        name: 'trackDuration',
-        label: 'Tracks Duration',
-        align: 'left',
-        field: (row: Exercise) => row.getTrackDuration(),
-        sortable: true,
-      },
-      {
-        name: 'trackDistance',
-        label: 'Tracks Distance',
-        align: 'left',
-        field: (row: Exercise) => row.getTrackDistance(),
+        field: (row: Exercise) => row.trackMultipleSets,
         sortable: true,
       },
       {
         name: 'trackWeight',
         label: 'Tracks Weight',
         align: 'left',
-        field: (row: Exercise) => row.getTrackWeight(),
+        field: (row: Exercise) => row.trackWeight,
         sortable: true,
       },
       {
         name: 'trackReps',
         label: 'Tracks Reps',
         align: 'left',
-        field: (row: Exercise) => row.getTrackReps(),
+        field: (row: Exercise) => row.trackReps,
+        sortable: true,
+      },
+      {
+        name: 'trackDuration',
+        label: 'Tracks Duration',
+        align: 'left',
+        field: (row: Exercise) => row.trackDuration,
+        sortable: true,
+      },
+      {
+        name: 'trackDistance',
+        label: 'Tracks Distance',
+        align: 'left',
+        field: (row: Exercise) => row.trackDistance,
         sortable: true,
       },
     ]
@@ -90,23 +93,11 @@ export class Exercise extends _Activity {
     ]
   }
 
-  getTrackMultipleSets(): boolean {
-    return this.trackMultipleSets
+  async update(): Promise<void> {
+    await database.updateById(DBTable.EXERCISES, this.id, this)
   }
 
-  getTrackDuration(): boolean {
-    return this.trackDuration
-  }
-
-  getTrackDistance(): boolean {
-    return this.trackDistance
-  }
-
-  getTrackWeight(): boolean {
-    return this.trackWeight
-  }
-
-  getTrackReps(): boolean {
-    return this.trackReps
+  async delete(): Promise<void> {
+    await database.deleteById(DBTable.EXERCISES, this.id)
   }
 }

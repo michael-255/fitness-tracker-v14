@@ -11,8 +11,8 @@ export interface EntityParams {
  * @param obj Partial<EntityParams>
  */
 export class _Entity {
-  protected readonly id: string
-  protected readonly createdAt: string
+  public id: string
+  public createdAt: string
 
   constructor({
     id = createId(),
@@ -33,7 +33,7 @@ export class _Entity {
         label: 'Id',
         align: 'left',
         required: true,
-        field: (row: _Entity) => row.getId(),
+        field: (row: _Entity) => row.id,
         sortable: true,
       },
       {
@@ -52,14 +52,6 @@ export class _Entity {
 
   static getColumnOptions(): any[] {
     return this.getTableColumns().filter((i: any) => i.name !== 'id')
-  }
-
-  getId(): string {
-    return this.id
-  }
-
-  getCreatedAt(): string {
-    return this.createdAt
   }
 
   getDisplayCreatedAt(): string {

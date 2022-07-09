@@ -60,7 +60,7 @@ export function isDataInArray(arr: any[]): boolean {
  * @param len Max length of truncated string
  * @returns Truncated string with a '...' at the end
  */
-export function truncateString(str: string | null, len: number): string {
+export function truncateString(str: string | null | undefined, len: number): string {
   if (str) {
     if (str.length <= len) {
       return str

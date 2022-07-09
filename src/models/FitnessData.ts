@@ -29,8 +29,6 @@ export class FitnessData {
   public measurementRecords: MeasurementRecord[]
   public exerciseRecords: ExerciseRecord[]
   public workoutRecords: WorkoutRecord[]
-  public activeExercises: ExerciseRecord[]
-  public activeWorkouts: WorkoutRecord[]
   public appLogs: AppLog[]
 
   constructor({
@@ -40,8 +38,6 @@ export class FitnessData {
     measurementRecords = [],
     exerciseRecords = [],
     workoutRecords = [],
-    activeExercises = [],
-    activeWorkouts = [],
     appLogs = [],
   }: Partial<FitnessDataParams> = {}) {
     this.measurements = measurements
@@ -50,8 +46,6 @@ export class FitnessData {
     this.measurementRecords = measurementRecords
     this.exerciseRecords = exerciseRecords
     this.workoutRecords = workoutRecords
-    this.activeExercises = activeExercises
-    this.activeWorkouts = activeWorkouts
     this.appLogs = appLogs
   }
 }

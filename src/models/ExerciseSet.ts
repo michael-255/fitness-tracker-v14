@@ -1,4 +1,4 @@
-import type { Nullable } from '@/constants/types'
+import type { Nullable } from '@/constants/globals'
 
 interface ExerciseSetParams {
   weight?: Nullable<number>
@@ -12,10 +12,10 @@ interface ExerciseSetParams {
  * @param obj Partial<ExerciseSetParams>
  */
 export class ExerciseSet {
-  protected weight: Nullable<number>
-  protected reps: Nullable<number>
-  protected distance: Nullable<number>
-  protected duration: Nullable<number>
+  public weight: Nullable<number>
+  public reps: Nullable<number>
+  public distance: Nullable<number>
+  public duration: Nullable<number>
 
   constructor({
     weight = null,
@@ -27,22 +27,6 @@ export class ExerciseSet {
     this.reps = reps
     this.distance = distance
     this.duration = duration
-  }
-
-  getWeight(): Nullable<number> {
-    return this.weight
-  }
-
-  getReps(): Nullable<number> {
-    return this.reps
-  }
-
-  getDistance(): Nullable<number> {
-    return this.distance
-  }
-
-  getDuration(): Nullable<number> {
-    return this.duration
   }
 
   updateSet(props: Partial<ExerciseSetParams>): void {

@@ -1,5 +1,7 @@
-import type { Nullable } from '@/constants/types'
+import { DBTable } from '@/constants/enums'
+import type { Nullable } from '@/constants/globals'
 import { _Record, type RecordParams } from '@/models/_Record'
+import { database } from '@/services/LocalDatabase'
 
 interface MeasurementRecordParams extends RecordParams {
   lbs?: Nullable<number>
@@ -11,18 +13,19 @@ interface MeasurementRecordParams extends RecordParams {
  * @param obj Partial<MeasurementRecordParams>
  */
 export class MeasurementRecord extends _Record {
-  protected lbs: Nullable<number>
-  protected inches: Nullable<number>
+  public lbs: Nullable<number>
+  public inches: Nullable<number>
 
   constructor({
     id,
     createdAt,
     parentId,
     note,
+    status,
     lbs = null,
     inches = null,
   }: Partial<MeasurementRecordParams> = {}) {
-    super({ id, createdAt, parentId, note })
+    super({ id, createdAt, parentId, note, status })
     this.lbs = lbs
     this.inches = inches
   }
@@ -34,14 +37,14 @@ export class MeasurementRecord extends _Record {
         name: 'lbs',
         label: 'Lbs',
         align: 'left',
-        field: (row: MeasurementRecord) => row.getLbs(),
+        field: (row: MeasurementRecord) => row.lbs,
         sortable: true,
       },
       {
         name: 'inches',
         label: 'Inches',
         align: 'left',
-        field: (row: MeasurementRecord) => row.getInches(),
+        field: (row: MeasurementRecord) => row.inches,
         sortable: true,
       },
     ]
@@ -49,14 +52,6 @@ export class MeasurementRecord extends _Record {
 
   static getVisibleColumns(): string[] {
     return [..._Record.getVisibleColumns(), 'lbs', 'inches']
-  }
-
-  getLbs(): Nullable<number> {
-    return this.lbs
-  }
-
-  getInches(): Nullable<number> {
-    return this.inches
   }
 
   getFeetAndInches(): string {
@@ -67,5 +62,13 @@ export class MeasurementRecord extends _Record {
     } else {
       return '-'
     }
+  }
+
+  async update(): Promise<void> {
+    await database.updateById(DBTable.MEASUREMENT_RECORDS, this.id, this)
+  }
+
+  async delete(): Promise<void> {
+    await database.deleteById(DBTable.MEASUREMENT_RECORDS, this.id)
   }
 }

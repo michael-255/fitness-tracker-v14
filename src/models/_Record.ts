@@ -1,10 +1,12 @@
-import type { Nullable } from '@/constants/types'
+import { RecordStatus } from '@/constants/enums'
+import type { Nullable } from '@/constants/globals'
 import { _Entity, type EntityParams } from '@/models/_Entity'
 import { truncateString } from '@/utils/common'
 
 export interface RecordParams extends EntityParams {
   parentId?: string
   note?: Nullable<string>
+  status?: RecordStatus
 }
 
 /**
@@ -12,13 +14,21 @@ export interface RecordParams extends EntityParams {
  * @param obj Partial<RecordParams>
  */
 export class _Record extends _Entity {
-  protected parentId: string
-  protected note: Nullable<string>
+  public parentId: string
+  public note: Nullable<string>
+  public status: RecordStatus
 
-  constructor({ id, createdAt, parentId = '', note = null }: Partial<RecordParams> = {}) {
+  constructor({
+    id,
+    createdAt,
+    parentId = '',
+    note = null,
+    status = RecordStatus.IN_PROGRESS,
+  }: Partial<RecordParams> = {}) {
     super({ id, createdAt })
     this.parentId = parentId
     this.note = note
+    this.status = status
   }
 
   static getTableColumns(): any[] {
@@ -28,14 +38,21 @@ export class _Record extends _Entity {
         name: 'parentId',
         label: 'Parent Id',
         align: 'left',
-        field: (row: _Record) => row.getParentId(),
+        field: (row: _Record) => row.parentId,
         sortable: true,
       },
       {
         name: 'note',
         label: 'Note',
         align: 'left',
-        field: (row: _Record) => truncateString(row.getNote(), 40),
+        field: (row: _Record) => truncateString(row.note, 40),
+        sortable: true,
+      },
+      {
+        name: 'status',
+        label: 'Status',
+        align: 'left',
+        field: (row: _Record) => row.status,
         sortable: true,
       },
     ]
@@ -43,13 +60,5 @@ export class _Record extends _Entity {
 
   static getVisibleColumns(): string[] {
     return [..._Entity.getVisibleColumns(), 'parentId', 'note']
-  }
-
-  getParentId(): string {
-    return this.parentId
-  }
-
-  getNote(): Nullable<string> {
-    return this.note
   }
 }

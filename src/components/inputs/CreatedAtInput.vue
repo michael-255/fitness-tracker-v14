@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CreatedAt } from '@/constants/types'
+import type { CreatedAt } from '@/constants/globals'
 import { QInput, QDate, QBtn, QTime, QPopupProxy } from 'quasar'
 import { type Ref, ref } from 'vue'
 import { ValidationMessage, isCreatedAtValid } from '@/utils/validators'

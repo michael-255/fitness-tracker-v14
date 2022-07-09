@@ -1,6 +1,9 @@
-import type { Nullable } from '@/constants/types'
+import { DBTable } from '@/constants/enums'
+import type { Nullable } from '@/constants/globals'
 import { _Record, type RecordParams } from '@/models/_Record'
-import { getDurationString, getMediumDateString } from '@/utils/date-time'
+import { database } from '@/services/LocalDatabase'
+import { truncateString } from '@/utils/common'
+import { getDurationString } from '@/utils/date-time'
 import { DateTime } from 'luxon'
 
 interface WorkoutRecordParams extends RecordParams {
@@ -13,18 +16,19 @@ interface WorkoutRecordParams extends RecordParams {
  * @param obj Partial<WorkoutRecordParams>
  */
 export class WorkoutRecord extends _Record {
-  protected finishedAt: Nullable<string>
-  protected exerciseRecordIds: string[]
+  public finishedAt: Nullable<string>
+  public exerciseRecordIds: string[]
 
   constructor({
     id,
     createdAt,
     parentId,
     note,
+    status,
     finishedAt = null,
     exerciseRecordIds = [],
   }: Partial<WorkoutRecordParams> = {}) {
-    super({ id, createdAt, parentId, note })
+    super({ id, createdAt, parentId, note, status })
     this.finishedAt = finishedAt
     this.exerciseRecordIds = exerciseRecordIds
   }
@@ -36,14 +40,14 @@ export class WorkoutRecord extends _Record {
         name: 'finishedAt',
         label: 'Finished At',
         align: 'left',
-        field: (row: WorkoutRecord) => row.getDisplayFinishedAt(),
+        field: (row: WorkoutRecord) => row.finishedAt,
         sortable: true,
       },
       {
         name: 'exerciseRecordIds',
         label: 'Exercise Record Ids',
         align: 'left',
-        field: (row: WorkoutRecord) => row.getExerciseRecordIds(),
+        field: (row: WorkoutRecord) => truncateString(row.exerciseRecordIds.toString(), 40),
         sortable: true,
       },
     ]
@@ -53,20 +57,12 @@ export class WorkoutRecord extends _Record {
     return [..._Record.getVisibleColumns(), 'finishedAt', 'exerciseRecordIds']
   }
 
-  getFinishedAt(): Nullable<string> {
-    return this.finishedAt
-  }
-
   getDisplayFinishedAt(): string {
     if (this.finishedAt) {
       return DateTime.fromISO(this.finishedAt).toFormat('ccc LLL d yyyy ttt')
     } else {
       return '-'
     }
-  }
-
-  getExerciseRecordIds(): string[] {
-    return this.exerciseRecordIds
   }
 
   getDuration(): string {
@@ -80,12 +76,11 @@ export class WorkoutRecord extends _Record {
     }
   }
 
-  getStartDate(): string | undefined {
-    if (this.createdAt) {
-      const date = new Date(this.createdAt)
-      return getMediumDateString(date)
-    } else {
-      return '-'
-    }
+  async update(): Promise<void> {
+    await database.updateById(DBTable.WORKOUT_RECORDS, this.id, this)
+  }
+
+  async delete(): Promise<void> {
+    await database.deleteById(DBTable.WORKOUT_RECORDS, this.id)
   }
 }

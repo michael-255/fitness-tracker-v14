@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { QInput } from 'quasar'
 import { ValidationLimit, ValidationMessage, isTextBlockValid } from '@/utils/validators'
-import type { TextBlock } from '@/constants/types'
+import type { TextBlock } from '@/constants/globals'
 import { useVModel } from '@vueuse/core'
 
 /**

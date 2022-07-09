@@ -1,9 +1,9 @@
-import type { ActivityName, CreatedAt, FinishedAt, Id, TextBlock } from '@/constants/types'
-
 /**
  * @note
  * Make sure the ValidationLimit, ValidationMessage, and ValidationRegex contraints match.
  */
+
+import type { Nullable } from '@/constants/globals'
 
 export enum ValidationLimit {
   ID = 40,
@@ -34,22 +34,22 @@ export function isRequired(value: any): boolean {
   }
 }
 
-export function isIdValid(id: Id): boolean {
+export function isIdValid(id: string): boolean {
   return ValidationRegex.Id.test(id)
 }
 
-export function isCreatedAtValid(date: CreatedAt): boolean {
+export function isCreatedAtValid(date: string): boolean {
   return ValidationRegex.Date.test(date)
 }
 
-export function isFinishedAtValid(date: FinishedAt): boolean {
+export function isFinishedAtValid(date: string): boolean {
   return date === null || ValidationRegex.Date.test(date)
 }
 
-export function isNameValid(name: ActivityName): boolean {
+export function isNameValid(name: string): boolean {
   return ValidationRegex.Name.test(name)
 }
 
-export function isTextBlockValid(text: TextBlock): boolean {
+export function isTextBlockValid(text: Nullable<string>): boolean {
   return text === null || ValidationRegex.TextBlock.test(text)
 }

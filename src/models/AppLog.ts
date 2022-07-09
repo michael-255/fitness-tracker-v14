@@ -17,12 +17,12 @@ interface AppLogParams extends EntityParams {
  * @param obj.details Optional - Additional string with information about the event (str:str:str)
  */
 export class AppLog extends _Entity {
-  protected level: LogLevel
-  protected callerName: string
-  protected details?: string
-  protected errorName?: string
-  protected message?: string
-  protected stack?: string
+  public level: LogLevel
+  public callerName: string
+  public details?: string
+  public errorName?: string
+  public message?: string
+  public stack?: string
 
   constructor(params: AppLogParams) {
     super() // Will use default id and createdAt
@@ -36,84 +36,53 @@ export class AppLog extends _Entity {
 
   static getTableColumns(): any[] {
     return [
-      {
-        name: 'id',
-        label: 'Id',
-        align: 'left',
-        required: true,
-        field: (row: AppLog) => row.getId(),
-        sortable: true,
-      },
-      {
-        name: 'createdAt',
-        label: 'Created At',
-        align: 'left',
-        field: (row: AppLog) => row.getDisplayCreatedAt(),
-        sortable: true,
-      },
+      ..._Entity.getTableColumns(),
       {
         name: 'callerName',
         label: 'Caller Name',
         align: 'left',
-        field: (row: AppLog) => row.getCallerName(),
+        field: (row: AppLog) => row.callerName,
         sortable: true,
       },
       {
         name: 'details',
         label: 'Details',
         align: 'left',
-        field: (row: AppLog) => row.getDetails(),
+        field: (row: AppLog) => row.details,
         sortable: true,
       },
       {
         name: 'errorName',
         label: 'Error Name',
         align: 'left',
-        field: (row: AppLog) => row.getErrorName(),
+        field: (row: AppLog) => row.errorName,
         sortable: true,
       },
       {
         name: 'message',
         label: 'Messages',
         align: 'left',
-        field: (row: AppLog) => truncateString(row.getMessage(), 40),
+        field: (row: AppLog) => truncateString(row.message, 40),
         sortable: true,
       },
       {
         name: 'stack',
         label: 'Stack Trace',
         align: 'left',
-        field: (row: AppLog) => truncateString(row.getStack(), 40),
+        field: (row: AppLog) => truncateString(row.stack, 40),
         sortable: true,
       },
     ]
   }
 
-  static getColumnOptions(): any[] {
-    return this.getTableColumns().filter((i: any) => i.name !== 'id')
-  }
-
   static getVisibleColumns(): string[] {
-    return ['createdAt', 'callerName', 'details', 'errorName', 'message', 'stack']
-  }
-
-  getCallerName(): string {
-    return this.callerName || '-'
-  }
-
-  getDetails(): string {
-    return this.details || '-'
-  }
-
-  getErrorName(): string {
-    return this.errorName || '-'
-  }
-
-  getMessage(): string {
-    return this.message || '-'
-  }
-
-  getStack(): string {
-    return this.stack || '-'
+    return [
+      ..._Entity.getVisibleColumns(),
+      'callerName',
+      'details',
+      'errorName',
+      'message',
+      'stack',
+    ]
   }
 }
