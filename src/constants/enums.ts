@@ -15,6 +15,7 @@ export enum ActivityStatus {
 export enum RecordStatus {
   IN_PROGRESS = 'In Progress',
   COMPLETED = 'Completed',
+  SKIPPED = 'Skipped',
 }
 
 export enum DBTable {

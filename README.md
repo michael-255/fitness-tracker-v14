@@ -2,12 +2,23 @@
 
 Description TBA.
 
-## Todo
+## Primary Todos - MEASUREMENTS VIEW (focus on completing this one)
 
-- [ ] Look into `Quasar Dialog Plugin` for the confirm dialogs
-- [ ] Look into `Quasar Notify Plugin` for logger and other action notifications
+- [ ] Complete `MeasurementsView` to figure out how to complete similar views
+  - [ ] Look into `Quasar Dialog Plugin` for the confirm dialogs
+  - [ ] Look into `Quasar Notify Plugin` for logger and other action notifications
+  - [ ] `Create` action (fullscreen dialog)
+    - [ ] New `Measurement Activity`
+    - [ ] New `Measurement Record`
+  - [ ] `Edit` action (fullscreen dialog)
+    - [ ] Existing `Measurement Activity`
+    - [ ] Existing `Measurement Record`
+  - [ ] `Details` action (fullscreen dialog)
+    - [ ] Make it more readable
+  - [ ] `Report` action (fullscreen dialog)
+    - [ ] Viewable `Measurement Records` as a graphed `Report`
 
-- [ ] Build out class methods for complex actions (Exercise Sets!)
+## Secondary Todos
 
 - [ ] Build out core `Input` components
 

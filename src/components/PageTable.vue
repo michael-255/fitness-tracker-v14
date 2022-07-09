@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { QSelect } from 'quasar'
+import { QSelect, QInput, QIcon } from 'quasar'
 import { Icon, DBTable } from '@/constants/enums'
 import { useTable } from '@/use/useTable'
+import { type Ref, ref } from 'vue'
 import ConfirmDialog from '@/components/dialogs/ConfirmDialog.vue'
 import FullscreenDialog from '@/components/dialogs/FullscreenDialog.vue'
 
@@ -45,6 +46,8 @@ const {
   columnOptions: props.columnOptions,
   visibleColumns: props.visibleColumns,
 })
+
+const filter: Ref<string> = ref('')
 </script>
 
 <template>
@@ -56,11 +59,24 @@ const {
     style="height: 85vh"
     row-key="id"
     :visible-columns="tableVisibleColumns"
+    :filter="filter"
   >
     <!-- Table Heading -->
     <template v-slot:top>
       <div class="q-table__title text-weight-bold">{{ tableName }}</div>
       <QSpace />
+      <QInput
+        outlined
+        dense
+        debounce="300"
+        v-model="filter"
+        placeholder="Search"
+        class="q-mr-sm q-mb-sm"
+      >
+        <template v-slot:append>
+          <QIcon name="search" />
+        </template>
+      </QInput>
       <QSelect
         v-model="tableVisibleColumns"
         multiple
@@ -74,17 +90,17 @@ const {
         option-value="name"
         options-cover
         style="min-width: 150px"
-        class="q-mr-sm"
+        class="q-mr-sm q-mb-sm"
       />
       <div>
         <QBtn
           v-if="showCreate"
           color="positive"
           label="Create"
-          class="q-mr-sm"
+          class="q-mr-sm q-mb-sm"
           @click="openCreateDialog()"
         />
-        <QBtn color="negative" label="Clear" @click="openClearDialog()" />
+        <QBtn color="negative" label="Clear" @click="openClearDialog()" class="q-mb-sm" />
       </div>
     </template>
 

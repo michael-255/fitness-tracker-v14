@@ -16,7 +16,7 @@ import { ExerciseRecord } from '@/models/ExerciseRecord'
   >
     <template v-slot:tab1>
       <PageTable
-        :table="DBTable.ACTIVE_WORKOUTS"
+        :table="DBTable.WORKOUT_RECORDS"
         tableName="Active Workouts"
         :tableColumns="WorkoutRecord.getTableColumns()"
         :columnOptions="WorkoutRecord.getColumnOptions()"
@@ -29,7 +29,7 @@ import { ExerciseRecord } from '@/models/ExerciseRecord'
 
     <template v-slot:tab2>
       <PageTable
-        :table="DBTable.ACTIVE_EXERCISES"
+        :table="DBTable.EXERCISE_RECORDS"
         tableName="Active Exercises"
         :tableColumns="ExerciseRecord.getTableColumns()"
         :columnOptions="ExerciseRecord.getColumnOptions()"

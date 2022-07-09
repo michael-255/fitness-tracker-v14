@@ -1,7 +1,6 @@
 import { database } from '@/services/LocalDatabase'
-import { ref, onMounted } from 'vue'
+import { type Ref, ref, onMounted } from 'vue'
 import { type DBTable, LogLevel } from '@/constants/enums'
-import type { Ref } from 'vue'
 import { useAppLogger } from './useAppLogger'
 
 interface useTableParams {

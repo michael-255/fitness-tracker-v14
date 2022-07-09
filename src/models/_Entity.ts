@@ -40,7 +40,8 @@ export class _Entity {
         name: 'createdAt',
         label: 'Created At',
         align: 'left',
-        field: (row: _Entity) => row.getDisplayCreatedAt(),
+        field: (row: _Entity) => row.createdAt,
+        format: (val: string) => DateTime.fromISO(val).toFormat('ccc LLL d yyyy ttt'),
         sortable: true,
       },
     ]
@@ -54,7 +55,7 @@ export class _Entity {
     return this.getTableColumns().filter((i: any) => i.name !== 'id')
   }
 
-  getDisplayCreatedAt(): string {
+  getReadableCreatedAt(): string {
     return DateTime.fromISO(this.createdAt).toFormat('ccc LLL d yyyy ttt')
   }
 }
