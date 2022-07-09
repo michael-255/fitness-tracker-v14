@@ -18,8 +18,42 @@ import { DBTable } from '@/constants/enums'
 import { Exercise } from '@/models/Exercise'
 import { ExerciseRecord } from '@/models/ExerciseRecord'
 import type { Nullable } from '@/constants/globals'
+import { useQuasar } from 'quasar'
 
+const $q = useQuasar()
 const { dateISOToDisplay } = useLuxon()
+
+function confirmDialog() {
+  $q.dialog({
+    title: 'Confirm',
+    message: 'Would you like to confirm?',
+    cancel: true,
+    persistent: true,
+  })
+    .onOk(() => {
+      console.log('OK')
+      showNotification()
+    })
+    .onCancel(() => {
+      console.log('Cancel')
+    })
+}
+
+function showNotification() {
+  $q.notify({
+    color: 'negative',
+    textColor: 'white',
+    icon: 'event',
+    message: 'You have confirmed the operation. Good job!',
+    caption: `${new Date()}`,
+    actions: [
+      {
+        label: 'Dismiss',
+        color: 'white',
+      },
+    ],
+  })
+}
 
 // const exercise: Ref<Exercise | null> = ref(null)
 // const exerciseRecord: Ref<ExerciseRecord | null> = ref(null)
@@ -98,6 +132,7 @@ async function test() {
   <h3>Dashboard</h3>
 
   <QBtn color="primary" label="Print" @click="test()" />
+  <QBtn color="primary" label="Dialog" @click="confirmDialog()" />
 
   <!-- <IdInput :id="id" @update:id="id = $event" />
   <CreatedAtInput :createdAt="createdAt" @update:createdAt="createdAt = $event" />

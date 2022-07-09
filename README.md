@@ -5,8 +5,8 @@ Description TBA.
 ## Primary Todos - MEASUREMENTS VIEW (focus on completing this one)
 
 - [ ] Complete `MeasurementsView` to figure out how to complete similar views
-  - [ ] Look into `Quasar Dialog Plugin` for the confirm dialogs
-  - [ ] Look into `Quasar Notify Plugin` for logger and other action notifications
+  - [x] Look into `Quasar Dialog Plugin` for the confirm dialogs
+  - [x] Look into `Quasar Notify Plugin` for logger and other action notifications
   - [ ] `Create` action (fullscreen dialog)
     - [ ] New `Measurement Activity`
     - [ ] New `Measurement Record`
@@ -116,6 +116,20 @@ Description TBA.
   - [ ] Fitness data importer/exporter
   - [ ] Validators for LocalDatabase creates and edits
 - [ ] `LAST!!!` Flesh out app theme/design elements
+
+## Various Ideas
+
+New fields for certain types:
+
+```javascript
+const _Entity = {
+  updatedAt: 'equals createdAt when made',
+}
+const Activity = {
+  categories: 'array of Category enums',
+  equipment: 'array of Equipment enums',
+}
+```
 
 ## Notes from Jest Talk
 
