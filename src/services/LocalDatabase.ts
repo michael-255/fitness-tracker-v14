@@ -42,13 +42,6 @@ export class LocalDatabase extends Dexie {
    * @param table
    * @returns Array of all table items
    */
-  async getAll<Measurement>(table: DBTable.MEASUREMENTS): Promise<Measurement[]>
-  async getAll<Exercise>(table: DBTable.EXERCISES): Promise<Exercise[]>
-  async getAll<Workout>(table: DBTable.WORKOUTS): Promise<Workout[]>
-  async getAll<MeasurementRecord>(table: DBTable.MEASUREMENT_RECORDS): Promise<MeasurementRecord[]>
-  async getAll<ExerciseRecord>(table: DBTable.EXERCISE_RECORDS): Promise<ExerciseRecord[]>
-  async getAll<WorkoutRecord>(table: DBTable.WORKOUT_RECORDS): Promise<WorkoutRecord[]>
-  async getAll<AppLog>(table: DBTable.APP_LOGS): Promise<AppLog[]>
   async getAll<T>(table: DBTable): Promise<T[]> {
     return await this.table(table).toArray()
   }

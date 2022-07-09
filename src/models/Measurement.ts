@@ -81,6 +81,10 @@ export class Measurement extends _Activity {
     ]
   }
 
+  async add(): Promise<void> {
+    await database.add(DBTable.MEASUREMENTS, this)
+  }
+
   async update(): Promise<void> {
     await database.updateById(DBTable.MEASUREMENTS, this.id, this)
   }

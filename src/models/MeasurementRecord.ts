@@ -64,6 +64,10 @@ export class MeasurementRecord extends _Record {
     }
   }
 
+  async add(): Promise<void> {
+    await database.add(DBTable.MEASUREMENT_RECORDS, this)
+  }
+
   async update(): Promise<void> {
     await database.updateById(DBTable.MEASUREMENT_RECORDS, this.id, this)
   }

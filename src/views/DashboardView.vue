@@ -14,62 +14,72 @@ import { onMounted, ref, type Ref } from 'vue'
 import { v4 as createId } from 'uuid'
 import { useLuxon } from '@/use/useLuxon'
 import { DBTable } from '@/constants/enums'
+import { database } from '@/services/LocalDatabase'
 import { Exercise } from '@/models/Exercise'
 import { ExerciseRecord } from '@/models/ExerciseRecord'
 import type { Nullable } from '@/constants/globals'
 
 const { dateISOToDisplay } = useLuxon()
 
-const exercise: Ref<Exercise | null> = ref(null)
-const exerciseRecord: Ref<ExerciseRecord | null> = ref(null)
+// const exercise: Ref<Exercise | null> = ref(null)
+// const exerciseRecord: Ref<ExerciseRecord | null> = ref(null)
 
-const id: Ref<string> = ref(createId())
-const createdAt: Ref<string> = ref(dateISOToDisplay(new Date().toISOString()))
-const finishedAt: Ref<Nullable<string>> = ref('')
-const name: Ref<string> = ref('My Activity')
-const description: Ref<Nullable<string>> = ref(null)
-const note: Ref<Nullable<string>> = ref(null)
-const parentId: Ref<string> = ref('')
-const exerciseIds: Ref<string[]> = ref([])
-const exerciseRecordIds: Ref<string[]> = ref([])
+// const id: Ref<string> = ref(createId())
+// const createdAt: Ref<string> = ref(dateISOToDisplay(new Date().toISOString()))
+// const finishedAt: Ref<Nullable<string>> = ref('')
+// const name: Ref<string> = ref('My Activity')
+// const description: Ref<Nullable<string>> = ref(null)
+// const note: Ref<Nullable<string>> = ref(null)
+// const parentId: Ref<string> = ref('')
+// const exerciseIds: Ref<string[]> = ref([])
+// const exerciseRecordIds: Ref<string[]> = ref([])
 
-const trackMultipleSets: Ref<boolean> = ref(false)
-const trackDuration: Ref<boolean> = ref(false)
-const trackDistance: Ref<boolean> = ref(false)
-const trackWeight: Ref<boolean> = ref(false)
-const trackReps: Ref<boolean> = ref(false)
+// const trackMultipleSets: Ref<boolean> = ref(false)
+// const trackDuration: Ref<boolean> = ref(false)
+// const trackDistance: Ref<boolean> = ref(false)
+// const trackWeight: Ref<boolean> = ref(false)
+// const trackReps: Ref<boolean> = ref(false)
 
-const exerciseSets: Ref<ExerciseSet[]> = ref([])
+// const exerciseSets: Ref<ExerciseSet[]> = ref([])
 
-onMounted(async () => {
-  exercise.value = new Exercise({
-    id: 'test-1234',
-    trackMultipleSets: true,
-    trackWeight: true,
-    trackReps: true,
-    trackDistance: true,
-    trackDuration: true,
-  })
-
-  exerciseRecord.value = new ExerciseRecord({
-    parentId: 'test-1234',
-  })
-})
+// onMounted(async () => {
+// exercise.value = new Exercise({
+//   id: 'test-1234',
+//   trackMultipleSets: true,
+//   trackWeight: true,
+//   trackReps: true,
+//   trackDistance: true,
+//   trackDuration: true,
+// })
+// exerciseRecord.value = new ExerciseRecord({
+//   parentId: 'test-1234',
+// })
+// })
 
 async function test() {
-  console.log(id.value)
-  console.log(createdAt.value)
-  console.log(finishedAt.value)
-  console.log(name.value)
-  console.log(description.value)
-  console.log(note.value)
-  console.log(parentId.value)
-  console.log(exerciseIds.value)
-  console.log(trackMultipleSets.value)
-  console.log(trackDuration.value)
-  console.log(trackWeight.value)
-  console.log(trackReps.value)
-  console.log(exerciseSets.value)
+  const exer1 = new Exercise({ name: 'Test Exercise 1' })
+  console.log(exer1)
+  exer1.add()
+  const exerTest = (await database.getById(DBTable.EXERCISES, exer1.id)) as Exercise
+  console.log(exerTest)
+  exerTest.name = 'Updated Test Exercise 1'
+  exerTest.update()
+  const finalTest = await database.getById(DBTable.EXERCISES, exerTest.id)
+  console.log(finalTest)
+
+  // console.log(id.value)
+  // console.log(createdAt.value)
+  // console.log(finishedAt.value)
+  // console.log(name.value)
+  // console.log(description.value)
+  // console.log(note.value)
+  // console.log(parentId.value)
+  // console.log(exerciseIds.value)
+  // console.log(trackMultipleSets.value)
+  // console.log(trackDuration.value)
+  // console.log(trackWeight.value)
+  // console.log(trackReps.value)
+  // console.log(exerciseSets.value)
 }
 </script>
 
@@ -78,7 +88,7 @@ async function test() {
 
   <QBtn color="primary" label="Print" @click="test()" />
 
-  <IdInput :id="id" @update:id="id = $event" />
+  <!-- <IdInput :id="id" @update:id="id = $event" />
   <CreatedAtInput :createdAt="createdAt" @update:createdAt="createdAt = $event" />
   <FinishedAtInput :finishedAt="finishedAt" @update:finishedAt="finishedAt = $event" />
   <NameInput :name="name" @update:name="name = $event" />
@@ -109,5 +119,5 @@ async function test() {
     :exercise="exercise"
     :exerciseRecord="exerciseRecord"
     @update:exerciseRecord="exerciseRecord = $event"
-  />
+  /> -->
 </template>

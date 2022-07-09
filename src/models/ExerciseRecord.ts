@@ -52,6 +52,10 @@ export class ExerciseRecord extends _Record {
     return this.sets.pop()
   }
 
+  async add(): Promise<void> {
+    await database.add(DBTable.EXERCISE_RECORDS, this)
+  }
+
   async update(): Promise<void> {
     await database.updateById(DBTable.EXERCISE_RECORDS, this.id, this)
   }

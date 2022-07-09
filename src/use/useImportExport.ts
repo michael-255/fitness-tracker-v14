@@ -6,7 +6,6 @@ import { logger } from '@/services/Logger'
 import { ref } from 'vue'
 import { useAppLogger } from './useAppLogger'
 import { LogLevel } from '@/constants/enums'
-import type { MeasurementObject } from '@/constants/interfaces'
 
 const { silentLog } = useAppLogger()
 
@@ -46,14 +45,12 @@ export function useImportExport() {
 
       logger.log(fitnessData)
 
-      await database.bulkAdd<MeasurementObject>(DBTable.MEASUREMENTS, fitnessData?.measurements)
+      await database.bulkAdd(DBTable.MEASUREMENTS, fitnessData?.measurements)
       await database.bulkAdd(DBTable.EXERCISES, fitnessData?.exercises)
       await database.bulkAdd(DBTable.WORKOUTS, fitnessData?.workouts)
       await database.bulkAdd(DBTable.MEASUREMENT_RECORDS, fitnessData?.measurementRecords)
       await database.bulkAdd(DBTable.EXERCISE_RECORDS, fitnessData?.exerciseRecords)
       await database.bulkAdd(DBTable.WORKOUT_RECORDS, fitnessData?.workoutRecords)
-      await database.bulkAdd(DBTable.ACTIVE_EXERCISES, fitnessData?.activeExercises)
-      await database.bulkAdd(DBTable.ACTIVE_WORKOUTS, fitnessData?.activeWorkouts)
     } catch (error) {
       silentLog({ error, level: LogLevel.ERROR, name: 'importData' })
     }
@@ -68,8 +65,6 @@ export function useImportExport() {
         measurementRecords: await database.getAll(DBTable.MEASUREMENT_RECORDS),
         exerciseRecords: await database.getAll(DBTable.EXERCISE_RECORDS),
         workoutRecords: await database.getAll(DBTable.WORKOUT_RECORDS),
-        activeExercises: await database.getAll(DBTable.ACTIVE_EXERCISES),
-        activeWorkouts: await database.getAll(DBTable.ACTIVE_WORKOUTS),
         appLogs: await database.getAll(DBTable.APP_LOGS),
       })
 

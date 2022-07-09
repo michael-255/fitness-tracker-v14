@@ -76,6 +76,10 @@ export class WorkoutRecord extends _Record {
     }
   }
 
+  async add(): Promise<void> {
+    await database.add(DBTable.WORKOUT_RECORDS, this)
+  }
+
   async update(): Promise<void> {
     await database.updateById(DBTable.WORKOUT_RECORDS, this.id, this)
   }

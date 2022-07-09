@@ -43,6 +43,10 @@ export class Workout extends _Activity {
     return [..._Activity.getVisibleColumns(), 'exerciseIds']
   }
 
+  async add(): Promise<void> {
+    await database.add(DBTable.WORKOUTS, this)
+  }
+
   async update(): Promise<void> {
     await database.updateById(DBTable.WORKOUTS, this.id, this)
   }
