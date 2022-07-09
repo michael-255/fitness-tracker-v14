@@ -2,21 +2,20 @@
 import { QInput } from 'quasar'
 import { v4 as createId } from 'uuid'
 import { ValidationLimit, ValidationMessage, isIdValid } from '@/utils/validators'
-import type { Id } from '@/constants/globals'
 import { useVModel } from '@vueuse/core'
 
 /**
  * @example
- * Script: const id: Ref<Id> = ref('')
+ * Script: const id: Ref<string> = ref('')
  * Template: <IdInput :id="id" @update:id="id = $event" />
  */
 
 const props = defineProps<{
-  id: Id
+  id: string
 }>()
 
 const emits = defineEmits<{
-  (eventName: 'update:id', id: Id): void
+  (eventName: 'update:id', id: string): void
 }>()
 
 const id = useVModel(props, 'id', emits)
