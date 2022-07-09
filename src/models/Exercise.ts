@@ -1,6 +1,4 @@
-import { DBTable } from '@/constants/enums'
 import { _Activity, type ActivityParams } from '@/models/_Activity'
-import { database } from '@/services/LocalDatabase'
 
 export interface ExerciseParams extends ActivityParams {
   trackMultipleSets?: boolean
@@ -91,17 +89,5 @@ export class Exercise extends _Activity {
       'trackWeight',
       'trackReps',
     ]
-  }
-
-  async add(): Promise<void> {
-    await database.add(DBTable.EXERCISES, this)
-  }
-
-  async update(): Promise<void> {
-    await database.updateById(DBTable.EXERCISES, this.id, this)
-  }
-
-  async delete(): Promise<void> {
-    await database.deleteById(DBTable.EXERCISES, this.id)
   }
 }

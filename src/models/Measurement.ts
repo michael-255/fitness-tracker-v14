@@ -1,5 +1,3 @@
-import { DBTable } from '@/constants/enums'
-import { database } from '@/services/LocalDatabase'
 import { _Activity, type ActivityParams } from './_Activity'
 
 interface MeasurementParams extends ActivityParams {
@@ -79,17 +77,5 @@ export class Measurement extends _Activity {
       'trackFeet',
       'trackPercent',
     ]
-  }
-
-  async add(): Promise<void> {
-    await database.add(DBTable.MEASUREMENTS, this)
-  }
-
-  async update(): Promise<void> {
-    await database.updateById(DBTable.MEASUREMENTS, this.id, this)
-  }
-
-  async delete(): Promise<void> {
-    await database.deleteById(DBTable.MEASUREMENTS, this.id)
   }
 }

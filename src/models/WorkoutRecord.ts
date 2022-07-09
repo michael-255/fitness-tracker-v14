@@ -1,7 +1,5 @@
-import { DBTable } from '@/constants/enums'
 import type { Nullable } from '@/constants/globals'
 import { _Record, type RecordParams } from '@/models/_Record'
-import { database } from '@/services/LocalDatabase'
 import { truncateString } from '@/utils/common'
 import { getDurationString } from '@/utils/date-time'
 import { DateTime } from 'luxon'
@@ -74,17 +72,5 @@ export class WorkoutRecord extends _Record {
     } else {
       return '-'
     }
-  }
-
-  async add(): Promise<void> {
-    await database.add(DBTable.WORKOUT_RECORDS, this)
-  }
-
-  async update(): Promise<void> {
-    await database.updateById(DBTable.WORKOUT_RECORDS, this.id, this)
-  }
-
-  async delete(): Promise<void> {
-    await database.deleteById(DBTable.WORKOUT_RECORDS, this.id)
   }
 }

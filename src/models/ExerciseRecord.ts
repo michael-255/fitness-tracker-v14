@@ -1,7 +1,5 @@
 import { _Record, type RecordParams } from '@/models/_Record'
 import { ExerciseSet } from '@/models/ExerciseSet'
-import { database } from '@/services/LocalDatabase'
-import { DBTable } from '@/constants/enums'
 import { truncateString } from '@/utils/common'
 
 interface ExerciseRecordParams extends RecordParams {
@@ -50,17 +48,5 @@ export class ExerciseRecord extends _Record {
 
   removeLastSet(): ExerciseSet | undefined {
     return this.sets.pop()
-  }
-
-  async add(): Promise<void> {
-    await database.add(DBTable.EXERCISE_RECORDS, this)
-  }
-
-  async update(): Promise<void> {
-    await database.updateById(DBTable.EXERCISE_RECORDS, this.id, this)
-  }
-
-  async delete(): Promise<void> {
-    await database.deleteById(DBTable.EXERCISE_RECORDS, this.id)
   }
 }

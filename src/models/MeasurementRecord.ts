@@ -1,7 +1,5 @@
-import { DBTable } from '@/constants/enums'
 import type { Nullable } from '@/constants/globals'
 import { _Record, type RecordParams } from '@/models/_Record'
-import { database } from '@/services/LocalDatabase'
 
 interface MeasurementRecordParams extends RecordParams {
   lbs?: Nullable<number>
@@ -62,17 +60,5 @@ export class MeasurementRecord extends _Record {
     } else {
       return '-'
     }
-  }
-
-  async add(): Promise<void> {
-    await database.add(DBTable.MEASUREMENT_RECORDS, this)
-  }
-
-  async update(): Promise<void> {
-    await database.updateById(DBTable.MEASUREMENT_RECORDS, this.id, this)
-  }
-
-  async delete(): Promise<void> {
-    await database.deleteById(DBTable.MEASUREMENT_RECORDS, this.id)
   }
 }

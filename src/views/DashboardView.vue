@@ -57,18 +57,26 @@ const { dateISOToDisplay } = useLuxon()
 // })
 
 async function test() {
-  const exer1 = new Exercise({ name: 'Test Exercise' })
-  console.log(exer1)
-  await exer1.add()
-  const exerTest = (await database.getById(DBTable.EXERCISES, exer1.id)) as Exercise
-  console.log(exerTest)
-  exerTest.name = 'Updated Test Exercise before delete'
-  await exerTest.update()
-  const finalTest = (await database.getById(DBTable.EXERCISES, exerTest.id)) as Exercise
-  console.log(finalTest)
-  await exerTest.delete()
-  const finalTest2 = await database.getById(DBTable.EXERCISES, finalTest.id)
-  console.log('finalTest2', finalTest2)
+  let e1 = new Exercise({ name: 'Test Exercise' })
+  console.log(e1)
+
+  await database.add(DBTable.EXERCISES, e1)
+  let e2 = await database.getById<Exercise>(DBTable.EXERCISES, e1.id)
+  console.log(e2)
+
+  let e3: Exercise | undefined
+
+  if (e2) {
+    e2.name = 'Updated Test Exercise before delete'
+    await database.updateById(DBTable.EXERCISES, e2.id, e2)
+    e3 = await database.getById<Exercise>(DBTable.EXERCISES, e2.id)
+    console.log(e3)
+  }
+  if (e3) {
+    await database.deleteById(DBTable.EXERCISES, e3.id)
+    const final = await database.getById<Exercise>(DBTable.EXERCISES, e3.id)
+    console.log('finalTest2', final)
+  }
 
   // console.log(id.value)
   // console.log(createdAt.value)
