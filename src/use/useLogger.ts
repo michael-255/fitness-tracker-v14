@@ -3,14 +3,11 @@ import { logger } from '@/services/Logger'
 import { DEBUG } from '@/constants/globals'
 import { DBTable, Icon, LogLevel } from '@/constants/enums'
 import { AppLog, type AppLogParams } from '@/models/AppLog'
-import { useQuasar } from 'quasar'
-
-const $q = useQuasar()
 
 /**
- * Composable with utilities for logging and notifications.
+ * Composable with utilities for logging.
  */
-export function useAppLogger() {
+export function useLogger() {
   /**
    * Helper function for adding an AppLog to the database.
    */
@@ -21,7 +18,7 @@ export function useAppLogger() {
   /**
    * Returns the appropriate icon for the log level.
    */
-  function logLevelIcon(level: LogLevel): Icon {
+  function getLogLevelIcon(level: LogLevel): Icon {
     if (level === LogLevel.DEBUG || level === LogLevel.INFO) {
       return Icon.INFO
     } else if (level === LogLevel.WARN) {
@@ -34,7 +31,7 @@ export function useAppLogger() {
   /**
    * Returns the appropriate color for the log level.
    */
-  function logLevelColor(level: LogLevel): 'secondary' | 'orange-9' | 'negative' {
+  function getLogLevelColor(level: LogLevel): 'secondary' | 'orange-9' | 'negative' {
     if (level === LogLevel.DEBUG || level === LogLevel.INFO) {
       return 'secondary'
     } else if (level === LogLevel.WARN) {
@@ -42,42 +39,6 @@ export function useAppLogger() {
     } else {
       return 'negative'
     }
-  }
-
-  /**
-   * Uses the level and a message to craft an on screen notification.
-   */
-  function loggerNotification(level: LogLevel, message: string): void {
-    $q.notify({
-      message,
-      color: logLevelColor(level),
-      textColor: 'white',
-      icon: logLevelIcon(level),
-      actions: [
-        {
-          label: 'Dismiss',
-          color: 'white',
-        },
-      ],
-    })
-  }
-
-  /**
-   * Generic notification.
-   */
-  function notify(message: string): void {
-    $q.notify({
-      message,
-      color: 'secondary',
-      textColor: 'white',
-      icon: Icon.INFO,
-      actions: [
-        {
-          label: 'Dismiss',
-          color: 'white',
-        },
-      ],
-    })
   }
 
   /**
@@ -102,25 +63,16 @@ export function useAppLogger() {
   }
 
   /**
-   * Silently logs to the DB and console without alerting the user.
+   * Silently logs to the DB and console.
    */
-  async function silentLog(params: AppLogParams): Promise<void> {
+  async function log(params: AppLogParams): Promise<void> {
     consoleLog(params)
     await addAppLog(params)
-  }
-
-  /**
-   * Logs to the DB and console while also alerting the user on the front-end.
-   */
-  async function alertLog(params: AppLogParams, notifyMessage: string): Promise<void> {
-    consoleLog(params)
-    await addAppLog(params)
-    loggerNotification(params.level, notifyMessage)
   }
 
   return {
-    silentLog,
-    alertLog,
-    notify,
+    getLogLevelColor,
+    getLogLevelIcon,
+    log,
   }
 }

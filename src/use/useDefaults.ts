@@ -1,9 +1,9 @@
 import { DBTable, LogLevel } from '@/constants/enums'
 import { defaults } from '@/services/DefaultsGenerator'
 import { database } from '@/services/LocalDatabase'
-import { useAppLogger } from './useAppLogger'
+import { useLogger } from './useLogger'
 
-const { silentLog } = useAppLogger()
+const { log } = useLogger()
 
 export function useDefaults() {
   async function loadAllDefaults() {
@@ -15,7 +15,7 @@ export function useDefaults() {
       await database.bulkAdd(DBTable.EXERCISES, exercises)
       await database.bulkAdd(DBTable.WORKOUTS, workouts)
     } catch (error) {
-      silentLog({ error, level: LogLevel.ERROR, name: 'loadAllDefaults' })
+      log({ error, level: LogLevel.ERROR, name: 'loadAllDefaults' })
     }
   }
 
@@ -24,7 +24,7 @@ export function useDefaults() {
       const measurements = await defaults.generateMeasurements()
       await database.bulkAdd(DBTable.MEASUREMENTS, measurements)
     } catch (error) {
-      silentLog({ error, level: LogLevel.ERROR, name: 'loadMeasurements' })
+      log({ error, level: LogLevel.ERROR, name: 'loadMeasurements' })
     }
   }
 
@@ -33,7 +33,7 @@ export function useDefaults() {
       const exercises = await defaults.generateExercises()
       await database.bulkAdd(DBTable.EXERCISES, exercises)
     } catch (error) {
-      silentLog({ error, level: LogLevel.ERROR, name: 'loadExercises' })
+      log({ error, level: LogLevel.ERROR, name: 'loadExercises' })
     }
   }
 
@@ -42,7 +42,7 @@ export function useDefaults() {
       const workouts = await defaults.generateWorkouts()
       await database.bulkAdd(DBTable.WORKOUTS, workouts)
     } catch (error) {
-      silentLog({ error, level: LogLevel.ERROR, name: 'loadWorkouts' })
+      log({ error, level: LogLevel.ERROR, name: 'loadWorkouts' })
     }
   }
 

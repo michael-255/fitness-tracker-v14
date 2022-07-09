@@ -1,9 +1,9 @@
 import { database } from '@/services/LocalDatabase'
 import { DBTable } from '@/constants/enums'
-import { useAppLogger } from './useAppLogger'
+import { useLogger } from './useLogger'
 import { LogLevel } from '@/constants/enums'
 
-const { silentLog } = useAppLogger()
+const { log } = useLogger()
 
 export function useClearData() {
   async function clearAllAppData() {
@@ -12,7 +12,7 @@ export function useClearData() {
         await Promise.all(Object.values(DBTable).map((table) => database.clear(table as DBTable)))
       }
     } catch (error) {
-      silentLog({ error, level: LogLevel.ERROR, name: 'clearAllAppData' })
+      log({ error, level: LogLevel.ERROR, name: 'clearAllAppData' })
     }
   }
 
@@ -25,7 +25,7 @@ export function useClearData() {
         database.clear(table)
       }
     } catch (error) {
-      silentLog({ error, level: LogLevel.ERROR, name: 'clearTableData' })
+      log({ error, level: LogLevel.ERROR, name: 'clearTableData' })
     }
   }
 

@@ -16,7 +16,7 @@ app.use(router)
 app.use(Quasar, {
   // import Quasar plugins and add here
   plugins: {
-    Dialog, // deosn't appear to support default settings
+    Dialog, // doesn't appear to support default settings
     Notify,
   },
   // default options for Quasar plugins

@@ -5,11 +5,11 @@ import { useTable } from '@/use/useTable'
 import { type Ref, ref } from 'vue'
 import ConfirmDialog from '@/components/dialogs/ConfirmDialog.vue'
 import FullscreenDialog from '@/components/dialogs/FullscreenDialog.vue'
-import { useAppLogger } from '@/use/useAppLogger'
+import { useLogger } from '@/use/useLogger'
 import { useQuasar } from 'quasar'
 
 const $q = useQuasar()
-const { notify } = useAppLogger()
+const { notify } = useLogger()
 
 const props = defineProps<{
   table: DBTable

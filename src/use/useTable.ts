@@ -1,7 +1,7 @@
 import { database } from '@/services/LocalDatabase'
 import { type Ref, ref, onMounted } from 'vue'
 import { type DBTable, LogLevel } from '@/constants/enums'
-import { useAppLogger } from './useAppLogger'
+import { useLogger } from './useLogger'
 
 interface useTableParams {
   table: DBTable
@@ -10,7 +10,7 @@ interface useTableParams {
   visibleColumns: string[]
 }
 
-const { silentLog } = useAppLogger()
+const { log } = useLogger()
 
 export function useTable({ table, tableColumns, columnOptions, visibleColumns }: useTableParams) {
   const tableVisibleColumns: Ref<string[]> = ref(visibleColumns)
@@ -34,7 +34,7 @@ export function useTable({ table, tableColumns, columnOptions, visibleColumns }:
     try {
       tableRows.value = await database.getAll(table)
     } catch (error) {
-      silentLog({ error, level: LogLevel.ERROR, name: 'updateTableRows', details: table })
+      log({ error, level: LogLevel.ERROR, name: 'updateTableRows', details: table })
     }
   }
 
@@ -63,7 +63,7 @@ export function useTable({ table, tableColumns, columnOptions, visibleColumns }:
       await database.clear(table)
       updateTableRows()
     } catch (error) {
-      silentLog({ error, level: LogLevel.ERROR, name: 'confirmClearDialog', details: table })
+      log({ error, level: LogLevel.ERROR, name: 'confirmClearDialog', details: table })
     } finally {
       clearDialog.value = false
     }
@@ -87,7 +87,7 @@ export function useTable({ table, tableColumns, columnOptions, visibleColumns }:
       rowDetails.value = await database.getById(table, id)
       detailsDialog.value = true
     } catch (error) {
-      silentLog({
+      log({
         error,
         level: LogLevel.ERROR,
         name: 'openDetailsDialog',
@@ -125,7 +125,7 @@ export function useTable({ table, tableColumns, columnOptions, visibleColumns }:
       await database.deleteById(table, id)
       updateTableRows()
     } catch (error) {
-      silentLog({
+      log({
         error,
         level: LogLevel.ERROR,
         name: 'confirmDeleteDialog',

@@ -4,10 +4,10 @@ import { downloadFile } from '@/utils/common'
 import { DBTable } from '@/constants/enums'
 import { logger } from '@/services/Logger'
 import { ref } from 'vue'
-import { useAppLogger } from './useAppLogger'
+import { useLogger } from './useLogger'
 import { LogLevel } from '@/constants/enums'
 
-const { silentLog } = useAppLogger()
+const { log } = useLogger()
 
 export function useImportExport() {
   const file: any = ref(null)
@@ -18,7 +18,7 @@ export function useImportExport() {
     const fileName = entries[0]?.file?.name
     const failedValidation = entries[0]?.failedPropValidation
 
-    silentLog({
+    log({
       error: new Error('onRejectedFile'),
       level: LogLevel.WARN,
       name: 'onRejectedFile',
@@ -52,7 +52,7 @@ export function useImportExport() {
       await database.bulkAdd(DBTable.EXERCISE_RECORDS, fitnessData?.exerciseRecords)
       await database.bulkAdd(DBTable.WORKOUT_RECORDS, fitnessData?.workoutRecords)
     } catch (error) {
-      silentLog({ error, level: LogLevel.ERROR, name: 'importData' })
+      log({ error, level: LogLevel.ERROR, name: 'importData' })
     }
   }
 
@@ -77,7 +77,7 @@ export function useImportExport() {
         textContent: JSON.stringify(fitnessData),
       })
     } catch (error) {
-      silentLog({ error, level: LogLevel.ERROR, name: 'exportData' })
+      log({ error, level: LogLevel.ERROR, name: 'exportData' })
     }
   }
 

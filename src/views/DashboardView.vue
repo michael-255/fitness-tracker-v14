@@ -12,23 +12,30 @@ import { v4 as createId } from 'uuid'
 import { ActivityStatus, DBTable } from '@/constants/enums'
 import type { Nullable } from '@/constants/globals'
 import { useQuasar } from 'quasar'
+import { useNotify } from '@/use/useNotification'
+import { useDialog } from '@/use/useConfirmDialog'
 
 const $q = useQuasar()
 
+const { notify } = useNotify($q)
+const { dialog } = useDialog($q)
+
 function confirmDialog() {
-  $q.dialog({
-    title: 'Confirm',
-    message: 'Would you like to confirm?',
-    cancel: true,
-    persistent: true,
-  })
-    .onOk(() => {
-      console.log('OK')
-      showNotification()
-    })
-    .onCancel(() => {
-      console.log('Cancel')
-    })
+  dialog()
+  notify()
+  // $q.dialog({
+  //   title: 'Confirm',
+  //   message: 'Would you like to confirm?',
+  //   cancel: true,
+  //   persistent: true,
+  // })
+  //   .onOk(() => {
+  //     console.log('OK')
+  //     showNotification()
+  //   })
+  //   .onCancel(() => {
+  //     notify()
+  //   })
 }
 
 function showNotification() {
@@ -85,6 +92,7 @@ async function test() {
   <!-- Test Buttons -->
   <div class="q-my-sm">
     <QSeparator />
+    <span>Testing:</span>
     <QBtn color="primary" label="Print" class="q-ma-sm" @click="test()" />
     <QBtn color="primary" label="Dialog" class="q-ma-sm" @click="confirmDialog()" />
     <QSeparator />
