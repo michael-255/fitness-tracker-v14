@@ -5,6 +5,11 @@ import { useTable } from '@/use/useTable'
 import { type Ref, ref } from 'vue'
 import ConfirmDialog from '@/components/dialogs/ConfirmDialog.vue'
 import FullscreenDialog from '@/components/dialogs/FullscreenDialog.vue'
+import { useAppLogger } from '@/use/useAppLogger'
+import { useQuasar } from 'quasar'
+
+const $q = useQuasar()
+const { notify } = useAppLogger()
 
 const props = defineProps<{
   table: DBTable
@@ -48,6 +53,12 @@ const {
 })
 
 const filter: Ref<string> = ref('')
+
+// function deleteDialog(title: string, message: string) {
+//   $q.dialog({ title, message, cancel: true, persistent: true }).onOk(() => {
+//     notify('Item has been successfully deleted.')
+//   })
+// }
 </script>
 
 <template>

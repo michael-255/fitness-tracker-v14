@@ -2,7 +2,7 @@ import type { LogLevel } from '@/constants/enums'
 import { _Entity, type EntityParams } from '@/models/_Entity'
 import { truncateString } from '@/utils/common'
 
-interface AppLogParams extends EntityParams {
+export interface AppLogParams extends EntityParams {
   error: Error | any
   level: LogLevel
   name: string

@@ -33,7 +33,7 @@ function confirmDialog() {
 
 function showNotification() {
   $q.notify({
-    color: 'negative',
+    color: 'secondary',
     textColor: 'white',
     icon: 'event',
     message: 'You have confirmed the operation. Good job!',
