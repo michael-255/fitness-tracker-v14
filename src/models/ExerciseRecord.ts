@@ -1,15 +1,18 @@
-import type { ExerciseSet } from '@/constants/types'
-import type { ExerciseRecordObject } from '@/constants/interfaces'
-import { _Record } from '@/models/_Record'
+import { _Record, type RecordParams } from '@/models/_Record'
+import { ExerciseSet } from '@/models/ExerciseSet'
+
+interface ExerciseRecordParams extends RecordParams {
+  sets?: ExerciseSet[]
+}
 
 /**
  * ExerciseRecord Class
- * @param obj ExerciseRecordObject
+ * @param obj Partial<ExerciseRecordParams>
  */
 export class ExerciseRecord extends _Record {
   protected sets: ExerciseSet[]
 
-  constructor({ id, createdAt, parentId, note, sets = [] }: ExerciseRecordObject = {}) {
+  constructor({ id, createdAt, parentId, note, sets = [] }: Partial<ExerciseRecordParams> = {}) {
     super({ id, createdAt, parentId, note })
     this.sets = sets
   }
@@ -36,34 +39,10 @@ export class ExerciseRecord extends _Record {
   }
 
   addNewSet(): number {
-    return this.sets.push({
-      weight: null,
-      reps: null,
-      distance: null,
-      duration: null,
-    } as ExerciseSet)
+    return this.sets.push(new ExerciseSet())
   }
 
   removeLastSet(): ExerciseSet | undefined {
     return this.sets.pop()
-  }
-
-  updateSetByIndex(index: number, properties: ExerciseSet): void {
-    if (!properties.weight) {
-      properties.weight = null
-    }
-    if (!properties.reps) {
-      properties.reps = null
-    }
-    if (!properties.distance) {
-      properties.distance = null
-    }
-    if (!properties.duration) {
-      properties.duration = null
-    }
-
-    this.sets[index] = properties
-
-    console.log(this.sets)
   }
 }

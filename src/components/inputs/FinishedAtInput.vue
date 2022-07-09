@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { FinishedAt } from '@/constants/types'
 import { QInput, QDate, QBtn, QTime, QPopupProxy } from 'quasar'
 import { type Ref, ref } from 'vue'
 import { ValidationMessage, isFinishedAtValid } from '@/utils/validators'

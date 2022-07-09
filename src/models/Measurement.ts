@@ -1,16 +1,21 @@
-import type { TrackBoolean } from '@/constants/types'
-import type { MeasurementObject } from '@/constants/interfaces'
-import { _Activity } from './_Activity'
+import { _Activity, type ActivityParams } from './_Activity'
+
+interface MeasurementParams extends ActivityParams {
+  trackLbs?: boolean
+  trackInches?: boolean
+  trackFeet?: boolean
+  trackPercent?: boolean
+}
 
 /**
  * Measurement Class
- * @param obj MeasurementObject
+ * @param obj Partial<MeasurementParams>
  */
 export class Measurement extends _Activity {
-  protected trackLbs: TrackBoolean
-  protected trackInches: TrackBoolean
-  protected trackFeet: TrackBoolean
-  protected trackPercent: TrackBoolean
+  protected trackLbs: boolean
+  protected trackInches: boolean
+  protected trackFeet: boolean
+  protected trackPercent: boolean
 
   constructor({
     id,
@@ -21,7 +26,7 @@ export class Measurement extends _Activity {
     trackInches = false,
     trackFeet = false,
     trackPercent = false,
-  }: MeasurementObject = {}) {
+  }: Partial<MeasurementParams> = {}) {
     super({ id, createdAt, name, description })
     this.trackLbs = trackLbs
     this.trackInches = trackInches
@@ -73,19 +78,19 @@ export class Measurement extends _Activity {
     ]
   }
 
-  getTrackLbs(): TrackBoolean {
+  getTrackLbs(): boolean {
     return this.trackLbs
   }
 
-  getTrackInches(): TrackBoolean {
+  getTrackInches(): boolean {
     return this.trackInches
   }
 
-  getTrackFeet(): TrackBoolean {
+  getTrackFeet(): boolean {
     return this.trackFeet
   }
 
-  getTrackPercent(): TrackBoolean {
+  getTrackPercent(): boolean {
     return this.trackPercent
   }
 }

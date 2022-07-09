@@ -1,13 +1,4 @@
 import Dexie, { type IndexableType, type Table } from 'dexie'
-import type {
-  AppLogObject,
-  MeasurementObject,
-  ExerciseObject,
-  WorkoutObject,
-  MeasurementRecordObject,
-  ExerciseRecordObject,
-  WorkoutRecordObject,
-} from '@/constants/interfaces'
 import { databaseTableIndices } from '@/constants/globals'
 import { Measurement } from '@/models/Measurement'
 import { Exercise } from '@/models/Exercise'
@@ -16,7 +7,6 @@ import { MeasurementRecord } from '@/models/MeasurementRecord'
 import { ExerciseRecord } from '@/models/ExerciseRecord'
 import { WorkoutRecord } from '@/models/WorkoutRecord'
 import { AppLog } from '@/models/AppLog'
-import type { Id, ActivityName } from '@/constants/types'
 import { DBTable } from '@/constants/enums'
 
 /**
@@ -25,15 +15,15 @@ import { DBTable } from '@/constants/enums'
  */
 export class LocalDatabase extends Dexie {
   // Information for the typing system to help Dexie out
-  [DBTable.MEASUREMENTS]!: Table<MeasurementObject>;
-  [DBTable.EXERCISES]!: Table<ExerciseObject>;
-  [DBTable.WORKOUTS]!: Table<WorkoutObject>;
-  [DBTable.MEASUREMENT_RECORDS]!: Table<MeasurementRecordObject>;
-  [DBTable.EXERCISE_RECORDS]!: Table<ExerciseRecordObject>;
-  [DBTable.WORKOUT_RECORDS]!: Table<WorkoutRecordObject>;
-  [DBTable.ACTIVE_EXERCISES]!: Table<ExerciseRecordObject>;
-  [DBTable.ACTIVE_WORKOUTS]!: Table<WorkoutRecordObject>;
-  [DBTable.APP_LOGS]!: Table<AppLogObject>
+  [DBTable.MEASUREMENTS]!: Table<Partial<Measurement>>;
+  [DBTable.EXERCISES]!: Table<Partial<Exercise>>;
+  [DBTable.WORKOUTS]!: Table<Partial<Workout>>;
+  [DBTable.MEASUREMENT_RECORDS]!: Table<Partial<MeasurementRecord>>;
+  [DBTable.EXERCISE_RECORDS]!: Table<Partial<ExerciseRecord>>;
+  [DBTable.WORKOUT_RECORDS]!: Table<Partial<WorkoutRecord>>;
+  [DBTable.ACTIVE_EXERCISES]!: Table<Partial<ExerciseRecord>>;
+  [DBTable.ACTIVE_WORKOUTS]!: Table<Partial<WorkoutRecord>>;
+  [DBTable.APP_LOGS]!: Table<Partial<AppLog>>
 
   constructor(name: string) {
     super(name)
@@ -56,6 +46,15 @@ export class LocalDatabase extends Dexie {
    * @param table
    * @returns Array of all table items
    */
+  async getAll<Measurement>(table: DBTable.MEASUREMENTS): Promise<Measurement[]>
+  async getAll<Exercise>(table: DBTable.EXERCISES): Promise<Exercise[]>
+  async getAll<Workout>(table: DBTable.WORKOUTS): Promise<Workout[]>
+  async getAll<MeasurementRecord>(table: DBTable.MEASUREMENT_RECORDS): Promise<MeasurementRecord[]>
+  async getAll<ExerciseRecord>(table: DBTable.EXERCISE_RECORDS): Promise<ExerciseRecord[]>
+  async getAll<WorkoutRecord>(table: DBTable.WORKOUT_RECORDS): Promise<WorkoutRecord[]>
+  async getAll<ExerciseRecord>(table: DBTable.ACTIVE_EXERCISES): Promise<ExerciseRecord[]>
+  async getAll<WorkoutRecord>(table: DBTable.ACTIVE_WORKOUTS): Promise<WorkoutRecord[]>
+  async getAll<AppLog>(table: DBTable.APP_LOGS): Promise<AppLog[]>
   async getAll<T>(table: DBTable): Promise<T[]> {
     return await this.table(table).toArray()
   }
@@ -66,7 +65,7 @@ export class LocalDatabase extends Dexie {
    * @param id
    * @returns Single item or undefined
    */
-  async getById<T>(table: DBTable, id: Id): Promise<T | undefined> {
+  async getById<T>(table: DBTable, id: string): Promise<T | undefined> {
     return await this.table(table).where('id').equalsIgnoreCase(id).first()
   }
 
@@ -76,7 +75,7 @@ export class LocalDatabase extends Dexie {
    * @param name
    * @returns Array of Activities
    */
-  async getActivityByName<T>(table: DBTable, name: ActivityName): Promise<T[]> {
+  async getActivityByName<T>(table: DBTable, name: string): Promise<T[]> {
     return await this.table(table).where('name').equalsIgnoreCase(name).toArray()
   }
 
@@ -86,7 +85,7 @@ export class LocalDatabase extends Dexie {
    * @param parentId
    * @returns Array of Records
    */
-  async getRecordsByParentId<T>(table: DBTable, parentId: Id): Promise<T[]> {
+  async getRecordsByParentId<T>(table: DBTable, parentId: string): Promise<T[]> {
     return await this.table(table).where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
   }
 
@@ -96,7 +95,7 @@ export class LocalDatabase extends Dexie {
    * @param parentId
    * @returns Newest Record or undefined
    */
-  async getNewestRecordByParentId<T>(table: DBTable, parentId: Id): Promise<T | undefined> {
+  async getNewestRecordByParentId<T>(table: DBTable, parentId: string): Promise<T | undefined> {
     return (
       await this.table(table).where('parentId').equalsIgnoreCase(parentId).sortBy('createdAt')
     ).reverse()[0]
@@ -108,7 +107,7 @@ export class LocalDatabase extends Dexie {
    * @param ids
    * @returns Array of items
    */
-  async bulkGetByIds<T>(table: DBTable, ids: Id[]): Promise<T[]> {
+  async bulkGetByIds<T>(table: DBTable, ids: string[]): Promise<T[]> {
     // Filters out falsy values
     return (await this.table(table).bulkGet(ids)).filter(Boolean)
   }
@@ -119,7 +118,7 @@ export class LocalDatabase extends Dexie {
    * @param id
    * @returns undefined even if nothing was deleted
    */
-  async deleteById<T>(table: DBTable, id: Id): Promise<T | undefined> {
+  async deleteById<T>(table: DBTable, id: string): Promise<T | undefined> {
     const itemToDelete: T | undefined = await this.table(table)
       .where('id')
       .equalsIgnoreCase(id)
@@ -169,8 +168,8 @@ export class LocalDatabase extends Dexie {
    * @param properties
    * @returns 1 on a successful update
    */
-  async updateById<T>(table: DBTable, id: Id, properties: Partial<T>): Promise<IndexableType> {
-    return await this.table(table).update(id, properties)
+  async updateById<T>(table: DBTable, id: string, props: Partial<T>): Promise<IndexableType> {
+    return await this.table(table).update(id, props)
   }
 }
 

@@ -4,6 +4,9 @@ Description TBA.
 
 ## Todo
 
+- [ ] Look into `Quasar Dialog Plugin` for the confirm dialogs
+- [ ] Look into `Quasar Notify Plugin` for logger and other action notifications
+
 - [ ] Build out class methods for complex actions (Exercise Sets!)
 
 - [ ] Build out core `Input` components

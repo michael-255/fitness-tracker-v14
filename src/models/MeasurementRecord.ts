@@ -1,14 +1,18 @@
-import type { RecordNumber } from '@/constants/types'
-import type { MeasurementRecordObject } from '@/constants/interfaces'
-import { _Record } from '@/models/_Record'
+import type { Nullable } from '@/constants/types'
+import { _Record, type RecordParams } from '@/models/_Record'
+
+interface MeasurementRecordParams extends RecordParams {
+  lbs?: Nullable<number>
+  inches?: Nullable<number>
+}
 
 /**
  * MeasurementRecord Class
- * @param obj MeasurementRecordObject
+ * @param obj Partial<MeasurementRecordParams>
  */
 export class MeasurementRecord extends _Record {
-  protected lbs: RecordNumber
-  protected inches: RecordNumber
+  protected lbs: Nullable<number>
+  protected inches: Nullable<number>
 
   constructor({
     id,
@@ -17,7 +21,7 @@ export class MeasurementRecord extends _Record {
     note,
     lbs = null,
     inches = null,
-  }: MeasurementRecordObject = {}) {
+  }: Partial<MeasurementRecordParams> = {}) {
     super({ id, createdAt, parentId, note })
     this.lbs = lbs
     this.inches = inches
@@ -47,11 +51,11 @@ export class MeasurementRecord extends _Record {
     return [..._Record.getVisibleColumns(), 'lbs', 'inches']
   }
 
-  getLbs(): RecordNumber {
+  getLbs(): Nullable<number> {
     return this.lbs
   }
 
-  getInches(): RecordNumber {
+  getInches(): Nullable<number> {
     return this.inches
   }
 

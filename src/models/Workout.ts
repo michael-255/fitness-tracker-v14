@@ -1,13 +1,15 @@
-import type { Id } from '@/constants/types'
-import type { WorkoutObject } from '@/constants/interfaces'
-import { _Activity } from '@/models/_Activity'
+import { _Activity, type ActivityParams } from '@/models/_Activity'
+
+interface WorkoutParams extends ActivityParams {
+  exerciseIds?: string[]
+}
 
 /**
  * Workout Class
- * @param obj WorkoutObject
+ * @param obj Partial<WorkoutParams>
  */
 export class Workout extends _Activity {
-  protected exerciseIds: Id[]
+  protected exerciseIds: string[]
 
   constructor({
     id,
@@ -15,7 +17,7 @@ export class Workout extends _Activity {
     name = 'My Workout',
     description,
     exerciseIds = [],
-  }: WorkoutObject = {}) {
+  }: Partial<WorkoutParams> = {}) {
     super({ id, createdAt, name, description })
     this.exerciseIds = exerciseIds
   }
@@ -37,7 +39,7 @@ export class Workout extends _Activity {
     return [..._Activity.getVisibleColumns(), 'exerciseIds']
   }
 
-  getExerciseIds(): Id[] {
+  getExerciseIds(): string[] {
     return this.exerciseIds
   }
 }

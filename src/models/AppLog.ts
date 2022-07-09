@@ -1,7 +1,13 @@
-import type { AppLogParams } from '@/constants/types'
 import type { LogLevel } from '@/constants/enums'
-import { _Entity } from '@/models/_Entity'
+import { _Entity, type EntityParams } from '@/models/_Entity'
 import { truncateString } from '@/utils/common'
+
+interface AppLogParams extends EntityParams {
+  error: Error | any
+  level: LogLevel
+  name: string
+  details?: string
+}
 
 /**
  * AppLog Class
@@ -92,7 +98,7 @@ export class AppLog extends _Entity {
   }
 
   getCallerName(): string {
-    return this.callerName
+    return this.callerName || '-'
   }
 
   getDetails(): string {

@@ -1,17 +1,21 @@
-import type { Id, TextBlock } from '@/constants/types'
-import type { RecordObject } from '@/constants/interfaces'
-import { _Entity } from '@/models/_Entity'
+import type { Nullable } from '@/constants/types'
+import { _Entity, type EntityParams } from '@/models/_Entity'
 import { truncateString } from '@/utils/common'
+
+export interface RecordParams extends EntityParams {
+  parentId?: string
+  note?: Nullable<string>
+}
 
 /**
  * _Record Class
- * @param obj RecordObject
+ * @param obj Partial<RecordParams>
  */
 export class _Record extends _Entity {
-  protected parentId: Id
-  protected note: TextBlock
+  protected parentId: string
+  protected note: Nullable<string>
 
-  constructor({ id, createdAt, parentId = '', note = null }: RecordObject = {}) {
+  constructor({ id, createdAt, parentId = '', note = null }: Partial<RecordParams> = {}) {
     super({ id, createdAt })
     this.parentId = parentId
     this.note = note
@@ -31,7 +35,7 @@ export class _Record extends _Entity {
         name: 'note',
         label: 'Note',
         align: 'left',
-        field: (row: _Record) => truncateString(row.getNote() as string, 40),
+        field: (row: _Record) => truncateString(row.getNote(), 40),
         sortable: true,
       },
     ]
@@ -41,11 +45,11 @@ export class _Record extends _Entity {
     return [..._Entity.getVisibleColumns(), 'parentId', 'note']
   }
 
-  getParentId(): Id {
+  getParentId(): string {
     return this.parentId
   }
 
-  getNote(): TextBlock {
+  getNote(): Nullable<string> {
     return this.note
   }
 }

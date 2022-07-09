@@ -1,17 +1,23 @@
-import type { TrackBoolean } from '@/constants/types'
-import type { ExerciseObject } from '@/constants/interfaces'
-import { _Activity } from '@/models/_Activity'
+import { _Activity, type ActivityParams } from '@/models/_Activity'
+
+interface ExerciseParams extends ActivityParams {
+  trackMultipleSets?: boolean
+  trackDuration?: boolean
+  trackDistance?: boolean
+  trackWeight?: boolean
+  trackReps?: boolean
+}
 
 /**
  * Exercise Class
- * @param obj ExerciseObject
+ * @param obj Partial<ExerciseParams>
  */
 export class Exercise extends _Activity {
-  protected trackMultipleSets: TrackBoolean
-  protected trackDuration: TrackBoolean
-  protected trackDistance: TrackBoolean
-  protected trackWeight: TrackBoolean
-  protected trackReps: TrackBoolean
+  protected trackMultipleSets: boolean
+  protected trackDuration: boolean
+  protected trackDistance: boolean
+  protected trackWeight: boolean
+  protected trackReps: boolean
 
   constructor({
     id,
@@ -23,7 +29,7 @@ export class Exercise extends _Activity {
     trackDistance = false,
     trackWeight = false,
     trackReps = false,
-  }: ExerciseObject = {}) {
+  }: Partial<ExerciseParams> = {}) {
     super({ id, createdAt, name, description })
     this.trackMultipleSets = trackMultipleSets
     this.trackDuration = trackDuration
@@ -84,23 +90,23 @@ export class Exercise extends _Activity {
     ]
   }
 
-  getTrackMultipleSets(): TrackBoolean {
+  getTrackMultipleSets(): boolean {
     return this.trackMultipleSets
   }
 
-  getTrackDuration(): TrackBoolean {
+  getTrackDuration(): boolean {
     return this.trackDuration
   }
 
-  getTrackDistance(): TrackBoolean {
+  getTrackDistance(): boolean {
     return this.trackDistance
   }
 
-  getTrackWeight(): TrackBoolean {
+  getTrackWeight(): boolean {
     return this.trackWeight
   }
 
-  getTrackReps(): TrackBoolean {
+  getTrackReps(): boolean {
     return this.trackReps
   }
 }

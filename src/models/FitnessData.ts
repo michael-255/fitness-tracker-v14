@@ -1,28 +1,37 @@
-import type {
-  FitnessDataObject,
-  AppLogObject,
-  ExerciseObject,
-  ExerciseRecordObject,
-  MeasurementObject,
-  MeasurementRecordObject,
-  WorkoutObject,
-  WorkoutRecordObject,
-} from '@/constants/interfaces'
+import type { AppLog } from './AppLog'
+import type { Exercise } from './Exercise'
+import type { ExerciseRecord } from './ExerciseRecord'
+import type { Measurement } from './Measurement'
+import type { MeasurementRecord } from './MeasurementRecord'
+import type { Workout } from './Workout'
+import type { WorkoutRecord } from './WorkoutRecord'
+
+interface FitnessDataParams {
+  measurements?: Measurement[]
+  exercises?: Exercise[]
+  workouts?: Workout[]
+  measurementRecords?: MeasurementRecord[]
+  exerciseRecords?: ExerciseRecord[]
+  workoutRecords?: WorkoutRecord[]
+  activeExercises?: ExerciseRecord[]
+  activeWorkouts?: WorkoutRecord[]
+  appLogs?: AppLog[]
+}
 
 /**
  * FitnessData Class
- * @param obj FitnessDataObject
+ * @param obj Partial<FitnessDataParams>
  */
 export class FitnessData {
-  public measurements: MeasurementObject[]
-  public exercises: ExerciseObject[]
-  public workouts: WorkoutObject[]
-  public measurementRecords: MeasurementRecordObject[]
-  public exerciseRecords: ExerciseRecordObject[]
-  public workoutRecords: WorkoutRecordObject[]
-  public activeExercises: ExerciseRecordObject[]
-  public activeWorkouts: WorkoutRecordObject[]
-  public appLogs: AppLogObject[]
+  public measurements: Measurement[]
+  public exercises: Exercise[]
+  public workouts: Workout[]
+  public measurementRecords: MeasurementRecord[]
+  public exerciseRecords: ExerciseRecord[]
+  public workoutRecords: WorkoutRecord[]
+  public activeExercises: ExerciseRecord[]
+  public activeWorkouts: WorkoutRecord[]
+  public appLogs: AppLog[]
 
   constructor({
     measurements = [],
@@ -34,7 +43,7 @@ export class FitnessData {
     activeExercises = [],
     activeWorkouts = [],
     appLogs = [],
-  }: FitnessDataObject = {}) {
+  }: Partial<FitnessDataParams> = {}) {
     this.measurements = measurements
     this.exercises = exercises
     this.workouts = workouts

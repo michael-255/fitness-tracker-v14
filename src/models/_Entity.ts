@@ -1,17 +1,23 @@
-import type { Id, CreatedAt } from '@/constants/types'
-import type { EntityObject } from '@/constants/interfaces'
 import { v4 as createId } from 'uuid'
 import { DateTime } from 'luxon'
 
+export interface EntityParams {
+  id?: string
+  createdAt?: string
+}
+
 /**
  * _Entity Class
- * @param obj EntityObject
+ * @param obj Partial<EntityParams>
  */
 export class _Entity {
-  protected readonly id: Id
-  protected readonly createdAt: CreatedAt
+  protected readonly id: string
+  protected readonly createdAt: string
 
-  constructor({ id = createId(), createdAt = new Date().toISOString() }: EntityObject = {}) {
+  constructor({
+    id = createId(),
+    createdAt = new Date().toISOString(),
+  }: Partial<EntityParams> = {}) {
     this.id = id
     this.createdAt = createdAt
   }
@@ -48,11 +54,11 @@ export class _Entity {
     return this.getTableColumns().filter((i: any) => i.name !== 'id')
   }
 
-  getId(): Id {
+  getId(): string {
     return this.id
   }
 
-  getCreatedAt(): CreatedAt {
+  getCreatedAt(): string {
     return this.createdAt
   }
 

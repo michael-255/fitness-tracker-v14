@@ -1,16 +1,20 @@
-import type { FinishedAt, Id } from '@/constants/types'
-import type { WorkoutRecordObject } from '@/constants/interfaces'
-import { _Record } from '@/models/_Record'
+import type { Nullable } from '@/constants/types'
+import { _Record, type RecordParams } from '@/models/_Record'
 import { getDurationString, getMediumDateString } from '@/utils/date-time'
 import { DateTime } from 'luxon'
 
+interface WorkoutRecordParams extends RecordParams {
+  finishedAt?: Nullable<string>
+  exerciseRecordIds?: string[]
+}
+
 /**
  * WorkoutRecord Class
- * @param obj WorkoutRecordObject
+ * @param obj Partial<WorkoutRecordParams>
  */
 export class WorkoutRecord extends _Record {
-  protected finishedAt: FinishedAt
-  protected exerciseRecordIds: Id[]
+  protected finishedAt: Nullable<string>
+  protected exerciseRecordIds: string[]
 
   constructor({
     id,
@@ -19,7 +23,7 @@ export class WorkoutRecord extends _Record {
     note,
     finishedAt = null,
     exerciseRecordIds = [],
-  }: WorkoutRecordObject = {}) {
+  }: Partial<WorkoutRecordParams> = {}) {
     super({ id, createdAt, parentId, note })
     this.finishedAt = finishedAt
     this.exerciseRecordIds = exerciseRecordIds
@@ -49,7 +53,7 @@ export class WorkoutRecord extends _Record {
     return [..._Record.getVisibleColumns(), 'finishedAt', 'exerciseRecordIds']
   }
 
-  getFinishedAt(): FinishedAt {
+  getFinishedAt(): Nullable<string> {
     return this.finishedAt
   }
 
@@ -61,7 +65,7 @@ export class WorkoutRecord extends _Record {
     }
   }
 
-  getExerciseRecordIds(): Id[] {
+  getExerciseRecordIds(): string[] {
     return this.exerciseRecordIds
   }
 

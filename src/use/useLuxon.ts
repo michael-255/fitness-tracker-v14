@@ -1,10 +1,10 @@
-import type { CreatedAt, FinishedAt } from '@/constants/types'
+import type { Nullable } from '@/constants/types'
 import { DateTime } from 'luxon'
 
 /**
  * @todo
  * - Use Luxon in the classes directly to output the date
- * - Removed this composable and import and use in classes instead
+ * - Remove this composable and import and use in classes instead
  */
 
 export function useLuxon() {
@@ -22,7 +22,7 @@ export function useLuxon() {
    * @param date Text display date
    * @returns Example: 2022-06-26T18:28:00.000Z
    */
-  function dateDisplayToISO(date: CreatedAt | FinishedAt): string | null {
+  function dateDisplayToISO(date: Nullable<string>): Nullable<string> {
     if (date) {
       return new Date(date).toISOString()
     } else {

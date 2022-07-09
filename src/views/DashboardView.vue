@@ -12,40 +12,32 @@ import TrackBooleanInput from '@/components/inputs/TrackBooleanInput.vue'
 import ExerciseSetsInput from '@/components/inputs/ExerciseSetsInput.vue'
 import { onMounted, ref, type Ref } from 'vue'
 import { v4 as createId } from 'uuid'
-import type {
-  Id,
-  CreatedAt,
-  FinishedAt,
-  ActivityName,
-  TextBlock,
-  TrackBoolean,
-  ExerciseSet,
-} from '@/constants/types'
 import { useLuxon } from '@/use/useLuxon'
 import { DBTable } from '@/constants/enums'
 import { Exercise } from '@/models/Exercise'
 import { ExerciseRecord } from '@/models/ExerciseRecord'
+import type { Nullable } from '@/constants/types'
 
 const { dateISOToDisplay } = useLuxon()
 
 const exercise: Ref<Exercise | null> = ref(null)
 const exerciseRecord: Ref<ExerciseRecord | null> = ref(null)
 
-const id: Ref<Id> = ref(createId())
-const createdAt: Ref<CreatedAt> = ref(dateISOToDisplay(new Date().toISOString()))
-const finishedAt: Ref<FinishedAt> = ref('')
-const name: Ref<ActivityName> = ref('My Activity')
-const description: Ref<TextBlock> = ref(null)
-const note: Ref<TextBlock> = ref(null)
-const parentId: Ref<Id> = ref('')
-const exerciseIds: Ref<Id[]> = ref([])
-const exerciseRecordIds: Ref<Id[]> = ref([])
+const id: Ref<string> = ref(createId())
+const createdAt: Ref<string> = ref(dateISOToDisplay(new Date().toISOString()))
+const finishedAt: Ref<Nullable<string>> = ref('')
+const name: Ref<string> = ref('My Activity')
+const description: Ref<Nullable<string>> = ref(null)
+const note: Ref<Nullable<string>> = ref(null)
+const parentId: Ref<string> = ref('')
+const exerciseIds: Ref<string[]> = ref([])
+const exerciseRecordIds: Ref<string[]> = ref([])
 
-const trackMultipleSets: Ref<TrackBoolean> = ref(false)
-const trackDuration: Ref<TrackBoolean> = ref(false)
-const trackDistance: Ref<TrackBoolean> = ref(false)
-const trackWeight: Ref<TrackBoolean> = ref(false)
-const trackReps: Ref<TrackBoolean> = ref(false)
+const trackMultipleSets: Ref<boolean> = ref(false)
+const trackDuration: Ref<boolean> = ref(false)
+const trackDistance: Ref<boolean> = ref(false)
+const trackWeight: Ref<boolean> = ref(false)
+const trackReps: Ref<boolean> = ref(false)
 
 const exerciseSets: Ref<ExerciseSet[]> = ref([])
 

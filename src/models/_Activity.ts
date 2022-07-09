@@ -1,17 +1,26 @@
-import type { ActivityName, TextBlock } from '@/constants/types'
-import type { ActivityObject } from '@/constants/interfaces'
-import { _Entity } from '@/models/_Entity'
+import type { Nullable } from '@/constants/types'
+import { _Entity, type EntityParams } from '@/models/_Entity'
 import { truncateString } from '@/utils/common'
+
+export interface ActivityParams extends EntityParams {
+  name?: string
+  description?: Nullable<string>
+}
 
 /**
  * _Activity Class
- * @param obj ActivityObject
+ * @param obj Partial<ActivityParams>
  */
 export class _Activity extends _Entity {
-  protected name: ActivityName
-  protected description: TextBlock
+  protected name: string
+  protected description: Nullable<string>
 
-  constructor({ id, createdAt, name = 'My Activity', description = null }: ActivityObject = {}) {
+  constructor({
+    id,
+    createdAt,
+    name = 'My Activity',
+    description = null,
+  }: Partial<ActivityParams> = {}) {
     super({ id, createdAt })
     this.name = name
     this.description = description
@@ -31,7 +40,7 @@ export class _Activity extends _Entity {
         name: 'description',
         label: 'Description',
         align: 'left',
-        field: (row: _Activity) => truncateString(row.getDescription() as string, 40),
+        field: (row: _Activity) => truncateString(row.getDescription(), 40),
         sortable: true,
       },
     ]
@@ -41,11 +50,11 @@ export class _Activity extends _Entity {
     return [..._Entity.getVisibleColumns(), 'name', 'description']
   }
 
-  getName(): ActivityName {
+  getName(): string {
     return this.name
   }
 
-  getDescription(): TextBlock {
+  getDescription(): Nullable<string> {
     return this.description
   }
 }
