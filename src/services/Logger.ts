@@ -1,16 +1,14 @@
-type StyleProps = {
-  log: string
-  warn: string
-  error: string
-}
-
 /**
  * Logger that adds some style to your console.
  * @param name Logger name appearing in the console
  */
 export class Logger {
   private name: string
-  private style: StyleProps
+  private style: {
+    log: string
+    warn: string
+    error: string
+  }
 
   constructor(name = 'Logger') {
     this.name = `%c${name}`

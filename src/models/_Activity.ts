@@ -59,6 +59,6 @@ export class _Activity extends _Entity {
   }
 
   static getVisibleColumns(): string[] {
-    return [..._Entity.getVisibleColumns(), 'name', 'description']
+    return [..._Entity.getVisibleColumns(), 'name', 'description', 'status']
   }
 }

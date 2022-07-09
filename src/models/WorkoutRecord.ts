@@ -40,7 +40,7 @@ export class WorkoutRecord extends _Record {
         name: 'finishedAt',
         label: 'Finished At',
         align: 'left',
-        field: (row: WorkoutRecord) => row.finishedAt,
+        field: (row: WorkoutRecord) => row.getDisplayFinishedAt(),
         sortable: true,
       },
       {

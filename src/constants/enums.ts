@@ -24,8 +24,6 @@ export enum DBTable {
   MEASUREMENT_RECORDS = 'measurementRecords',
   EXERCISE_RECORDS = 'exerciseRecords',
   WORKOUT_RECORDS = 'workoutRecords',
-  ACTIVE_EXERCISES = 'activeExercises',
-  ACTIVE_WORKOUTS = 'activeWorkouts',
   APP_LOGS = 'appLogs',
 }
 
