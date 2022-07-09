@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { QInput, QDate, QBtn, QTime, QPopupProxy } from 'quasar'
 import { type Ref, ref, onMounted } from 'vue'
-import { ValidationMessage, isCreatedAtValid, isFinishedAtValid } from '@/utils/validators'
+import { ValidationMessage, isRequiredDateValid, isNullableDateValid } from '@/utils/validators'
 import { useVModel } from '@vueuse/core'
 import { useLuxon } from '@/use/useLuxon'
 import type { Nullable } from '@/constants/globals'
@@ -32,14 +32,14 @@ const rules: Ref<any[]> = ref([])
 onMounted(async () => {
   // Setup the rules for each date input type
   if (props.label === 'Created At') {
-    rules.value = [(val: string) => isCreatedAtValid(val) || ValidationMessage.DATE]
+    rules.value = [(val: string) => isRequiredDateValid(val) || ValidationMessage.DATE]
     // Default the created date to now if it's empty
     if (!props.date) {
       date.value = dateISOToDisplay(new Date().toISOString())
     }
   }
   if (props.label === 'Finished At') {
-    rules.value = [(val: string) => isFinishedAtValid(val) || ValidationMessage.DATE]
+    rules.value = [(val: string) => isNullableDateValid(val) || ValidationMessage.DATE]
   }
 })
 

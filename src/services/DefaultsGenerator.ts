@@ -87,22 +87,22 @@ export class DefaultsGenerator {
       }),
       new Measurement({
         id: this.defaultIds.measurements[5],
-        name: 'Left Biceps',
+        name: 'Left Bicep',
         trackInches: true,
       }),
       new Measurement({
         id: this.defaultIds.measurements[6],
-        name: 'Right Biceps',
+        name: 'Right Bicep',
         trackInches: true,
       }),
       new Measurement({
         id: this.defaultIds.measurements[7],
-        name: 'Left Forearms',
+        name: 'Left Forearm',
         trackInches: true,
       }),
       new Measurement({
         id: this.defaultIds.measurements[8],
-        name: 'Right Forearms',
+        name: 'Right Forearm',
         trackInches: true,
       }),
       new Measurement({
@@ -112,22 +112,22 @@ export class DefaultsGenerator {
       }),
       new Measurement({
         id: this.defaultIds.measurements[10],
-        name: 'Left Thighs',
+        name: 'Left Thigh',
         trackInches: true,
       }),
       new Measurement({
         id: this.defaultIds.measurements[11],
-        name: 'Right Thighs',
+        name: 'Right Thigh',
         trackInches: true,
       }),
       new Measurement({
         id: this.defaultIds.measurements[12],
-        name: 'Left Calves',
+        name: 'Left Calve',
         trackInches: true,
       }),
       new Measurement({
         id: this.defaultIds.measurements[13],
-        name: 'Right Calves',
+        name: 'Right Calve',
         trackInches: true,
       }),
       new Measurement({

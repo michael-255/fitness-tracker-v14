@@ -1,29 +1,26 @@
 /**
  * @note
- * Make sure the ValidationLimit, ValidationMessage, and ValidationRegex contraints match.
+ * Make sure the ValidationMaxLength, ValidationMessage, and ValidationRegex contraints match.
  */
 
 import type { Nullable } from '@/constants/globals'
 
-export enum ValidationLimit {
-  ID = 40,
-  NAME = 40,
-  TEXTBLOCK = 500,
+export enum ValidationMaxLength {
+  SHORT = 40,
+  LONG = 500, // Nullable
 }
 
 export enum ValidationMessage {
   REQUIRED = '* Required',
-  ID = 'Id must be between 1 and 40 alphanumeric characters',
   DATE = 'Date must be of format YYYY-MM-DDTHH:MM:SS.###Z',
-  NAME = 'Name must be between 4 and 40 alphanumeric characters',
-  TEXTBLOCK = 'Text is limited to 500 alphanumeric characters',
+  SHORT_TEXT = 'Input must be between 1 and 40 alphanumeric characters',
+  LONG_TEXT = 'Input is limited to 500 alphanumeric characters', // Nullable
 }
 
 export const ValidationRegex = Object.freeze({
-  Id: /^.{1,40}$/, // 1-40 alphanumeric characters
   Date: /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).(\d{3})Z$/, // JS ISO Date
-  Name: /^.{4,40}$/, // 4-40 alphanumeric characters
-  TextBlock: /^.{0,500}$/, // 0-500 alphanumeric characters
+  ShortText: /^.{1,40}$/, // 1-40 alphanumeric characters
+  LongText: /^.{0,500}$/, // 0-500 alphanumeric characters
 })
 
 export function isRequired(value: any): boolean {
@@ -34,22 +31,18 @@ export function isRequired(value: any): boolean {
   }
 }
 
-export function isIdValid(id: string): boolean {
-  return ValidationRegex.Id.test(id)
+export function isShortTextValid(text: string): boolean {
+  return ValidationRegex.ShortText.test(text)
 }
 
-export function isCreatedAtValid(date: string): boolean {
+export function isLongTextValid(text: Nullable<string>): boolean {
+  return text === null || ValidationRegex.LongText.test(text)
+}
+
+export function isRequiredDateValid(date: string): boolean {
   return ValidationRegex.Date.test(date)
 }
 
-export function isFinishedAtValid(date: string): boolean {
+export function isNullableDateValid(date: Nullable<string>): boolean {
   return date === null || ValidationRegex.Date.test(date)
-}
-
-export function isNameValid(name: string): boolean {
-  return ValidationRegex.Name.test(name)
-}
-
-export function isTextBlockValid(text: Nullable<string>): boolean {
-  return text === null || ValidationRegex.TextBlock.test(text)
 }

@@ -1,21 +1,20 @@
 <script setup lang="ts">
 import { QInput } from 'quasar'
-import { ValidationLimit, ValidationMessage, isNameValid } from '@/utils/validators'
-import type { ActivityName } from '@/constants/globals'
+import { ValidationMaxLength, ValidationMessage, isShortTextValid } from '@/utils/validators'
 import { useVModel } from '@vueuse/core'
 
 /**
  * @example
- * Script: const name: Ref<ActivityName> = ref('My Activity')
+ * Script: const name: Ref<string> = ref('My Activity')
  * Template: <NameInput :name="name" @update:name="name = $event" />
  */
 
 const props = defineProps<{
-  name: ActivityName
+  name: string
 }>()
 
 const emits = defineEmits<{
-  (eventName: 'update:name', name: ActivityName): void
+  (eventName: 'update:name', name: string): void
 }>()
 
 const name = useVModel(props, 'name', emits)
@@ -26,9 +25,9 @@ const name = useVModel(props, 'name', emits)
     v-model="name"
     label="Name"
     :rules="[
-      (val: string) => isNameValid(val) || ValidationMessage.NAME,
+      (val: string) => isShortTextValid(val) || ValidationMessage.SHORT_TEXT,
     ]"
-    :maxlength="ValidationLimit.NAME"
+    :maxlength="ValidationMaxLength.SHORT"
     dense
     outlined
     color="primary"

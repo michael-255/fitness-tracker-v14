@@ -1,21 +1,20 @@
 <script setup lang="ts">
 import { QToggle } from 'quasar'
-import type { TrackBoolean } from '@/constants/globals'
 import { useVModel } from '@vueuse/core'
 
 /**
  * @example
- * Script: const bool: Ref<TrackBoolean> = ref(false)
- * Template: <TrackBooleanInput :bool="bool" @update:bool="bool = $event" />
+ * Script: const bool: Ref<boolean> = ref(false)
+ * Template: <BooleanToggle :bool="bool" @update:bool="bool = $event" />
  */
 
 const props = defineProps<{
-  bool: TrackBoolean
+  bool: boolean
   label: string
 }>()
 
 const emits = defineEmits<{
-  (eventName: 'update:bool', bool: TrackBoolean): void
+  (eventName: 'update:bool', bool: boolean): void
 }>()
 
 const bool = useVModel(props, 'bool', emits)
