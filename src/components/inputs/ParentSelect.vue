@@ -18,7 +18,7 @@ const props = defineProps<{
 }>()
 
 const emits = defineEmits<{
-  (eventName: 'update:parentId', parentId: string): void
+  (event: 'update:parentId', parentId: string): void
 }>()
 
 const parentId = useVModel(props, 'parentId', emits)

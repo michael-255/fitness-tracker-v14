@@ -1,34 +1,29 @@
 <script setup lang="ts">
-import { QDialog, QCard, QCardSection, QBtn } from 'quasar'
-import { Icon } from '@/constants/enums'
-import { computed, ref, type Ref } from 'vue'
-import ConfirmDialog from '@/components/dialogs/ConfirmDialog.vue'
+import { QDialog, QCard, QCardSection, QCardActions, QBtn } from 'quasar'
+import { type Ref, ref } from 'vue'
+import { DBTable, Icon } from '@/constants/enums'
+import { useVModel } from '@vueuse/core'
+import { useQuasar } from 'quasar'
+import { useConfirmDialog } from '@/use/useConfirmDialog'
+import IdInput from '@/components/inputs/IdInput.vue'
 
-const confirmDialog: Ref<boolean> = ref(false)
+const $q = useQuasar()
+// const { notify } = useNotify($q)
+const { confirmDialog } = useConfirmDialog($q)
 
 const props = defineProps<{
   title: string
-  canSave: boolean
+  table: DBTable
   dialog: boolean
 }>()
 
 const emits = defineEmits<{
-  (eventName: 'toggle:fullDialog', bool: boolean): void
-  (eventName: 'save:fullDialog'): void
+  (event: 'update:dialog', bool: boolean): void
 }>()
 
-const dialog = computed({
-  get() {
-    return props.dialog
-  },
-  set(bool) {
-    emits('toggle:fullDialog', !!bool)
-  },
-})
+const dialog = useVModel(props, 'dialog', emits)
 
-function confirmSaveDialog() {
-  emits('save:fullDialog')
-}
+const id: Ref<string> = ref('')
 </script>
 
 <template>
@@ -39,30 +34,19 @@ function confirmSaveDialog() {
     transition-show="slide-up"
     transition-hide="slide-down"
   >
-    <QCard class="bg-primary text-white">
-      <QBar>
-        <div class="text-h6">{{ props.title }}</div>
+    <QCard>
+      <QCardActions class="bg-primary text-white">
+        <div class="q-table__title text-weight-bold">{{ props.title }}</div>
         <QSpace />
-        <QBtn dense flat icon="close" v-close-popup />
-      </QBar>
-
-      <QCardActions v-if="props.canSave">
-        <QBtn label="Save Changes" color="white text-black" @click="confirmDialog = true" />
+        <QBtn outline :icon="Icon.SAVE" label="Save" v-close-popup />
+        <QBtn outline :icon="Icon.CLOSE" label="Close" v-close-popup />
       </QCardActions>
 
       <QCardSection>
-        <slot></slot>
+        <IdInput v-if="table === DBTable.MEASUREMENTS" :id="id" @update:id="id = $event" />
+        <IdInput v-if="table === DBTable.MEASUREMENT_RECORDS" :id="id" @update:id="id = $event" />
+        <IdInput v-if="table === DBTable.MEASUREMENT_RECORDS" :id="id" @update:id="id = $event" />
       </QCardSection>
     </QCard>
   </QDialog>
-
-  <ConfirmDialog
-    title="Save"
-    :icon="Icon.SAVE"
-    message="Are you sure you'd like to save these changes?"
-    color="primary"
-    :dialog="confirmDialog"
-    :confirmFunc="confirmSaveDialog"
-    @update:dialog="confirmDialog = $event"
-  />
 </template>

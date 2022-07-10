@@ -16,7 +16,7 @@ const props = defineProps<{
 }>()
 
 const emits = defineEmits<{
-  (eventName: 'update:text', text: Nullable<string>): void
+  (event: 'update:text', text: Nullable<string>): void
 }>()
 
 const text = useVModel(props, 'text', emits)

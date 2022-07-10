@@ -3,6 +3,7 @@ import { QInput } from 'quasar'
 import { v4 as createId } from 'uuid'
 import { ValidationMaxLength, ValidationMessage, isShortTextValid } from '@/utils/validators'
 import { useVModel } from '@vueuse/core'
+import { onMounted } from 'vue'
 
 /**
  * @example
@@ -15,10 +16,19 @@ const props = defineProps<{
 }>()
 
 const emits = defineEmits<{
-  (eventName: 'update:id', id: string): void
+  (event: 'update:id', id: string): void
 }>()
 
 const id = useVModel(props, 'id', emits)
+
+/**
+ * Defaults
+ */
+onMounted(() => {
+  if (!props.id) {
+    id.value = createId()
+  }
+})
 </script>
 
 <template>

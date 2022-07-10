@@ -15,27 +15,30 @@ import type { Nullable } from '@/constants/globals'
 const { dateISOToDisplay } = useLuxon()
 
 const props = defineProps<{
-  date: string | Nullable<string>
+  date: string | Nullable<string> // isoDate
   label: 'Created At' | 'Finished At'
 }>()
 
 const emits = defineEmits<{
   // Event returns any to make it easier to deal with on the component side
-  (eventName: 'update:date', date: any): void
+  (event: 'update:date', date: any): void
 }>()
 
-const date = useVModel(props, 'date', emits)
-
+const isoDate = useVModel(props, 'date', emits)
+const displayDate: Ref<Nullable<string>> = ref('')
 const dateTimePicker: Ref<string> = ref('')
 const rules: Ref<any[]> = ref([])
 
+/**
+ * Defaults and date rules.
+ */
 onMounted(async () => {
-  // Setup the rules for each date input type
   if (props.label === 'Created At') {
     rules.value = [(val: string) => isRequiredDateValid(val) || ValidationMessage.DATE]
-    // Default the created date to now if it's empty
     if (!props.date) {
-      date.value = dateISOToDisplay(new Date().toISOString())
+      const now = new Date().toISOString()
+      isoDate.value = now
+      displayDate.value = dateISOToDisplay(now)
     }
   }
   if (props.label === 'Finished At') {
@@ -43,20 +46,40 @@ onMounted(async () => {
   }
 })
 
-function changeDate() {
-  date.value = dateISOToDisplay(dateTimePicker.value)
+function pickerDate() {
+  isoDate.value = new Date(dateTimePicker.value).toISOString()
+  displayDate.value = dateISOToDisplay(dateTimePicker.value)
+}
+
+function nowDate(): void {
+  const now = new Date().toISOString()
+  isoDate.value = now
+  displayDate.value = dateISOToDisplay(now)
+}
+
+function clearDate(): void {
+  isoDate.value = null
+  displayDate.value = null
 }
 </script>
 
 <template>
-  <QInput disable v-model="date" :label="label" :rules="rules" dense outlined color="primary">
+  <QInput
+    disable
+    v-model="displayDate"
+    :label="label"
+    :rules="rules"
+    dense
+    outlined
+    color="primary"
+  >
     <template v-slot:after>
       <QBtn icon="event" color="primary" class="q-ml-xs q-px-sm">
         <QPopupProxy cover transition-show="scale" transition-hide="scale">
           <QDate v-model="dateTimePicker" mask="YYYY-MM-DDTHH:mm:ss.000Z">
             <div class="row items-center justify-end q-gutter-sm">
               <QBtn label="Cancel" flat v-close-popup />
-              <QBtn label="OK" color="primary" flat @click="changeDate()" v-close-popup />
+              <QBtn label="OK" color="primary" flat @click="pickerDate()" v-close-popup />
             </div>
           </QDate>
         </QPopupProxy>
@@ -67,7 +90,7 @@ function changeDate() {
           <QTime v-model="dateTimePicker" now-btn mask="YYYY-MM-DDTHH:mm:ss.000Z">
             <div class="row items-center justify-end q-gutter-sm">
               <QBtn label="Cancel" flat v-close-popup />
-              <QBtn label="OK" color="primary" flat @click="changeDate()" v-close-popup />
+              <QBtn label="OK" color="primary" flat @click="pickerDate()" v-close-popup />
             </div>
           </QTime>
         </QPopupProxy>
@@ -78,14 +101,14 @@ function changeDate() {
         icon="event_available"
         color="positive"
         class="q-ml-sm q-px-sm"
-        @click="date = dateISOToDisplay(new Date().toISOString())"
+        @click="nowDate()"
       />
       <QBtn
         v-if="label === 'Finished At'"
         icon="close"
         color="negative"
         class="q-ml-sm q-px-sm"
-        @click="date = null"
+        @click="clearDate()"
       />
     </template>
   </QInput>

@@ -17,7 +17,7 @@ const props = defineProps<{
 }>()
 
 const emits = defineEmits<{
-  (eventName: 'update:exerciseRecord', exerciseRecord: ExerciseRecord): void
+  (event: 'update:exerciseRecord', exerciseRecord: ExerciseRecord): void
 }>()
 
 const exerciseRecord = useVModel(props, 'exerciseRecord', emits)

@@ -20,6 +20,11 @@ Description TBA.
 
 ## Secondary Todos
 
+- [ ] Additional `Measurements`
+
+  - [ ] `Water Intake` (oz or ml)
+  - [ ] `Calories` (value?)
+
 - [ ] Build out core `Input` components
 
   - [ ] `ExerciseSet`

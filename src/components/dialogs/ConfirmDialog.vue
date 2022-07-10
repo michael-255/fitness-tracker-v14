@@ -13,7 +13,7 @@ const props = defineProps<{
 }>()
 
 const emits = defineEmits<{
-  (eventName: 'update:dialog', bool: boolean): void
+  (event: 'update:dialog', bool: boolean): void
 }>()
 
 const dialog = useVModel(props, 'dialog', emits)

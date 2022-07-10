@@ -14,7 +14,7 @@ const props = defineProps<{
 }>()
 
 const emits = defineEmits<{
-  (eventName: 'update:bool', bool: boolean): void
+  (event: 'update:bool', bool: boolean): void
 }>()
 
 const bool = useVModel(props, 'bool', emits)

@@ -7,13 +7,12 @@
  * const { confirmDialog } = useConfirmDialog($q)
  */
 export function useConfirmDialog($quasar: any) {
-  function confirmDialog(title: string, message: string, onOkFunc: () => void) {
+  function confirmDialog(title: string, message: string, onOkFunc: () => void, cancel = true) {
     $quasar
       .dialog({
         title,
         message,
-        cancel: true,
-        persistent: true,
+        cancel,
       })
       .onOk(() => {
         onOkFunc()

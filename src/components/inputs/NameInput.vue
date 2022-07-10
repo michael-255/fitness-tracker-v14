@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { QInput } from 'quasar'
+import { onMounted } from 'vue'
 import { ValidationMaxLength, ValidationMessage, isShortTextValid } from '@/utils/validators'
 import { useVModel } from '@vueuse/core'
 
@@ -14,10 +15,19 @@ const props = defineProps<{
 }>()
 
 const emits = defineEmits<{
-  (eventName: 'update:name', name: string): void
+  (event: 'update:name', name: string): void
 }>()
 
 const name = useVModel(props, 'name', emits)
+
+/**
+ * Defaults.
+ */
+onMounted(() => {
+  if (!props.name) {
+    name.value = 'My Activity'
+  }
+})
 </script>
 
 <template>

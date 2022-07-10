@@ -3,8 +3,8 @@ import { QSelect, QInput, QIcon } from 'quasar'
 import { Icon, DBTable, LogLevel } from '@/constants/enums'
 import { useTable } from '@/use/useTable'
 import { type Ref, ref, onMounted } from 'vue'
-import ConfirmDialog from '@/components/dialogs/ConfirmDialog.vue'
-import FullscreenDialog from '@/components/dialogs/FullscreenDialog.vue'
+// import ConfirmDialog from '@/components/dialogs/ConfirmDialog.vue'
+import CreateDialog from '@/components/dialogs/CreateDialog.vue'
 import { useQuasar } from 'quasar'
 import { useNotify } from '@/use/useNotify'
 import { useConfirmDialog } from '@/use/useConfirmDialog'
@@ -34,23 +34,23 @@ const {
   tableColumns,
   tableRows,
   rowDetails,
-  selectedRowId,
+  // selectedRowId,
   createDialog,
-  clearDialog,
+  // clearDialog,
   reportDialog,
   detailsDialog,
   editDialog,
-  deleteDialog,
+  // deleteDialog,
   openCreateDialog,
   saveCreateDialog,
-  openClearDialog,
-  confirmClearDialog,
+  // openClearDialog,
+  // confirmClearDialog,
   openReportDialog,
   openDetailsDialog,
   openEditDialog,
   saveEditDialog,
   // openDeleteDialog,
-  confirmDeleteDialog,
+  // confirmDeleteDialog,
 } = useTable({
   table: props.table,
   tableColumns: props.tableColumns,
@@ -74,7 +74,10 @@ async function updateTableRows(): Promise<void> {
   }
 }
 
-function openDeleteDialog(id: string) {
+/**
+ * Opens confirm dialog to delete the row item.
+ */
+function deleteRowAction(id: string) {
   confirmDialog(
     `Delete`,
     `Permanetly delete '${id}' from table '${props.table}' in the database?`,
@@ -84,7 +87,7 @@ function openDeleteDialog(id: string) {
         updateTableRows()
         notify(`Deleted '${id}' from '${props.table}'`, Icon.DELETE)
       } catch (error) {
-        const callerName = 'openDeleteDialog'
+        const callerName = 'deleteRowAction'
         log({
           error,
           level: LogLevel.ERROR,
@@ -94,6 +97,43 @@ function openDeleteDialog(id: string) {
         notify(`Error with operation: ${callerName}`, Icon.DELETE, 'negative')
       }
     }
+  )
+}
+
+/**
+ * Opens confirm dialog to clear the table.
+ */
+function clearAction() {
+  confirmDialog(
+    `Clear`,
+    `Permanetly delete all data from table '${props.table}' in the database?`,
+    async () => {
+      try {
+        await database.clear(props.table)
+        updateTableRows()
+        notify(`Cleared table '${props.table}'`, Icon.DELETE)
+      } catch (error) {
+        const callerName = 'clearAction'
+        log({
+          error,
+          level: LogLevel.ERROR,
+          name: callerName,
+          details: props.table,
+        })
+        notify(`Error with operation: ${callerName}`, Icon.DELETE, 'negative')
+      }
+    }
+  )
+}
+
+function canCreate() {
+  return (
+    props.table === DBTable.MEASUREMENTS ||
+    props.table === DBTable.MEASUREMENT_RECORDS ||
+    props.table === DBTable.EXERCISES ||
+    props.table === DBTable.EXERCISE_RECORDS ||
+    props.table === DBTable.WORKOUTS ||
+    props.table === DBTable.WORKOUT_RECORDS
   )
 }
 </script>
@@ -142,13 +182,13 @@ function openDeleteDialog(id: string) {
       />
       <div>
         <QBtn
-          v-if="showCreate"
+          v-if="canCreate()"
           color="positive"
           label="Create"
           class="q-mr-sm q-mb-sm"
           @click="openCreateDialog()"
         />
-        <QBtn color="negative" label="Clear" @click="openClearDialog()" class="q-mb-sm" />
+        <QBtn color="negative" label="Clear" @click="clearAction()" class="q-mb-sm" />
       </div>
     </template>
 
@@ -204,7 +244,7 @@ function openDeleteDialog(id: string) {
             dense
             class="q-ml-xs"
             color="negative"
-            @click="openDeleteDialog(props.cols[0].value)"
+            @click="deleteRowAction(props.cols[0].value)"
             :icon="Icon.DELETE"
           />
         </QTd>
@@ -213,65 +253,5 @@ function openDeleteDialog(id: string) {
   </QTable>
 
   <!-- Dialogs -->
-  <FullscreenDialog
-    title="Create"
-    :canSave="true"
-    :dialog="createDialog"
-    @toggle:fullDialog="createDialog = !createDialog"
-    @save:fullDialog="saveCreateDialog()"
-  >
-    <div>Not Implemented</div>
-  </FullscreenDialog>
-
-  <ConfirmDialog
-    title="Clear"
-    :icon="Icon.DELETE"
-    :message="`Permanently clear all data from the '${props.table}' table in the database?`"
-    color="negative"
-    :dialog="clearDialog"
-    :confirmFunc="confirmClearDialog"
-    @update:dialog="clearDialog = $event"
-  />
-
-  <FullscreenDialog
-    title="Report"
-    :canSave="false"
-    :dialog="reportDialog"
-    @toggle:fullDialog="reportDialog = !reportDialog"
-  >
-    <div>Not Implemented</div>
-  </FullscreenDialog>
-
-  <FullscreenDialog
-    title="Details"
-    :canSave="false"
-    :dialog="detailsDialog"
-    @toggle:fullDialog="detailsDialog = !detailsDialog"
-  >
-    <div v-for="(item, key, i) in rowDetails" :key="i">
-      <div class="text-weight-bold">{{ key }}</div>
-      <div>{{ item || '-' }}</div>
-      <br />
-    </div>
-  </FullscreenDialog>
-
-  <FullscreenDialog
-    title="Edit"
-    :canSave="true"
-    :dialog="editDialog"
-    @toggle:fullDialog="editDialog = !editDialog"
-    @save:fullDialog="saveEditDialog()"
-  >
-    <div>Not Implemented</div>
-  </FullscreenDialog>
-
-  <ConfirmDialog
-    title="Delete"
-    :icon="Icon.DELETE"
-    :message="`Permanently delete ${selectedRowId} from the '${table}' table in the database?`"
-    color="negative"
-    :dialog="deleteDialog"
-    :confirmFunc="confirmDeleteDialog"
-    @update:dialog="deleteDialog = $event"
-  />
+  <CreateDialog :table="table" :dialog="createDialog" @update:dialog="createDialog = $event" />
 </template>
