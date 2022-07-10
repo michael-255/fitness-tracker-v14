@@ -1,15 +1,21 @@
 <script setup lang="ts">
 import { QSelect, QInput, QIcon } from 'quasar'
-import { Icon, DBTable } from '@/constants/enums'
+import { Icon, DBTable, LogLevel } from '@/constants/enums'
 import { useTable } from '@/use/useTable'
-import { type Ref, ref } from 'vue'
+import { type Ref, ref, onMounted } from 'vue'
 import ConfirmDialog from '@/components/dialogs/ConfirmDialog.vue'
 import FullscreenDialog from '@/components/dialogs/FullscreenDialog.vue'
-import { useLogger } from '@/use/useLogger'
 import { useQuasar } from 'quasar'
+import { useNotify } from '@/use/useNotify'
+import { useConfirmDialog } from '@/use/useConfirmDialog'
+import { useLogger } from '@/use/useLogger'
+import { database } from '@/services/LocalDatabase'
 
 const $q = useQuasar()
-const { notify } = useLogger()
+
+const { notify } = useNotify($q)
+const { confirmDialog } = useConfirmDialog($q)
+const { log } = useLogger()
 
 const props = defineProps<{
   table: DBTable
@@ -43,7 +49,7 @@ const {
   openDetailsDialog,
   openEditDialog,
   saveEditDialog,
-  openDeleteDialog,
+  // openDeleteDialog,
   confirmDeleteDialog,
 } = useTable({
   table: props.table,
@@ -54,11 +60,42 @@ const {
 
 const filter: Ref<string> = ref('')
 
-// function deleteDialog(title: string, message: string) {
-//   $q.dialog({ title, message, cancel: true, persistent: true }).onOk(() => {
-//     notify('Item has been successfully deleted.')
-//   })
-// }
+onMounted(async () => {
+  updateTableRows()
+})
+
+async function updateTableRows(): Promise<void> {
+  try {
+    tableRows.value = await database.getAll(props.table)
+  } catch (error) {
+    const callerName = 'updateTableRows'
+    log({ error, level: LogLevel.ERROR, name: callerName, details: props.table })
+    notify(`Error with operation: ${callerName}`, Icon.DELETE, 'negative')
+  }
+}
+
+function openDeleteDialog(id: string) {
+  confirmDialog(
+    `Delete`,
+    `Permanetly delete '${id}' from table '${props.table}' in the database?`,
+    async () => {
+      try {
+        await database.deleteById(props.table, id)
+        updateTableRows()
+        notify(`Deleted '${id}' from '${props.table}'`, Icon.DELETE)
+      } catch (error) {
+        const callerName = 'openDeleteDialog'
+        log({
+          error,
+          level: LogLevel.ERROR,
+          name: callerName,
+          details: `${props.table}:${id}`,
+        })
+        notify(`Error with operation: ${callerName}`, Icon.DELETE, 'negative')
+      }
+    }
+  )
+}
 </script>
 
 <template>

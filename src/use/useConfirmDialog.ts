@@ -1,20 +1,26 @@
-export function useDialog($q: any) {
-  function dialog() {
-    $q.dialog({
-      title: 'Confirm',
-      message: 'Would you like to confirm?',
-      cancel: true,
-      persistent: true,
-    })
-      .onOk(() => {
-        console.log('OK')
+/**
+ * Customizable Quasar confirm dialog function.
+ * @param $quasar QVueGlobals ($q)
+ * @example
+ * import { useQuasar } from 'quasar'
+ * const $q = useQuasar()
+ * const { confirmDialog } = useConfirmDialog($q)
+ */
+export function useConfirmDialog($quasar: any) {
+  function confirmDialog(title: string, message: string, onOkFunc: () => void) {
+    $quasar
+      .dialog({
+        title,
+        message,
+        cancel: true,
+        persistent: true,
       })
-      .onCancel(() => {
-        console.log('Cancel')
+      .onOk(() => {
+        onOkFunc()
       })
   }
 
   return {
-    dialog,
+    confirmDialog,
   }
 }

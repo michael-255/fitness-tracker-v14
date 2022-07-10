@@ -9,48 +9,21 @@ import ParentSelect from '@/components/inputs/ParentSelect.vue'
 import BooleanToggle from '@/components/inputs/BooleanToggle.vue'
 import { ref, type Ref } from 'vue'
 import { v4 as createId } from 'uuid'
-import { ActivityStatus, DBTable } from '@/constants/enums'
+import { ActivityStatus, DBTable, Icon } from '@/constants/enums'
 import type { Nullable } from '@/constants/globals'
 import { useQuasar } from 'quasar'
-import { useNotify } from '@/use/useNotification'
-import { useDialog } from '@/use/useConfirmDialog'
+import { useNotify } from '@/use/useNotify'
+import { useConfirmDialog } from '@/use/useConfirmDialog'
 
 const $q = useQuasar()
 
 const { notify } = useNotify($q)
-const { dialog } = useDialog($q)
+const { confirmDialog } = useConfirmDialog($q)
 
-function confirmDialog() {
-  dialog()
-  notify()
-  // $q.dialog({
-  //   title: 'Confirm',
-  //   message: 'Would you like to confirm?',
-  //   cancel: true,
-  //   persistent: true,
-  // })
-  //   .onOk(() => {
-  //     console.log('OK')
-  //     showNotification()
-  //   })
-  //   .onCancel(() => {
-  //     notify()
-  //   })
-}
-
-function showNotification() {
-  $q.notify({
-    color: 'secondary',
-    textColor: 'white',
-    icon: 'event',
-    message: 'You have confirmed the operation. Good job!',
-    caption: `${new Date()}`,
-    actions: [
-      {
-        label: 'Dismiss',
-        color: 'white',
-      },
-    ],
+function confirmDialogTest(id: string) {
+  confirmDialog(`Delete`, `Permanetly delete '${id}' from the database?`, () => {
+    console.log('Database call goes here...')
+    notify(`Deleted Measurement Record '${id}'`, Icon.DELETE)
   })
 }
 
@@ -94,7 +67,12 @@ async function test() {
     <QSeparator />
     <span>Testing:</span>
     <QBtn color="primary" label="Print" class="q-ma-sm" @click="test()" />
-    <QBtn color="primary" label="Dialog" class="q-ma-sm" @click="confirmDialog()" />
+    <QBtn
+      color="primary"
+      label="Dialog"
+      class="q-ma-sm"
+      @click="confirmDialogTest('aed890f6-5445-436e-b8ec-3a93d89ba366')"
+    />
     <QSeparator />
   </div>
 

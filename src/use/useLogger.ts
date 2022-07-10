@@ -31,9 +31,9 @@ export function useLogger() {
   /**
    * Returns the appropriate color for the log level.
    */
-  function getLogLevelColor(level: LogLevel): 'secondary' | 'orange-9' | 'negative' {
+  function getLogLevelColor(level: LogLevel): 'light-blue' | 'orange-9' | 'negative' {
     if (level === LogLevel.DEBUG || level === LogLevel.INFO) {
-      return 'secondary'
+      return 'light-blue'
     } else if (level === LogLevel.WARN) {
       return 'orange-9'
     } else {

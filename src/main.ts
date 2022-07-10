@@ -24,7 +24,7 @@ app.use(Quasar, {
     notify: {
       position: 'top',
       multiLine: true,
-      timeout: 3500,
+      timeout: 4000,
       // color: 'negative',
       // textColor: 'white',
       // icon: 'event',
