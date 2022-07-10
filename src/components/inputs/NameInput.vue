@@ -21,7 +21,7 @@ const emits = defineEmits<{
 const name = useVModel(props, 'name', emits)
 
 /**
- * Defaults.
+ * Defaults
  */
 onMounted(() => {
   if (!props.name) {

@@ -21,7 +21,6 @@ const emits = defineEmits<{
 }>()
 
 const status = useVModel(props, 'status', emits)
-
 const options: Ref<string[]> = ref([])
 
 onMounted(async () => {

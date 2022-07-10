@@ -4,7 +4,9 @@ import { type Ref, ref } from 'vue'
 import { ActivityStatus, DBTable, Icon } from '@/constants/enums'
 import { useVModel } from '@vueuse/core'
 import { useQuasar } from 'quasar'
-import { useConfirmDialog } from '@/use/useConfirmDialog'
+import { useNotify } from '@/use/useNotify'
+import { useSimpleDialogs } from '@/use/useSimpleDialogs'
+import { useLogger } from '@/use/useLogger'
 import IdInput from '@/components/inputs/IdInput.vue'
 import DateInput from '@/components/inputs/DateInput.vue'
 import NameInput from '@/components/inputs/NameInput.vue'
@@ -18,10 +20,15 @@ import {
   isLongTextValid,
   isRequired,
 } from '@/utils/validators'
+import { database } from '@/services/LocalDatabase'
+import { Measurement } from '@/models/Measurement'
+import { useTableType } from '@/use/useTableType'
 
 const $q = useQuasar()
-// const { notify } = useNotify($q)
-const { confirmDialog } = useConfirmDialog($q)
+const { notify } = useNotify($q)
+const { confirmDialog, dismissDialog } = useSimpleDialogs($q)
+const { log } = useLogger()
+const { getTableTypeLabel, isActivityTable } = useTableType()
 
 const props = defineProps<{
   table: DBTable
@@ -33,7 +40,6 @@ const emits = defineEmits<{
 }>()
 
 const dialog = useVModel(props, 'dialog', emits)
-
 // Entity Refs
 const id: Ref<string> = ref('')
 const createdAt: Ref<string> = ref('')
@@ -46,25 +52,6 @@ const trackLbs: Ref<boolean> = ref(false)
 const trackInches: Ref<boolean> = ref(false)
 const trackFeet: Ref<boolean> = ref(false)
 const trackPercent: Ref<boolean> = ref(false)
-
-function isActivity() {
-  return (
-    props.table === DBTable.MEASUREMENTS ||
-    props.table === DBTable.EXERCISES ||
-    props.table === DBTable.WORKOUTS
-  )
-}
-
-function creationType(): string {
-  switch (props.table) {
-    case DBTable.MEASUREMENTS:
-      return 'Measurement'
-    case DBTable.MEASUREMENT_RECORDS:
-      return 'Measurement Record'
-    default:
-      return ''
-  }
-}
 
 function resetRefs(): void {
   // Entity Refs
@@ -81,44 +68,70 @@ function resetRefs(): void {
   trackPercent.value = false
 }
 
-function validateRefs(): boolean {
+/**
+ * Validate the refs before attempting to save the item.
+ */
+function areInputsValid(): boolean {
   let areEntityRefsValid = true
   let areActivityRefsValid = true
 
   // Entity Refs
   const isIdValid = isShortTextValid(id.value)
-  const isCreatedAtValid = isRequiredDateValid(createdAt.value) //new Date(createdAt.value).toISOString()
+  const isCreatedAtValid = isRequiredDateValid(createdAt.value)
   areEntityRefsValid = isIdValid && isCreatedAtValid
 
-  console.log(isIdValid)
-  console.log(isCreatedAtValid)
-
   // Activity Refs
-  if (isActivity()) {
+  if (isActivityTable(props.table)) {
     const isNameValid = isShortTextValid(name.value)
     const isDescriptionValid = isLongTextValid(description.value)
     const isStatusValid = isRequired(status.value)
     areActivityRefsValid = isNameValid && isDescriptionValid && isStatusValid
-
-    console.log(isNameValid)
-    console.log(isDescriptionValid)
-    console.log(isStatusValid)
   }
+
+  // Record Refs
+
+  // Other Refs
 
   return areEntityRefsValid && areActivityRefsValid
 }
 
-/**
- * @todo How do I check the validation status of the inputs?
- */
-function saveAction(): void {
-  if (validateRefs()) {
-    console.log('Saving...')
+async function saveAction(): Promise<void> {
+  if (!areInputsValid()) {
+    dismissDialog(
+      'Validation Failed',
+      'Please ensure all form entires are complete with valid information.'
+    )
+    return
+  }
+
+  confirmDialog(`Save`, `Ready to save this item in the database?`, async () => {
+    switch (props.table) {
+      case DBTable.MEASUREMENTS:
+        await database.add(
+          props.table,
+          new Measurement({
+            id: id.value,
+            createdAt: createdAt.value,
+            name: name.value,
+            description: description.value,
+            status: status.value,
+            trackLbs: trackLbs.value,
+            trackInches: trackInches.value,
+            trackFeet: trackFeet.value,
+            trackPercent: trackPercent.value,
+          })
+        )
+        notify('New Measurement Created', Icon.MEASUREMENTS)
+        break
+      case DBTable.MEASUREMENT_RECORDS:
+        // create item
+        // notify
+        break
+    }
+
     dialog.value = false
     resetRefs()
-  } else {
-    console.log('Validation failed...')
-  }
+  })
 }
 </script>
 
@@ -138,14 +151,16 @@ function saveAction(): void {
         <QBtn outline :icon="Icon.CLOSE" label="Close" v-close-popup />
       </QCardActions>
 
-      <QCardSection class="q-table__title text-weight-bold">{{ creationType() }}</QCardSection>
+      <QCardSection class="q-table__title text-weight-bold">
+        {{ getTableTypeLabel(table) }}
+      </QCardSection>
 
       <QCardSection>
         <!-- Entity Fields -->
         <IdInput :id="id" @update:id="id = $event" />
         <DateInput :date="createdAt" label="Created At" @update:date="createdAt = $event" />
         <!-- Activity Fields -->
-        <div v-if="isActivity()">
+        <div v-if="isActivityTable(table)">
           <NameInput :name="name" @update:name="name = $event" />
           <TextAreaInput
             :text="description"

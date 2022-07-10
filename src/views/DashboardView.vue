@@ -13,12 +13,12 @@ import { ActivityStatus, DBTable, Icon } from '@/constants/enums'
 import type { Nullable } from '@/constants/globals'
 import { useQuasar } from 'quasar'
 import { useNotify } from '@/use/useNotify'
-import { useConfirmDialog } from '@/use/useConfirmDialog'
+import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 
 const $q = useQuasar()
 
 const { notify } = useNotify($q)
-const { confirmDialog } = useConfirmDialog($q)
+const { confirmDialog } = useSimpleDialogs($q)
 
 function confirmDialogTest(id: string) {
   confirmDialog(`Delete`, `Permanetly delete '${id}' from the database?`, () => {

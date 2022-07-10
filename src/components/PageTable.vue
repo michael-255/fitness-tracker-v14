@@ -7,14 +7,14 @@ import { type Ref, ref, onMounted } from 'vue'
 import CreateDialog from '@/components/dialogs/CreateDialog.vue'
 import { useQuasar } from 'quasar'
 import { useNotify } from '@/use/useNotify'
-import { useConfirmDialog } from '@/use/useConfirmDialog'
+import { useSimpleDialogs } from '@/use/useSimpleDialogs'
 import { useLogger } from '@/use/useLogger'
 import { database } from '@/services/LocalDatabase'
 
 const $q = useQuasar()
 
 const { notify } = useNotify($q)
-const { confirmDialog } = useConfirmDialog($q)
+const { confirmDialog } = useSimpleDialogs($q)
 const { log } = useLogger()
 
 const props = defineProps<{
@@ -84,7 +84,7 @@ function deleteRowAction(id: string) {
     async () => {
       try {
         await database.deleteById(props.table, id)
-        updateTableRows()
+        await updateTableRows()
         notify(`Deleted '${id}' from '${props.table}'`, Icon.DELETE)
       } catch (error) {
         const callerName = 'deleteRowAction'
@@ -110,7 +110,7 @@ function clearAction() {
     async () => {
       try {
         await database.clear(props.table)
-        updateTableRows()
+        await updateTableRows()
         notify(`Cleared table '${props.table}'`, Icon.DELETE)
       } catch (error) {
         const callerName = 'clearAction'
@@ -135,6 +135,11 @@ function canCreate() {
     props.table === DBTable.WORKOUTS ||
     props.table === DBTable.WORKOUT_RECORDS
   )
+}
+
+async function createDialogEvent(event: any): Promise<void> {
+  createDialog.value = event
+  await updateTableRows()
 }
 </script>
 
@@ -253,5 +258,5 @@ function canCreate() {
   </QTable>
 
   <!-- Dialogs -->
-  <CreateDialog :table="table" :dialog="createDialog" @update:dialog="createDialog = $event" />
+  <CreateDialog :table="table" :dialog="createDialog" @update:dialog="createDialogEvent($event)" />
 </template>

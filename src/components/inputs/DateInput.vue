@@ -30,7 +30,7 @@ const dateTimePicker: Ref<string> = ref('')
 const rules: Ref<any[]> = ref([])
 
 /**
- * Defaults and date rules.
+ * Defaults and date rules
  */
 onMounted(async () => {
   if (props.label === 'Created At') {
