@@ -2,12 +2,12 @@
 import { QSelect } from 'quasar'
 import { onMounted, ref, type Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { ValidationMessage, isRequired } from '@/utils/validators'
 import { ActivityStatus, RecordStatus } from '@/constants/enums'
+import { useValidators } from '@/use/useValidators'
 
 /**
  * @example
- * Script: const status: Ref<string> = ref('')
+ * Script: const status: Ref<ActivityStatus | RecordStatus> = ref(ActivityStatus.ENABLED)
  * Template: <StatusSelect :status="status" @update:status="status = $event" />
  */
 
@@ -21,13 +21,17 @@ const emits = defineEmits<{
 }>()
 
 const status = useVModel(props, 'status', emits)
+const { isStatusValid } = useValidators()
 const options: Ref<string[]> = ref([])
 
+/**
+ * Generates defaults and select box options based on type prop
+ */
 onMounted(async () => {
-  // Generate the options for the select box based on the type prop
   if (props.type === 'ActivityStatus') {
     options.value = Object.values(ActivityStatus)
   }
+
   if (props.type === 'RecordStatus') {
     options.value = Object.values(RecordStatus)
   }
@@ -39,9 +43,7 @@ onMounted(async () => {
     v-model="status"
     label="Status"
     :options="options"
-    :rules="[
-       (val: string) => isRequired(val) || ValidationMessage.REQUIRED,
-    ]"
+    :rules="[(val: ActivityStatus | RecordStatus) => isStatusValid(val) || 'Status is Required']"
     emit-value
     map-options
     options-dense

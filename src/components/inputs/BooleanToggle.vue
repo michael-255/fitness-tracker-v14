@@ -21,6 +21,7 @@ const bool = useVModel(props, 'bool', emits)
 </script>
 
 <template>
+  <!-- DIV forces toggles into a column layout -->
   <div>
     <QToggle
       v-bind="$attrs"

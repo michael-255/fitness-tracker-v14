@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 
-// types for the state?
-
+/**
+ * @todo Typescript for the state?
+ */
 export const useUIStore = defineStore({
   id: 'ui',
 

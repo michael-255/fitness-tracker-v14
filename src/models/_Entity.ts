@@ -6,6 +6,13 @@ export interface EntityParams {
   createdAt?: string
 }
 
+export interface IEntity {
+  id: string
+  createdAt: string
+  // updatedAt: string
+  // deletedAt: string
+}
+
 /**
  * _Entity Class
  * @param obj Partial<EntityParams>

@@ -3,8 +3,8 @@ import { QSelect, QInput, QIcon } from 'quasar'
 import { Icon, DBTable, LogLevel } from '@/constants/enums'
 import { useTable } from '@/use/useTable'
 import { type Ref, ref, onMounted } from 'vue'
-// import ConfirmDialog from '@/components/dialogs/ConfirmDialog.vue'
-import CreateDialog from '@/components/dialogs/CreateDialog.vue'
+import CreateMeasurementDialog from '@/components/dialogs/CreateMeasurementDialog.vue'
+import EditMeasurementDialog from '@/components/dialogs/EditMeasurementDialog.vue'
 import { useQuasar } from 'quasar'
 import { useNotify } from '@/use/useNotify'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
@@ -47,7 +47,7 @@ const {
   // confirmClearDialog,
   openReportDialog,
   openDetailsDialog,
-  openEditDialog,
+  // openEditDialog,
   saveEditDialog,
   // openDeleteDialog,
   // confirmDeleteDialog,
@@ -58,6 +58,7 @@ const {
   visibleColumns: props.visibleColumns,
 })
 
+const editId: Ref<string> = ref('')
 const filter: Ref<string> = ref('')
 
 onMounted(async () => {
@@ -140,6 +141,17 @@ function canCreate() {
 async function createDialogEvent(event: any): Promise<void> {
   createDialog.value = event
   await updateTableRows()
+}
+
+async function editDialogEvent(event: any): Promise<void> {
+  editDialog.value = event
+  await updateTableRows()
+}
+
+async function openEditDialog(id: string): Promise<void> {
+  console.log(id)
+  editId.value = id
+  editDialog.value = true
 }
 </script>
 
@@ -239,7 +251,7 @@ async function createDialogEvent(event: any): Promise<void> {
             round
             dense
             class="q-ml-xs"
-            color="warning"
+            color="orange-9"
             @click="openEditDialog(props.cols[0].value)"
             :icon="Icon.EDIT"
           />
@@ -258,5 +270,10 @@ async function createDialogEvent(event: any): Promise<void> {
   </QTable>
 
   <!-- Dialogs -->
-  <CreateDialog :table="table" :dialog="createDialog" @update:dialog="createDialogEvent($event)" />
+  <CreateMeasurementDialog :dialog="createDialog" @update:dialog="createDialogEvent($event)" />
+  <EditMeasurementDialog
+    :editId="editId"
+    :dialog="editDialog"
+    @update:dialog="editDialogEvent($event)"
+  />
 </template>

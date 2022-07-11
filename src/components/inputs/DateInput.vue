@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { QInput, QDate, QBtn, QTime, QPopupProxy } from 'quasar'
 import { type Ref, ref, onMounted } from 'vue'
-import { ValidationMessage, isRequiredDateValid, isNullableDateValid } from '@/utils/validators'
 import { useVModel } from '@vueuse/core'
 import { useLuxon } from '@/use/useLuxon'
+import { useValidators } from '@/use/useValidators'
 import type { Nullable } from '@/constants/globals'
 
 /**
@@ -25,6 +25,7 @@ const emits = defineEmits<{
 }>()
 
 const isoDate = useVModel(props, 'date', emits)
+const { isCreatedAtValid, isFinishedAtValid } = useValidators()
 const displayDate: Ref<Nullable<string>> = ref('')
 const dateTimePicker: Ref<string> = ref('')
 const rules: Ref<any[]> = ref([])
@@ -33,16 +34,26 @@ const rules: Ref<any[]> = ref([])
  * Defaults and date rules
  */
 onMounted(async () => {
+  const dateMessage = 'Date must be of format YYYY-MM-DDTHH:MM:SS.###Z'
+
   if (props.label === 'Created At') {
-    rules.value = [(val: string) => isRequiredDateValid(val) || ValidationMessage.DATE]
+    rules.value = [(val: string) => isCreatedAtValid(val) || dateMessage]
+
     if (!props.date) {
-      const now = new Date().toISOString()
-      isoDate.value = now
-      displayDate.value = dateISOToDisplay(now)
+      nowDate()
+    } else {
+      displayDate.value = dateISOToDisplay(isoDate.value as string)
     }
   }
+
   if (props.label === 'Finished At') {
-    rules.value = [(val: string) => isNullableDateValid(val) || ValidationMessage.DATE]
+    rules.value = [(val: string) => isFinishedAtValid(val) || dateMessage]
+
+    if (!props.date) {
+      clearDate()
+    } else {
+      displayDate.value = null
+    }
   }
 })
 

@@ -1,27 +1,15 @@
-/**
- * @note
- * Make sure the ValidationMaxLength, ValidationMessage, and ValidationRegex contraints match.
- */
-
+import type { ActivityStatus, RecordStatus } from '@/constants/enums'
 import type { Nullable } from '@/constants/globals'
 
-export enum ValidationMaxLength {
-  SHORT = 40,
-  LONG = 500, // Nullable
-}
-
-export enum ValidationMessage {
-  REQUIRED = '* Required',
-  DATE = 'Date must be of format YYYY-MM-DDTHH:MM:SS.###Z',
-  SHORT_TEXT = 'Input must be between 1 and 40 alphanumeric characters',
-  LONG_TEXT = 'Input is limited to 500 alphanumeric characters', // Nullable
-}
-
-export const ValidationRegex = Object.freeze({
+export const ValidationRegex: Readonly<any> = {
   Date: /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).(\d{3})Z$/, // JS ISO Date
   ShortText: /^.{1,40}$/, // 1-40 alphanumeric characters
   LongText: /^.{0,500}$/, // 0-500 alphanumeric characters
-})
+}
+
+export function isBoolean(value: any): boolean {
+  return value === true || value === false
+}
 
 export function isRequired(value: any): boolean {
   if (Array.isArray(value)) {
@@ -31,18 +19,26 @@ export function isRequired(value: any): boolean {
   }
 }
 
-export function isShortTextValid(text: string): boolean {
-  return ValidationRegex.ShortText.test(text)
+export function isIdValid(id: string): boolean {
+  return isRequired(id) && ValidationRegex.ShortText.test(id)
 }
 
-export function isLongTextValid(text: Nullable<string>): boolean {
+export function isCreatedAtValid(date: string): boolean {
+  return isRequired(date) && ValidationRegex.Date.test(date)
+}
+
+export function isFinishedAtValid(date: Nullable<string>): boolean {
+  return date === null || ValidationRegex.Date.test(date)
+}
+
+export function isNameValid(name: string): boolean {
+  return isRequired(name) && ValidationRegex.ShortText.test(name)
+}
+
+export function isTextAreaValid(text: Nullable<string>): boolean {
   return text === null || ValidationRegex.LongText.test(text)
 }
 
-export function isRequiredDateValid(date: string): boolean {
-  return ValidationRegex.Date.test(date)
-}
-
-export function isNullableDateValid(date: Nullable<string>): boolean {
-  return date === null || ValidationRegex.Date.test(date)
+export function isStatusValid(status: ActivityStatus | RecordStatus): boolean {
+  return isRequired(status)
 }

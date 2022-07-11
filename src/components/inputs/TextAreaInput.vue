@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { QInput } from 'quasar'
-import { ValidationMaxLength, ValidationMessage, isLongTextValid } from '@/utils/validators'
 import { useVModel } from '@vueuse/core'
 import type { Nullable } from '@/constants/globals'
+import { useValidators } from '@/use/useValidators'
 
 /**
  * @example
@@ -20,17 +20,17 @@ const emits = defineEmits<{
 }>()
 
 const text = useVModel(props, 'text', emits)
+const { isTextAreaValid } = useValidators()
+const maxLength = 500
 </script>
 
 <template>
   <QInput
     v-model="text"
     :label="label"
-    :rules="[
-      (val: string) => isLongTextValid(val) || ValidationMessage.LONG_TEXT,
-    ]"
-    :maxlength="ValidationMaxLength.LONG"
-    :hint="`${props.text?.length || '0'}/${ValidationMaxLength.LONG}`"
+    :rules="[(val: string) => isTextAreaValid(val) || 'Input is limited to 500 characters']"
+    :maxlength="maxLength"
+    :hint="`${props.text?.length || '0'}/${maxLength}`"
     dense
     outlined
     color="primary"

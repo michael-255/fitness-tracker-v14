@@ -16,6 +16,7 @@ import { database } from '@/services/LocalDatabase'
 import { Measurement } from '@/models/Measurement'
 import { useTableType } from '@/use/useTableType'
 import { useInputRefs } from '@/use/useInputRefs'
+import { onMounted } from 'vue'
 
 const $q = useQuasar()
 const { notify } = useNotify($q)
@@ -26,6 +27,7 @@ const { getTableTypeLabel, isActivityTable } = useTableType()
 const props = defineProps<{
   table: DBTable
   dialog: boolean
+  editId: string
 }>()
 
 const emits = defineEmits<{
@@ -43,9 +45,14 @@ const {
   trackInches,
   trackFeet,
   trackPercent,
+  loadIdItem,
   resetInputRefs,
   areInputRefsValid,
-} = useInputRefs(props.table)
+} = useInputRefs(props.table, '577462c9-f931-4b34-b228-d886e32ad1c3')
+
+onMounted(async () => {
+  await loadIdItem()
+})
 
 async function saveAction(): Promise<void> {
   if (!areInputRefsValid()) {
@@ -54,7 +61,7 @@ async function saveAction(): Promise<void> {
       'Please ensure all form entires are completed with valid information.'
     )
   } else {
-    confirmDialog(`Save`, `Would you like to create this item?`, async () => {
+    confirmDialog(`Save`, `Would you like to save these changes?`, async () => {
       switch (props.table) {
         case DBTable.MEASUREMENTS:
           await database.add(
@@ -71,7 +78,7 @@ async function saveAction(): Promise<void> {
               trackPercent: trackPercent.value,
             })
           )
-          notify('New Measurement Created', Icon.MEASUREMENTS)
+          notify('Measurement Updated', Icon.MEASUREMENTS)
           break
         case DBTable.MEASUREMENT_RECORDS:
           // create item
@@ -96,7 +103,7 @@ async function saveAction(): Promise<void> {
   >
     <QCard>
       <QCardActions class="bg-primary text-white">
-        <div class="q-table__title text-weight-bold">Create</div>
+        <div class="q-table__title text-weight-bold">Edit</div>
         <QSpace />
         <QBtn outline :icon="Icon.SAVE" label="Save" @click="saveAction()" />
         <QBtn outline :icon="Icon.CLOSE" label="Close" v-close-popup />
@@ -110,6 +117,7 @@ async function saveAction(): Promise<void> {
         <!-- Entity Fields -->
         <IdInput :id="id" @update:id="id = $event" />
         <DateInput :date="createdAt" label="Created At" @update:date="createdAt = $event" />
+
         <!-- Activity Fields -->
         <div v-if="isActivityTable(table)">
           <NameInput :name="name" @update:name="name = $event" />
@@ -124,6 +132,7 @@ async function saveAction(): Promise<void> {
             @update:status="activityStatus = $event"
           />
         </div>
+
         <!-- Measurement Fields -->
         <div v-if="table === DBTable.MEASUREMENTS">
           <BooleanToggle :bool="trackLbs" label="Track Lbs" @update:bool="trackLbs = $event" />

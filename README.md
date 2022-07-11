@@ -4,11 +4,16 @@ Description TBA.
 
 ## Primary Todos - MEASUREMENTS VIEW (focus on completing this one)
 
+- [ ] Move `useTable.ts` logic into `PageTable.vue`
+- [ ] Might need to do the dialogs as seperate pages (routes)
+- [ ] Might want to manage with state (createItem, editItem, etc.)
+
+  - [ ] `CreateDialog` on `openCreateDialog` load defaults into `input` state (reset on save)
+  - [ ] `EditDialog` on `openEditDialog` load id data into `input` state (reset on save)
+
 - [ ] Complete `MeasurementsView` to figure out how to complete similar views
-  - [x] Look into `Quasar Dialog Plugin` for the confirm dialogs
-  - [x] Look into `Quasar Notify Plugin` for logger and other action notifications
   - [ ] `Create` action (fullscreen dialog)
-    - [ ] New `Measurement Activity`
+    - [] New `Measurement Activity`
     - [ ] New `Measurement Record`
   - [ ] `Edit` action (fullscreen dialog)
     - [ ] Existing `Measurement Activity`
