@@ -1,27 +1,44 @@
-import { _Activity, type ActivityParams } from '@/models/_Activity'
+import { _Activity, type IActivity } from '@/models/_Activity'
 import { truncateString } from '@/utils/common'
+import { isRequired } from '@/utils/validators'
 
-interface WorkoutParams extends ActivityParams {
-  exerciseIds?: string[]
+export interface IWorkout extends IActivity {
+  exerciseIds: string[]
 }
 
 /**
  * Workout Class
- * @param obj Partial<WorkoutParams>
+ * @param params IWorkout
  */
 export class Workout extends _Activity {
-  public exerciseIds: string[]
+  protected exerciseIds: string[]
 
-  constructor({
-    id,
-    createdAt,
-    name = 'My Workout',
-    description,
-    status,
-    exerciseIds = [],
-  }: Partial<WorkoutParams> = {}) {
-    super({ id, createdAt, name, description, status })
-    this.exerciseIds = exerciseIds
+  constructor(params: IWorkout) {
+    super({
+      id: params.id,
+      createdAt: params.createdAt,
+      name: params.name,
+      description: params.description,
+      status: params.status,
+    })
+
+    if (isRequired(params.exerciseIds)) {
+      this.exerciseIds = params.exerciseIds
+    } else {
+      throw new Error(`(constructor) Validation failed on exerciseIds << ${params.exerciseIds} >>`)
+    }
+  }
+
+  get ExerciseIds(): string[] {
+    return this.exerciseIds
+  }
+
+  set ExerciseIds(exerciseIds: string[]) {
+    if (isRequired(exerciseIds)) {
+      this.exerciseIds = exerciseIds
+    } else {
+      throw new Error(`Validation failed on exerciseIds << ${exerciseIds} >>`)
+    }
   }
 
   static getTableColumns(): any[] {

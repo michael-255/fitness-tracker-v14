@@ -10,7 +10,6 @@ import BooleanToggle from '@/components/inputs/BooleanToggle.vue'
 import { ref, type Ref } from 'vue'
 import { v4 as createId } from 'uuid'
 import { ActivityStatus, DBTable, Icon } from '@/constants/enums'
-import type { Nullable } from '@/constants/globals'
 import { useQuasar } from 'quasar'
 import { useNotify } from '@/use/useNotify'
 import { useSimpleDialogs } from '@/use/useSimpleDialogs'
@@ -32,10 +31,10 @@ function confirmDialogTest(id: string) {
 //
 const id: Ref<string> = ref(createId())
 const createdAt: Ref<string> = ref('')
-const finishedAt: Ref<Nullable<string>> = ref(null)
+const finishedAt: Ref<string> = ref('')
 const name: Ref<string> = ref('My Measurement')
-const description: Ref<Nullable<string>> = ref(null)
-const note: Ref<Nullable<string>> = ref(null)
+const description: Ref<string> = ref('')
+const note: Ref<string> = ref('')
 const status: Ref<ActivityStatus> = ref(ActivityStatus.ENABLED)
 const parentId: Ref<string> = ref('')
 const trackLbs: Ref<boolean> = ref(false)

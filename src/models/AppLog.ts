@@ -1,20 +1,21 @@
 import type { LogLevel } from '@/constants/enums'
-import { _Entity, type EntityParams } from '@/models/_Entity'
+import { _Entity } from '@/models/_Entity'
 import { truncateString } from '@/utils/common'
+import { v4 as createId } from 'uuid'
 
-export interface AppLogParams extends EntityParams {
+export interface IAppLog {
   error: Error | any
   level: LogLevel
-  name: string
+  callerName: string
   details?: string
 }
 
 /**
  * AppLog Class
- * @param obj.error Error or any if unknown
- * @param obj.level LogLevel severity
- * @param obj.name Name of caller (normally the function name)
- * @param obj.details Optional - Additional string with information about the event (str:str:str)
+ * @param params.error Error or any if unknown
+ * @param params.level LogLevel severity
+ * @param params.callerName Name of caller (normally the function name)
+ * @param params.details Optional - Additional information about the event (str:str:str)
  */
 export class AppLog extends _Entity {
   public level: LogLevel
@@ -24,10 +25,11 @@ export class AppLog extends _Entity {
   public message?: string
   public stack?: string
 
-  constructor(params: AppLogParams) {
-    super() // Will use default id and createdAt
+  constructor(params: IAppLog) {
+    super({ id: createId(), createdAt: new Date().toISOString() })
+
     this.level = params?.level
-    this.callerName = params?.name
+    this.callerName = params?.callerName
     this.details = params?.details
     this.errorName = params?.error?.name
     this.message = params?.error?.message

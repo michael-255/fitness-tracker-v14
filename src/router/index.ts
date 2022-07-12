@@ -15,13 +15,6 @@ const router = createRouter({
       component: () => import(`../views/${Views.DASHBOARD}.vue`),
     },
     {
-      path: '/active-workout/:id',
-      props: true,
-      name: Views.ACTIVEWORKOUT,
-      meta: { layout: Layouts.MENU }, // @todo - active workout header/footer
-      component: () => import(`../views/${Views.ACTIVEWORKOUT}.vue`),
-    },
-    {
       path: '/active',
       name: Views.ACTIVE,
       meta: { layout: Layouts.MENU },

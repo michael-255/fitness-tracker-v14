@@ -1,42 +1,129 @@
-import { _Activity, type ActivityParams } from '@/models/_Activity'
+import { _Activity, type IActivity } from '@/models/_Activity'
+import { isBoolean } from '@/utils/validators'
 
-export interface ExerciseParams extends ActivityParams {
-  trackMultipleSets?: boolean
-  trackDuration?: boolean
-  trackDistance?: boolean
-  trackWeight?: boolean
-  trackReps?: boolean
+export interface IExercise extends IActivity {
+  trackMultipleSets: boolean
+  trackDuration: boolean
+  trackDistance: boolean
+  trackWeight: boolean
+  trackReps: boolean
 }
 
 /**
  * Exercise Class
- * @param obj Partial<ExerciseParams>
+ * @param params IExercise
  */
 export class Exercise extends _Activity {
-  public trackMultipleSets: boolean
-  public trackDuration: boolean
-  public trackDistance: boolean
-  public trackWeight: boolean
-  public trackReps: boolean
+  protected trackMultipleSets: boolean
+  protected trackDuration: boolean
+  protected trackDistance: boolean
+  protected trackWeight: boolean
+  protected trackReps: boolean
 
-  constructor({
-    id,
-    createdAt,
-    name = 'My Exercise',
-    description,
-    status,
-    trackMultipleSets = false,
-    trackDuration = false,
-    trackDistance = false,
-    trackWeight = false,
-    trackReps = false,
-  }: Partial<ExerciseParams> = {}) {
-    super({ id, createdAt, name, description, status })
-    this.trackMultipleSets = trackMultipleSets
-    this.trackDuration = trackDuration
-    this.trackDistance = trackDistance
-    this.trackWeight = trackWeight
-    this.trackReps = trackReps
+  constructor(params: IExercise) {
+    super({
+      id: params.id,
+      createdAt: params.createdAt,
+      name: params.name,
+      description: params.description,
+      status: params.status,
+    })
+
+    if (isBoolean(params.trackMultipleSets)) {
+      this.trackMultipleSets = params.trackMultipleSets
+    } else {
+      throw new Error(
+        `(constructor) Validation failed on trackMultipleSets << ${params.trackMultipleSets} >>`
+      )
+    }
+
+    if (isBoolean(params.trackDuration)) {
+      this.trackDuration = params.trackDuration
+    } else {
+      throw new Error(
+        `(constructor) Validation failed on trackDuration << ${params.trackDuration} >>`
+      )
+    }
+
+    if (isBoolean(params.trackDistance)) {
+      this.trackDistance = params.trackDistance
+    } else {
+      throw new Error(
+        `(constructor) Validation failed on trackDistance << ${params.trackDistance} >>`
+      )
+    }
+
+    if (isBoolean(params.trackWeight)) {
+      this.trackWeight = params.trackWeight
+    } else {
+      throw new Error(`(constructor) Validation failed on trackWeight << ${params.trackWeight} >>`)
+    }
+
+    if (isBoolean(params.trackReps)) {
+      this.trackReps = params.trackReps
+    } else {
+      throw new Error(`(constructor) Validation failed on trackReps << ${params.trackReps} >>`)
+    }
+  }
+
+  get TrackMultipleSets(): boolean {
+    return this.trackMultipleSets
+  }
+
+  set TrackMultipleSets(trackMultipleSets: boolean) {
+    if (isBoolean(trackMultipleSets)) {
+      this.trackMultipleSets = trackMultipleSets
+    } else {
+      throw new Error(`Validation failed on trackMultipleSets << ${trackMultipleSets} >>`)
+    }
+  }
+
+  get TrackDuration(): boolean {
+    return this.trackDuration
+  }
+
+  set TrackDuration(trackDuration: boolean) {
+    if (isBoolean(trackDuration)) {
+      this.trackDuration = trackDuration
+    } else {
+      throw new Error(`Validation failed on trackDuration << ${trackDuration} >>`)
+    }
+  }
+
+  get TrackDistance(): boolean {
+    return this.trackDistance
+  }
+
+  set TrackDistance(trackDistance: boolean) {
+    if (isBoolean(trackDistance)) {
+      this.trackDistance = trackDistance
+    } else {
+      throw new Error(`Validation failed on trackDistance << ${trackDistance} >>`)
+    }
+  }
+
+  get TrackWeight(): boolean {
+    return this.trackWeight
+  }
+
+  set TrackWeight(trackWeight: boolean) {
+    if (isBoolean(trackWeight)) {
+      this.trackWeight = trackWeight
+    } else {
+      throw new Error(`Validation failed on trackWeight << ${trackWeight} >>`)
+    }
+  }
+
+  get TrackReps(): boolean {
+    return this.trackReps
+  }
+
+  set TrackReps(trackReps: boolean) {
+    if (isBoolean(trackReps)) {
+      this.trackReps = trackReps
+    } else {
+      throw new Error(`Validation failed on trackReps << ${trackReps} >>`)
+    }
   }
 
   static getTableColumns(): any[] {

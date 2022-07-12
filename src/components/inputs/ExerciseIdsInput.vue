@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { QSelect, QItem } from 'quasar'
-import type { Id, IdLabelOption } from '@/constants/globals'
 import { onMounted, ref, type Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { ValidationMessage, isRequired } from '@/utils/validators'
+import { isRequired } from '@/utils/validators'
 import { database } from '@/services/LocalDatabase'
 import { DBTable } from '@/constants/enums'
 
@@ -14,16 +13,16 @@ import { DBTable } from '@/constants/enums'
  */
 
 const props = defineProps<{
-  exerciseIds: Id[]
+  exerciseIds: string[]
 }>()
 
 const emits = defineEmits<{
-  (event: 'update:exerciseIds', exerciseIds: Id[]): void
+  (event: 'update:exerciseIds', exerciseIds: string[]): void
 }>()
 
 const exerciseIds = useVModel(props, 'exerciseIds', emits)
 
-const options: Ref<IdLabelOption[]> = ref([])
+const options: Ref<object[]> = ref([])
 
 onMounted(async () => {
   const activities = await database.getAll(DBTable.EXERCISES)
@@ -41,7 +40,7 @@ onMounted(async () => {
     label="Exercise Ids"
     :options="options"
     :rules="[
-       (val: string) => isRequired(val) || ValidationMessage.REQUIRED,
+       (val: string) => isRequired(val) || 'error',
     ]"
     emit-value
     multiple

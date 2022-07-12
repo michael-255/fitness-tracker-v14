@@ -1,38 +1,125 @@
-import { _Activity, type ActivityParams } from './_Activity'
+import { _Activity, type IActivity } from './_Activity'
+import { isBoolean } from '@/utils/validators'
 
-interface MeasurementParams extends ActivityParams {
-  trackLbs?: boolean
-  trackInches?: boolean
-  trackFeet?: boolean
-  trackPercent?: boolean
+export interface IMeasurement extends IActivity {
+  trackLbs: boolean
+  trackInches: boolean
+  trackFeet: boolean
+  trackPercent: boolean
+  trackNumber: boolean
 }
 
 /**
  * Measurement Class
- * @param obj Partial<MeasurementParams>
+ * @param params IMeasurement
  */
 export class Measurement extends _Activity {
-  public trackLbs: boolean
-  public trackInches: boolean
-  public trackFeet: boolean
-  public trackPercent: boolean
+  protected trackLbs: boolean
+  protected trackInches: boolean
+  protected trackFeet: boolean
+  protected trackPercent: boolean
+  protected trackNumber: boolean
 
-  constructor({
-    id,
-    createdAt,
-    name = 'My Measurement',
-    description,
-    status,
-    trackLbs = false,
-    trackInches = false,
-    trackFeet = false,
-    trackPercent = false,
-  }: Partial<MeasurementParams> = {}) {
-    super({ id, createdAt, name, description, status })
-    this.trackLbs = trackLbs
-    this.trackInches = trackInches
-    this.trackFeet = trackFeet
-    this.trackPercent = trackPercent
+  constructor(params: IMeasurement) {
+    super({
+      id: params.id,
+      createdAt: params.createdAt,
+      name: params.name,
+      description: params.description,
+      status: params.status,
+    })
+
+    if (isBoolean(params.trackLbs)) {
+      this.trackLbs = params.trackLbs
+    } else {
+      throw new Error(`(constructor) Validation failed on trackLbs << ${params.trackLbs} >>`)
+    }
+
+    if (isBoolean(params.trackInches)) {
+      this.trackInches = params.trackInches
+    } else {
+      throw new Error(`(constructor) Validation failed on trackInches << ${params.trackInches} >>`)
+    }
+
+    if (isBoolean(params.trackFeet)) {
+      this.trackFeet = params.trackFeet
+    } else {
+      throw new Error(`(constructor) Validation failed on trackFeet << ${params.trackFeet} >>`)
+    }
+
+    if (isBoolean(params.trackPercent)) {
+      this.trackPercent = params.trackPercent
+    } else {
+      throw new Error(
+        `(constructor) Validation failed on trackPercent << ${params.trackPercent} >>`
+      )
+    }
+
+    if (isBoolean(params.trackNumber)) {
+      this.trackNumber = params.trackNumber
+    } else {
+      throw new Error(`(constructor) Validation failed on trackNumber << ${params.trackNumber} >>`)
+    }
+  }
+
+  get TrackLbs(): boolean {
+    return this.trackLbs
+  }
+
+  set TrackLbs(trackLbs: boolean) {
+    if (isBoolean(trackLbs)) {
+      this.trackLbs = trackLbs
+    } else {
+      throw new Error(`Validation failed on trackLbs << ${trackLbs} >>`)
+    }
+  }
+
+  get TrackInches(): boolean {
+    return this.trackInches
+  }
+
+  set TrackInches(trackInches: boolean) {
+    if (isBoolean(trackInches)) {
+      this.trackInches = trackInches
+    } else {
+      throw new Error(`Validation failed on trackInches << ${trackInches} >>`)
+    }
+  }
+
+  get TrackFeet(): boolean {
+    return this.trackFeet
+  }
+
+  set TrackFeet(trackFeet: boolean) {
+    if (isBoolean(trackFeet)) {
+      this.trackFeet = trackFeet
+    } else {
+      throw new Error(`Validation failed on trackFeet << ${trackFeet} >>`)
+    }
+  }
+
+  get TrackPercent(): boolean {
+    return this.trackPercent
+  }
+
+  set TrackPercent(trackPercent: boolean) {
+    if (isBoolean(trackPercent)) {
+      this.trackPercent = trackPercent
+    } else {
+      throw new Error(`Validation failed on trackPercent << ${trackPercent} >>`)
+    }
+  }
+
+  get TrackNumber(): boolean {
+    return this.trackNumber
+  }
+
+  set TrackNumber(trackNumber: boolean) {
+    if (isBoolean(trackNumber)) {
+      this.trackNumber = trackNumber
+    } else {
+      throw new Error(`Validation failed on trackNumber << ${trackNumber} >>`)
+    }
   }
 
   static getTableColumns(): any[] {

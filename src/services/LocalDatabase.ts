@@ -1,11 +1,11 @@
 import Dexie, { type IndexableType, type Table } from 'dexie'
 import { databaseTableIndices } from '@/constants/globals'
-import { Measurement } from '@/models/Measurement'
-import { Exercise } from '@/models/Exercise'
-import { Workout } from '@/models/Workout'
-import { MeasurementRecord } from '@/models/MeasurementRecord'
-import { ExerciseRecord } from '@/models/ExerciseRecord'
-import { WorkoutRecord } from '@/models/WorkoutRecord'
+import { Measurement, type IMeasurement } from '@/models/Measurement'
+import { Exercise, type IExercise } from '@/models/Exercise'
+import { Workout, type IWorkout } from '@/models/Workout'
+import { MeasurementRecord, type IMeasurementRecord } from '@/models/MeasurementRecord'
+import { ExerciseRecord, type IExerciseRecord } from '@/models/ExerciseRecord'
+import { WorkoutRecord, type IWorkoutRecord } from '@/models/WorkoutRecord'
 import { AppLog } from '@/models/AppLog'
 import { ActivityStatus, DBTable, RecordStatus } from '@/constants/enums'
 
@@ -15,12 +15,12 @@ import { ActivityStatus, DBTable, RecordStatus } from '@/constants/enums'
  */
 export class LocalDatabase extends Dexie {
   // Information for the typing system to help Dexie out
-  [DBTable.MEASUREMENTS]!: Table<Partial<Measurement>>;
-  [DBTable.EXERCISES]!: Table<Partial<Exercise>>;
-  [DBTable.WORKOUTS]!: Table<Partial<Workout>>;
-  [DBTable.MEASUREMENT_RECORDS]!: Table<Partial<MeasurementRecord>>;
-  [DBTable.EXERCISE_RECORDS]!: Table<Partial<ExerciseRecord>>;
-  [DBTable.WORKOUT_RECORDS]!: Table<Partial<WorkoutRecord>>;
+  [DBTable.MEASUREMENTS]!: Table<IMeasurement>;
+  [DBTable.EXERCISES]!: Table<IExercise>;
+  [DBTable.WORKOUTS]!: Table<IWorkout>;
+  [DBTable.MEASUREMENT_RECORDS]!: Table<IMeasurementRecord>;
+  [DBTable.EXERCISE_RECORDS]!: Table<IExerciseRecord>;
+  [DBTable.WORKOUT_RECORDS]!: Table<IWorkoutRecord>;
   [DBTable.APP_LOGS]!: Table<Partial<AppLog>>
 
   constructor(name: string) {

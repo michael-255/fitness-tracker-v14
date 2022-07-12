@@ -4,7 +4,6 @@ import { type Ref, ref, onMounted } from 'vue'
 import { useVModel } from '@vueuse/core'
 import { useLuxon } from '@/use/useLuxon'
 import { useValidators } from '@/use/useValidators'
-import type { Nullable } from '@/constants/globals'
 
 /**
  * @example
@@ -15,7 +14,7 @@ import type { Nullable } from '@/constants/globals'
 const { dateISOToDisplay } = useLuxon()
 
 const props = defineProps<{
-  date: string | Nullable<string> // isoDate
+  date: string // isoDate
   label: 'Created At' | 'Finished At'
 }>()
 
@@ -26,7 +25,7 @@ const emits = defineEmits<{
 
 const isoDate = useVModel(props, 'date', emits)
 const { isCreatedAtValid, isFinishedAtValid } = useValidators()
-const displayDate: Ref<Nullable<string>> = ref('')
+const displayDate: Ref<string> = ref('')
 const dateTimePicker: Ref<string> = ref('')
 const rules: Ref<any[]> = ref([])
 
@@ -52,7 +51,7 @@ onMounted(async () => {
     if (!props.date) {
       clearDate()
     } else {
-      displayDate.value = null
+      displayDate.value = ''
     }
   }
 })
@@ -69,8 +68,8 @@ function nowDate(): void {
 }
 
 function clearDate(): void {
-  isoDate.value = null
-  displayDate.value = null
+  isoDate.value = ''
+  displayDate.value = ''
 }
 </script>
 

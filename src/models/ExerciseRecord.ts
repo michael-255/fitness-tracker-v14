@@ -1,28 +1,45 @@
-import { _Record, type RecordParams } from '@/models/_Record'
+import { _Record, type IRecord } from '@/models/_Record'
 import { ExerciseSet } from '@/models/ExerciseSet'
 import { truncateString } from '@/utils/common'
+import { isRequired } from '@/utils/validators'
 
-interface ExerciseRecordParams extends RecordParams {
-  sets?: ExerciseSet[]
+export interface IExerciseRecord extends IRecord {
+  sets: ExerciseSet[]
 }
 
 /**
  * ExerciseRecord Class
- * @param obj Partial<ExerciseRecordParams>
+ * @param obj IExerciseRecord
  */
 export class ExerciseRecord extends _Record {
-  public sets: ExerciseSet[]
+  protected sets: ExerciseSet[]
 
-  constructor({
-    id,
-    createdAt,
-    parentId,
-    note,
-    status,
-    sets = [],
-  }: Partial<ExerciseRecordParams> = {}) {
-    super({ id, createdAt, parentId, note, status })
-    this.sets = sets
+  constructor(params: IExerciseRecord) {
+    super({
+      id: params.id,
+      createdAt: params.createdAt,
+      parentId: params.parentId,
+      note: params.note,
+      status: params.status,
+    })
+
+    if (isRequired(params.sets)) {
+      this.sets = params.sets
+    } else {
+      throw new Error(`(constructor) Validation failed on sets << ${params.sets} >>`)
+    }
+  }
+
+  get Sets(): ExerciseSet[] {
+    return this.sets
+  }
+
+  set Sets(sets: ExerciseSet[]) {
+    if (isRequired(sets)) {
+      this.sets = sets
+    } else {
+      throw new Error(`Validation failed on sets << ${sets} >>`)
+    }
   }
 
   static getTableColumns(): any[] {
@@ -43,7 +60,7 @@ export class ExerciseRecord extends _Record {
   }
 
   addNewSet(): number {
-    return this.sets.push(new ExerciseSet())
+    return this.sets.push(new ExerciseSet({}))
   }
 
   removeLastSet(): ExerciseSet | undefined {

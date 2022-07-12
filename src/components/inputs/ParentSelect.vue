@@ -2,7 +2,7 @@
 import { QSelect } from 'quasar'
 import { onMounted, ref, type Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { ValidationMessage, isRequired } from '@/utils/validators'
+import { isRequired } from '@/utils/validators'
 import { database } from '@/services/LocalDatabase'
 import type { DBTable } from '@/constants/enums'
 
@@ -46,7 +46,7 @@ onMounted(async () => {
     label="Parent Activity"
     :options="options"
     :rules="[
-       (val: string) => isRequired(val) || ValidationMessage.REQUIRED,
+       (val: string) => isRequired(val) || 'error',
     ]"
     emit-value
     map-options

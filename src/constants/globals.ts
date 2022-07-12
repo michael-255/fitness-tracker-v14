@@ -14,10 +14,3 @@ export const databaseTableIndices: Readonly<object> = {
   [DBTable.WORKOUT_RECORDS]: '&id, parentId, status',
   [DBTable.APP_LOGS]: '&id',
 }
-
-//
-// Types
-//
-
-export type Nullable<T> = T | null
-export type Undefinable<T> = T | undefined

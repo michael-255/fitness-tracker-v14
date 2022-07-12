@@ -1,10 +1,5 @@
-import { v4 as createId } from 'uuid'
 import { DateTime } from 'luxon'
-
-export interface EntityParams {
-  id?: string
-  createdAt?: string
-}
+import { isIdValid, isRequiredDateValid } from '@/utils/validators'
 
 export interface IEntity {
   id: string
@@ -15,22 +10,48 @@ export interface IEntity {
 
 /**
  * _Entity Class
- * @param obj Partial<EntityParams>
+ * @param params IEntity
  */
 export class _Entity {
-  public id: string
-  public createdAt: string
+  protected id: string
+  protected createdAt: string
 
-  constructor({
-    id = createId(),
-    createdAt = new Date().toISOString(),
-  }: Partial<EntityParams> = {}) {
-    this.id = id
-    this.createdAt = createdAt
+  constructor(params: IEntity) {
+    if (isIdValid(params.id)) {
+      this.id = params.id
+    } else {
+      throw new Error(`(constructor) Validation failed on id << ${params.id} >>`)
+    }
+
+    if (isRequiredDateValid(params.createdAt)) {
+      this.createdAt = params.createdAt
+    } else {
+      throw new Error(`(constructor) Validation failed on createdAt << ${params.id} >>`)
+    }
   }
 
-  static keys(): string[] {
-    return Object.keys(new this())
+  get Id(): string {
+    return this.id
+  }
+
+  set Id(id: string) {
+    if (isIdValid(id)) {
+      this.id = id
+    } else {
+      throw new Error(`Validation failed on id << ${id} >>`)
+    }
+  }
+
+  get CreatedAt(): string {
+    return this.createdAt
+  }
+
+  set CreatedAt(createdAt: string) {
+    if (isRequiredDateValid(createdAt)) {
+      this.createdAt = createdAt
+    } else {
+      throw new Error(`Validation failed on createdAt << ${createdAt} >>`)
+    }
   }
 
   static getTableColumns(): any[] {

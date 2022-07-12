@@ -2,7 +2,7 @@ import { database } from '@/services/LocalDatabase'
 import { logger } from '@/services/Logger'
 import { DEBUG } from '@/constants/globals'
 import { DBTable, Icon, LogLevel } from '@/constants/enums'
-import { AppLog, type AppLogParams } from '@/models/AppLog'
+import { AppLog, type IAppLog } from '@/models/AppLog'
 
 /**
  * Composable with utilities for logging.
@@ -11,7 +11,7 @@ export function useLogger() {
   /**
    * Helper function for adding an AppLog to the database.
    */
-  async function addAppLog(params: AppLogParams): Promise<void> {
+  async function addAppLog(params: IAppLog): Promise<void> {
     await database.add(DBTable.APP_LOGS, new AppLog(params))
   }
 
@@ -44,7 +44,7 @@ export function useLogger() {
   /**
    * Helper for console logging. This function isn't meant to be used outside of this composable.
    */
-  function consoleLog(params: AppLogParams): void {
+  function consoleLog(params: IAppLog): void {
     const { error, level, name, details } = params
 
     if (DEBUG) {
@@ -65,7 +65,7 @@ export function useLogger() {
   /**
    * Silently logs to the DB and console.
    */
-  async function log(params: AppLogParams): Promise<void> {
+  async function log(params: IAppLog): Promise<void> {
     consoleLog(params)
     await addAppLog(params)
   }

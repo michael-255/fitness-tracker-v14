@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { QInput } from 'quasar'
 import { useVModel } from '@vueuse/core'
-import type { Nullable } from '@/constants/globals'
 import { useValidators } from '@/use/useValidators'
 
 /**
@@ -11,12 +10,12 @@ import { useValidators } from '@/use/useValidators'
  */
 
 const props = defineProps<{
-  text: Nullable<string>
+  text: string
   label: 'Description' | 'Note'
 }>()
 
 const emits = defineEmits<{
-  (event: 'update:text', text: Nullable<string>): void
+  (event: 'update:text', text: string): void
 }>()
 
 const text = useVModel(props, 'text', emits)

@@ -1,10 +1,10 @@
-import type { Nullable } from '@/constants/globals'
+import { isOptionalNumber } from '@/utils/validators'
 
 interface ExerciseSetParams {
-  weight?: Nullable<number>
-  reps?: Nullable<number>
-  distance?: Nullable<number>
-  duration?: Nullable<number>
+  weight?: number
+  reps?: number
+  distance?: number
+  duration?: number
 }
 
 /**
@@ -12,34 +12,76 @@ interface ExerciseSetParams {
  * @param obj Partial<ExerciseSetParams>
  */
 export class ExerciseSet {
-  public weight: Nullable<number>
-  public reps: Nullable<number>
-  public distance: Nullable<number>
-  public duration: Nullable<number>
+  public weight?: number
+  public reps?: number
+  public distance?: number
+  public duration?: number
 
-  constructor({
-    weight = null,
-    reps = null,
-    distance = null,
-    duration = null,
-  }: Partial<ExerciseSetParams> = {}) {
-    this.weight = weight
-    this.reps = reps
-    this.distance = distance
-    this.duration = duration
+  constructor(params: Partial<ExerciseSetParams>) {
+    if (isOptionalNumber(params.weight)) {
+      this.weight = params.weight
+    } else {
+      throw new Error(`(constructor) Validation failed on weight << ${params.weight} >>`)
+    }
+
+    if (isOptionalNumber(params.reps)) {
+      this.reps = params.reps
+    } else {
+      throw new Error(`(constructor) Validation failed on reps << ${params.reps} >>`)
+    }
+
+    if (isOptionalNumber(params.distance)) {
+      this.distance = params.distance
+    } else {
+      throw new Error(`(constructor) Validation failed on distance << ${params.distance} >>`)
+    }
+
+    if (isOptionalNumber(params.duration)) {
+      this.duration = params.duration
+    } else {
+      throw new Error(`(constructor) Validation failed on duration << ${params.duration} >>`)
+    }
   }
 
-  updateSet(props: Partial<ExerciseSetParams>): void {
-    props.weight ? (this.weight = props.weight) : (this.weight = null)
-    props.reps ? (this.reps = props.reps) : (this.reps = null)
-    props.distance ? (this.distance = props.distance) : (this.distance = null)
-    props.duration ? (this.duration = props.duration) : (this.duration = null)
+  get ExerciseSet(): ExerciseSetParams {
+    return {
+      weight: this.weight,
+      reps: this.reps,
+      distance: this.distance,
+      duration: this.duration,
+    }
   }
 
-  clearSet(): void {
-    this.weight = null
-    this.reps = null
-    this.distance = null
-    this.duration = null
+  set ExerciseSet(params: ExerciseSetParams) {
+    if (isOptionalNumber(params.weight)) {
+      this.weight = params.weight
+    } else {
+      throw new Error(`(constructor) Validation failed on weight << ${params.weight} >>`)
+    }
+
+    if (isOptionalNumber(params.reps)) {
+      this.reps = params.reps
+    } else {
+      throw new Error(`(constructor) Validation failed on reps << ${params.reps} >>`)
+    }
+
+    if (isOptionalNumber(params.distance)) {
+      this.distance = params.distance
+    } else {
+      throw new Error(`(constructor) Validation failed on distance << ${params.distance} >>`)
+    }
+
+    if (isOptionalNumber(params.duration)) {
+      this.duration = params.duration
+    } else {
+      throw new Error(`(constructor) Validation failed on duration << ${params.duration} >>`)
+    }
+  }
+
+  clearExerciseSet(): void {
+    this.weight = undefined
+    this.reps = undefined
+    this.distance = undefined
+    this.duration = undefined
   }
 }

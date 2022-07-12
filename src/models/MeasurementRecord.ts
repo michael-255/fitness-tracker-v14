@@ -1,31 +1,83 @@
-import type { Nullable } from '@/constants/globals'
-import { _Record, type RecordParams } from '@/models/_Record'
+import { _Record, type IRecord } from '@/models/_Record'
+import { isOptionalNumber } from '@/utils/validators'
 
-interface MeasurementRecordParams extends RecordParams {
-  lbs?: Nullable<number>
-  inches?: Nullable<number>
+export interface IMeasurementRecord extends IRecord {
+  lbs?: number
+  inches?: number
+  num?: number
 }
 
 /**
  * MeasurementRecord Class
- * @param obj Partial<MeasurementRecordParams>
+ * @param params IMeasurementRecord
  */
 export class MeasurementRecord extends _Record {
-  public lbs: Nullable<number>
-  public inches: Nullable<number>
+  protected lbs?: number
+  protected inches?: number
+  protected num?: number
 
-  constructor({
-    id,
-    createdAt,
-    parentId,
-    note,
-    status,
-    lbs = null,
-    inches = null,
-  }: Partial<MeasurementRecordParams> = {}) {
-    super({ id, createdAt, parentId, note, status })
-    this.lbs = lbs
-    this.inches = inches
+  constructor(params: IMeasurementRecord) {
+    super({
+      id: params.id,
+      createdAt: params.createdAt,
+      parentId: params.parentId,
+      note: params.note,
+      status: params.status,
+    })
+
+    if (isOptionalNumber(params.lbs)) {
+      this.lbs = params.lbs
+    } else {
+      throw new Error(`(constructor) Validation failed on lbs << ${params.lbs} >>`)
+    }
+
+    if (isOptionalNumber(params.inches)) {
+      this.inches = params.inches
+    } else {
+      throw new Error(`(constructor) Validation failed on inches << ${params.inches} >>`)
+    }
+
+    if (isOptionalNumber(params.num)) {
+      this.num = params.num
+    } else {
+      throw new Error(`(constructor) Validation failed on num << ${params.num} >>`)
+    }
+  }
+
+  get Lbs(): number | undefined {
+    return this.lbs
+  }
+
+  set Lbs(lbs: number | undefined) {
+    if (isOptionalNumber(lbs)) {
+      this.lbs = lbs
+    } else {
+      throw new Error(`Validation failed on lbs << ${lbs} >>`)
+    }
+  }
+
+  get Inches(): number | undefined {
+    return this.inches
+  }
+
+  set Inches(inches: number | undefined) {
+    if (isOptionalNumber(inches)) {
+      this.inches = inches
+    } else {
+      throw new Error(`Validation failed on inches << ${inches} >>`)
+    }
+  }
+
+  get Num(): number | undefined {
+    return this.num
+  }
+
+  set Num(num: number | undefined) {
+    if (isOptionalNumber(num)) {
+      this.num = num
+    } else {
+      throw new Error(`Validation failed on num << ${num} >>`)
+    }
   }
 
   static getTableColumns(): any[] {

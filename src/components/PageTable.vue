@@ -70,7 +70,7 @@ async function updateTableRows(): Promise<void> {
     tableRows.value = await database.getAll(props.table)
   } catch (error) {
     const callerName = 'updateTableRows'
-    log({ error, level: LogLevel.ERROR, name: callerName, details: props.table })
+    log({ error, level: LogLevel.ERROR, callerName, details: props.table })
     notify(`Error with operation: ${callerName}`, Icon.DELETE, 'negative')
   }
 }
@@ -92,7 +92,7 @@ function deleteRowAction(id: string) {
         log({
           error,
           level: LogLevel.ERROR,
-          name: callerName,
+          callerName,
           details: `${props.table}:${id}`,
         })
         notify(`Error with operation: ${callerName}`, Icon.DELETE, 'negative')
@@ -118,7 +118,7 @@ function clearAction() {
         log({
           error,
           level: LogLevel.ERROR,
-          name: callerName,
+          callerName,
           details: props.table,
         })
         notify(`Error with operation: ${callerName}`, Icon.DELETE, 'negative')
