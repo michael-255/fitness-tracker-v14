@@ -4,10 +4,10 @@ import { downloadFile } from '@/utils/common'
 import { DBTable } from '@/constants/enums'
 import { logger } from '@/services/Logger'
 import { ref } from 'vue'
-import { useLogger } from './useLogger'
+import { useMessaging } from './useMessaging'
 import { LogLevel } from '@/constants/enums'
 
-const { log } = useLogger()
+const { log } = useMessaging()
 
 export function useImportExport() {
   const file: any = ref(null)

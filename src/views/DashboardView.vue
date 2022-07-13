@@ -1,30 +1,15 @@
 <script setup lang="ts">
 import { QSeparator, QBtn } from 'quasar'
-import IdInput from '@/components/inputs/IdInput.vue'
-import DateInput from '@/components/inputs/DateInput.vue'
-import NameInput from '@/components/inputs/NameInput.vue'
-import TextAreaInput from '@/components/inputs/TextAreaInput.vue'
-import StatusSelect from '@/components/inputs/StatusSelect.vue'
-import ParentSelect from '@/components/inputs/ParentSelect.vue'
-import BooleanToggle from '@/components/inputs/BooleanToggle.vue'
+// import IdInput from '@/components/inputs/IdInput.vue'
+// import DateInput from '@/components/inputs/DateInput.vue'
+// import NameInput from '@/components/inputs/NameInput.vue'
+// import TextAreaInput from '@/components/inputs/TextAreaInput.vue'
+// import StatusSelect from '@/components/inputs/StatusSelect.vue'
+// import ParentSelect from '@/components/inputs/ParentSelect.vue'
+// import BooleanToggle from '@/components/inputs/BooleanToggle.vue'
 import { ref, type Ref } from 'vue'
 import { v4 as createId } from 'uuid'
-import { ActivityStatus, DBTable, Icon } from '@/constants/enums'
-import { useQuasar } from 'quasar'
-import { useNotify } from '@/use/useNotify'
-import { useSimpleDialogs } from '@/use/useSimpleDialogs'
-
-const $q = useQuasar()
-
-const { notify } = useNotify($q)
-const { confirmDialog } = useSimpleDialogs($q)
-
-function confirmDialogTest(id: string) {
-  confirmDialog(`Delete`, `Permanetly delete '${id}' from the database?`, () => {
-    console.log('Database call goes here...')
-    notify(`Deleted Measurement Record '${id}'`, Icon.DELETE)
-  })
-}
+import { ActivityStatus } from '@/constants/enums'
 
 //
 // Refs for the various test inputs (Measurements)
@@ -66,17 +51,11 @@ async function test() {
     <QSeparator />
     <span>Testing:</span>
     <QBtn color="primary" label="Print" class="q-ma-sm" @click="test()" />
-    <QBtn
-      color="primary"
-      label="Dialog"
-      class="q-ma-sm"
-      @click="confirmDialogTest('aed890f6-5445-436e-b8ec-3a93d89ba366')"
-    />
     <QSeparator />
   </div>
 
   <!-- Input Testing -->
-  <IdInput :id="id" @update:id="id = $event" />
+  <!-- <IdInput :id="id" @update:id="id = $event" />
   <DateInput :date="createdAt" label="Created At" @update:date="createdAt = $event" />
   <DateInput :date="finishedAt" label="Finished At" @update:date="finishedAt = $event" />
   <NameInput :name="name" @update:name="name = $event" />
@@ -95,5 +74,5 @@ async function test() {
     :bool="trackPercent"
     label="Track Percentage Value"
     @update:bool="trackPercent = $event"
-  />
+  /> -->
 </template>

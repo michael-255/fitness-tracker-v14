@@ -30,7 +30,6 @@ const ui = useUIStore()
     <QDrawer v-model="ui.drawer" :width="200" show-if-above side="left" bordered>
       <QList>
         <DrawerItem :to="{ name: Views.DASHBOARD }" :icon="Icon.DASHBOARD" label="Dashboard" />
-        <DrawerItem :to="{ name: Views.ACTIVE }" :icon="Icon.ACTIVE" label="Active" />
         <QSeparator />
         <DrawerItem
           :to="{ name: Views.MEASUREMENTS }"

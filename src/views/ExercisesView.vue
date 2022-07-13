@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import { DBTable } from '@/constants/enums'
 import PageTabs from '@/components/PageTabs.vue'
-import PageTable from '@/components/PageTable.vue'
-import { Exercise } from '@/models/Exercise'
-import { ExerciseRecord } from '@/models/ExerciseRecord'
+import TabTable from '@/components/TabTable.vue'
 import { Icon } from '@/constants/enums'
 </script>
 
@@ -15,29 +13,11 @@ import { Icon } from '@/constants/enums'
     :tab2Icon="Icon.RECORDS"
   >
     <template v-slot:tab1>
-      <PageTable
-        :table="DBTable.EXERCISES"
-        tableName="Exercises"
-        :tableColumns="Exercise.getTableColumns()"
-        :columnOptions="Exercise.getColumnOptions()"
-        :visibleColumns="Exercise.getVisibleColumns()"
-        :showCreate="true"
-        :showReport="false"
-        :showEdit="true"
-      />
+      <TabTable :table="DBTable.EXERCISES" />
     </template>
 
     <template v-slot:tab2>
-      <PageTable
-        :table="DBTable.EXERCISE_RECORDS"
-        tableName="Exercise Records"
-        :tableColumns="ExerciseRecord.getTableColumns()"
-        :columnOptions="ExerciseRecord.getColumnOptions()"
-        :visibleColumns="ExerciseRecord.getVisibleColumns()"
-        :showCreate="true"
-        :showReport="true"
-        :showEdit="true"
-      />
+      <TabTable :table="DBTable.EXERCISE_RECORDS" />
     </template>
   </PageTabs>
 </template>

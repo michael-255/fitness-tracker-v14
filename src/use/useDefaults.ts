@@ -1,9 +1,9 @@
 import { DBTable, LogLevel } from '@/constants/enums'
 import { defaults } from '@/services/DefaultsGenerator'
 import { database } from '@/services/LocalDatabase'
-import { useLogger } from './useLogger'
+import { useMessaging } from './useMessaging'
 
-const { log } = useLogger()
+const { log } = useMessaging()
 
 export function useDefaults() {
   async function loadAllDefaults() {

@@ -2,8 +2,6 @@
 import { QInput, QDate, QBtn, QTime, QPopupProxy } from 'quasar'
 import { type Ref, ref, onMounted } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { useLuxon } from '@/use/useLuxon'
-import { useValidators } from '@/use/useValidators'
 
 /**
  * @example
