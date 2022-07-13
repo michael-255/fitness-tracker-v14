@@ -2,20 +2,8 @@
 
 Description TBA.
 
-## Primary Todos
+## Primary Todos - MEASUREMENTS VIEW
 
-- [ ] Clean-up / remove `use` files that don't have `Refs` and move them to `utils`
-- [ ] Move `useLuxon` functions into `utils` and classes?
-  - [ ] Delete `useLuxon`
-- [ ] Move `useClearData` functions into `utils` and classes?
-  - [ ] Delete `useClearData`
-- [ ] Delete `useLogger`
-- [ ] Delete `useNotify`
-- [ ] Delete `useSimpleDialogs`
-
-## After Refactor Todos - MEASUREMENTS VIEW (focus on completing this one)
-
-- [ ] Move `useTable.ts` logic into `PageTable.vue`
 - [ ] Might need to do the dialogs as seperate pages (routes)
 - [ ] Might want to manage with state (createItem, editItem, etc.)
 

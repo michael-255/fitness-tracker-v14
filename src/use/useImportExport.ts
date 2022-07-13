@@ -7,9 +7,8 @@ import { ref } from 'vue'
 import { useMessaging } from './useMessaging'
 import { LogLevel } from '@/constants/enums'
 
-const { log } = useMessaging()
-
 export function useImportExport() {
+  const { log } = useMessaging()
   const file: any = ref(null)
 
   async function onRejectedFile(entries: any) {

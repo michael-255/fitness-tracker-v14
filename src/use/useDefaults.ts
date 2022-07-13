@@ -3,9 +3,9 @@ import { defaults } from '@/services/DefaultsGenerator'
 import { database } from '@/services/LocalDatabase'
 import { useMessaging } from './useMessaging'
 
-const { log } = useMessaging()
-
 export function useDefaults() {
+  const { log } = useMessaging()
+
   async function loadAllDefaults() {
     try {
       const measurements = await defaults.generateMeasurements()

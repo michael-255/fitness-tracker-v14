@@ -137,15 +137,12 @@ export function useMessaging() {
 
     if (DEBUG) {
       if (level === LogLevel.DEBUG || level === LogLevel.INFO) {
-        logger.log(callerName, details)
-        logger.log(error)
+        logger.log(callerName || '', details || '', error)
       } else if (level === LogLevel.WARN) {
-        logger.warn(callerName, details)
-        logger.warn(error)
+        logger.log(callerName || '', details || '', error)
       } else {
         // Fatal, Error, or unknown log level
-        logger.error(callerName, details)
-        logger.error(error)
+        logger.log(callerName || '', details || '', error)
       }
     }
   }
