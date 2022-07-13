@@ -2,11 +2,25 @@
 import { QBtn, QFile, QIcon } from 'quasar'
 import { useDefaults } from '@/use/useDefaults'
 import { useImportExport } from '@/use/useImportExport'
-import { useClearData } from '@/use/useClearData'
+import { useMessaging } from '@/use/useMessaging'
+import { database } from '@/services/LocalDatabase'
+import { DBTable, Icon, LogLevel } from '@/constants/enums'
 
 const { loadAllDefaults, loadMeasurements, loadExercises, loadWorkouts } = useDefaults()
 const { file, onRejectedFile, importData, exportData } = useImportExport()
-const { clearAllAppData } = useClearData()
+const { log, notify, confirmDialog } = useMessaging()
+
+function clearAll(): void {
+  confirmDialog('Clear All', `Permanently clear all data from the database?`, async () => {
+    try {
+      await Promise.all(Object.values(DBTable).map((table) => database.clear(table as DBTable)))
+    } catch (error) {
+      const callerName = 'clearAll'
+      log({ error, level: LogLevel.ERROR, callerName })
+      notify(`Error with operation: ${callerName}`, Icon.ACTIVE, 'negative')
+    }
+  })
+}
 </script>
 
 <template>
@@ -62,7 +76,7 @@ const { clearAllAppData } = useClearData()
 
   <div class="q-mb-sm q-mt-md text-weight-bolder">Clear App Data</div>
 
-  <QBtn class="q-mb-sm" color="negative" label="Clear All App Data" @click="clearAllAppData()" />
+  <QBtn class="q-mb-sm" color="negative" label="Clear All App Data" @click="clearAll()" />
   <br />
 </template>
 
