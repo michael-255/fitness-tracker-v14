@@ -1,4 +1,5 @@
 import { _Activity, type IActivity } from '@/models/_Activity'
+// import type { ExerciseTracks } from '@/constants/enums'
 import { isBoolean } from '@/utils/validators'
 
 export interface IExercise extends IActivity {
@@ -7,6 +8,7 @@ export interface IExercise extends IActivity {
   trackDistance: boolean
   trackWeight: boolean
   trackReps: boolean
+  // tracks: ExerciseTracks[]
 }
 
 /**
@@ -19,6 +21,7 @@ export class Exercise extends _Activity {
   protected trackDistance: boolean
   protected trackWeight: boolean
   protected trackReps: boolean
+  // protected tracks: ExerciseTracks[]
 
   constructor(params: IExercise) {
     super({

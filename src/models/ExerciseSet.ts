@@ -5,19 +5,27 @@ interface ExerciseSetParams {
   reps?: number
   distance?: number
   duration?: number
+  // weightLbs?: number
+  // reps?: number
+  // distanceMiles?: number
+  // durationMinutes?: number
 }
 
 /**
  * ExerciseSet Class
- * @param obj Partial<ExerciseSetParams>
+ * @param obj ExerciseSetParams
  */
 export class ExerciseSet {
-  public weight?: number
-  public reps?: number
-  public distance?: number
-  public duration?: number
+  protected weight?: number
+  protected reps?: number
+  protected distance?: number
+  protected duration?: number
+  // protected weightLbs?: number
+  // protected reps?: number
+  // protected distanceMiles?: number
+  // protected durationMinutes?: number
 
-  constructor(params: Partial<ExerciseSetParams>) {
+  constructor(params: ExerciseSetParams) {
     if (isOptionalNumber(params.weight)) {
       this.weight = params.weight
     } else {

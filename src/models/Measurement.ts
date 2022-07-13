@@ -1,4 +1,5 @@
 import { _Activity, type IActivity } from './_Activity'
+// import type { MeasurementType } from '@/constants/enums'
 import { isBoolean } from '@/utils/validators'
 
 export interface IMeasurement extends IActivity {
@@ -7,6 +8,8 @@ export interface IMeasurement extends IActivity {
   trackFeet: boolean
   trackPercent: boolean
   trackNumber: boolean
+  // label: string
+  // type: MeasurementType
 }
 
 /**
@@ -19,6 +22,8 @@ export class Measurement extends _Activity {
   protected trackFeet: boolean
   protected trackPercent: boolean
   protected trackNumber: boolean
+  // protected label: string
+  // protected type: MeasurementType
 
   constructor(params: IMeasurement) {
     super({

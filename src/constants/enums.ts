@@ -1,3 +1,18 @@
+export enum MeasurementType {
+  LBS = 'lbs',
+  FEET = 'feet',
+  INCHES = 'inches',
+  PERCENT = '%',
+}
+
+export enum ExerciseTracks {
+  MULTIPLE_SETS = 'Multiple Sets',
+  WEIGHT_LBS = 'Weight (lbs)',
+  REPS = 'Reps',
+  DURATION_MINUTES = 'Duration (minutes)',
+  DISTANCE_MILES = 'Distance (miles)',
+}
+
 export enum LogLevel {
   FATAL = 'Fatal',
   ERROR = 'Error',

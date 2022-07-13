@@ -1,10 +1,13 @@
 import { _Record, type IRecord } from '@/models/_Record'
+// import type { MeasurementType } from '@/constants/enums'
 import { isOptionalNumber } from '@/utils/validators'
 
 export interface IMeasurementRecord extends IRecord {
   lbs?: number
   inches?: number
   num?: number
+  // value?: number
+  // parentType: MeasurementType
 }
 
 /**
@@ -15,6 +18,8 @@ export class MeasurementRecord extends _Record {
   protected lbs?: number
   protected inches?: number
   protected num?: number
+  // protected value?: number
+  // protected parentType?: MeasurementType
 
   constructor(params: IMeasurementRecord) {
     super({
