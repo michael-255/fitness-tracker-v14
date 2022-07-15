@@ -1,1 +1,0 @@
-import{D as o}from"./index.31e0b1db.js";import{_ as r}from"./TabTable.f377f114.js";import{d as t,a,u as e,o as m}from"./vendor.b7ca4e40.js";import"./QItemSection.a65dd1fc.js";import"./useMessaging.71171d30.js";import"./v4.90f1a8cc.js";const b=t({setup(p){return(s,n)=>(m(),a(r,{table:e(o).APP_LOGS},null,8,["table"]))}});export{b as default};
