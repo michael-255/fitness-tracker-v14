@@ -2,8 +2,8 @@
 import { QSelect } from 'quasar'
 import { onMounted, ref, type Ref } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { ActivityStatus, RecordStatus } from '@/constants/enums'
-import { useValidators } from '@/use/useValidators'
+import { ActivityStatus, MeasurementType, RecordStatus } from '@/constants/enums'
+import { isRequired } from '@/utils/validators'
 
 /**
  * @example
@@ -12,38 +12,37 @@ import { useValidators } from '@/use/useValidators'
  */
 
 const props = defineProps<{
-  status: ActivityStatus | RecordStatus
-  type: 'ActivityStatus' | 'RecordStatus'
+  label: 'Activity Status' | 'Record Status' | 'Measurement Type' | 'Parent Measurement Type'
+  value: ActivityStatus | RecordStatus | MeasurementType
 }>()
 
 const emits = defineEmits<{
-  (event: 'update:status', status: any): void
+  (event: 'update:value', value: any): void
 }>()
 
-const status = useVModel(props, 'status', emits)
-const { isStatusValid } = useValidators()
+const value = useVModel(props, 'value', emits)
 const options: Ref<string[]> = ref([])
 
 /**
  * Generates defaults and select box options based on type prop
  */
 onMounted(async () => {
-  if (props.type === 'ActivityStatus') {
+  if (props.label === 'Activity Status') {
     options.value = Object.values(ActivityStatus)
-  }
-
-  if (props.type === 'RecordStatus') {
+  } else if (props.label === 'Record Status') {
     options.value = Object.values(RecordStatus)
+  } else if (props.label === 'Measurement Type' || props.label === 'Parent Measurement Type') {
+    options.value = Object.values(MeasurementType)
   }
 })
 </script>
 
 <template>
   <QSelect
-    v-model="status"
-    label="Status"
+    v-model="value"
+    :label="label"
     :options="options"
-    :rules="[(val: ActivityStatus | RecordStatus) => isStatusValid(val) || 'Status is Required']"
+    :rules="[(val: ActivityStatus | RecordStatus | MeasurementType) => isRequired(val) || '* Required']"
     emit-value
     map-options
     options-dense

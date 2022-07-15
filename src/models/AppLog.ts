@@ -78,13 +78,6 @@ export class AppLog extends _Entity {
   }
 
   static getVisibleColumns(): string[] {
-    return [
-      ..._Entity.getVisibleColumns(),
-      'callerName',
-      'details',
-      'errorName',
-      'message',
-      'stack',
-    ]
+    return [..._Entity.getVisibleColumns(), 'callerName', 'errorName']
   }
 }

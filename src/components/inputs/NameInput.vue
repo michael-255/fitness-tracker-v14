@@ -2,7 +2,7 @@
 import { QInput } from 'quasar'
 import { onMounted } from 'vue'
 import { useVModel } from '@vueuse/core'
-import { useValidators } from '@/use/useValidators'
+import { isShortTextValid } from '@/utils/validators'
 
 /**
  * @example
@@ -19,7 +19,6 @@ const emits = defineEmits<{
 }>()
 
 const name = useVModel(props, 'name', emits)
-const { isNameValid } = useValidators()
 
 /**
  * Defaults
@@ -35,7 +34,7 @@ onMounted(() => {
   <QInput
     v-model="name"
     label="Name"
-    :rules="[(val: string) => isNameValid(val) || 'Name must be between 1 and 40 characters']"
+    :rules="[(val: string) => isShortTextValid(val) || 'Name must be between 1 and 40 characters']"
     :maxlength="40"
     dense
     outlined

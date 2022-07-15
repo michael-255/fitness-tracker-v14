@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { QSelect } from 'quasar'
 import { onMounted, ref, type Ref } from 'vue'
-import { useVModel } from '@vueuse/core'
-import { isRequired } from '@/utils/validators'
-import { database } from '@/services/LocalDatabase'
 import type { DBTable } from '@/constants/enums'
+import { useVModel } from '@vueuse/core'
+import { database } from '@/services/LocalDatabase'
+import { isRequired } from '@/utils/validators'
 
 /**
  * @example
@@ -35,9 +35,17 @@ onMounted(async () => {
   // Generate the options for the select box
   options.value = sortedResponse.map((a: any) => ({
     value: a.id,
-    label: a.name,
+    label: `${a.name} (${getFirstIdChars(a.id)})`,
   }))
 })
+
+function getFirstIdChars(id: string): string {
+  if (id.length > 4) {
+    return id.slice(0, 4) + '*'
+  } else {
+    return id
+  }
+}
 </script>
 
 <template>
@@ -46,7 +54,7 @@ onMounted(async () => {
     label="Parent Activity"
     :options="options"
     :rules="[
-       (val: string) => isRequired(val) || 'error',
+       (val: string) => isRequired(val) || '* Required',
     ]"
     emit-value
     map-options

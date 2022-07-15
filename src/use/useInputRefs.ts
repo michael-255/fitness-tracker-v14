@@ -8,7 +8,7 @@ import { database } from '@/services/LocalDatabase'
 
 export function useInputRefs(table: DBTable, loadId?: string) {
   const { isActivityTable, isRecordTable } = useTableType()
-  const { isIdValid, isCreatedAtValid, isNameValid, isTextAreaValid, isStatusValid } =
+  const { isIdValid, isCreatedAtValid, isShortTextValid, isTextAreaValid, isStatusValid } =
     useValidators()
 
   // Entity Refs
@@ -75,7 +75,7 @@ export function useInputRefs(table: DBTable, loadId?: string) {
     // Activity Refs
     if (isActivityTable(table)) {
       areActivityRefsValid =
-        isNameValid(name.value) &&
+        isShortTextValid(name.value) &&
         isTextAreaValid(description.value) &&
         isStatusValid(activityStatus.value)
     }

@@ -104,6 +104,6 @@ export class _Record extends _Entity {
   }
 
   static getVisibleColumns(): string[] {
-    return [..._Entity.getVisibleColumns(), 'parentId', 'note', 'status']
+    return [..._Entity.getVisibleColumns()]
   }
 }

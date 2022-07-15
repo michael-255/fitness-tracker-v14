@@ -70,7 +70,7 @@ export class WorkoutRecord extends _Record {
       ..._Record.getTableColumns(),
       {
         name: 'finishedAt',
-        label: 'Finished At',
+        label: 'Finished Date',
         align: 'left',
         field: (row: WorkoutRecord) => row.getDisplayFinishedAt(),
         sortable: true,
@@ -86,7 +86,7 @@ export class WorkoutRecord extends _Record {
   }
 
   static getVisibleColumns(): string[] {
-    return [..._Record.getVisibleColumns(), 'finishedAt', 'exerciseRecordIds']
+    return [..._Record.getVisibleColumns(), 'finishedAt']
   }
 
   getDisplayFinishedAt(): string {

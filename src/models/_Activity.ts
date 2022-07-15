@@ -1,7 +1,7 @@
 import { _Entity, type IEntity } from '@/models/_Entity'
 import type { ActivityStatus } from '@/constants/enums'
 import { truncateString } from '@/utils/common'
-import { isNameValid, isTextValid, isRequired } from '@/utils/validators'
+import { isShortTextValid, isTextValid, isRequired } from '@/utils/validators'
 
 export interface IActivity extends IEntity {
   name: string
@@ -27,7 +27,7 @@ export class _Activity extends _Entity {
       throw new Error(`(constructor) Validation failed on description << ${params.description} >>`)
     }
 
-    if (isNameValid(params.name)) {
+    if (isShortTextValid(params.name)) {
       this.name = params.name
     } else {
       throw new Error(`(constructor) Validation failed on name << ${params.name} >>`)
@@ -45,7 +45,7 @@ export class _Activity extends _Entity {
   }
 
   set Name(name: string) {
-    if (isNameValid(name)) {
+    if (isShortTextValid(name)) {
       this.name = name
     } else {
       throw new Error(`Validation failed on name << ${name} >>`)
@@ -104,6 +104,6 @@ export class _Activity extends _Entity {
   }
 
   static getVisibleColumns(): string[] {
-    return [..._Entity.getVisibleColumns(), 'name', 'description', 'status']
+    return [..._Entity.getVisibleColumns(), 'name']
   }
 }

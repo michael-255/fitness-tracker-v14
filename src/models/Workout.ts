@@ -55,6 +55,6 @@ export class Workout extends _Activity {
   }
 
   static getVisibleColumns(): string[] {
-    return [..._Activity.getVisibleColumns(), 'exerciseIds']
+    return [..._Activity.getVisibleColumns()]
   }
 }

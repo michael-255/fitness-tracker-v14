@@ -2,14 +2,14 @@
 import { QInput, QDate, QBtn, QTime, QPopupProxy } from 'quasar'
 import { type Ref, ref, onMounted } from 'vue'
 import { useVModel } from '@vueuse/core'
+import { dateISOToDisplay } from '@/utils/luxon'
+import { isRequiredDateValid, isOptionalDateValid } from '@/utils/validators'
 
 /**
  * @example
  * Script: const date: Ref<string> = ref('')
  * Template: <DateInput :date="date" @update:date="date = $event" />
  */
-
-const { dateISOToDisplay } = useLuxon()
 
 const props = defineProps<{
   date: string // isoDate
@@ -22,7 +22,6 @@ const emits = defineEmits<{
 }>()
 
 const isoDate = useVModel(props, 'date', emits)
-const { isCreatedAtValid, isFinishedAtValid } = useValidators()
 const displayDate: Ref<string> = ref('')
 const dateTimePicker: Ref<string> = ref('')
 const rules: Ref<any[]> = ref([])
@@ -34,7 +33,7 @@ onMounted(async () => {
   const dateMessage = 'Date must be of format YYYY-MM-DDTHH:MM:SS.###Z'
 
   if (props.label === 'Created At') {
-    rules.value = [(val: string) => isCreatedAtValid(val) || dateMessage]
+    rules.value = [(val: string) => isRequiredDateValid(val) || dateMessage]
 
     if (!props.date) {
       nowDate()
@@ -44,7 +43,7 @@ onMounted(async () => {
   }
 
   if (props.label === 'Finished At') {
-    rules.value = [(val: string) => isFinishedAtValid(val) || dateMessage]
+    rules.value = [(val: string) => isOptionalDateValid(val) || dateMessage]
 
     if (!props.date) {
       clearDate()

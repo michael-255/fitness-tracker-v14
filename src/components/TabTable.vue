@@ -1,19 +1,33 @@
 <script setup lang="ts">
 import { QSelect, QInput, QIcon } from 'quasar'
-import { Icon, DBTable, LogLevel } from '@/constants/enums'
+import {
+  Icon,
+  DBTable,
+  LogLevel,
+  ActivityStatus,
+  RecordStatus,
+  MeasurementType,
+} from '@/constants/enums'
 import { type Ref, ref, onMounted } from 'vue'
 import { database } from '@/services/LocalDatabase'
 import { useMessaging } from '@/use/useMessaging'
 import { useTableType } from '@/use/useTableType'
 import FullscreenDialog from './dialogs/FullscreenDialog.vue'
+import IdInput from '@/components/inputs/IdInput.vue'
+import DateInput from '@/components/inputs/DateInput.vue'
+import NameInput from '@/components/inputs/NameInput.vue'
+import TextAreaInput from '@/components/inputs/TextAreaInput.vue'
+import EnumSelect from '@/components/inputs/EnumSelect.vue'
+import ParentSelect from '@/components/inputs/ParentSelect.vue'
 
 const { log, notify, confirmDialog } = useMessaging()
 const {
+  isActivityTable,
+  isRecordTable,
   getTableLabel,
   getTableColumns,
   getTableColumnOptions,
   getTableVisibleColumn,
-  isRecordTable,
   isNotAppLogTable,
 } = useTableType()
 
@@ -33,9 +47,20 @@ const canEdit: Ref<boolean> = ref(false)
 const canReport: Ref<boolean> = ref(false)
 // Fullscreen Dialog
 const fullItem: Ref<any> = ref({})
-const fullTitle: Ref<string> = ref('')
+const fullTitle: Ref<'Create' | 'Report' | 'Details' | 'Edit' | ''> = ref('')
 const fullMessage: Ref<string> = ref('')
 const fullDialog: Ref<boolean> = ref(false)
+// Dialog Inputs
+const id: Ref<string> = ref('')
+const createdAt: Ref<string> = ref('')
+const name: Ref<string> = ref('')
+const description: Ref<string> = ref('')
+const note: Ref<string> = ref('')
+const recordStatus: Ref<RecordStatus> = ref(RecordStatus.COMPLETED)
+const measurementType: Ref<MeasurementType> = ref(MeasurementType.INCHES)
+const parentType: Ref<MeasurementType> = ref(MeasurementType.INCHES)
+
+const parentId: Ref<string> = ref('')
 
 onMounted(async () => {
   tableName.value = getTableLabel(props.table)
@@ -125,6 +150,15 @@ async function remove(id: string): Promise<void> {
       }
     }
   )
+}
+
+async function save(): Promise<void> {
+  const title = fullTitle.value
+
+  if (title === 'Create') {
+    console.log('CREATE')
+    //
+  }
 }
 </script>
 
@@ -253,8 +287,41 @@ async function remove(id: string): Promise<void> {
     :title="fullTitle"
     :message="fullMessage"
     :dialog="fullDialog"
+    :details="fullItem"
     @update:dialog="fullDialog = $event"
+    @save="save()"
   >
-    <div>{{ fullItem }}</div>
+    <div v-if="table === DBTable.MEASUREMENTS">
+      <IdInput :id="id" @update:id="id = $event" />
+      <DateInput :date="createdAt" label="Created At" @update:date="createdAt = $event" />
+      <NameInput :name="name" @update:name="name = $event" />
+      <TextAreaInput :text="description" label="Description" @update:text="description = $event" />
+      <EnumSelect
+        label="Measurement Type"
+        :value="measurementType"
+        @update:value="measurementType = $event"
+      />
+    </div>
+
+    <div v-else-if="table === DBTable.MEASUREMENT_RECORDS">
+      <IdInput :id="id" @update:id="id = $event" />
+      <DateInput :date="createdAt" label="Created At" @update:date="createdAt = $event" />
+      <ParentSelect
+        :parentId="parentId"
+        :table="DBTable.MEASUREMENTS"
+        @update:parentId="parentId = $event"
+      />
+      <TextAreaInput :text="note" label="Note" @update:text="note = $event" />
+      <EnumSelect
+        label="Record Status"
+        :value="recordStatus"
+        @update:value="recordStatus = $event"
+      />
+      <EnumSelect
+        label="Parent Measurement Type"
+        :value="parentType"
+        @update:value="parentType = $event"
+      />
+    </div>
   </FullscreenDialog>
 </template>

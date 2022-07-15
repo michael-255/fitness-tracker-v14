@@ -56,7 +56,7 @@ export class ExerciseRecord extends _Record {
   }
 
   static getVisibleColumns(): string[] {
-    return [..._Record.getVisibleColumns(), 'sets']
+    return [..._Record.getVisibleColumns()]
   }
 
   addNewSet(): number {

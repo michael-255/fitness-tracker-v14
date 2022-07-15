@@ -4,19 +4,21 @@ import { Icon } from '@/constants/enums'
 import { useVModel } from '@vueuse/core'
 
 const props = defineProps<{
-  title: string
+  title: 'Create' | 'Report' | 'Details' | 'Edit' | ''
   message: string
+  details: any
   dialog: boolean
 }>()
 
 const emits = defineEmits<{
   (event: 'update:dialog', bool: boolean): void
+  (eventName: 'save'): void
 }>()
 
 const dialog = useVModel(props, 'dialog', emits)
 
 function save() {
-  console.log('test')
+  emits('save')
 }
 </script>
 
@@ -32,14 +34,29 @@ function save() {
       <QCardActions class="bg-primary text-white">
         <div class="q-table__title text-weight-bold q-ml-sm">{{ title }}</div>
         <QSpace />
-        <QBtn outline rounded size="sm" :icon="Icon.SAVE" label="Save" @click="save()" />
-        <QBtn outline rounded size="sm" :icon="Icon.CLOSE" label="Close" v-close-popup />
+        <QBtn
+          v-if="title === 'Create' || title === 'Edit'"
+          outline
+          :icon="Icon.SAVE"
+          label="Save"
+          @click="save()"
+        />
+        <QBtn outline :icon="Icon.CLOSE" label="Close" v-close-popup />
       </QCardActions>
 
       <QCardSection class="q-table__title text-weight-bold">{{ message }}</QCardSection>
 
       <QCardSection>
-        <slot />
+        <div v-if="title === 'Details'">
+          <div v-for="(value, key, i) in details" :key="i">
+            <div class="q-mb-sm">
+              <div class="text-subtitle1 text-weight-bold">{{ key }}</div>
+              <div>{{ value || '-' }}</div>
+            </div>
+          </div>
+        </div>
+
+        <slot v-else />
       </QCardSection>
     </QCard>
   </QDialog>

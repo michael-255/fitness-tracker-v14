@@ -1,7 +1,6 @@
 export enum MeasurementType {
-  LBS = 'lbs',
-  FEET = 'feet',
-  INCHES = 'inches',
+  LBS = 'Lbs',
+  INCHES = 'Inches',
   PERCENT = '%',
 }
 

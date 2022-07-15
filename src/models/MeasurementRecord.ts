@@ -1,13 +1,10 @@
 import { _Record, type IRecord } from '@/models/_Record'
-// import type { MeasurementType } from '@/constants/enums'
-import { isOptionalNumber } from '@/utils/validators'
+import type { MeasurementType } from '@/constants/enums'
+import { isOptionalNumber, isRequired } from '@/utils/validators'
 
 export interface IMeasurementRecord extends IRecord {
-  lbs?: number
-  inches?: number
-  num?: number
-  // value?: number
-  // parentType: MeasurementType
+  parentType: MeasurementType
+  value: number
 }
 
 /**
@@ -15,11 +12,8 @@ export interface IMeasurementRecord extends IRecord {
  * @param params IMeasurementRecord
  */
 export class MeasurementRecord extends _Record {
-  protected lbs?: number
-  protected inches?: number
-  protected num?: number
-  // protected value?: number
-  // protected parentType?: MeasurementType
+  protected parentType: MeasurementType
+  protected value: number
 
   constructor(params: IMeasurementRecord) {
     super({
@@ -30,58 +24,40 @@ export class MeasurementRecord extends _Record {
       status: params.status,
     })
 
-    if (isOptionalNumber(params.lbs)) {
-      this.lbs = params.lbs
+    if (isRequired(params.parentType)) {
+      this.parentType = params.parentType
     } else {
-      throw new Error(`(constructor) Validation failed on lbs << ${params.lbs} >>`)
+      throw new Error(`(constructor) Validation failed on parentType << ${params.parentType} >>`)
     }
 
-    if (isOptionalNumber(params.inches)) {
-      this.inches = params.inches
+    if (isRequired(params.value)) {
+      this.value = params.value
     } else {
-      throw new Error(`(constructor) Validation failed on inches << ${params.inches} >>`)
-    }
-
-    if (isOptionalNumber(params.num)) {
-      this.num = params.num
-    } else {
-      throw new Error(`(constructor) Validation failed on num << ${params.num} >>`)
+      throw new Error(`(constructor) Validation failed on value << ${params.value} >>`)
     }
   }
 
-  get Lbs(): number | undefined {
-    return this.lbs
+  get ParentType(): MeasurementType {
+    return this.parentType
   }
 
-  set Lbs(lbs: number | undefined) {
-    if (isOptionalNumber(lbs)) {
-      this.lbs = lbs
+  set ParentType(parentType: MeasurementType) {
+    if (isRequired(parentType)) {
+      this.parentType = parentType
     } else {
-      throw new Error(`Validation failed on lbs << ${lbs} >>`)
+      throw new Error(`Validation failed on parentType << ${parentType} >>`)
     }
   }
 
-  get Inches(): number | undefined {
-    return this.inches
+  get Value(): number {
+    return this.value
   }
 
-  set Inches(inches: number | undefined) {
-    if (isOptionalNumber(inches)) {
-      this.inches = inches
+  set Value(value: number) {
+    if (isOptionalNumber(value)) {
+      this.value = value
     } else {
-      throw new Error(`Validation failed on inches << ${inches} >>`)
-    }
-  }
-
-  get Num(): number | undefined {
-    return this.num
-  }
-
-  set Num(num: number | undefined) {
-    if (isOptionalNumber(num)) {
-      this.num = num
-    } else {
-      throw new Error(`Validation failed on num << ${num} >>`)
+      throw new Error(`Validation failed on value << ${value} >>`)
     }
   }
 
@@ -89,33 +65,23 @@ export class MeasurementRecord extends _Record {
     return [
       ..._Record.getTableColumns(),
       {
-        name: 'lbs',
-        label: 'Lbs',
+        name: 'parentType',
+        label: 'Parent Type',
         align: 'left',
-        field: (row: MeasurementRecord) => row.lbs,
+        field: (row: MeasurementRecord) => row.ParentType,
         sortable: true,
       },
       {
-        name: 'inches',
-        label: 'Inches',
+        name: 'value',
+        label: 'Value',
         align: 'left',
-        field: (row: MeasurementRecord) => row.inches,
+        field: (row: MeasurementRecord) => row.Value,
         sortable: true,
       },
     ]
   }
 
   static getVisibleColumns(): string[] {
-    return [..._Record.getVisibleColumns(), 'lbs', 'inches']
-  }
-
-  getFeetAndInches(): string {
-    if (this.inches) {
-      const feet = Math.floor(this.inches / 12)
-      const inches = this.inches - feet * 12
-      return `${feet}'${inches}"`
-    } else {
-      return '-'
-    }
+    return [..._Record.getVisibleColumns(), 'parentType', 'value']
   }
 }
