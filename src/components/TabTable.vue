@@ -146,6 +146,11 @@ async function onDelete(id: string): Promise<void> {
     }
   )
 }
+
+async function onSaved(): Promise<void> {
+  item.value = {}
+  closeDialog()
+}
 </script>
 
 <template>
@@ -166,5 +171,6 @@ async function onDelete(id: string): Promise<void> {
     :dialogType="dialogType"
     :dialog="measurementDialog"
     @update:dialog="closeDialog()"
+    @saved="onSaved()"
   />
 </template>

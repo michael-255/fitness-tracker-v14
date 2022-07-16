@@ -44,6 +44,16 @@ const type: Ref<MeasurementType> = ref(MeasurementType.INCHES)
 
 function updateDialog(event: any): void {
   emits('update:dialog', event)
+  emits('saved')
+}
+
+function clearRefs(): void {
+  id.value = ''
+  createdAt.value = ''
+  name.value = ''
+  description.value = ''
+  status.value = ActivityStatus.ENABLED
+  type.value = MeasurementType.INCHES
 }
 
 async function onSave(): Promise<void> {
@@ -85,7 +95,8 @@ async function onSave(): Promise<void> {
     notify(`Error with operation: ${callerName}`, Icon.ACTIVE, 'negative')
   }
 
-  emits('update:dialog', false)
+  clearRefs()
+  emits('saved')
 }
 </script>
 
