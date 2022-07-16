@@ -12,7 +12,7 @@ import { isRequired } from '@/utils/validators'
  */
 
 const props = defineProps<{
-  label: 'Activity Status' | 'Record Status' | 'Measurement Type' | 'Parent Measurement Type'
+  label: 'Activity Status' | 'Record Status' | 'Type' | 'Parent Type'
   value: ActivityStatus | RecordStatus | MeasurementType
 }>()
 
@@ -31,7 +31,7 @@ onMounted(async () => {
     options.value = Object.values(ActivityStatus)
   } else if (props.label === 'Record Status') {
     options.value = Object.values(RecordStatus)
-  } else if (props.label === 'Measurement Type' || props.label === 'Parent Measurement Type') {
+  } else if (props.label === 'Type' || props.label === 'Parent Type') {
     options.value = Object.values(MeasurementType)
   }
 })
@@ -39,10 +39,13 @@ onMounted(async () => {
 
 <template>
   <QSelect
+    class="q-mb-xs"
     v-model="value"
     :label="label"
     :options="options"
-    :rules="[(val: ActivityStatus | RecordStatus | MeasurementType) => isRequired(val) || '* Required']"
+    :rules="[
+      (val: ActivityStatus | RecordStatus | MeasurementType) => isRequired(val) || '* Required'
+    ]"
     emit-value
     map-options
     options-dense

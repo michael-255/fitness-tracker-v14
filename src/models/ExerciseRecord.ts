@@ -1,7 +1,6 @@
 import { _Record, type IRecord } from '@/models/_Record'
 import { ExerciseSet } from '@/models/ExerciseSet'
 import { truncateString } from '@/utils/common'
-import { isRequired } from '@/utils/validators'
 
 export interface IExerciseRecord extends IRecord {
   sets: ExerciseSet[]
@@ -12,7 +11,7 @@ export interface IExerciseRecord extends IRecord {
  * @param obj IExerciseRecord
  */
 export class ExerciseRecord extends _Record {
-  protected sets: ExerciseSet[]
+  sets: ExerciseSet[]
 
   constructor(params: IExerciseRecord) {
     super({
@@ -22,24 +21,7 @@ export class ExerciseRecord extends _Record {
       note: params.note,
       status: params.status,
     })
-
-    if (isRequired(params.sets)) {
-      this.sets = params.sets
-    } else {
-      throw new Error(`(constructor) Validation failed on sets << ${params.sets} >>`)
-    }
-  }
-
-  get Sets(): ExerciseSet[] {
-    return this.sets
-  }
-
-  set Sets(sets: ExerciseSet[]) {
-    if (isRequired(sets)) {
-      this.sets = sets
-    } else {
-      throw new Error(`Validation failed on sets << ${sets} >>`)
-    }
+    this.sets = params.sets
   }
 
   static getTableColumns(): any[] {
@@ -49,7 +31,8 @@ export class ExerciseRecord extends _Record {
         name: 'sets',
         label: 'Sets',
         align: 'left',
-        field: (row: ExerciseRecord) => truncateString(row.sets.toString(), 40),
+        field: (row: ExerciseRecord) => row.sets,
+        format: (val: any[]) => truncateString(val.toString()),
         sortable: true,
       },
     ]

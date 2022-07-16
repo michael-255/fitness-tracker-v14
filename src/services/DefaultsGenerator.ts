@@ -234,7 +234,7 @@ export class DefaultsGenerator {
     const defaultExercises = await this.generateExercises()
 
     const getExerciseIdByName = (name: string) => {
-      return defaultExercises.find((de) => de.Name === name)?.Id || ''
+      return defaultExercises.find((de) => de.name === name)?.id || ''
     }
 
     return [

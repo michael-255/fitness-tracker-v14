@@ -11,7 +11,7 @@ export interface IMeasurement extends IActivity {
  * @param params IMeasurement
  */
 export class Measurement extends _Activity {
-  protected type: MeasurementType
+  type: MeasurementType
 
   constructor(params: IMeasurement) {
     super({
@@ -21,24 +21,7 @@ export class Measurement extends _Activity {
       description: params.description,
       status: params.status,
     })
-
-    if (isRequired(params.type)) {
-      this.type = params.type
-    } else {
-      throw new Error(`(constructor) Validation failed on type << ${params.type} >>`)
-    }
-  }
-
-  get Type(): MeasurementType {
-    return this.type
-  }
-
-  set Type(type: MeasurementType) {
-    if (isShortTextValid(type)) {
-      this.type = type
-    } else {
-      throw new Error(`Validation failed on type << ${type} >>`)
-    }
+    this.type = params.type
   }
 
   static getTableColumns(): any[] {
@@ -48,7 +31,7 @@ export class Measurement extends _Activity {
         name: 'type',
         label: 'Type',
         align: 'left',
-        field: (row: Measurement) => row.Type,
+        field: (row: Measurement) => row.type,
         sortable: true,
       },
     ]

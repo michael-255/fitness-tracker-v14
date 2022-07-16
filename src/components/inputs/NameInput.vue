@@ -32,6 +32,7 @@ onMounted(() => {
 
 <template>
   <QInput
+    class="q-mb-xs"
     v-model="name"
     label="Name"
     :rules="[(val: string) => isShortTextValid(val) || 'Name must be between 1 and 40 characters']"

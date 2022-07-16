@@ -1,6 +1,6 @@
 import { _Activity, type IActivity } from '@/models/_Activity'
 import type { ExerciseTracks } from '@/constants/enums'
-import { isRequired } from '@/utils/validators'
+import { truncateString } from '@/utils/common'
 
 export interface IExercise extends IActivity {
   tracks: ExerciseTracks[]
@@ -11,7 +11,7 @@ export interface IExercise extends IActivity {
  * @param params IExercise
  */
 export class Exercise extends _Activity {
-  protected tracks: ExerciseTracks[]
+  tracks: ExerciseTracks[]
 
   constructor(params: IExercise) {
     super({
@@ -21,24 +21,7 @@ export class Exercise extends _Activity {
       description: params.description,
       status: params.status,
     })
-
-    if (isRequired(params.tracks)) {
-      this.tracks = params.tracks
-    } else {
-      throw new Error(`(constructor) Validation failed on tracks << ${params.tracks} >>`)
-    }
-  }
-
-  get Tracks(): ExerciseTracks[] {
-    return this.tracks
-  }
-
-  set Tracks(tracks: ExerciseTracks[]) {
-    if (isRequired(tracks)) {
-      this.tracks = tracks
-    } else {
-      throw new Error(`Validation failed on tracks << ${tracks} >>`)
-    }
+    this.tracks = params.tracks
   }
 
   static getTableColumns(): any[] {
@@ -48,7 +31,8 @@ export class Exercise extends _Activity {
         name: 'tracks',
         label: 'Tracks',
         align: 'left',
-        field: (row: Exercise) => row.Tracks,
+        field: (row: Exercise) => row.tracks,
+        format: (val: string[]) => truncateString(val.toString()),
         sortable: true,
       },
     ]

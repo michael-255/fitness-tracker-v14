@@ -24,6 +24,7 @@ const maxLength = 500
 
 <template>
   <QInput
+    class="q-mb-xs"
     v-model="text"
     :label="label"
     :rules="[(val: string) => isTextValid(val) || 'Input is limited to 500 characters']"

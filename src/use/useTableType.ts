@@ -28,10 +28,6 @@ export function useTableType() {
     )
   }
 
-  function isNotAppLogTable(table: DBTable): boolean {
-    return table !== DBTable.APP_LOGS
-  }
-
   /**
    * Text label of the type of database item in the table.
    */
@@ -137,7 +133,6 @@ export function useTableType() {
   return {
     isActivityTable,
     isRecordTable,
-    isNotAppLogTable,
     getTableLabel,
     getTableColumns,
     getTableColumnOptions,

@@ -13,7 +13,7 @@ import { isRequiredDateValid, isOptionalDateValid } from '@/utils/validators'
 
 const props = defineProps<{
   date: string // isoDate
-  label: 'Created At' | 'Finished At'
+  label: 'Created Date' | 'Finished Date'
 }>()
 
 const emits = defineEmits<{
@@ -32,7 +32,7 @@ const rules: Ref<any[]> = ref([])
 onMounted(async () => {
   const dateMessage = 'Date must be of format YYYY-MM-DDTHH:MM:SS.###Z'
 
-  if (props.label === 'Created At') {
+  if (props.label === 'Created Date') {
     rules.value = [(val: string) => isRequiredDateValid(val) || dateMessage]
 
     if (!props.date) {
@@ -42,7 +42,7 @@ onMounted(async () => {
     }
   }
 
-  if (props.label === 'Finished At') {
+  if (props.label === 'Finished Date') {
     rules.value = [(val: string) => isOptionalDateValid(val) || dateMessage]
 
     if (!props.date) {
@@ -54,8 +54,10 @@ onMounted(async () => {
 })
 
 function pickerDate() {
-  isoDate.value = new Date(dateTimePicker.value).toISOString()
-  displayDate.value = dateISOToDisplay(dateTimePicker.value)
+  if (dateTimePicker.value) {
+    isoDate.value = new Date(dateTimePicker.value).toISOString()
+    displayDate.value = dateISOToDisplay(dateTimePicker.value)
+  }
 }
 
 function nowDate(): void {
@@ -104,14 +106,14 @@ function clearDate(): void {
       </QBtn>
 
       <QBtn
-        v-if="label === 'Created At'"
+        v-if="label === 'Created Date'"
         icon="event_available"
         color="positive"
         class="q-ml-sm q-px-sm"
         @click="nowDate()"
       />
       <QBtn
-        v-if="label === 'Finished At'"
+        v-if="label === 'Finished Date'"
         icon="close"
         color="negative"
         class="q-ml-sm q-px-sm"

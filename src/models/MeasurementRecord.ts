@@ -1,6 +1,5 @@
 import { _Record, type IRecord } from '@/models/_Record'
 import type { MeasurementType } from '@/constants/enums'
-import { isOptionalNumber, isRequired } from '@/utils/validators'
 
 export interface IMeasurementRecord extends IRecord {
   parentType: MeasurementType
@@ -12,8 +11,8 @@ export interface IMeasurementRecord extends IRecord {
  * @param params IMeasurementRecord
  */
 export class MeasurementRecord extends _Record {
-  protected parentType: MeasurementType
-  protected value: number
+  parentType: MeasurementType
+  value: number
 
   constructor(params: IMeasurementRecord) {
     super({
@@ -23,42 +22,8 @@ export class MeasurementRecord extends _Record {
       note: params.note,
       status: params.status,
     })
-
-    if (isRequired(params.parentType)) {
-      this.parentType = params.parentType
-    } else {
-      throw new Error(`(constructor) Validation failed on parentType << ${params.parentType} >>`)
-    }
-
-    if (isRequired(params.value)) {
-      this.value = params.value
-    } else {
-      throw new Error(`(constructor) Validation failed on value << ${params.value} >>`)
-    }
-  }
-
-  get ParentType(): MeasurementType {
-    return this.parentType
-  }
-
-  set ParentType(parentType: MeasurementType) {
-    if (isRequired(parentType)) {
-      this.parentType = parentType
-    } else {
-      throw new Error(`Validation failed on parentType << ${parentType} >>`)
-    }
-  }
-
-  get Value(): number {
-    return this.value
-  }
-
-  set Value(value: number) {
-    if (isOptionalNumber(value)) {
-      this.value = value
-    } else {
-      throw new Error(`Validation failed on value << ${value} >>`)
-    }
+    this.parentType = params.parentType
+    this.value = params.value
   }
 
   static getTableColumns(): any[] {
@@ -68,14 +33,14 @@ export class MeasurementRecord extends _Record {
         name: 'parentType',
         label: 'Parent Type',
         align: 'left',
-        field: (row: MeasurementRecord) => row.ParentType,
+        field: (row: MeasurementRecord) => row.parentType,
         sortable: true,
       },
       {
         name: 'value',
         label: 'Value',
         align: 'left',
-        field: (row: MeasurementRecord) => row.Value,
+        field: (row: MeasurementRecord) => row.value,
         sortable: true,
       },
     ]

@@ -23,13 +23,13 @@ interface FitnessDataParams {
  * @param obj Partial<FitnessDataParams>
  */
 export class FitnessData {
-  public measurements: Measurement[]
-  public exercises: Exercise[]
-  public workouts: Workout[]
-  public measurementRecords: MeasurementRecord[]
-  public exerciseRecords: ExerciseRecord[]
-  public workoutRecords: WorkoutRecord[]
-  public appLogs: AppLog[]
+  measurements: Measurement[]
+  exercises: Exercise[]
+  workouts: Workout[]
+  measurementRecords: MeasurementRecord[]
+  exerciseRecords: ExerciseRecord[]
+  workoutRecords: WorkoutRecord[]
+  appLogs: AppLog[]
 
   constructor({
     measurements = [],

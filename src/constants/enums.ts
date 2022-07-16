@@ -1,7 +1,15 @@
+export enum DialogType {
+  CREATE = 'Create',
+  EDIT = 'Edit',
+  REPORT = 'Report',
+  DETAILS = 'Details',
+}
+
 export enum MeasurementType {
   LBS = 'Lbs',
   INCHES = 'Inches',
   PERCENT = '%',
+  NUMBER = 'Number',
 }
 
 export enum ExerciseTracks {

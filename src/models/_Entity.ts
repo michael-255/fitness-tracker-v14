@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon'
-import { isIdValid, isRequiredDateValid } from '@/utils/validators'
 
 export interface IEntity {
   id: string
@@ -13,45 +12,12 @@ export interface IEntity {
  * @param params IEntity
  */
 export class _Entity {
-  protected id: string
-  protected createdAt: string
+  id: string
+  createdAt: string
 
   constructor(params: IEntity) {
-    if (isIdValid(params.id)) {
-      this.id = params.id
-    } else {
-      throw new Error(`(constructor) Validation failed on id << ${params.id} >>`)
-    }
-
-    if (isRequiredDateValid(params.createdAt)) {
-      this.createdAt = params.createdAt
-    } else {
-      throw new Error(`(constructor) Validation failed on createdAt << ${params.id} >>`)
-    }
-  }
-
-  get Id(): string {
-    return this.id
-  }
-
-  set Id(id: string) {
-    if (isIdValid(id)) {
-      this.id = id
-    } else {
-      throw new Error(`Validation failed on id << ${id} >>`)
-    }
-  }
-
-  get CreatedAt(): string {
-    return this.createdAt
-  }
-
-  set CreatedAt(createdAt: string) {
-    if (isRequiredDateValid(createdAt)) {
-      this.createdAt = createdAt
-    } else {
-      throw new Error(`Validation failed on createdAt << ${createdAt} >>`)
-    }
+    this.id = params.id
+    this.createdAt = params.createdAt
   }
 
   static getTableColumns(): any[] {
@@ -76,7 +42,7 @@ export class _Entity {
   }
 
   static getVisibleColumns(): string[] {
-    return ['createdAt']
+    return []
   }
 
   static getColumnOptions(): any[] {

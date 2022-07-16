@@ -14,7 +14,7 @@ import { isRequired } from '@/utils/validators'
 
 const props = defineProps<{
   parentId: string
-  table: DBTable.MEASUREMENTS | DBTable.EXERCISES | DBTable.WORKOUTS
+  parentTable: DBTable.MEASUREMENTS | DBTable.EXERCISES | DBTable.WORKOUTS
 }>()
 
 const emits = defineEmits<{
@@ -27,7 +27,7 @@ const options: Ref<any[]> = ref([])
 
 onMounted(async () => {
   // Get activities for the table
-  const response = await database.getAll(props.table)
+  const response = await database.getAll(props.parentTable)
   // Sort those activities by name
   const sortedResponse = response.sort((a: any, b: any) => {
     return a.name.localeCompare(b.name)
@@ -50,6 +50,7 @@ function getFirstIdChars(id: string): string {
 
 <template>
   <QSelect
+    class="q-mb-xs"
     v-model="parentId"
     label="Parent Activity"
     :options="options"
