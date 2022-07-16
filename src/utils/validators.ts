@@ -4,10 +4,6 @@ export const ValidationRegex: Readonly<any> = {
   LongText: /^.{1,500}$/, // 1-500 alphanumeric characters
 }
 
-/**
- * @todo Add failied validation error throwing function () => never
- */
-
 export function isObject(obj: any): boolean {
   return obj !== null && obj !== undefined && typeof obj === 'object' && !Array.isArray(obj)
 }
@@ -48,7 +44,7 @@ export function isOptionalDateValid(date: string): boolean {
   return isBlank(date) || ValidationRegex.Date.test(date)
 }
 
-export function isNameValid(name: string): boolean {
+export function isShortTextValid(name: string): boolean {
   return isRequired(name) && ValidationRegex.ShortText.test(name)
 }
 

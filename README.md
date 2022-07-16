@@ -4,8 +4,7 @@ Description TBA.
 
 ## Primary Todos - MEASUREMENTS VIEW
 
-- [ ] `Created At` label changed to `Created Date` (also Finished At!)
-- [ ] Default visible columns should be `id` and `createdAt`? (save in a meta settings table?)
+- [ ] Need to find a way to clean up the tables and other large components (props and events)
 - [ ] Might need to do the dialogs as seperate pages (routes)
 - [ ] Might want to manage with state (createItem, editItem, etc.)
 

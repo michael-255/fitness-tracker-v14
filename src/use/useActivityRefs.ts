@@ -6,7 +6,7 @@ import { useEntityRefs } from '@/use/useEntityRefs'
 
 export function useActivityRefs() {
   const { id, createdAt, resetEntityRefs, areEntityRefsValid } = useEntityRefs()
-  const { isNameValid, isTextAreaValid, isStatusValid } = useValidators()
+  const { isShortTextValid, isTextAreaValid, isStatusValid } = useValidators()
 
   const name: Ref<string> = ref('My Activity')
   const description: Ref<Nullable<string>> = ref(null)
@@ -22,7 +22,7 @@ export function useActivityRefs() {
   function areActivityRefsValid(): boolean {
     return (
       areEntityRefsValid() &&
-      isNameValid(name.value) &&
+      isShortTextValid(name.value) &&
       isTextAreaValid(description.value) &&
       isStatusValid(status.value)
     )

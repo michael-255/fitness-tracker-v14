@@ -1,50 +1,28 @@
 <script setup lang="ts">
-import { QSelect, QInput, QIcon } from 'quasar'
-import { Icon, DBTable, LogLevel } from '@/constants/enums'
+import { DialogType, Icon, DBTable, LogLevel } from '@/constants/enums'
 import { type Ref, ref, onMounted } from 'vue'
 import { database } from '@/services/LocalDatabase'
 import { useMessaging } from '@/use/useMessaging'
 import { useTableType } from '@/use/useTableType'
-import FullscreenDialog from './dialogs/FullscreenDialog.vue'
+import DataTable from './DataTable.vue'
+import MeasurementDialog from '@/components/dialogs/MeasurementDialog.vue'
+import type { Measurement } from '@/models/Measurement'
+import type { MeasurementRecord } from '@/models/MeasurementRecord'
 
 const { log, notify, confirmDialog } = useMessaging()
-const {
-  getTableLabel,
-  getTableColumns,
-  getTableColumnOptions,
-  getTableVisibleColumn,
-  isRecordTable,
-  isNotAppLogTable,
-} = useTableType()
+const { getTableLabel } = useTableType()
 
 const props = defineProps<{
   table: DBTable
 }>()
 
-const searchFilter: Ref<string> = ref('')
-const tableName: Ref<string> = ref('')
 const tableRows: Ref<any[]> = ref([])
-const tableColumns: Ref<any[]> = ref([])
-const columnOptions: Ref<any[]> = ref([])
-const visibleColumns: Ref<string[]> = ref([])
-// Action options
-const canCreate: Ref<boolean> = ref(false)
-const canEdit: Ref<boolean> = ref(false)
-const canReport: Ref<boolean> = ref(false)
-// Fullscreen Dialog
-const fullItem: Ref<any> = ref({})
-const fullTitle: Ref<string> = ref('')
-const fullMessage: Ref<string> = ref('')
-const fullDialog: Ref<boolean> = ref(false)
+const dialogType: Ref<DialogType> = ref(DialogType.DETAILS)
+const item: Ref<any> = ref({}) // Database item
+const measurementDialog: Ref<boolean> = ref(false)
+const measurementRecordDialog: Ref<boolean> = ref(false)
 
 onMounted(async () => {
-  tableName.value = getTableLabel(props.table)
-  tableColumns.value = getTableColumns(props.table)
-  columnOptions.value = getTableColumnOptions(props.table)
-  visibleColumns.value = getTableVisibleColumn(props.table)
-  canCreate.value = isNotAppLogTable(props.table)
-  canEdit.value = isNotAppLogTable(props.table)
-  canReport.value = isRecordTable(props.table)
   await updateTableRows()
 })
 
@@ -53,208 +31,146 @@ async function updateTableRows(): Promise<void> {
     tableRows.value = await database.getAll(props.table)
   } catch (error) {
     const callerName = 'updateTableRows'
-    log({ error, level: LogLevel.ERROR, callerName, details: props.table })
+    log({ error, level: LogLevel.ERROR, callerName })
     notify(`Error with operation: ${callerName}`, Icon.ACTIVE, 'negative')
   }
 }
 
-async function updateFullscreenItem(id: string): Promise<any> {
+async function getReport(id: string): Promise<any> {
   try {
-    fullItem.value = await database.getById(props.table, id)
+    switch (props.table) {
+      case DBTable.MEASUREMENTS:
+        console.log(props.table, id)
+        break
+      case DBTable.MEASUREMENT_RECORDS:
+        console.log(props.table, id)
+        break
+      // TODO
+    }
   } catch (error) {
-    const callerName = 'updateFullscreenItem'
-    log({ error, level: LogLevel.ERROR, callerName, details: props.table })
+    const callerName = `getReport:${props.table}:${id}`
+    log({ error, level: LogLevel.ERROR, callerName })
     notify(`Error with operation: ${callerName}`, Icon.ACTIVE, 'negative')
   }
 }
 
-function create(): void {
-  fullTitle.value = 'Create'
-  fullMessage.value = getTableLabel(props.table, false)
-  fullDialog.value = true
+async function getData(id: string): Promise<void> {
+  try {
+    switch (props.table) {
+      case DBTable.MEASUREMENTS:
+        item.value = await database.getById<Measurement>(DBTable.MEASUREMENTS, id)
+        break
+      case DBTable.MEASUREMENT_RECORDS:
+        item.value = await database.getById<MeasurementRecord>(DBTable.MEASUREMENT_RECORDS, id)
+        break
+      // TODO
+    }
+  } catch (error) {
+    const callerName = `getData:${props.table}:${id}`
+    log({ error, level: LogLevel.ERROR, callerName })
+    notify(`Error with operation: ${callerName}`, Icon.ACTIVE, 'negative')
+  }
 }
 
-function clear(): void {
+function openDialog(): void {
+  switch (props.table) {
+    case DBTable.MEASUREMENTS:
+      measurementDialog.value = true
+      break
+    case DBTable.MEASUREMENT_RECORDS:
+      measurementRecordDialog.value = true
+      break
+  }
+}
+
+async function closeDialog(): Promise<void> {
+  measurementDialog.value = false
+  measurementRecordDialog.value = false
+  await updateTableRows()
+  // TODO
+}
+
+function onCreate(): void {
+  dialogType.value = DialogType.CREATE
+  openDialog()
+}
+
+async function onClear(): Promise<void> {
   confirmDialog(
     'Clear',
-    `Permanently remove all data from the ${tableName.value} table?`,
+    `Permanently remove all data from the ${getTableLabel(props.table)} table?`,
     async () => {
       try {
         await database.clear(props.table)
+        await updateTableRows()
       } catch (error) {
         const callerName = 'clear'
-        log({ error, level: LogLevel.ERROR, callerName, details: props.table })
+        log({ error, level: LogLevel.ERROR, callerName })
         notify(`Error with operation: ${callerName}`, Icon.ACTIVE, 'negative')
       }
     }
   )
 }
 
-async function report(id: string): Promise<void> {
-  await updateFullscreenItem(id)
-  fullTitle.value = 'Report'
-  fullMessage.value = getTableLabel(props.table, false)
-  fullDialog.value = true
+async function onReport(id: string): Promise<void> {
+  await getReport(id)
+  dialogType.value = DialogType.REPORT
+  openDialog()
 }
 
-async function details(id: string): Promise<void> {
-  await updateFullscreenItem(id)
-  fullTitle.value = 'Details'
-  fullMessage.value = getTableLabel(props.table, false)
-  fullDialog.value = true
+async function onDetails(id: string): Promise<void> {
+  await getData(id)
+  dialogType.value = DialogType.DETAILS
+  openDialog()
 }
 
-async function edit(id: string): Promise<void> {
-  await updateFullscreenItem(id)
-  fullTitle.value = 'Edit'
-  fullMessage.value = getTableLabel(props.table, false)
-  fullDialog.value = true
+async function onEdit(id: string): Promise<void> {
+  await getData(id)
+  dialogType.value = DialogType.EDIT
+  openDialog()
 }
 
-async function remove(id: string): Promise<void> {
+async function onDelete(id: string): Promise<void> {
   confirmDialog(
     'Remove',
-    `Permanently remove item << ${id} >> from the ${tableName.value} table?`,
+    `Permanently remove item << ${id} >> from the ${getTableLabel(props.table)} table?`,
     async () => {
       try {
         await database.deleteById(props.table, id)
+        await updateTableRows()
       } catch (error) {
         const callerName = 'remove'
-        log({ error, level: LogLevel.ERROR, callerName, details: `${props.table}:${id}` })
+        log({ error, level: LogLevel.ERROR, callerName })
         notify(`Error with operation: ${callerName}`, Icon.ACTIVE, 'negative')
       }
     }
   )
+}
+
+async function onSaved(): Promise<void> {
+  item.value = {}
+  closeDialog()
 }
 </script>
 
 <template>
-  <QTable
+  <DataTable
+    :table="table"
     :rows="tableRows"
-    :columns="tableColumns"
-    :rows-per-page-options="[0]"
-    virtual-scroll
-    style="height: 85vh"
-    row-key="id"
-    :visible-columns="visibleColumns"
-    :filter="searchFilter"
-  >
-    <!-- Table Heading -->
-    <template v-slot:top>
-      <div class="q-table__title text-weight-bold">{{ tableName }}</div>
-      <QSpace />
-      <!-- Search Input -->
-      <QInput
-        outlined
-        dense
-        debounce="300"
-        v-model="searchFilter"
-        placeholder="Search"
-        class="q-mr-sm q-mb-sm"
-      >
-        <template v-slot:append>
-          <QIcon name="search" />
-        </template>
-      </QInput>
-      <!-- Column Select -->
-      <QSelect
-        v-model="visibleColumns"
-        multiple
-        outlined
-        dense
-        options-dense
-        display-value="Columns"
-        emit-value
-        map-options
-        :options="columnOptions"
-        option-value="name"
-        options-cover
-        style="min-width: 150px"
-        class="q-mr-sm q-mb-sm"
-      />
-      <div>
-        <!-- Create Btn -->
-        <QBtn
-          v-if="canCreate"
-          color="positive"
-          label="Create"
-          class="q-mr-sm q-mb-sm"
-          @click="create()"
-        />
-        <!-- Clear Btn -->
-        <QBtn color="negative" label="Clear" @click="clear()" class="q-mb-sm" />
-      </div>
-    </template>
-    <!-- Column Headers -->
-    <template v-slot:header="props">
-      <QTr :props="props">
-        <QTh v-for="col in props.cols" :key="col.name" :props="props">
-          {{ col.label }}
-        </QTh>
-        <QTh auto-width />
-      </QTr>
-    </template>
-    <!-- Rows -->
-    <template v-slot:body="props">
-      <QTr :props="props">
-        <QTd v-for="col in props.cols" :key="col.name" :props="props">
-          {{ col.value }}
-        </QTd>
-        <QTd auto-width>
-          <!-- Report Btn -->
-          <QBtn
-            v-if="canReport"
-            flat
-            round
-            dense
-            class="q-ml-xs"
-            color="accent"
-            @click="report(props.cols[0].value)"
-            :icon="Icon.REPORT"
-          />
-          <!-- Details Btn -->
-          <QBtn
-            flat
-            round
-            dense
-            class="q-ml-xs"
-            color="primary"
-            @click="details(props.cols[0].value)"
-            :icon="Icon.DETAILS"
-          />
-          <!-- Edit Btn -->
-          <QBtn
-            v-if="canEdit"
-            flat
-            round
-            dense
-            class="q-ml-xs"
-            color="orange-9"
-            @click="edit(props.cols[0].value)"
-            :icon="Icon.EDIT"
-          />
-          <!-- Delete Btn -->
-          <QBtn
-            flat
-            round
-            dense
-            class="q-ml-xs"
-            color="negative"
-            @click="remove(props.cols[0].value)"
-            :icon="Icon.DELETE"
-          />
-        </QTd>
-      </QTr>
-    </template>
-  </QTable>
+    @on-create="onCreate()"
+    @on-clear="onClear()"
+    @on-report="onReport($event)"
+    @on-details="onDetails($event)"
+    @on-edit="onEdit($event)"
+    @on-delete="onDelete($event)"
+  />
 
-  <!-- Dialogs -->
-  <FullscreenDialog
-    :title="fullTitle"
-    :message="fullMessage"
-    :dialog="fullDialog"
-    @update:dialog="fullDialog = $event"
-  >
-    <div>{{ fullItem }}</div>
-  </FullscreenDialog>
+  <MeasurementDialog
+    :table="table"
+    :measurement="item"
+    :dialogType="dialogType"
+    :dialog="measurementDialog"
+    @update:dialog="closeDialog()"
+    @saved="onSaved()"
+  />
 </template>

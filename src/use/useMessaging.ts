@@ -133,18 +133,22 @@ export function useMessaging() {
    * Helper for console logging.
    */
   function consoleLog(params: IAppLog): void {
-    const { error, level, callerName, details } = params
+    const { error, level, callerName } = params
 
     if (DEBUG) {
       if (level === LogLevel.DEBUG || level === LogLevel.INFO) {
-        logger.log(callerName || '', details || '', error)
+        logger.log(callerName || '', error)
       } else if (level === LogLevel.WARN) {
-        logger.log(callerName || '', details || '', error)
+        logger.log(callerName || '', error)
       } else {
         // Fatal, Error, or unknown log level
-        logger.log(callerName || '', details || '', error)
+        logger.log(callerName || '', error)
       }
     }
+  }
+
+  function testLog(value: any): void {
+    console.log('Test Log:', value)
   }
 
   return {
@@ -152,5 +156,6 @@ export function useMessaging() {
     dismissDialog,
     notify,
     log,
+    testLog,
   }
 }

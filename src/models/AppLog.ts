@@ -7,7 +7,6 @@ export interface IAppLog {
   error: Error | any
   level: LogLevel
   callerName: string
-  details?: string
 }
 
 /**
@@ -18,19 +17,17 @@ export interface IAppLog {
  * @param params.details Optional - Additional information about the event (str:str:str)
  */
 export class AppLog extends _Entity {
-  public level: LogLevel
-  public callerName: string
-  public details?: string
-  public errorName?: string
-  public message?: string
-  public stack?: string
+  level: LogLevel
+  callerName: string
+  errorName?: string
+  message?: string
+  stack?: string
 
   constructor(params: IAppLog) {
     super({ id: createId(), createdAt: new Date().toISOString() })
 
     this.level = params?.level
     this.callerName = params?.callerName
-    this.details = params?.details
     this.errorName = params?.error?.name
     this.message = params?.error?.message
     this.stack = params?.error?.stack
@@ -44,13 +41,7 @@ export class AppLog extends _Entity {
         label: 'Caller Name',
         align: 'left',
         field: (row: AppLog) => row.callerName,
-        sortable: true,
-      },
-      {
-        name: 'details',
-        label: 'Details',
-        align: 'left',
-        field: (row: AppLog) => row.details,
+        format: (val: string) => truncateString(val),
         sortable: true,
       },
       {
@@ -58,33 +49,29 @@ export class AppLog extends _Entity {
         label: 'Error Name',
         align: 'left',
         field: (row: AppLog) => row.errorName,
+        format: (val: string) => truncateString(val),
         sortable: true,
       },
       {
         name: 'message',
         label: 'Messages',
         align: 'left',
-        field: (row: AppLog) => truncateString(row.message, 40),
+        field: (row: AppLog) => row.message,
+        format: (val: string) => truncateString(val),
         sortable: true,
       },
       {
         name: 'stack',
         label: 'Stack Trace',
         align: 'left',
-        field: (row: AppLog) => truncateString(row.stack, 40),
+        field: (row: AppLog) => row.stack,
+        format: (val: string) => truncateString(val),
         sortable: true,
       },
     ]
   }
 
   static getVisibleColumns(): string[] {
-    return [
-      ..._Entity.getVisibleColumns(),
-      'callerName',
-      'details',
-      'errorName',
-      'message',
-      'stack',
-    ]
+    return [..._Entity.getVisibleColumns(), 'callerName', 'errorName']
   }
 }

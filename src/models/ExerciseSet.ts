@@ -1,87 +1,31 @@
-import { isOptionalNumber } from '@/utils/validators'
-
-interface ExerciseSetParams {
-  weight?: number
+export interface IExerciseSet {
+  weightLbs?: number
   reps?: number
-  distance?: number
-  duration?: number
+  distanceMiles?: number
+  durationMinutes?: number
 }
 
 /**
  * ExerciseSet Class
- * @param obj Partial<ExerciseSetParams>
+ * @param obj IExerciseSet
  */
 export class ExerciseSet {
-  public weight?: number
-  public reps?: number
-  public distance?: number
-  public duration?: number
+  weightLbs?: number
+  reps?: number
+  distanceMiles?: number
+  durationMinutes?: number
 
-  constructor(params: Partial<ExerciseSetParams>) {
-    if (isOptionalNumber(params.weight)) {
-      this.weight = params.weight
-    } else {
-      throw new Error(`(constructor) Validation failed on weight << ${params.weight} >>`)
-    }
-
-    if (isOptionalNumber(params.reps)) {
-      this.reps = params.reps
-    } else {
-      throw new Error(`(constructor) Validation failed on reps << ${params.reps} >>`)
-    }
-
-    if (isOptionalNumber(params.distance)) {
-      this.distance = params.distance
-    } else {
-      throw new Error(`(constructor) Validation failed on distance << ${params.distance} >>`)
-    }
-
-    if (isOptionalNumber(params.duration)) {
-      this.duration = params.duration
-    } else {
-      throw new Error(`(constructor) Validation failed on duration << ${params.duration} >>`)
-    }
-  }
-
-  get ExerciseSet(): ExerciseSetParams {
-    return {
-      weight: this.weight,
-      reps: this.reps,
-      distance: this.distance,
-      duration: this.duration,
-    }
-  }
-
-  set ExerciseSet(params: ExerciseSetParams) {
-    if (isOptionalNumber(params.weight)) {
-      this.weight = params.weight
-    } else {
-      throw new Error(`(constructor) Validation failed on weight << ${params.weight} >>`)
-    }
-
-    if (isOptionalNumber(params.reps)) {
-      this.reps = params.reps
-    } else {
-      throw new Error(`(constructor) Validation failed on reps << ${params.reps} >>`)
-    }
-
-    if (isOptionalNumber(params.distance)) {
-      this.distance = params.distance
-    } else {
-      throw new Error(`(constructor) Validation failed on distance << ${params.distance} >>`)
-    }
-
-    if (isOptionalNumber(params.duration)) {
-      this.duration = params.duration
-    } else {
-      throw new Error(`(constructor) Validation failed on duration << ${params.duration} >>`)
-    }
+  constructor(params: IExerciseSet) {
+    this.weightLbs = params.weightLbs
+    this.reps = params.reps
+    this.distanceMiles = params.distanceMiles
+    this.durationMinutes = params.durationMinutes
   }
 
   clearExerciseSet(): void {
-    this.weight = undefined
+    this.weightLbs = undefined
     this.reps = undefined
-    this.distance = undefined
-    this.duration = undefined
+    this.distanceMiles = undefined
+    this.durationMinutes = undefined
   }
 }

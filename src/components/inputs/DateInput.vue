@@ -2,6 +2,8 @@
 import { QInput, QDate, QBtn, QTime, QPopupProxy } from 'quasar'
 import { type Ref, ref, onMounted } from 'vue'
 import { useVModel } from '@vueuse/core'
+import { dateISOToDisplay } from '@/utils/luxon'
+import { isRequiredDateValid, isOptionalDateValid } from '@/utils/validators'
 
 /**
  * @example
@@ -9,11 +11,9 @@ import { useVModel } from '@vueuse/core'
  * Template: <DateInput :date="date" @update:date="date = $event" />
  */
 
-const { dateISOToDisplay } = useLuxon()
-
 const props = defineProps<{
   date: string // isoDate
-  label: 'Created At' | 'Finished At'
+  label: 'Created Date' | 'Finished Date'
 }>()
 
 const emits = defineEmits<{
@@ -22,7 +22,6 @@ const emits = defineEmits<{
 }>()
 
 const isoDate = useVModel(props, 'date', emits)
-const { isCreatedAtValid, isFinishedAtValid } = useValidators()
 const displayDate: Ref<string> = ref('')
 const dateTimePicker: Ref<string> = ref('')
 const rules: Ref<any[]> = ref([])
@@ -33,8 +32,8 @@ const rules: Ref<any[]> = ref([])
 onMounted(async () => {
   const dateMessage = 'Date must be of format YYYY-MM-DDTHH:MM:SS.###Z'
 
-  if (props.label === 'Created At') {
-    rules.value = [(val: string) => isCreatedAtValid(val) || dateMessage]
+  if (props.label === 'Created Date') {
+    rules.value = [(val: string) => isRequiredDateValid(val) || dateMessage]
 
     if (!props.date) {
       nowDate()
@@ -43,8 +42,8 @@ onMounted(async () => {
     }
   }
 
-  if (props.label === 'Finished At') {
-    rules.value = [(val: string) => isFinishedAtValid(val) || dateMessage]
+  if (props.label === 'Finished Date') {
+    rules.value = [(val: string) => isOptionalDateValid(val) || dateMessage]
 
     if (!props.date) {
       clearDate()
@@ -55,8 +54,10 @@ onMounted(async () => {
 })
 
 function pickerDate() {
-  isoDate.value = new Date(dateTimePicker.value).toISOString()
-  displayDate.value = dateISOToDisplay(dateTimePicker.value)
+  if (dateTimePicker.value) {
+    isoDate.value = new Date(dateTimePicker.value).toISOString()
+    displayDate.value = dateISOToDisplay(dateTimePicker.value)
+  }
 }
 
 function nowDate(): void {
@@ -105,14 +106,14 @@ function clearDate(): void {
       </QBtn>
 
       <QBtn
-        v-if="label === 'Created At'"
+        v-if="label === 'Created Date'"
         icon="event_available"
         color="positive"
         class="q-ml-sm q-px-sm"
         @click="nowDate()"
       />
       <QBtn
-        v-if="label === 'Finished At'"
+        v-if="label === 'Finished Date'"
         icon="close"
         color="negative"
         class="q-ml-sm q-px-sm"

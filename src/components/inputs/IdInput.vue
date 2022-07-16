@@ -3,7 +3,7 @@ import { QInput } from 'quasar'
 import { v4 as createId } from 'uuid'
 import { useVModel } from '@vueuse/core'
 import { onMounted } from 'vue'
-import { useValidators } from '@/use/useValidators'
+import { isIdValid } from '@/utils/validators'
 
 /**
  * @example
@@ -20,7 +20,6 @@ const emits = defineEmits<{
 }>()
 
 const id = useVModel(props, 'id', emits)
-const { isIdValid } = useValidators()
 
 /**
  * Defaults
@@ -34,6 +33,7 @@ onMounted(() => {
 
 <template>
   <QInput
+    class="q-mb-xs"
     v-model="id"
     label="Id"
     :rules="[(val: string) => isIdValid(val) || 'Id must be between 1 and 40 characters']"

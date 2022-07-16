@@ -1,3 +1,25 @@
+export enum DialogType {
+  CREATE = 'Create',
+  EDIT = 'Edit',
+  REPORT = 'Report',
+  DETAILS = 'Details',
+}
+
+export enum MeasurementType {
+  LBS = 'Lbs',
+  INCHES = 'Inches',
+  PERCENT = '%',
+  NUMBER = 'Number',
+}
+
+export enum ExerciseTracks {
+  MULTIPLE_SETS = 'Multiple Sets',
+  WEIGHT_LBS = 'Weight (lbs)',
+  REPS = 'Reps',
+  DURATION_MINUTES = 'Duration (minutes)',
+  DISTANCE_MILES = 'Distance (miles)',
+}
+
 export enum LogLevel {
   FATAL = 'Fatal',
   ERROR = 'Error',
