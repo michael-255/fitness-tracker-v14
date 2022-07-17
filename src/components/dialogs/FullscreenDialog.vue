@@ -2,14 +2,14 @@
 import { QDialog, QCard, QCardSection, QCardActions, QBtn } from 'quasar'
 import { DBTable, DialogType, Icon } from '@/constants/enums'
 import { useVModel } from '@vueuse/core'
-import { useTableType } from '@/use/useTableType'
+import { useTable } from '@/use/useTable'
 
-const { getTableLabel } = useTableType()
+const { getTableLabel } = useTable()
 
 const props = defineProps<{
-  dialogType: DialogType
   table: DBTable
   dialog: boolean
+  dialogType: DialogType
 }>()
 
 const emits = defineEmits<{

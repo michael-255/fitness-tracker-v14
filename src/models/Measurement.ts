@@ -1,9 +1,8 @@
 import { _Activity, type IActivity } from './_Activity'
 import type { MeasurementType } from '@/constants/enums'
-import { isRequired, isShortTextValid } from '@/utils/validators'
 
 export interface IMeasurement extends IActivity {
-  type: MeasurementType
+  measurementType: MeasurementType
 }
 
 /**
@@ -11,7 +10,7 @@ export interface IMeasurement extends IActivity {
  * @param params IMeasurement
  */
 export class Measurement extends _Activity {
-  type: MeasurementType
+  measurementType: MeasurementType
 
   constructor(params: IMeasurement) {
     super({
@@ -19,19 +18,19 @@ export class Measurement extends _Activity {
       createdAt: params.createdAt,
       name: params.name,
       description: params.description,
-      status: params.status,
+      activityStatus: params.activityStatus,
     })
-    this.type = params.type
+    this.measurementType = params.measurementType
   }
 
   static getTableColumns(): any[] {
     return [
       ..._Activity.getTableColumns(),
       {
-        name: 'type',
+        name: 'measurementType',
         label: 'Type',
         align: 'left',
-        field: (row: Measurement) => row.type,
+        field: (row: Measurement) => row.measurementType,
         sortable: true,
       },
     ]

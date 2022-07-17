@@ -1,49 +1,46 @@
 <script setup lang="ts">
 import { QInput } from 'quasar'
-import { v4 as createId } from 'uuid'
-import { useVModel } from '@vueuse/core'
 import { onMounted } from 'vue'
+import { v4 as createId } from 'uuid'
+import { FieldName, Icon } from '@/constants/enums'
 import { isIdValid } from '@/utils/validators'
+import { useInputInject } from '@/use/useInputInject'
 
 /**
- * @example
- * Script: const id: Ref<string> = ref('')
- * Template: <IdInput :id="id" @update:id="id = $event" />
+ * @todo
  */
 
-const props = defineProps<{
-  id: string
-}>()
-
-const emits = defineEmits<{
-  (event: 'update:id', id: string): void
-}>()
-
-const id = useVModel(props, 'id', emits)
+const { idModel, idInputRef, idUpdateModel } = useInputInject(FieldName.ID)
 
 /**
- * Defaults
+ * @todo
  */
 onMounted(() => {
-  if (!props.id) {
-    id.value = createId()
+  if (!idModel.value) {
+    idUpdateModel(createId())
   }
 })
 </script>
 
 <template>
   <QInput
-    class="q-mb-xs"
-    v-model="id"
+    v-model="idModel"
+    ref="idInputRef"
     label="Id"
     :rules="[(val: string) => isIdValid(val) || 'Id must be between 1 and 40 characters']"
     :maxlength="40"
     dense
     outlined
     color="primary"
+    class="q-mb-xs"
   >
     <template v-slot:after>
-      <QBtn icon="autorenew" color="primary" class="q-ml-xs q-px-sm" @click="id = createId()" />
+      <QBtn
+        :icon="Icon.RENEW"
+        color="primary"
+        class="q-ml-xs q-px-sm"
+        @click="idUpdateModel(createId())"
+      />
     </template>
   </QInput>
 </template>

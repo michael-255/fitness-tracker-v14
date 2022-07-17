@@ -5,7 +5,7 @@ export const DEBUG: Readonly<boolean> = true
 /**
  * Indices for LocalDatabase (Dexie)
  */
-export const databaseTableIndices: Readonly<object> = {
+export const databaseTableIndices: Readonly<{ [prop: string]: string }> = {
   [DBTable.MEASUREMENTS]: '&id, name, status',
   [DBTable.EXERCISES]: '&id, name, status',
   [DBTable.WORKOUTS]: '&id, name, status',

@@ -1,3 +1,12 @@
+export enum FieldName {
+  ID = 'id',
+  CREATED_AT = 'createdAt',
+  NAME = 'name',
+  DESCRIPTION = 'description',
+  ACTIVITY_STATUS = 'activityStatus',
+  MEASUREMENT_TYPE = 'measurementType',
+}
+
 export enum DialogType {
   CREATE = 'Create',
   EDIT = 'Edit',
@@ -9,7 +18,6 @@ export enum MeasurementType {
   LBS = 'Lbs',
   INCHES = 'Inches',
   PERCENT = '%',
-  NUMBER = 'Number',
 }
 
 export enum ExerciseTracks {
@@ -78,6 +86,10 @@ export enum Icon {
   WORKOUTS = 'assignment',
   APPLOGS = 'plagiarism',
   // Misc
+  CALENDAR_DATE = 'event',
+  CALENDAR_CHECK = 'event_available',
+  TIME = 'access_time',
+  RENEW = 'autorenew',
   DASHBOARD = 'dashboard',
   REPORT = 'timeline',
   MANAGEMENT = 'tune',

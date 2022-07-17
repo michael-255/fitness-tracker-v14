@@ -2,15 +2,7 @@
 import { QSelect, QInput, QIcon } from 'quasar'
 import { Icon, DBTable } from '@/constants/enums'
 import { type Ref, ref, onMounted } from 'vue'
-import { useTableType } from '@/use/useTableType'
-
-const {
-  isRecordTable,
-  getTableLabel,
-  getTableColumns,
-  getTableColumnOptions,
-  getTableVisibleColumn,
-} = useTableType()
+import { useTable } from '@/use/useTable'
 
 const props = defineProps<{
   table: DBTable
@@ -26,24 +18,31 @@ const emits = defineEmits<{
   (event: 'on-delete', id: string): void
 }>()
 
+const {
+  isRecordTable,
+  getTableLabel,
+  getTableColumns,
+  getTableColumnOptions,
+  getTableVisibleColumns,
+} = useTable()
 const searchFilter: Ref<string> = ref('')
-const tableName: Ref<string> = ref('')
-const columns: Ref<any[]> = ref([])
-const columnOptions: Ref<any[]> = ref([])
 const visibleColumns: Ref<string[]> = ref([])
-const canCreate: Ref<boolean> = ref(false)
-const canEdit: Ref<boolean> = ref(false)
-const canReport: Ref<boolean> = ref(false)
 
 onMounted(async () => {
-  tableName.value = getTableLabel(props.table)
-  columns.value = getTableColumns(props.table)
-  columnOptions.value = getTableColumnOptions(props.table)
-  visibleColumns.value = getTableVisibleColumn(props.table)
-  canReport.value = isRecordTable(props.table)
-  canCreate.value = props.table !== DBTable.APP_LOGS
-  canEdit.value = props.table !== DBTable.APP_LOGS
+  visibleColumns.value = getTableVisibleColumns(props.table)
 })
+
+function canReport(): boolean {
+  return isRecordTable(props.table)
+}
+
+function canEdit(): boolean {
+  return props.table !== DBTable.APP_LOGS
+}
+
+function canCreate(): boolean {
+  return props.table !== DBTable.APP_LOGS
+}
 
 async function onCreate(): Promise<void> {
   emits('on-create')
@@ -73,7 +72,7 @@ async function onDelete(id: string): Promise<void> {
 <template>
   <QTable
     :rows="rows"
-    :columns="columns"
+    :columns="getTableColumns(props.table)"
     :rows-per-page-options="[0]"
     virtual-scroll
     style="height: 85vh"
@@ -83,7 +82,7 @@ async function onDelete(id: string): Promise<void> {
   >
     <!-- Table Heading -->
     <template v-slot:top>
-      <div class="q-table__title text-weight-bold">{{ tableName }}</div>
+      <div class="q-table__title text-weight-bold">{{ getTableLabel(props.table) }}</div>
       <QSpace />
       <!-- Search Input -->
       <QInput
@@ -108,7 +107,7 @@ async function onDelete(id: string): Promise<void> {
         display-value="Columns"
         emit-value
         map-options
-        :options="columnOptions"
+        :options="getTableColumnOptions(props.table)"
         option-value="name"
         options-cover
         style="min-width: 150px"
@@ -117,7 +116,7 @@ async function onDelete(id: string): Promise<void> {
       <div>
         <!-- Create Btn -->
         <QBtn
-          v-if="canCreate"
+          v-if="canCreate()"
           color="positive"
           label="Create"
           class="q-mr-sm q-mb-sm"
@@ -145,7 +144,7 @@ async function onDelete(id: string): Promise<void> {
         <QTd auto-width>
           <!-- Report Btn -->
           <QBtn
-            v-if="canReport"
+            v-if="canReport()"
             flat
             round
             dense
@@ -166,7 +165,7 @@ async function onDelete(id: string): Promise<void> {
           />
           <!-- Edit Btn -->
           <QBtn
-            v-if="canEdit"
+            v-if="canEdit()"
             flat
             round
             dense

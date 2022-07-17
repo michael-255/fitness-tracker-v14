@@ -5,7 +5,7 @@ import { truncateString } from '@/utils/common'
 export interface IActivity extends IEntity {
   name: string
   description: string
-  status: ActivityStatus
+  activityStatus: ActivityStatus
 }
 
 /**
@@ -15,13 +15,13 @@ export interface IActivity extends IEntity {
 export class _Activity extends _Entity {
   name: string
   description: string
-  status: ActivityStatus
+  activityStatus: ActivityStatus
 
   constructor(params: IActivity) {
     super({ id: params.id, createdAt: params.createdAt })
     this.name = params.name
     this.description = params.description
-    this.status = params.status
+    this.activityStatus = params.activityStatus
   }
 
   static getTableColumns(): any[] {
@@ -44,10 +44,10 @@ export class _Activity extends _Entity {
         sortable: true,
       },
       {
-        name: 'status',
+        name: 'activityStatus',
         label: 'Status',
         align: 'left',
-        field: (row: _Activity) => row.status,
+        field: (row: _Activity) => row.activityStatus,
         sortable: true,
       },
     ]

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { DBTable } from '@/constants/enums'
-import TabTable from '@/components/TabTable.vue'
+import TabContent from '@/components/TabContent.vue'
 </script>
 
 <template>
-  <TabTable :table="DBTable.APP_LOGS" />
+  <TabContent :table="DBTable.APP_LOGS" />
 </template>

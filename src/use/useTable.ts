@@ -1,163 +1,283 @@
-import { database } from '@/services/LocalDatabase'
-import { type Ref, ref, onMounted } from 'vue'
-import { type DBTable, LogLevel } from '@/constants/enums'
-import { useLogger } from './useLogger'
+import { DBTable, FieldName } from '@/constants/enums'
+import { AppLog } from '@/models/AppLog'
+import { Exercise } from '@/models/Exercise'
+import { ExerciseRecord } from '@/models/ExerciseRecord'
+import type { Measurement } from '@/models/Measurement'
+import { MeasurementRecord } from '@/models/MeasurementRecord'
+import { Workout } from '@/models/Workout'
+import { WorkoutRecord } from '@/models/WorkoutRecord'
+import type { _Activity } from '@/models/_Activity'
+import type { _Entity } from '@/models/_Entity'
+import type { _Record } from '@/models/_Record'
+import { truncateString } from '@/utils/common'
+import { DateTime } from 'luxon'
 
-interface useTableParams {
-  table: DBTable
-  tableColumns: any[]
-  columnOptions: any[]
-  visibleColumns: string[]
-}
+/**
+ * @todo
+ * @returns
+ */
+export function useTable() {
+  /**
+   * @todo
+   */
+  function getEntityColumns(): { [x: string]: any }[] {
+    return [
+      {
+        name: FieldName.ID,
+        label: 'Id',
+        align: 'left',
+        required: true,
+        field: (row: _Entity) => row.id,
+        sortable: true,
+      },
+      {
+        name: FieldName.CREATED_AT,
+        label: 'Created Date',
+        align: 'left',
+        field: (row: _Entity) => row.createdAt,
+        format: (val: string) => DateTime.fromISO(val).toFormat('ccc LLL d yyyy ttt'),
+        sortable: true,
+      },
+    ]
+  }
 
-const { log } = useLogger()
+  /**
+   * @todo
+   */
+  function getActivityColumns(): { [x: string]: any }[] {
+    return [
+      ...getEntityColumns(),
+      {
+        name: FieldName.NAME,
+        label: 'Name',
+        align: 'left',
+        field: (row: _Activity) => row.name,
+        format: (val: string) => truncateString(val),
+        sortable: true,
+      },
+      {
+        name: FieldName.DESCRIPTION,
+        label: 'Description',
+        align: 'left',
+        field: (row: _Activity) => row.description,
+        format: (val: string) => truncateString(val),
+        sortable: true,
+      },
+      {
+        name: 'activityStatus',
+        label: 'Status',
+        align: 'left',
+        field: (row: _Activity) => row.activityStatus,
+        sortable: true,
+      },
+    ]
+  }
 
-export function useTable({ table, tableColumns, columnOptions, visibleColumns }: useTableParams) {
-  const tableVisibleColumns: Ref<string[]> = ref(visibleColumns)
-  const tableColumnOptions: Ref<any[]> = ref(columnOptions)
-  const tableRows: Ref<any[]> = ref([])
-  const rowDetails: Ref<any | undefined> = ref(undefined)
-  const selectedRowId: Ref<string> = ref('')
+  /**
+   * @todo
+   */
+  function getRecordColumns(): { [x: string]: any }[] {
+    return [
+      ...getEntityColumns(),
+      {
+        name: 'parentId',
+        label: 'Parent Id',
+        align: 'left',
+        field: (row: _Record) => row.parentId,
+        sortable: true,
+      },
+      {
+        name: 'note',
+        label: 'Note',
+        align: 'left',
+        field: (row: _Record) => row.note,
+        format: (val: string) => truncateString(val),
+        sortable: true,
+      },
+      {
+        name: 'status',
+        label: 'Status',
+        align: 'left',
+        field: (row: _Record) => row.status,
+        sortable: true,
+      },
+    ]
+  }
 
-  const createDialog: Ref<boolean> = ref(false)
-  const clearDialog: Ref<boolean> = ref(false)
-  const reportDialog: Ref<boolean> = ref(false)
-  const detailsDialog: Ref<boolean> = ref(false)
-  const editDialog: Ref<boolean> = ref(false)
-  const deleteDialog: Ref<boolean> = ref(false)
+  /**
+   * @todo
+   */
+  function getMeasurementColumns(): { [x: string]: any }[] {
+    return [
+      ...getActivityColumns(),
+      {
+        name: FieldName.MEASUREMENT_TYPE,
+        label: 'Type',
+        align: 'left',
+        field: (row: Measurement) => row.measurementType,
+        sortable: true,
+      },
+    ]
+  }
 
-  onMounted(async () => {
-    updateTableRows()
-  })
+  /**
+   * @todo
+   */
+  function getMeasurementRecordColumns(): { [x: string]: any }[] {
+    return [
+      ...getRecordColumns(),
+      {
+        name: 'parentType',
+        label: 'Parent Type',
+        align: 'left',
+        field: (row: MeasurementRecord) => row.parentType,
+        sortable: true,
+      },
+      {
+        name: 'value',
+        label: 'Value',
+        align: 'left',
+        field: (row: MeasurementRecord) => row.value,
+        sortable: true,
+      },
+    ]
+  }
 
-  async function updateTableRows(): Promise<void> {
-    try {
-      tableRows.value = await database.getAll(table)
-    } catch (error) {
-      log({ error, level: LogLevel.ERROR, name: 'updateTableRows', details: table })
+  /**
+   * Determines the default fields that are visible on a table.
+   */
+  function getEntityVisibleColumns(): string[] {
+    return []
+  }
+  function getActivityVisibleColumns(): string[] {
+    return [...getEntityVisibleColumns(), FieldName.NAME]
+  }
+  function getRecordVisibleColumns(): string[] {
+    return [...getEntityVisibleColumns()]
+  }
+  function getMeasurementVisibleColumns(): string[] {
+    return [...getActivityVisibleColumns()]
+  }
+  function getMeasurementRecordVisibleColumns(): string[] {
+    return [...getRecordVisibleColumns(), 'parentType', 'value']
+  }
+
+  /**
+   * Returns true if the table type inherts from Activity.
+   */
+  function isActivityTable(table: DBTable): boolean {
+    return (
+      table === DBTable.MEASUREMENTS || table === DBTable.EXERCISES || table === DBTable.WORKOUTS
+    )
+  }
+
+  /**
+   * Returns true if the table type inherts from Record.
+   */
+  function isRecordTable(table: DBTable): boolean {
+    return (
+      table === DBTable.MEASUREMENT_RECORDS ||
+      table === DBTable.EXERCISE_RECORDS ||
+      table === DBTable.WORKOUT_RECORDS
+    )
+  }
+
+  /**
+   * Text label of the type of database item in the table.
+   */
+  function getTableLabel(table: DBTable, plural = true): string {
+    const pluralize = (): 's' | '' => (plural ? 's' : '')
+
+    switch (table) {
+      case DBTable.MEASUREMENTS:
+        return 'Measurement' + pluralize()
+      case DBTable.MEASUREMENT_RECORDS:
+        return 'Measurement Record' + pluralize()
+      case DBTable.EXERCISES:
+        return 'Exercise' + pluralize()
+      case DBTable.EXERCISE_RECORDS:
+        return 'Exercise Record' + pluralize()
+      case DBTable.WORKOUTS:
+        return 'Workout' + pluralize()
+      case DBTable.WORKOUT_RECORDS:
+        return 'Workout Record' + pluralize()
+      case DBTable.APP_LOGS:
+        return 'App Log' + pluralize()
     }
   }
 
-  //
-  // Create
-  //
-
-  function openCreateDialog(): void {
-    createDialog.value = true
-  }
-
-  function saveCreateDialog(): void {
-    createDialog.value = false
-  }
-
-  //
-  // Clear
-  //
-
-  function openClearDialog(): void {
-    clearDialog.value = true
-  }
-
-  async function confirmClearDialog(): Promise<void> {
-    try {
-      await database.clear(table)
-      updateTableRows()
-    } catch (error) {
-      log({ error, level: LogLevel.ERROR, name: 'confirmClearDialog', details: table })
-    } finally {
-      clearDialog.value = false
+  /**
+   * @todo
+   */
+  function getTableColumns(table: DBTable): any[] {
+    switch (table) {
+      case DBTable.MEASUREMENTS:
+        return getMeasurementColumns()
+      case DBTable.MEASUREMENT_RECORDS:
+        return MeasurementRecord.getTableColumns()
+      case DBTable.EXERCISES:
+        return Exercise.getTableColumns()
+      case DBTable.EXERCISE_RECORDS:
+        return ExerciseRecord.getTableColumns()
+      case DBTable.WORKOUTS:
+        return Workout.getTableColumns()
+      case DBTable.WORKOUT_RECORDS:
+        return WorkoutRecord.getTableColumns()
+      case DBTable.APP_LOGS:
+        return AppLog.getTableColumns()
     }
   }
 
-  //
-  // Report
-  //
-
-  function openReportDialog(id: string): void {
-    selectedRowId.value = id
-    reportDialog.value = true
-  }
-
-  //
-  // Details
-  //
-
-  async function openDetailsDialog(id: string): Promise<void> {
-    try {
-      rowDetails.value = await database.getById(table, id)
-      detailsDialog.value = true
-    } catch (error) {
-      log({
-        error,
-        level: LogLevel.ERROR,
-        name: 'openDetailsDialog',
-        details: `${table}:${id}`,
-      })
+  /**
+   * @todo
+   */
+  function getTableColumnOptions(table: DBTable): any[] {
+    switch (table) {
+      case DBTable.MEASUREMENTS:
+        return getMeasurementColumns().filter((i: any) => i.name !== FieldName.ID)
+      case DBTable.MEASUREMENT_RECORDS:
+        return MeasurementRecord.getColumnOptions()
+      case DBTable.EXERCISES:
+        return Exercise.getColumnOptions()
+      case DBTable.EXERCISE_RECORDS:
+        return ExerciseRecord.getColumnOptions()
+      case DBTable.WORKOUTS:
+        return Workout.getColumnOptions()
+      case DBTable.WORKOUT_RECORDS:
+        return WorkoutRecord.getColumnOptions()
+      case DBTable.APP_LOGS:
+        return AppLog.getColumnOptions()
     }
   }
 
-  //
-  // Edit
-  //
-
-  function openEditDialog(id: string): void {
-    selectedRowId.value = id
-    editDialog.value = true
-  }
-
-  function saveEditDialog(): void {
-    editDialog.value = false
-  }
-
-  //
-  // Delete
-  //
-
-  function openDeleteDialog(id: string): void {
-    selectedRowId.value = id
-    deleteDialog.value = true
-  }
-
-  async function confirmDeleteDialog(): Promise<void> {
-    const id = selectedRowId.value
-
-    try {
-      await database.deleteById(table, id)
-      updateTableRows()
-    } catch (error) {
-      log({
-        error,
-        level: LogLevel.ERROR,
-        name: 'confirmDeleteDialog',
-        details: `${table}:${id}`,
-      })
-    } finally {
-      deleteDialog.value = false
+  /**
+   * @todo
+   */
+  function getTableVisibleColumns(table: DBTable): any[] {
+    switch (table) {
+      case DBTable.MEASUREMENTS:
+        return getMeasurementVisibleColumns()
+      case DBTable.MEASUREMENT_RECORDS:
+        return MeasurementRecord.getVisibleColumns()
+      case DBTable.EXERCISES:
+        return Exercise.getVisibleColumns()
+      case DBTable.EXERCISE_RECORDS:
+        return ExerciseRecord.getVisibleColumns()
+      case DBTable.WORKOUTS:
+        return Workout.getVisibleColumns()
+      case DBTable.WORKOUT_RECORDS:
+        return WorkoutRecord.getVisibleColumns()
+      case DBTable.APP_LOGS:
+        return AppLog.getVisibleColumns()
     }
   }
 
   return {
-    tableVisibleColumns,
-    tableColumnOptions,
-    tableColumns,
-    tableRows,
-    rowDetails,
-    selectedRowId,
-    createDialog,
-    clearDialog,
-    reportDialog,
-    detailsDialog,
-    editDialog,
-    deleteDialog,
-    openCreateDialog,
-    saveCreateDialog,
-    openClearDialog,
-    confirmClearDialog,
-    openReportDialog,
-    openDetailsDialog,
-    openEditDialog,
-    saveEditDialog,
-    openDeleteDialog,
-    confirmDeleteDialog,
+    isActivityTable,
+    isRecordTable,
+    getTableLabel,
+    getTableColumns,
+    getTableColumnOptions,
+    getTableVisibleColumns,
   }
 }

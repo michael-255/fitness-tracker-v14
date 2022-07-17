@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { DBTable } from '@/constants/enums'
-import PageTabs from '@/components/PageTabs.vue'
-import TabTable from '@/components/TabTable.vue'
 import { Icon } from '@/constants/enums'
+import PageTabs from '@/components/PageTabs.vue'
+import TabContent from '@/components/TabContent.vue'
 </script>
 
 <template>
@@ -13,11 +13,11 @@ import { Icon } from '@/constants/enums'
     :tab2Icon="Icon.RECORDS"
   >
     <template v-slot:tab1>
-      <TabTable :table="DBTable.MEASUREMENTS" />
+      <TabContent :table="DBTable.MEASUREMENTS" />
     </template>
 
     <template v-slot:tab2>
-      <TabTable :table="DBTable.MEASUREMENT_RECORDS" />
+      <TabContent :table="DBTable.MEASUREMENT_RECORDS" />
     </template>
   </PageTabs>
 </template>
