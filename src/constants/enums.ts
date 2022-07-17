@@ -5,6 +5,11 @@ export enum FieldName {
   DESCRIPTION = 'description',
   ACTIVITY_STATUS = 'activityStatus',
   MEASUREMENT_TYPE = 'measurementType',
+  PARENT_ID = 'parentId',
+  NOTE = 'note',
+  RECORD_STATUS = 'recordStatus',
+  PARENT_TYPE = 'parentType',
+  VALUE = 'value',
 }
 
 export enum DialogType {

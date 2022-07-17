@@ -5,16 +5,21 @@ import {
   LogLevel,
   ActivityStatus,
   MeasurementType,
+  RecordStatus,
 } from '@/constants/enums'
 import { type Ref, ref, onMounted } from 'vue'
 import { database } from '@/services/LocalDatabase'
 import { useMessaging } from '@/use/useMessaging'
 import { useTable } from '@/use/useTable'
 import { Measurement } from '@/models/Measurement'
+import { MeasurementRecord } from '@/models/MeasurementRecord'
 import { useMeasurementInputs } from '@/use/useMeasurementInputs'
+import { useMeasurementRecordInputs } from '@/use/useMeasurementRecordInputs'
 
 export function useTabContent(table: DBTable) {
   const { setMeasurement, getMeasurement, isMeasurementValid } = useMeasurementInputs()
+  const { setMeasurementRecord, getMeasurementRecord, isMeasurementRecordValid } =
+    useMeasurementRecordInputs()
   const { log, notify, confirmDialog } = useMessaging()
   const { getTableLabel } = useTable()
 
@@ -22,6 +27,7 @@ export function useTabContent(table: DBTable) {
   const dialog: Ref<boolean> = ref(false)
   const dialogType: Ref<DialogType> = ref(DialogType.DETAILS)
   const detailsItem: Ref<any> = ref({})
+  const selectedId: Ref<string> = ref('')
 
   onMounted(async () => {
     await updateTableRows()
@@ -71,7 +77,10 @@ export function useTabContent(table: DBTable) {
         },
       },
       [DialogType.REPORT]: {
-        open: (id: string) => console.log('measurement report:', id),
+        open: async (id: string) => {
+          const records = await database.getRecordsByParentId(DBTable.MEASUREMENT_RECORDS, id)
+          console.log(records)
+        },
       },
       [DialogType.DETAILS]: {
         open: async (id: string) => {
@@ -80,6 +89,7 @@ export function useTabContent(table: DBTable) {
       },
       [DialogType.EDIT]: {
         open: async (id: string) => {
+          selectedId.value = id
           const m = await database.getById<Measurement>(table, id)
           setMeasurement(
             m?.id,
@@ -95,7 +105,7 @@ export function useTabContent(table: DBTable) {
             const m = getMeasurement()
             await database.updateById<Measurement>(
               table,
-              m?.id as string,
+              selectedId.value,
               new Measurement({
                 id: m?.id,
                 createdAt: m?.createdAt,
@@ -113,10 +123,79 @@ export function useTabContent(table: DBTable) {
       },
     },
     [DBTable.MEASUREMENT_RECORDS]: {
-      [DialogType.CREATE]: () => console.log('measurement record create'),
-      [DialogType.REPORT]: () => console.log('measurement record report'),
-      [DialogType.DETAILS]: () => console.log('measurement record details'),
-      [DialogType.EDIT]: () => console.log('measurement record edit'),
+      [DialogType.CREATE]: {
+        open: () =>
+          setMeasurementRecord(
+            '',
+            '',
+            '',
+            '',
+            RecordStatus.COMPLETED,
+            MeasurementType.INCHES,
+            undefined
+          ),
+        save: async () => {
+          if (isMeasurementRecordValid()) {
+            const mr = getMeasurementRecord()
+            await database.add<MeasurementRecord>(
+              table,
+              new MeasurementRecord({
+                id: mr?.id,
+                createdAt: mr?.createdAt,
+                parentId: mr?.parentId,
+                note: mr?.note,
+                recordStatus: mr?.recordStatus,
+                parentType: mr?.parentType,
+                value: mr?.value,
+              } as MeasurementRecord)
+            )
+            updateDialog(false)
+          } else {
+            validationFailed()
+          }
+        },
+      },
+      [DialogType.DETAILS]: {
+        open: async (id: string) => {
+          detailsItem.value = await database.getById<MeasurementRecord>(table, id)
+        },
+      },
+      [DialogType.EDIT]: {
+        open: async (id: string) => {
+          selectedId.value = id
+          const mr = await database.getById<MeasurementRecord>(table, id)
+          setMeasurementRecord(
+            mr?.id,
+            mr?.createdAt,
+            mr?.parentId,
+            mr?.note,
+            mr?.recordStatus,
+            mr?.parentType,
+            mr?.value
+          )
+        },
+        save: async () => {
+          if (isMeasurementRecordValid()) {
+            const mr = getMeasurementRecord()
+            await database.updateById<MeasurementRecord>(
+              table,
+              selectedId.value,
+              new MeasurementRecord({
+                id: mr?.id,
+                createdAt: mr?.createdAt,
+                parentId: mr?.parentId,
+                note: mr?.note,
+                recordStatus: mr?.recordStatus,
+                parentType: mr?.parentType,
+                value: mr?.value,
+              } as MeasurementRecord)
+            )
+            updateDialog(false)
+          } else {
+            validationFailed()
+          }
+        },
+      },
     },
   }
 

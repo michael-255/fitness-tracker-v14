@@ -33,45 +33,45 @@ export class AppLog extends _Entity {
     this.stack = params?.error?.stack
   }
 
-  static getTableColumns(): any[] {
-    return [
-      ..._Entity.getTableColumns(),
-      {
-        name: 'callerName',
-        label: 'Caller Name',
-        align: 'left',
-        field: (row: AppLog) => row.callerName,
-        format: (val: string) => truncateString(val),
-        sortable: true,
-      },
-      {
-        name: 'errorName',
-        label: 'Error Name',
-        align: 'left',
-        field: (row: AppLog) => row.errorName,
-        format: (val: string) => truncateString(val),
-        sortable: true,
-      },
-      {
-        name: 'message',
-        label: 'Messages',
-        align: 'left',
-        field: (row: AppLog) => row.message,
-        format: (val: string) => truncateString(val),
-        sortable: true,
-      },
-      {
-        name: 'stack',
-        label: 'Stack Trace',
-        align: 'left',
-        field: (row: AppLog) => row.stack,
-        format: (val: string) => truncateString(val),
-        sortable: true,
-      },
-    ]
-  }
+  // static getTableColumns(): any[] {
+  //   return [
+  //     ..._Entity.getTableColumns(),
+  //     {
+  //       name: 'callerName',
+  //       label: 'Caller Name',
+  //       align: 'left',
+  //       field: (row: AppLog) => row.callerName,
+  //       format: (val: string) => truncateString(val),
+  //       sortable: true,
+  //     },
+  //     {
+  //       name: 'errorName',
+  //       label: 'Error Name',
+  //       align: 'left',
+  //       field: (row: AppLog) => row.errorName,
+  //       format: (val: string) => truncateString(val),
+  //       sortable: true,
+  //     },
+  //     {
+  //       name: 'message',
+  //       label: 'Messages',
+  //       align: 'left',
+  //       field: (row: AppLog) => row.message,
+  //       format: (val: string) => truncateString(val),
+  //       sortable: true,
+  //     },
+  //     {
+  //       name: 'stack',
+  //       label: 'Stack Trace',
+  //       align: 'left',
+  //       field: (row: AppLog) => row.stack,
+  //       format: (val: string) => truncateString(val),
+  //       sortable: true,
+  //     },
+  //   ]
+  // }
 
-  static getVisibleColumns(): string[] {
-    return [..._Entity.getVisibleColumns(), 'callerName', 'errorName']
-  }
+  // static getVisibleColumns(): string[] {
+  //   return [..._Entity.getVisibleColumns(), 'callerName', 'errorName']
+  // }
 }

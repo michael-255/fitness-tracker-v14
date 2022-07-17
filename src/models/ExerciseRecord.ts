@@ -19,28 +19,28 @@ export class ExerciseRecord extends _Record {
       createdAt: params.createdAt,
       parentId: params.parentId,
       note: params.note,
-      status: params.status,
+      recordStatus: params.recordStatus,
     })
     this.sets = params.sets
   }
 
-  static getTableColumns(): any[] {
-    return [
-      ..._Record.getTableColumns(),
-      {
-        name: 'sets',
-        label: 'Sets',
-        align: 'left',
-        field: (row: ExerciseRecord) => row.sets,
-        format: (val: any[]) => truncateString(val.toString()),
-        sortable: true,
-      },
-    ]
-  }
+  // static getTableColumns(): any[] {
+  //   return [
+  //     ..._Record.getTableColumns(),
+  //     {
+  //       name: 'sets',
+  //       label: 'Sets',
+  //       align: 'left',
+  //       field: (row: ExerciseRecord) => row.sets,
+  //       format: (val: any[]) => truncateString(val.toString()),
+  //       sortable: true,
+  //     },
+  //   ]
+  // }
 
-  static getVisibleColumns(): string[] {
-    return [..._Record.getVisibleColumns()]
-  }
+  // static getVisibleColumns(): string[] {
+  //   return [..._Record.getVisibleColumns()]
+  // }
 
   addNewSet(): number {
     return this.sets.push(new ExerciseSet({}))

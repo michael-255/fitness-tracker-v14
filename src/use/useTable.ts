@@ -3,7 +3,7 @@ import { AppLog } from '@/models/AppLog'
 import { Exercise } from '@/models/Exercise'
 import { ExerciseRecord } from '@/models/ExerciseRecord'
 import type { Measurement } from '@/models/Measurement'
-import { MeasurementRecord } from '@/models/MeasurementRecord'
+import type { MeasurementRecord } from '@/models/MeasurementRecord'
 import { Workout } from '@/models/Workout'
 import { WorkoutRecord } from '@/models/WorkoutRecord'
 import type { _Activity } from '@/models/_Activity'
@@ -95,10 +95,10 @@ export function useTable() {
         sortable: true,
       },
       {
-        name: 'status',
+        name: 'recordStatus',
         label: 'Status',
         align: 'left',
-        field: (row: _Record) => row.status,
+        field: (row: _Record) => row.recordStatus,
         sortable: true,
       },
     ]
@@ -209,66 +209,66 @@ export function useTable() {
   /**
    * @todo
    */
-  function getTableColumns(table: DBTable): any[] {
+  function getTableColumns(table: DBTable): any[] | undefined {
     switch (table) {
       case DBTable.MEASUREMENTS:
         return getMeasurementColumns()
       case DBTable.MEASUREMENT_RECORDS:
-        return MeasurementRecord.getTableColumns()
-      case DBTable.EXERCISES:
-        return Exercise.getTableColumns()
-      case DBTable.EXERCISE_RECORDS:
-        return ExerciseRecord.getTableColumns()
-      case DBTable.WORKOUTS:
-        return Workout.getTableColumns()
-      case DBTable.WORKOUT_RECORDS:
-        return WorkoutRecord.getTableColumns()
-      case DBTable.APP_LOGS:
-        return AppLog.getTableColumns()
+        return getMeasurementRecordColumns()
+      // case DBTable.EXERCISES:
+      //   return Exercise.getTableColumns()
+      // case DBTable.EXERCISE_RECORDS:
+      //   return ExerciseRecord.getTableColumns()
+      // case DBTable.WORKOUTS:
+      //   return Workout.getTableColumns()
+      // case DBTable.WORKOUT_RECORDS:
+      //   return WorkoutRecord.getTableColumns()
+      // case DBTable.APP_LOGS:
+      //   return AppLog.getTableColumns()
     }
   }
 
   /**
    * @todo
    */
-  function getTableColumnOptions(table: DBTable): any[] {
+  function getTableColumnOptions(table: DBTable): any[] | undefined {
     switch (table) {
       case DBTable.MEASUREMENTS:
         return getMeasurementColumns().filter((i: any) => i.name !== FieldName.ID)
       case DBTable.MEASUREMENT_RECORDS:
-        return MeasurementRecord.getColumnOptions()
-      case DBTable.EXERCISES:
-        return Exercise.getColumnOptions()
-      case DBTable.EXERCISE_RECORDS:
-        return ExerciseRecord.getColumnOptions()
-      case DBTable.WORKOUTS:
-        return Workout.getColumnOptions()
-      case DBTable.WORKOUT_RECORDS:
-        return WorkoutRecord.getColumnOptions()
-      case DBTable.APP_LOGS:
-        return AppLog.getColumnOptions()
+        return getMeasurementRecordColumns().filter((i: any) => i.name !== FieldName.ID)
+      // case DBTable.EXERCISES:
+      //   return Exercise.getColumnOptions()
+      // case DBTable.EXERCISE_RECORDS:
+      //   return ExerciseRecord.getColumnOptions()
+      // case DBTable.WORKOUTS:
+      //   return Workout.getColumnOptions()
+      // case DBTable.WORKOUT_RECORDS:
+      //   return WorkoutRecord.getColumnOptions()
+      // case DBTable.APP_LOGS:
+      //   return AppLog.getColumnOptions()
     }
   }
 
   /**
    * @todo
    */
-  function getTableVisibleColumns(table: DBTable): any[] {
+  function getTableVisibleColumns(table: DBTable): string[] | undefined {
     switch (table) {
       case DBTable.MEASUREMENTS:
         return getMeasurementVisibleColumns()
       case DBTable.MEASUREMENT_RECORDS:
-        return MeasurementRecord.getVisibleColumns()
-      case DBTable.EXERCISES:
-        return Exercise.getVisibleColumns()
-      case DBTable.EXERCISE_RECORDS:
-        return ExerciseRecord.getVisibleColumns()
-      case DBTable.WORKOUTS:
-        return Workout.getVisibleColumns()
-      case DBTable.WORKOUT_RECORDS:
-        return WorkoutRecord.getVisibleColumns()
-      case DBTable.APP_LOGS:
-        return AppLog.getVisibleColumns()
+        return getMeasurementRecordVisibleColumns()
+      // case DBTable.EXERCISES:
+      //   return Exercise.getVisibleColumns()
+      // case DBTable.EXERCISE_RECORDS:
+      //   return ExerciseRecord.getVisibleColumns()
+      // case DBTable.WORKOUTS:
+      //   return Workout.getVisibleColumns()
+      // case DBTable.WORKOUT_RECORDS:
+      //   return WorkoutRecord.getVisibleColumns()
+      // case DBTable.APP_LOGS:
+      //   return AppLog.getVisibleColumns()
     }
   }
 

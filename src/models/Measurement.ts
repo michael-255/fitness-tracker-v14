@@ -22,21 +22,4 @@ export class Measurement extends _Activity {
     })
     this.measurementType = params.measurementType
   }
-
-  static getTableColumns(): any[] {
-    return [
-      ..._Activity.getTableColumns(),
-      {
-        name: 'measurementType',
-        label: 'Type',
-        align: 'left',
-        field: (row: Measurement) => row.measurementType,
-        sortable: true,
-      },
-    ]
-  }
-
-  static getVisibleColumns(): string[] {
-    return [..._Activity.getVisibleColumns()]
-  }
 }

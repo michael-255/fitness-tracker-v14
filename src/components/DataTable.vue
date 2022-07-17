@@ -19,7 +19,7 @@ const emits = defineEmits<{
 }>()
 
 const {
-  isRecordTable,
+  isActivityTable,
   getTableLabel,
   getTableColumns,
   getTableColumnOptions,
@@ -33,7 +33,7 @@ onMounted(async () => {
 })
 
 function canReport(): boolean {
-  return isRecordTable(props.table)
+  return isActivityTable(props.table)
 }
 
 function canEdit(): boolean {

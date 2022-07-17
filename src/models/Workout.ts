@@ -18,26 +18,26 @@ export class Workout extends _Activity {
       createdAt: params.createdAt,
       name: params.name,
       description: params.description,
-      status: params.status,
+      activityStatus: params.activityStatus,
     })
     this.exerciseIds = params.exerciseIds
   }
 
-  static getTableColumns(): any[] {
-    return [
-      ..._Activity.getTableColumns(),
-      {
-        name: 'exerciseIds',
-        label: 'Exercise Ids',
-        align: 'left',
-        field: (row: Workout) => row.exerciseIds,
-        format: (val: string[]) => truncateString(val.toString()),
-        sortable: true,
-      },
-    ]
-  }
+  // static getTableColumns(): any[] {
+  //   return [
+  //     ..._Activity.getTableColumns(),
+  //     {
+  //       name: 'exerciseIds',
+  //       label: 'Exercise Ids',
+  //       align: 'left',
+  //       field: (row: Workout) => row.exerciseIds,
+  //       format: (val: string[]) => truncateString(val.toString()),
+  //       sortable: true,
+  //     },
+  //   ]
+  // }
 
-  static getVisibleColumns(): string[] {
-    return [..._Activity.getVisibleColumns()]
-  }
+  // static getVisibleColumns(): string[] {
+  //   return [..._Activity.getVisibleColumns()]
+  // }
 }

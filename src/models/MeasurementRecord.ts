@@ -20,33 +20,9 @@ export class MeasurementRecord extends _Record {
       createdAt: params.createdAt,
       parentId: params.parentId,
       note: params.note,
-      status: params.status,
+      recordStatus: params.recordStatus,
     })
     this.parentType = params.parentType
     this.value = params.value
-  }
-
-  static getTableColumns(): any[] {
-    return [
-      ..._Record.getTableColumns(),
-      {
-        name: 'parentType',
-        label: 'Parent Type',
-        align: 'left',
-        field: (row: MeasurementRecord) => row.parentType,
-        sortable: true,
-      },
-      {
-        name: 'value',
-        label: 'Value',
-        align: 'left',
-        field: (row: MeasurementRecord) => row.value,
-        sortable: true,
-      },
-    ]
-  }
-
-  static getVisibleColumns(): string[] {
-    return [..._Record.getVisibleColumns(), 'parentType', 'value']
   }
 }

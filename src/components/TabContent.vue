@@ -4,6 +4,7 @@ import DataTable from './DataTable.vue'
 import { useTabContent } from '@/use/useTabContent'
 import FullscreenDialog from '@/components/dialogs/FullscreenDialog.vue'
 import MeasurementInputs from '@/components/input_groups/MeasurementInputs.vue'
+import MeasurementRecordInputs from '@/components/input_groups/MeasurementRecordInputs.vue'
 
 const props = defineProps<{
   table: DBTable
@@ -23,6 +24,10 @@ const {
   onClear,
   onSaved,
 } = useTabContent(props.table)
+
+function isNotReportOrDetails(): boolean {
+  return dialogType.value !== DialogType.DETAILS && dialogType.value !== DialogType.REPORT
+}
 </script>
 
 <template>
@@ -53,6 +58,9 @@ const {
       </div>
     </div>
 
-    <MeasurementInputs v-if="table === DBTable.MEASUREMENTS && dialogType !== DialogType.DETAILS" />
+    <MeasurementInputs v-if="table === DBTable.MEASUREMENTS && isNotReportOrDetails()" />
+    <MeasurementRecordInputs
+      v-if="table === DBTable.MEASUREMENT_RECORDS && isNotReportOrDetails()"
+    />
   </FullscreenDialog>
 </template>

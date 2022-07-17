@@ -22,37 +22,37 @@ export class WorkoutRecord extends _Record {
       createdAt: params.createdAt,
       parentId: params.parentId,
       note: params.note,
-      status: params.status,
+      recordStatus: params.recordStatus,
     })
     this.finishedAt = params.finishedAt
     this.exerciseRecordIds = params.exerciseRecordIds
   }
 
-  static getTableColumns(): any[] {
-    return [
-      ..._Record.getTableColumns(),
-      {
-        name: 'finishedAt',
-        label: 'Finished Date',
-        align: 'left',
-        field: (row: WorkoutRecord) => row.getDisplayFinishedAt(),
-        format: (val: string) => (DateTime.fromISO(val).toFormat('ccc LLL d yyyy ttt') ? val : '-'),
-        sortable: true,
-      },
-      {
-        name: 'exerciseRecordIds',
-        label: 'Exercise Record Ids',
-        align: 'left',
-        field: (row: WorkoutRecord) => row.exerciseRecordIds,
-        format: (val: string[]) => truncateString(val.toString()),
-        sortable: true,
-      },
-    ]
-  }
+  // static getTableColumns(): any[] {
+  //   return [
+  //     ..._Record.getTableColumns(),
+  //     {
+  //       name: 'finishedAt',
+  //       label: 'Finished Date',
+  //       align: 'left',
+  //       field: (row: WorkoutRecord) => row.getDisplayFinishedAt(),
+  //       format: (val: string) => (DateTime.fromISO(val).toFormat('ccc LLL d yyyy ttt') ? val : '-'),
+  //       sortable: true,
+  //     },
+  //     {
+  //       name: 'exerciseRecordIds',
+  //       label: 'Exercise Record Ids',
+  //       align: 'left',
+  //       field: (row: WorkoutRecord) => row.exerciseRecordIds,
+  //       format: (val: string[]) => truncateString(val.toString()),
+  //       sortable: true,
+  //     },
+  //   ]
+  // }
 
-  static getVisibleColumns(): string[] {
-    return [..._Record.getVisibleColumns(), 'finishedAt']
-  }
+  // static getVisibleColumns(): string[] {
+  //   return [..._Record.getVisibleColumns(), 'finishedAt']
+  // }
 
   getDisplayFinishedAt(): string {
     if (this.finishedAt) {

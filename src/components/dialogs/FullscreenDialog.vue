@@ -47,7 +47,7 @@ function onSave() {
       </QCardActions>
 
       <QCardSection class="q-table__title text-weight-bold">
-        {{ getTableLabel(table) }}
+        {{ getTableLabel(table, false) }}
       </QCardSection>
 
       <QCardSection>

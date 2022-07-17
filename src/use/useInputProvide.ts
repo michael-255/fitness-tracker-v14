@@ -1,7 +1,7 @@
-import type { FieldName } from '@/constants/enums'
+import type { DBTable, FieldName } from '@/constants/enums'
 import { type Ref, ref, provide } from 'vue'
 
-export function useInputProvide(injectionKey: FieldName): { [x: string]: any } {
+export function useInputProvide(injectionKey: FieldName, table?: DBTable): { [x: string]: any } {
   const model: Ref<any> = ref(null)
   const inputRef: Ref<any> = ref(null)
 
@@ -14,6 +14,7 @@ export function useInputProvide(injectionKey: FieldName): { [x: string]: any } {
   }
 
   provide(injectionKey, {
+    table,
     model,
     inputRef,
     updateModel,
