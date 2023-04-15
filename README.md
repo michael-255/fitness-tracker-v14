@@ -1,6 +1,8 @@
 # Fitness Tracker v14
 
-Description TBA.
+_Project Archived_
+
+Please use the following version higher: <https://github.com/michael-255/fitness-tracker-v16>
 
 ## Primary Todos - MEASUREMENTS VIEW
 
